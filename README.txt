@@ -284,3 +284,10 @@ Both new programs are the ones on the Tiny-C repository's boot disk
 (UCSD-C: volumes/Big_Disk---8_byte_floats.BLK). SYSTEM.COMPILER is
 unchanged. Checked: G(et of #10:PI.C and #10:TEST.C, E(dit, U(pdate,
 S(ave back to PI.C, G(et of a NAME.TEXT workfile, Tiny-C compile and run.
+
+The older copies named above (*_pre_12byte_float, *_pre_UCSD-C_repo)
+are no longer in BLK_format/, and their leftover folders in
+Files_Extracted_Raw/ and Files_Extracted_no_headers/, with their
+MANIFEST_SHA256.txt lines and EXTRACTION_REPORT.txt sections, were
+removed too: the extracted files again match BLK_format/ one to one
+(Empty_Big_Disk has no files). The git history still holds them all.
