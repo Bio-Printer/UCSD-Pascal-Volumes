@@ -267,3 +267,20 @@ see VALIDATION_LOG.txt for its result.
 Files_Extracted_Raw/, Files_Extracted_no_headers/,
 EXTRACTION_REPORT.txt and MANIFEST_SHA256.txt regenerated for the full
 set (33 volumes).
+
+---------------------------------------------------------------------------
+BIG_DISK: FILER AND EDITOR FOR C SOURCE FILES (.C / .H)
+---------------------------------------------------------------------------
+BLK_format/Big_Disk.BLK now runs a Filer and an Editor that accept a C
+source or header (NAME.C, NAME.H) as the workfile under its exact name:
+    SYSTEM.FILER   built from U134_4_OS_fixed (FILER.D.TEXT, ISCSRC): G(et,
+                   S(ave and the size check take NAME.C / NAME.H as they are
+                   instead of looking for NAME.C.TEXT / NAME.C.CODE
+    SYSTEM.EDITOR  the editor that opens and updates such a workfile
+The previous programs are kept on the disk: SYSORIG.FILER (the original
+II.0 Filer, whose G(et of any .C file answers "No file loaded") and
+SYSL2.EDITOR (which answers "ERROR: Workfile lost" for a .C workfile).
+Both new programs are the ones on the Tiny-C repository's boot disk
+(UCSD-C: volumes/Big_Disk---8_byte_floats.BLK). SYSTEM.COMPILER is
+unchanged. Checked: G(et of #10:PI.C and #10:TEST.C, E(dit, U(pdate,
+S(ave back to PI.C, G(et of a NAME.TEXT workfile, Tiny-C compile and run.
