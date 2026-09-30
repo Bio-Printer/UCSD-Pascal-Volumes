@@ -1,0 +1,22 @@
+UCSD-C validation run -- 2026-09-30 (8-byte double pull)
+Source: https://github.com/Bio-Printer/UCSD-C (branch main)
+Platform: Linux sandbox, g++ native build (tools/setup.sh)
+
+tools/setup.sh          -- clean build of build/run_verify -- OK
+tools/runtests.py       -- 16 of 16 tests passed
+tools/crosscheck.py     -- 16 of 16 identical
+tools/selfcompile.py    -- TINYC2.CODE byte-identical to host build (55296 bytes)
+tools/mkvolume.py       -- TINY-C: 47 files, TCEXTRA: 37 files
+tools/voltest.py        -- 69 steps, 157 keys, 20.5s (native); PASSED
+tools/mkbiggy.py        -- volumes/BIGGY.zip: 46 files
+tools/mkverify.py + tools/tcverify.py native
+                        -- 658 steps, 1244 keys, 16.9s; PASSED
+tools/tcverify.py z80   -- PENDING AT PACKAGING TIME (still running; Z80-mode
+                           interpretation of the 658-step script is much slower
+                           than native mode)
+tools/f12test.py        -- 51 checks, 0 bad
+
+NOT independently verified (Windows-only): the MFC GUI shell
+(MainFrm.cpp, UCSDPascalApp.cpp, resource.h, .rc, .vcxproj). The
+engine it links (PSystemEngine.cpp/h, z80.cpp/h) is the exact code
+every test above exercises.

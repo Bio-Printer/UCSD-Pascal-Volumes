@@ -1,0 +1,45 @@
+PROGRAM MERGE(INPUT,OUTPUT,KEYBOARD);
+Var c1:char;
+    c2:char;
+    c3:char;
+    c4:char;
+    src_file:Text;
+    dest_file:Text;
+    inc_file:Text;
+
+BEGIN
+ WRITELN('Hello World.');
+ 
+ Reset(src_file, '#5:SYSTEM.TEXT');
+ Rewrite(dest_file, '#5:OUTPUT.TEXT');
+ 
+ While not EOF(src_file) do
+   Begin
+     c1 := '?';
+     c2 := '?';
+     c3 := '?';
+     c4 := '?';
+     While not EOLN(src_file) do
+       Begin
+         Read(src_file,c1);
+         Write(c1);
+         if c1 = 'I' then
+             if (c2 = '$') and (c3 = '{') then
+               begin
+                 write('!');
+                 write(dest_file,'?'); (* turn off the include option *)
+               end
+         ELSE
+           write(dest_file,c1);
+           
+         c4 := c3;
+         c3 := c2;
+         c2 := c1;
+           
+       End;
+       Readln(src_file);
+       Writeln(dest_file);
+       Writeln();
+     End;
+     Close(dest_file,LOCK);
+END.

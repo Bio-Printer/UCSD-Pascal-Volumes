@@ -1,0 +1,71 @@
+Big_Disk  (volume BIGGY, 46 files)
+    ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
+    46 files extracted, 20 text files decoded
+Big_Disk_pre_12byte_float  (volume BIGGY, 36 files)
+    36 files extracted, 7 text files decoded
+Big_Disk_pre_8byte_double  (volume BIGGY, 46 files)
+    ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
+    46 files extracted, 20 text files decoded
+Big_Disk_pre_UCSD-C_repo  (volume BIGGY, 50 files)
+    50 files extracted, 21 text files decoded
+Empty_Big_Disk  (volume EMPTY, 0 files)
+    0 files extracted, 0 text files decoded
+TCEXTRA  (volume TCEXTRA, 37 files)
+    37 files extracted, 20 text files decoded
+TCEXTRA_pre_12byte_float  (volume TCEXTRA, 35 files)
+    35 files extracted, 19 text files decoded
+TCEXTRA_pre_8byte_double  (volume TCEXTRA, 37 files)
+    37 files extracted, 20 text files decoded
+TCEXTRA_pre_UCSD-C_repo  (volume TCEXTRA, 37 files)
+    37 files extracted, 20 text files decoded
+TINY-C  (volume TINY-C, 47 files)
+    47 files extracted, 45 text files decoded
+TINY-C_pre_12byte_float  (volume TINY-C, 61 files)
+    61 files extracted, 45 text files decoded
+TINY-C_pre_8byte_double  (volume TINY-C, 47 files)
+    47 files extracted, 45 text files decoded
+TINY-C_pre_UCSD-C_repo  (volume TINY-C, 62 files)
+    62 files extracted, 46 text files decoded
+U002A.5_Z80_SYS1  (volume U002A.5, 20 files)
+    20 files extracted, 4 text files decoded
+U006.5_LSI-11_SYS1  (volume U006.5, 14 files)
+    14 files extracted, 2 text files decoded
+U012.1_SYS_2  (volume U012.1, 13 files)
+    13 files extracted, 1 text files decoded
+U014.1_ASSEM  (volume U014.1, 6 files)
+    6 files extracted, 0 text files decoded
+U120_Z80_P-CODE_SOURCE  (volume U120, 16 files)
+    ! BOOT.TEXT: line 137: unusual byte(s) ['0xff'] kept as-is
+    ! STP.TEXT: line 623: unusual byte(s) ['0x11'] kept as-is
+    ! FPT.TEXT: line 256: unusual byte(s) ['0xff'] kept as-is
+    16 files extracted, 16 text files decoded
+U123.1_Z80_ASSEM_SOURCE  (volume U123.1, 10 files)
+    10 files extracted, 8 text files decoded
+U124.1_LSI-11_ASSEM_SOURCE  (volume U124.1, 9 files)
+    9 files extracted, 7 text files decoded
+U126_EDITOR_SOURCE  (volume U126, 15 files)
+    15 files extracted, 12 text files decoded
+U128_L2_YALOE_SOURCE  (volume U128, 2 files)
+    2 files extracted, 2 text files decoded
+U128_L2_YALOE_fixed  (volume U128, 2 files)
+    2 files extracted, 2 text files decoded
+U130.1_BASIC_SOURCE  (volume U130.1, 3 files)
+    3 files extracted, 2 text files decoded
+U132.A_PASCAL_COMPILER_SOURCE  (volume U132A, 18 files)
+    18 files extracted, 16 text files decoded
+U132B.2_PASCAL_LINKER_SOURCE  (volume U132B.2, 7 files)
+    7 files extracted, 7 text files decoded
+U132_A_PASCAL_COMPILER_fixed  (volume U132A, 21 files)
+    21 files extracted, 18 text files decoded
+U134.4_OS_SOURCE  (volume U134.4, 14 files)
+    14 files extracted, 14 text files decoded
+U134_4_OS_fixed  (volume U134.4, 14 files)
+    14 files extracted, 14 text files decoded
+U136.3_LONG_INTEGER_SOURCE  (volume U136.3, 5 files)
+    5 files extracted, 5 text files decoded
+U138.3_UTILITY_SOURCE  (volume U138.3, 11 files)
+    11 files extracted, 10 text files decoded
+UCSD_SYS1_Z80  (volume U138.3, 11 files)
+    11 files extracted, 10 text files decoded
+UCSD_SYS2_Z80  (volume U012.1, 13 files)
+    13 files extracted, 1 text files decoded

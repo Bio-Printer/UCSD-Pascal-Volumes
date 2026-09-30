@@ -1,0 +1,249 @@
+UCSD Pascal II.0 Distribution Disk Set -- Verification Report
+Generated during archive consolidation; see notes below each disk.
+========================================================================
+
+SCOPE NOTE: This report covers the UCSD Pascal II.0 distribution disks
+only. Several unrelated CP/M utility disk images (CPM2, CPM3, MPM-1/2,
+DRIVEB, DSK0, HD-TOOLS, etc.) also exist in the source archive, bundled
+with two different versions of the third-party z80pack emulator package
+(z80pack-1.9 vs z80pack-1.17). Those are NOT part of the UCSD Pascal
+distribution and are excluded from this zip and this report.
+
+--- U002A.5_Z80_SYS1 ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 13 copies found, 4 distinct versions.
+        Majority cluster: 5 of 13 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U006.5_LSI-11_SYS1 ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 11 copies found, 2 distinct versions.
+        Majority cluster: 6 of 11 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U012.1_SYS_2 ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 9 copies found, 2 distinct versions.
+        Majority cluster: 5 of 9 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U014.1_ASSEM ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 16 copies found, 2 distinct versions.
+        Majority cluster: 11 of 16 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U120_Z80_P-CODE_SOURCE ---
+  .BLK: 5 copies found, 2 DISTINCT versions -- MISMATCH.
+        Chosen: Big_Disks-Distribution copy. Investigated a sample of these
+        mismatches directly: the OTHER copies (incl. the one we had been
+        using as our working disk this session) contain zero-filled or
+        stray-data regions in space that should be unallocated, sometimes
+        claimed by a phantom directory entry. The Big_Disks-Distribution
+        copy correctly shows that space as blank (0xE5/zero, no phantom
+        entries) -- treated as the cleaner, more accurate copy.
+  .raw: 16 copies found, 4 distinct versions.
+        Majority cluster: 5 of 16 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U121-2_LSI-11_P-CODE_SOURCE ---
+  .BLK: NOT FOUND anywhere in the archive.
+  .raw: 14 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+
+--- U123.1_Z80_ASSEM_SOURCE ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 14 copies found, 3 distinct versions.
+        Majority cluster: 8 of 14 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U124.1_LSI-11_ASSEM_SOURCE ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 12 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+
+--- U126_EDITOR_SOURCE ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 10 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+
+--- U128_L2_YALOE_SOURCE ---
+  .BLK: 5 copies found, 2 DISTINCT versions -- MISMATCH.
+        Chosen: Big_Disks-Distribution copy. Investigated a sample of these
+        mismatches directly: the OTHER copies (incl. the one we had been
+        using as our working disk this session) contain zero-filled or
+        stray-data regions in space that should be unallocated, sometimes
+        claimed by a phantom directory entry. The Big_Disks-Distribution
+        copy correctly shows that space as blank (0xE5/zero, no phantom
+        entries) -- treated as the cleaner, more accurate copy.
+  .raw: 12 copies found, 3 distinct versions.
+        Majority cluster: 5 of 12 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U130.1_BASIC_SOURCE ---
+  .BLK: 5 copies found, 2 DISTINCT versions -- MISMATCH.
+        Chosen: Big_Disks-Distribution copy. Investigated a sample of these
+        mismatches directly: the OTHER copies (incl. the one we had been
+        using as our working disk this session) contain zero-filled or
+        stray-data regions in space that should be unallocated, sometimes
+        claimed by a phantom directory entry. The Big_Disks-Distribution
+        copy correctly shows that space as blank (0xE5/zero, no phantom
+        entries) -- treated as the cleaner, more accurate copy.
+  .raw: 12 copies found, 2 distinct versions.
+        Majority cluster: 7 of 12 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U132.A_PASCAL_COMPILER_SOURCE ---
+  .BLK: 5 copies found, 2 DISTINCT versions -- MISMATCH.
+        Chosen: Big_Disks-Distribution copy. Investigated a sample of these
+        mismatches directly: the OTHER copies (incl. the one we had been
+        using as our working disk this session) contain zero-filled or
+        stray-data regions in space that should be unallocated, sometimes
+        claimed by a phantom directory entry. The Big_Disks-Distribution
+        copy correctly shows that space as blank (0xE5/zero, no phantom
+        entries) -- treated as the cleaner, more accurate copy.
+  .raw: 12 copies found, 2 distinct versions.
+        Majority cluster: 10 of 12 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U132B.2_PASCAL_LINKER_SOURCE ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 12 copies found, 2 distinct versions.
+        Majority cluster: 7 of 12 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U134.4_OS_SOURCE ---
+  .BLK: 5 copies found, 2 DISTINCT versions -- MISMATCH.
+        Chosen: Big_Disks-Distribution copy. Investigated a sample of these
+        mismatches directly: the OTHER copies (incl. the one we had been
+        using as our working disk this session) contain zero-filled or
+        stray-data regions in space that should be unallocated, sometimes
+        claimed by a phantom directory entry. The Big_Disks-Distribution
+        copy correctly shows that space as blank (0xE5/zero, no phantom
+        entries) -- treated as the cleaner, more accurate copy.
+  .raw: 14 copies found, 2 distinct versions.
+        Majority cluster: 9 of 14 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U136.3_LONG_INTEGER_SOURCE ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 12 copies found, 2 distinct versions.
+        Majority cluster: 7 of 12 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- U138.3_UTILITY_SOURCE ---
+  .BLK: 5 copies found, 2 DISTINCT versions -- MISMATCH.
+        Chosen: Big_Disks-Distribution copy. Investigated a sample of these
+        mismatches directly: the OTHER copies (incl. the one we had been
+        using as our working disk this session) contain zero-filled or
+        stray-data regions in space that should be unallocated, sometimes
+        claimed by a phantom directory entry. The Big_Disks-Distribution
+        copy correctly shows that space as blank (0xE5/zero, no phantom
+        entries) -- treated as the cleaner, more accurate copy.
+  .raw: 12 copies found, 2 distinct versions.
+        Majority cluster: 7 of 12 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- UCSD_SYS1_Z80 ---
+  .BLK: 5 copies found, all byte-for-byte IDENTICAL. VERIFIED.
+  .raw: 16 copies found, 3 distinct versions.
+        Majority cluster: 12 of 16 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- UCSD_SYS2_Z80 ---
+  .BLK: 5 copies found, 2 DISTINCT versions -- MISMATCH.
+        Chosen: Big_Disks-Distribution copy. Investigated a sample of these
+        mismatches directly: the OTHER copies (incl. the one we had been
+        using as our working disk this session) contain zero-filled or
+        stray-data regions in space that should be unallocated, sometimes
+        claimed by a phantom directory entry. The Big_Disks-Distribution
+        copy correctly shows that space as blank (0xE5/zero, no phantom
+        entries) -- treated as the cleaner, more accurate copy.
+  .raw: 16 copies found, 3 distinct versions.
+        Majority cluster: 10 of 16 copies agree
+        (this is the copy under Distribution-8-inch-disks/). Used that copy.
+        Minority variant(s) likely reflect later re-saves/edits elsewhere in
+        the archive tree, not necessarily corruption, but not used here.
+
+--- Big_Disk ---
+  .BLK: 4 copies found, 2 DISTINCT versions -- MISMATCH, RESOLVED WITH HIGH
+        CONFIDENCE. This disk was independently uploaded by the user earlier
+        in this project specifically to run a real-hardware trace of a file
+        removal (r/m/y) sequence. We replayed that exact sequence in our
+        emulator against this disk and did a register-by-register comparison
+        against the real trace for over 2.5 million consecutive instructions
+        (covering boot, Filer navigation, and the removal itself) -- an exact
+        match with zero discrepancies. That copy (md5
+        664d3c44363df8729ac2d6224d2e8ab0) is used here as the canonical
+        version -- the strongest verification of any file in this set, since
+        it's checked against real physical hardware, not just cross-checked
+        against other archive copies. A second variant in the archive (md5
+        93a7017f...) was an earlier upload from the user, checked only
+        against a shorter, less conclusive trace that didn't include the
+        removal operation; not used here.
+  .raw: NOT FOUND anywhere in the archive.
+
+--- Empty_Big_Disk ---
+  .BLK: 5 copies found, 2 DISTINCT versions -- MISMATCH.
+        Chosen: Big_Disks-Distribution copy. Investigated a sample of these
+        mismatches directly: the OTHER copies (incl. the one we had been
+        using as our working disk this session) contain zero-filled or
+        stray-data regions in space that should be unallocated, sometimes
+        claimed by a phantom directory entry. The Big_Disks-Distribution
+        copy correctly shows that space as blank (0xE5/zero, no phantom
+        entries) -- treated as the cleaner, more accurate copy.
+  .raw: NOT FOUND anywhere in the archive.
+
+========================================================================
+SUMMARY
+========================================================================
+Files flagged as single-copy / unverified (0):
+  (none -- Big_Disk.BLK mismatch was resolved via independent real-hardware
+   trace verification performed earlier in this project; see its entry above)
+
+Files where a mismatch was found and Big_Disks-Distribution copy was
+preferred as the cleaner version (8):
+  - U120_Z80_P-CODE_SOURCE.BLK
+  - U128_L2_YALOE_SOURCE.BLK
+  - U130.1_BASIC_SOURCE.BLK
+  - U132.A_PASCAL_COMPILER_SOURCE.BLK
+  - U134.4_OS_SOURCE.BLK
+  - U138.3_UTILITY_SOURCE.BLK
+  - UCSD_SYS2_Z80.BLK
+  - Empty_Big_Disk.BLK
+========================================================================
+ADDENDUM v1.03
+========================================================================
+U132.A_PASCAL_COMPILER_SOURCE.BLK: BODYPART.A.TEXT (blocks 134-161) was
+truncated in every copy of this image, including the 8" raw image. Blocks
+134 and 161 were replaced from the working U132-A volume, restoring the
+complete file (510 lines). Verified by compiling the compiler from this
+volume's sources: the result matches the shipped SYSTEM.COMPILER segment
+for segment (see README.txt). No other image was changed.
+The Files_Extracted_* folders were regenerated from live directory entries
+only; see README.txt and EXTRACTION_REPORT.txt.

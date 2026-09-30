@@ -1,0 +1,17 @@
+TINY-C EXTRAS                                     volume TCEXTRA:
+
+Test and demo programs for Tiny-C (the compiler is on TINY-C:).  Every
+program is here as source (NAME.TEXT) and ready to run (NAME.CODE):
+X(ecute TCEXTRA:NAME.  To compile one yourself, set the prefix to
+TCEXTRA: and X(ecute TINY-C:TINYC, answer NAME.
+
+REBUILDING THEM ALL:  set the prefix to TCEXTRA:, X(ecute TINY-C:TINYC,
+answer  @DEMOS.  DEMOS.TEXT compiles and links every program here (each
+leaves a NAME.OBJ as well; remove those with the Filer if you like).
+
+CMPCODE compares two files byte by byte (for .CODE files the program
+name in block 0 aside): after @BUILD on TINY-C:, compare
+TINY-C:TINYC.CODE with TINY-C:TINYC2.CODE, after @LIBS TINY-C:TCLIB.OBJ
+with TINY-C:TCLIB2.OBJ; it prints IDENTICAL.
+
+FILES.TEXT lists every file on this volume.

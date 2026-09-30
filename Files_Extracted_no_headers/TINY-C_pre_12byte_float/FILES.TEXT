@@ -1,0 +1,50 @@
+TINY-C:  46 files  (a UCSD directory holds 77)
+
+  FILE            BLOCKS  WHAT
+
+  TINYC.CODE         103  the Tiny-C compiler: X(ecute TINYC
+  TCLIB.OBJ           48  the C library, linked into every program
+  TCMSGS.TEXT          8  the compiler's messages (line n = message n)
+  README.TEXT          6  how to use and rebuild Tiny-C
+  BUILD.TEXT           4  X TINYC, @BUILD: rebuilds the compiler -> TINYC2.CODE
+  LIBS.TEXT            4  X TINYC, @LIBS: rebuilds the library -> TCLIB2.OBJ
+  ASSERT.H.TEXT        4  header: assert()
+  CONIO.H.TEXT         4  header: console: getch, putch, cputs, kbhit, gotoxy, clrscr
+  CTYPE.H.TEXT         4  header: isdigit, isalpha, toupper, ...
+  FCNTL.H.TEXT         4  header: open()'s flags: O_RDONLY, O_CREAT, ...
+  FLOAT.H.TEXT         4  header: FLT_MAX, FLT_EPSILON, ... (32-bit reals)
+  IO.H.TEXT            4  header: open, read, write, lseek, close, unlink
+  LIMITS.H.TEXT        4  header: INT_MAX, LONG_MAX, ... (16-bit int, 32-bit long)
+  MATH.H.TEXT          4  header: sqrt, sin, cos, atan, exp, log, pow, fabs, ...
+  STDARG.H.TEXT        4  header: va_list, va_start, va_arg, va_end
+  STDDEF.H.TEXT        4  header: size_t, NULL, offsetof
+  STDIO.H.TEXT        10  header: printf, scanf, FILE, fopen, fgets, fprintf, ...
+  STDLIB.H.TEXT        6  header: malloc, free, atoi, rand, qsort, exit, ...
+  STRING.H.TEXT        4  header: strcpy, strcmp, strlen, memcpy, memset, ...
+  TCRT.H.TEXT          6  header: runtime helpers the compiler calls (reference only)
+  MAIN.TEXT           20  compiler: the driver: commands, @FILE, the passes
+  UTIL.TEXT           14  compiler: messages, output helpers, memory pools
+  TYPES.TEXT           6  compiler: type predicates
+  PP.TEXT             48  compiler: pass 1: the preprocessor
+  LEX.TEXT            30  compiler: pass 2: the tokenizer
+  PSYM.TEXT           18  compiler: parser: types and symbols
+  EXPR.TEXT           46  compiler: parser: expressions
+  DECL.TEXT           22  compiler: parser: declarations and initializers
+  STMT.TEXT           38  compiler: parser: statements, functions, pragmas
+  IR.TEXT             24  compiler: the intermediate file between parser and code generator
+  GEN.TEXT            66  compiler: pass 3: P-code generation, object files
+  LINK.TEXT           42  compiler: the linker: object files -> code file
+  TC.H.TEXT           26  compiler: shared declarations (every module)
+  PARSE.H.TEXT        12  compiler: the parser modules' shared declarations
+  ASSERT.TEXT          4  library: <assert.h>
+  CONIO.TEXT           4  library: <conio.h>
+  CTYPE.TEXT           4  library: <ctype.h>
+  FLTFMT.TEXT          8  library: printf's %f %e %g (linked only when floats are used)
+  IO.TEXT              6  library: <io.h>
+  MATH.TEXT            6  library: <math.h>
+  STDIO.TEXT          42  library: <stdio.h>
+  STDLIB.TEXT         14  library: <stdlib.h>
+  STRING.TEXT          8  library: <string.h>
+  TCRT.TEXT           18  library: runtime helpers: C division, shifts, unsigned, longs
+  LIBINT.H.TEXT        6  library: the library modules' shared declarations
+  FILES.TEXT          10  this list
