@@ -1,5 +1,5 @@
 UCSD-C validation run -- 2026-09-30 (8-byte double pull)
-Source: https://github.com/Bio-Printer/UCSD-C (branch main)
+Source: https://github.com/Bio-Printer/UCSD-TinyC (then UCSD-C; branch main)
 Platform: Linux sandbox, g++ native build (tools/setup.sh)
 
 tools/setup.sh          -- clean build of build/run_verify -- OK

@@ -192,11 +192,11 @@ made in this version; the u132/u134/u128 _fixed volumes from v1.06 are
 unchanged.
 
 ===================================================================
-ADDENDUM (v1.08) -- sourced from the UCSD-C GitHub repository
+ADDENDUM (v1.08) -- sourced from the UCSD-TinyC GitHub repository (then UCSD-C)
 ===================================================================
 
 Big_Disk.BLK, TINY-C.BLK and TCEXTRA.BLK were replaced with the
-canonical builds from https://github.com/Bio-Printer/UCSD-C (branch
+canonical builds from https://github.com/Bio-Printer/UCSD-TinyC (branch
 main, pulled 2026-09-29), built directly from that repo's own
 tools/mkbiggy.py and tools/mkvolume.py rather than taken as loose
 files. This repo is Tiny-C's home: the compiler, its C library and
@@ -281,7 +281,7 @@ The previous programs are kept on the disk: SYSORIG.FILER (the original
 II.0 Filer, whose G(et of any .C file answers "No file loaded") and
 SYSL2.EDITOR (which answers "ERROR: Workfile lost" for a .C workfile).
 Both new programs are the ones on the Tiny-C repository's boot disk
-(UCSD-C: volumes/Big_Disk---8_byte_floats.BLK). SYSTEM.COMPILER is
+(UCSD-TinyC: volumes/Big_Disk---8_byte_floats.BLK). SYSTEM.COMPILER is
 unchanged. Checked: G(et of #10:PI.C and #10:TEST.C, E(dit, U(pdate,
 S(ave back to PI.C, G(et of a NAME.TEXT workfile, Tiny-C compile and run.
 
