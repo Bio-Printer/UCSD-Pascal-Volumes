@@ -1,4 +1,4 @@
-TCEXTRA:  41 files  (a UCSD directory holds 77)
+TCEXTRA:  43 files  (a UCSD directory holds 77)
 
   FILE            BLOCKS  WHAT
 
@@ -36,6 +36,8 @@ TCEXTRA:  41 files  (a UCSD directory holds 77)
   QUEENS.CODE         11    (ready to run)
   SIEVE.C              4  Sieve of Eratosthenes: primes below 2000
   SIEVE.CODE          11    (ready to run)
+  STRCONST.C           8  string literals kept in pointers and arrays, across ...
+  STRCONST.CODE       14    (ready to run)
   STRINGS.C            6  string.h, sprintf, sscanf, ctype, macros with arguments
   STRINGS.CODE        17    (ready to run)
   STRUCTS.C            6  structs, unions, pointers to structs, linked list ...
