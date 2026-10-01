@@ -232,6 +232,7 @@ struct Node {
 
 /* ---- globals shared between the parts ---- */
 extern int nerrors;
+extern int z80calls;            /* -z, /Z: calls through function pointers for the Z80 interpreter (no CSP 138) */
 extern char *curfile;
 extern int curline;
 

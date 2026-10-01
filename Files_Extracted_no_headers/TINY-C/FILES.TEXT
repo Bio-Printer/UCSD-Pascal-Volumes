@@ -3,9 +3,9 @@ TINY-C:  47 files  (a UCSD directory holds 77)
   FILE            BLOCKS  WHAT
 
   TINYC.CODE         108  the Tiny-C compiler: X(ecute TINYC
-  TCLIB.OBJ           50  the C library, linked into every program
+  TCLIB.OBJ           50  the C library (built with /Z), linked into every program
   TCMSGS.TEXT          8  the compiler's messages (line n = message n)
-  README.TEXT          6  how to use and rebuild Tiny-C
+  README.TEXT          8  how to use and rebuild Tiny-C
   BUILD.TEXT           4  X TINYC, @BUILD: rebuilds the compiler -> TINYC2.CODE
   LIBS.TEXT            4  X TINYC, @LIBS: rebuilds the library -> TCLIB2.OBJ
   ASSERT.H             4  header: assert()
@@ -22,7 +22,7 @@ TINY-C:  47 files  (a UCSD directory holds 77)
   STDLIB.H             6  header: malloc, free, atoi, rand, qsort, exit, ...
   STRING.H             4  header: strcpy, strcmp, strlen, memcpy, memset, ...
   TCRT.H               6  header: runtime helpers the compiler calls (reference only)
-  MAIN.C              20  compiler: the driver: commands, @FILE, the passes
+  MAIN.C              22  compiler: the driver: commands, @FILE, the passes
   UTIL.C              14  compiler: messages, output helpers, memory pools
   TYPES.C              6  compiler: type predicates
   PP.C                48  compiler: pass 1: the preprocessor
@@ -32,7 +32,7 @@ TINY-C:  47 files  (a UCSD directory holds 77)
   DECL.C              22  compiler: parser: declarations and initializers
   STMT.C              38  compiler: parser: statements, functions, pragmas
   IR.C                24  compiler: the intermediate file between parser and code generator
-  GEN.C               70  compiler: pass 3: P-code generation, object files
+  GEN.C               72  compiler: pass 3: P-code generation, object files
   LINK.C              42  compiler: the linker: object files -> code file
   TC.H                26  compiler: shared declarations (every module)
   PARSE.H             12  compiler: the parser modules' shared declarations

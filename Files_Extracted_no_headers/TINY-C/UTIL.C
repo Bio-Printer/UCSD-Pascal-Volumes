@@ -9,6 +9,7 @@
 #pragma segment MAIN
 
 int nerrors;
+int z80calls;
 int curlocal;                   /* frame of the function being compiled */
 int maxlocal;
 int nparamwords;

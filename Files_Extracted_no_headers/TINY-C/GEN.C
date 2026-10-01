@@ -75,6 +75,7 @@
 #define CSP_EXIT 4
 #define CSP_MVL  2
 #define CSP_TNC  23
+#define CSP_CALLI 138               /* call through a function pointer: pops seg | proc << 8 (engine) */
 
 /* relocation kinds in the object file */
 #define R_CALL    1         /* CXP s,p at pos */
@@ -798,8 +799,9 @@ static void gen_call(struct Node *n, int want)
         ob(O_CXP);
         ob(0);
         ob(0);
-    } else {
-        /* indirect call: patch the operands of the CXP that follows */
+    } else if (z80calls) {
+        /* indirect call for the Z80 interpreter (-z): patch the operands of the
+           CXP that follows with the function value, at run time */
         gen_value(n->a);
         t = newtemp(1);
         gen_stl(t);
@@ -816,6 +818,13 @@ static void gen_call(struct Node *n, int want)
         ob(O_CXP);
         ob(0);
         ob(0);
+    } else {
+        /* indirect call: the arguments are already on the stack; the function
+           value (seg | proc << 8, see R_FNPTR) goes on top and CALLI does what
+           CXP seg,proc would, returning to the instruction after the CSP.
+           Nothing is stored into the code stream. */
+        gen_value(n->a);
+        csp(CSP_CALLI);
     }
     if (!want)
         drop(rw);

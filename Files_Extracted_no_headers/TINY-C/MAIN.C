@@ -1,17 +1,27 @@
 /* main.c -- the Tiny-C driver: preprocess, compile, generate, link.
  *
- * Host:      tc [-c] [-I dir] [-L lib.obj] [-o out] file.c ... file.obj ...
+ * Host:      tc [-c] [-z] [-I dir] [-L lib.obj] [-o out] file.c ... file.obj ...
  *            Each .c becomes a .obj (temporaries .i and .ir beside it);
  *            without -c everything is linked with the library (-L, or
  *            tclib.obj in the include directory) into a .code file.
+ *            -z: calls through function pointers for the Z80 interpreter
+ *            (see below); for Z80 mode every object linked, the library too,
+ *            must be built with it.
  * P-System:  X(ecute TINYC, then answer "Compile what file?" with
  *              NAME             compile NAME.C (or NAME.TEXT), link with TCLIB.OBJ -> NAME.CODE
  *              /C NAME          compile only -> NAME.OBJ
  *              /L OUT=A,B,...   link A.OBJ, B.OBJ ... and TCLIB.OBJ -> OUT.CODE
  *              /J OUT=A,B,...   join A.OBJ, B.OBJ ... into the library OUT.OBJ
+ *              /Z NAME, /Z /C NAME   as above with -z (see below)
  *              @FILE            run the commands in FILE.TEXT, one per line
  *                               (blank lines and lines starting ';' skipped),
  *                               stopping at the first that fails
+ *
+ * Calls through function pointers: by default they use CSP 138 (CALLI), which
+ * the native P-Code engine implements and the Z80 interpreter does not. -z (/Z)
+ * generates the older sequence that stores the function value into the operands
+ * of a CXP at run time, for programs that must run in Z80 mode (and, as the
+ * library is linked into every program, a library built the same way).
  */
 #include "tc.h"
 #pragma segment MAIN
@@ -130,8 +140,15 @@ static int command(char *s, char *lib)
     int conly;
     int joining;
     nobjs = 0;
+    z80calls = 0;                       /* /Z applies to this command only */
     while (*s == ' ')
         s++;
+    if (s[0] == '/' && s[1] == 'Z') {
+        z80calls = 1;
+        s = s + 2;
+        while (*s == ' ')
+            s++;
+    }
     if (s[0] == '/' && (s[1] == 'L' || s[1] == 'J')) {
         /* /L OUT=A,B,...  or  /J OUT=A,B,... */
         joining = s[1] == 'J';
@@ -311,6 +328,8 @@ int main(int argc, char **argv)
             strcpy(out, argv[++i]);
         else if (strcmp(argv[i], "-c") == 0)
             conly = 1;
+        else if (strcmp(argv[i], "-z") == 0)
+            z80calls = 1;
         else if (strcmp(argv[i], "-L") == 0 && i + 1 < argc)
             strcpy(lib, argv[++i]);
         else if (strcmp(argv[i], "-I") == 0 && i + 1 < argc) {
@@ -321,7 +340,7 @@ int main(int argc, char **argv)
     }
     for (i = 1; i < argc; i++) {
         if (argv[i][0] == '-') {
-            if (strcmp(argv[i], "-c") != 0)
+            if (strcmp(argv[i], "-c") != 0 && strcmp(argv[i], "-z") != 0)
                 i++;
             continue;
         }
@@ -356,7 +375,7 @@ int main(int argc, char **argv)
         nobjs++;
     }
     if (nobjs == 0) {
-        printf("usage: tc [-c] [-I dir] [-L lib.obj] [-o out] file.c ... file.obj ...\n");
+        printf("usage: tc [-c] [-z] [-I dir] [-L lib.obj] [-o out] file.c ... file.obj ...\n");
         return 1;
     }
     if (!lib[0] && getenv("TINYC_INCLUDE")) {

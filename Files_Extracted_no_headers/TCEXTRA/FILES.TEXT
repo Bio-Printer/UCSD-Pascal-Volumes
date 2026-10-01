@@ -1,4 +1,4 @@
-TCEXTRA:  37 files  (a UCSD directory holds 77)
+TCEXTRA:  41 files  (a UCSD directory holds 77)
 
   FILE            BLOCKS  WHAT
 
@@ -22,12 +22,16 @@ TCEXTRA:  37 files  (a UCSD directory holds 77)
   FLOATS.CODE         16    (ready to run)
   FUNCPTR.C            4  function pointers, qsort, arrays of function pointers
   FUNCPTR.CODE        12    (ready to run)
+  FUNCSEG.C            6  function pointers across segments: CALLI to a function ...
+  FUNCSEG.CODE        13    (ready to run)
   GUESS.C              4  guess the number: rand, scanf
   GUESS.CODE          16    (ready to run)
   HANOI.C              4  Towers of Hanoi, recursion
   HANOI.CODE          11    (ready to run)
   LONGS.C              4  32-bit long arithmetic
   LONGS.CODE          13    (ready to run)
+  PI.C                 6  Archimedes' method with doubles (P-Code mode only)
+  PI.CODE             14    (ready to run)
   QUEENS.C             4  Eight queens: count all solutions, print the first
   QUEENS.CODE         11    (ready to run)
   SIEVE.C              4  Sieve of Eratosthenes: primes below 2000

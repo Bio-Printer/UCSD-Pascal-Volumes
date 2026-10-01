@@ -1,14 +1,14 @@
 ; LIBS -- rebuild the C library: X(ecute TINYC, answer @LIBS
 ; Compiles every library module, then joins them into TCLIB2.OBJ.
-/C ASSERT
-/C CONIO
-/C CTYPE
-/C FLTFMT
-/C IO
-/C MATH
-/C STDIO
-/C STDLIB
-/C STRING
-/C STRTOLD
-/C TCRT
+/Z /C ASSERT
+/Z /C CONIO
+/Z /C CTYPE
+/Z /C FLTFMT
+/Z /C IO
+/Z /C MATH
+/Z /C STDIO
+/Z /C STDLIB
+/Z /C STRING
+/Z /C STRTOLD
+/Z /C TCRT
 /J TCLIB2=ASSERT,CONIO,CTYPE,FLTFMT,IO,MATH,STDIO,STDLIB,STRING,STRTOLD,TCRT
