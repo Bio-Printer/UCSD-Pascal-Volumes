@@ -381,3 +381,23 @@ that equals SYSTEM.FILER but for one padding byte; builds in P-Code and
 Z80 mode differ only in padding; the emulator's and Tiny-C's full test
 suites pass.
 
+
+WHICH COMPILER SOURCE VOLUME IS THE LATEST: U132.A_PASCAL_COMPILER_SOURCE_v1.08
+---------------------------------------------------------------------------
+Like the OS (U134.4_OS_SOURCE_v1.07), the compiler source that BIGGY's
+SYSTEM.COMPILER is built from now has a volume named for the BIGGY revision
+that uses it:
+
+    U132.A_PASCAL_COMPILER_SOURCE_v1.08  the latest: the source of BIGGY
+                    1.08's SYSTEM.COMPILER. It is U132_A_PASCAL_COMPILER_fixed
+                    plus a VERSION.TEXT; every other file is identical.
+    U132_A_PASCAL_COMPILER_fixed   the same files without VERSION.TEXT, kept
+                    under its old name.
+    U132.A_PASCAL_COMPILER_SOURCE  the distribution source (lines/min can
+                    overflow, see above), kept as the original.
+
+Against the distribution source the latest volume changes only BLOCK.TEXT
+(compile summary); FIXUP.TEXT differs only in two trailing blank lines.
+It also holds SYSFIX.COMPILER (an earlier build, see above), BLOCK.BACK (the
+same text as BLOCK.TEXT), BLOCK-BAD.TEXT (the distribution BLOCK.TEXT, with
+one extra blank line) and COMP-V160.CODE (as on the distribution volume).

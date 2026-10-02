@@ -1,0 +1,9 @@
+U132.A Pascal compiler source, revision 1.08  (02-Oct-26)
+Changed since the distribution source: BLOCK.TEXT only (the compile
+summary prints tenths of a second and a lines/min that cannot
+overflow; the distribution one ends in "Floating point error, S# 10,
+P# 1, I# 268" when a compile takes under a second).  COMPINIT.TEXT
+banner: 'PASCAL Compiler [II.0.A.1]   EDN Built! '.
+Build: compile COMPILER to *SYSTEM.WRK.CODE, then X(ecute FIXUP and
+save the result as SYSTEM.COMPILER (BIGGY revision 1.08).
+Check: F(iler T(ransfer #5:VERSION.TEXT to CONSOLE:

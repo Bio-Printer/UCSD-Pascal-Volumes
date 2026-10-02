@@ -43,6 +43,8 @@ U130.1_BASIC_SOURCE  (volume U130.1, 3 files)
     3 files extracted, 2 text files decoded
 U132.A_PASCAL_COMPILER_SOURCE  (volume U132A, 18 files)
     18 files extracted, 16 text files decoded
+U132.A_PASCAL_COMPILER_SOURCE_v1.08  (volume U132A, 22 files)
+    22 files extracted, 19 text files decoded
 U132B.2_PASCAL_LINKER_SOURCE  (volume U132B.2, 7 files)
     7 files extracted, 7 text files decoded
 U132_A_PASCAL_COMPILER_fixed  (volume U132A, 21 files)
