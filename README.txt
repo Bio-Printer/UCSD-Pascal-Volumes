@@ -354,3 +354,30 @@ BINDER): units 11-14 on line in the Filer, G(et of a .C file, programs
 compiled to and run from units 12 and 13, and the emulator's and Tiny-C's
 full test suites (see their repositories).
 
+BIGGY REVISION 1.08: THE COMPILER BUILT FROM U132_A_PASCAL_COMPILER_fixed
+---------------------------------------------------------------------------
+Up to 1.07 BIGGY's SYSTEM.COMPILER was the distribution compiler. With the
+PC's clock (emulator option "PC date and time") a compile can finish in
+under a second, and its ROUND((3600/LOWTIME)*SCREENDOTS) lines/min then
+exceeds 32767: "Floating point error, S# 10, P# 1, I# 268" after the line
+count, before the code file is finished (seen compiling II.0.FILER in
+P-Code mode with Harvard on). BLOCK.TEXT in U132_A_PASCAL_COMPILER_fixed
+prints tenths of a second and a rate that cannot overflow.
+
+    SYSTEM.COMPILER  COMPILER.TEXT of U132_A_PASCAL_COMPILER_fixed compiled
+                     to *SYSTEM.WRK.CODE (Z80 mode), then X(ecute FIXUP
+                     from the same volume
+    SYSOLD.COMPILER  revision 1.07's (distribution) compiler
+Nothing else on BIGGY changed.
+
+The source on that volume is what was compiled, unchanged. Its COMPINIT.TEXT
+prints the banner 'PASCAL Compiler [II.0.A.1]   EDN Built! ' and '<edn0>';
+SYSFIX.COMPILER on the volume is the same compiler built before those two
+strings were changed: against the new SYSTEM.COMPILER it differs only in
+them, and in alignment padding (bytes after a procedure's return).
+Checked with the emulator: the old compiler fails as above and the new one
+compiles II.0.FILER ("2479 lines, 0.1 secs, 1784880 lines/min") to code
+that equals SYSTEM.FILER but for one padding byte; builds in P-Code and
+Z80 mode differ only in padding; the emulator's and Tiny-C's full test
+suites pass.
+

@@ -1,6 +1,6 @@
-Big_Disk  (volume BIGGY, 51 files)
+Big_Disk  (volume BIGGY, 52 files)
     ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
-    51 files extracted, 21 text files decoded
+    52 files extracted, 21 text files decoded
 Big_Disk_pre_8byte_double  (volume BIGGY, 46 files)
     ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
     46 files extracted, 20 text files decoded
