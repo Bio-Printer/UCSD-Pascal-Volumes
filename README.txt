@@ -414,3 +414,13 @@ MANIFEST_SHA256.txt and EXTRACTION_REPORT.txt:
                     superseded by the 8-byte ones.
 
 They remain in the git history (the commit before their removal).
+
+LINE ENDINGS OF Files_Extracted_no_headers; MANIFEST_SHA256.txt CHECKS CLEAN
+---------------------------------------------------------------------------
+The no_headers text files end their lines with CR LF, as tools/extract_all.py
+writes them and as MANIFEST_SHA256.txt hashes them. Git had been storing 274
+of them with LF line ends, so on a Linux checkout or a GitHub zip download
+"sha256sum -c MANIFEST_SHA256.txt" failed for those files although the
+content was right. They are now stored exactly as extracted (line ends were
+the only difference), and .gitattributes marks the folder -text so git never
+converts them. sha256sum -c MANIFEST_SHA256.txt now passes for all 845 files.
