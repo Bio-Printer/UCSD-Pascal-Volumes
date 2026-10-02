@@ -1,0 +1,4 @@
+U134.4 OS and Filer source, revision 1.06  (29-Sep-26)
+Changed since the distribution: FILER.D.TEXT only (revision 1.03 code:
+C workfiles, exact names).  Compile II.0.FILER to get SYSTEM.FILER.
+Check: F(iler T(ransfer #5:VERSION.TEXT to CONSOLE:

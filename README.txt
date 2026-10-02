@@ -273,7 +273,8 @@ BIG_DISK: FILER AND EDITOR FOR C SOURCE FILES (.C / .H)
 ---------------------------------------------------------------------------
 BLK_format/Big_Disk.BLK now runs a Filer and an Editor that accept a C
 source or header (NAME.C, NAME.H) as the workfile under its exact name:
-    SYSTEM.FILER   built from U134_4_OS_fixed (FILER.D.TEXT, ISCSRC): G(et,
+    SYSTEM.FILER   built from U134.4_OS_SOURCE_v1.06 (FILER.D.TEXT; see the
+                   section below -- not from U134_4_OS_fixed): G(et,
                    S(ave and the size check take NAME.C / NAME.H as they are
                    instead of looking for NAME.C.TEXT / NAME.C.CODE
     SYSTEM.EDITOR  the editor that opens and updates such a workfile
@@ -291,3 +292,29 @@ Files_Extracted_Raw/ and Files_Extracted_no_headers/, with their
 MANIFEST_SHA256.txt lines and EXTRACTION_REPORT.txt sections, were
 removed too: the extracted files again match BLK_format/ one to one
 (Empty_Big_Disk has no files). The git history still holds them all.
+
+---------------------------------------------------------------------------
+SOURCES OF BIGGY'S FILER AND EDITOR: *_SOURCE_v1.06
+---------------------------------------------------------------------------
+BLK_format/U134.4_OS_SOURCE_v1.06.BLK and U128_L2_YALOE_SOURCE_v1.06.BLK
+(each with a VERSION.TEXT) are the source volumes of the programs on
+Big_Disk.BLK (BIGGY) revision 1.06:
+    U134.4_OS_SOURCE_v1.06     the distribution OS and Filer source; only
+                               FILER.D.TEXT changed (C workfiles, exact
+                               names). Compile II.0.FILER: SYSTEM.FILER.
+    U128_L2_YALOE_SOURCE_v1.06 the L2 editor source; only L2.TEXT changed
+                               (.C/.H and exact names, MAXSW=131).
+                               Compile L2: SYSTEM.EDITOR.
+Checked by compiling them on BIGGY (II.0 compiler, emulator 1.94): the
+code files equal SYSTEM.FILER and SYSTEM.EDITOR on BIGGY in every byte
+of code; the only differences are alignment padding and the unused tails
+of blocks (whatever the compiler's buffer held). The older U134_4_OS_fixed
+and U128_L2_YALOE_fixed volumes hold earlier versions of the same changes
+and do not reproduce BIGGY's programs exactly.
+
+BIGGY's SYSTEM.PASCAL is the distribution binary (U002A.5_Z80_SYS1) with
+the VT-52 FGOTOXY of MYGOTOXY.TEXT bound in (procedure 29 is the only
+difference). The OS source in these volumes is a slightly different
+revision from that binary: compiled, it differs in PRINTLOCS (checks
+MISCINFO.IS_FLIPT) and in the length of the system file name strings in
+INITIALIZE and GETCMD, besides FGOTOXY and padding.
