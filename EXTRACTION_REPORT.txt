@@ -1,6 +1,6 @@
-Big_Disk  (volume BIGGY, 48 files)
+Big_Disk  (volume BIGGY, 51 files)
     ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
-    48 files extracted, 20 text files decoded
+    51 files extracted, 21 text files decoded
 Big_Disk_pre_8byte_double  (volume BIGGY, 46 files)
     ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
     46 files extracted, 20 text files decoded
@@ -50,6 +50,8 @@ U132_A_PASCAL_COMPILER_fixed  (volume U132A, 21 files)
 U134.4_OS_SOURCE  (volume U134.4, 14 files)
     14 files extracted, 14 text files decoded
 U134.4_OS_SOURCE_v1.06  (volume U134.4, 15 files)
+    15 files extracted, 15 text files decoded
+U134.4_OS_SOURCE_v1.07  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
 U134_4_OS_fixed  (volume U134.4, 14 files)
     14 files extracted, 14 text files decoded

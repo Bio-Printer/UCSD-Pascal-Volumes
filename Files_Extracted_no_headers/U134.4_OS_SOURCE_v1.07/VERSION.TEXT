@@ -1,0 +1,10 @@
+U134.4 OS and Filer source, revision 1.07  (02-Oct-26)
+Changed since the distribution source: FILER.D.TEXT (C workfiles,
+exact names; since 1.03).  Since 1.06, so that the source matches the
+OS binary in use: GLOBALS.TEXT MAX_SEG = 15 (was 31: SYSCOM's segment
+table must fit SYSTEM.MICRO's 16 entries) and SYSTEM.A.TEXT PRINTLOCS
+without the IS_FLIPT test; and for units 13 and 14: GLOBALS.TEXT
+MAXUNIT = 14, SYSSEGS.A.TEXT disk units [4,5,9..14].
+Build: compile SYSTEM, then X(ecute BINDER with MYGOTOXY.CODE to get
+SYSTEM.PASCAL; compile II.0.FILER to get SYSTEM.FILER.
+Check: F(iler T(ransfer #5:VERSION.TEXT to CONSOLE:

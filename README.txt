@@ -318,3 +318,39 @@ difference). The OS source in these volumes is a slightly different
 revision from that binary: compiled, it differs in PRINTLOCS (checks
 MISCINFO.IS_FLIPT) and in the length of the system file name strings in
 INITIALIZE and GETCMD, besides FGOTOXY and padding.
+
+---------------------------------------------------------------------------
+BIGGY REVISION 1.07: UNITS 13 AND 14; THE OS BUILT FROM ITS SOURCE
+---------------------------------------------------------------------------
+BLK_format/Big_Disk.BLK (BIGGY) revision 1.07 (see its VERSION.TEXT):
+    SYSTEM.PASCAL  compiled from U134.4_OS_SOURCE_v1.07, then MYGOTOXY's
+                   FGOTOXY bound in with X(ecute BINDER
+    SYSTEM.FILER   compiled from U134.4_OS_SOURCE_v1.07 (II.0.FILER)
+    MYGOTOXY.CODE  compiled from MYGOTOXY.TEXT (132 x 45; the code file
+                   on the disk was an older 80 x 24 version, while the OS
+                   had the 132 x 45 one bound in)
+    SYSOLD.PASCAL, SYSOLD.FILER  revision 1.06's OS and Filer
+SYSTEM.EDITOR is unchanged (it does not use the OS unit table).
+
+U134.4_OS_SOURCE_v1.07.BLK is v1.06 with:
+  - GLOBALS.TEXT MAX_SEG = 15 (was 31) and SYSTEM.A.TEXT PRINTLOCS
+    without the MISCINFO.IS_FLIPT test. These make the source match the
+    OS in use: compiled with MAXUNIT = 12 it equals the distribution
+    SYSTEM.PASCAL (U002A.5_Z80_SYS1) in every procedure except FGOTOXY --
+    that binary was itself made by binding a simple FGOTOXY over this
+    compile, whose own FGOTOXY is still in it, unreferenced, byte for
+    byte -- and BIGGY 1.06's SYSTEM.PASCAL is that plus MYGOTOXY bound in.
+    With MAX_SEG = 31 SYSCOM's segment table has 32 entries, but
+    SYSTEM.MICRO's has 16: an OS built that way writes over the Z80
+    interpreter's code and halts in Z80 mode (the source as distributed
+    belongs to a later, 32-segment system).
+  - GLOBALS.TEXT MAXUNIT = 14 and SYSSEGS.A.TEXT disk units [4,5,9..14],
+    for units 13 and 14 (emulator 1.95). Against 1.06, the new OS and
+    Filer differ only by that: 24 more bytes of globals (two more unit
+    table entries; FILENAME moves from 204 to 216), loop limits 12 -> 14
+    and the disk-unit set, besides alignment padding.
+Built and checked with the emulator (Z80 mode for the compiles and
+BINDER): units 11-14 on line in the Filer, G(et of a .C file, programs
+compiled to and run from units 12 and 13, and the emulator's and Tiny-C's
+full test suites (see their repositories).
+
