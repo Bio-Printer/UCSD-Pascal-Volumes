@@ -253,10 +253,9 @@ emulator project.
   TINY-C.BLK     volume TINY-C,  47 files
   TCEXTRA.BLK    volume TCEXTRA, 37 files
 
-Prior (12-byte-double) revisions kept, suffixed _pre_8byte_double:
-  Big_Disk_pre_8byte_double.BLK
-  TINY-C_pre_8byte_double.BLK
-  TCEXTRA_pre_8byte_double.BLK
+Prior (12-byte-double) revisions were kept, suffixed _pre_8byte_double
+(Big_Disk, TINY-C, TCEXTRA); they have since been removed (see the last
+section).
 
 Full validation re-run against this pull (see VALIDATION_LOG.txt):
 runtests.py 16/16, crosscheck.py 16/16 identical, selfcompile.py
@@ -390,9 +389,8 @@ that uses it:
 
     U132.A_PASCAL_COMPILER_SOURCE_v1.08  the latest: the source of BIGGY
                     1.08's SYSTEM.COMPILER. It is U132_A_PASCAL_COMPILER_fixed
-                    plus a VERSION.TEXT; every other file is identical.
-    U132_A_PASCAL_COMPILER_fixed   the same files without VERSION.TEXT, kept
-                    under its old name.
+                    (since removed) plus a VERSION.TEXT; every other file is
+                    identical.
     U132.A_PASCAL_COMPILER_SOURCE  the distribution source (lines/min can
                     overflow, see above), kept as the original.
 
@@ -401,3 +399,18 @@ Against the distribution source the latest volume changes only BLOCK.TEXT
 It also holds SYSFIX.COMPILER (an earlier build, see above), BLOCK.BACK (the
 same text as BLOCK.TEXT), BLOCK-BAD.TEXT (the distribution BLOCK.TEXT, with
 one extra blank line) and COMP-V160.CODE (as on the distribution volume).
+
+REMOVED VOLUMES
+---------------------------------------------------------------------------
+Removed from BLK_format/, with their extracted files and their lines in
+MANIFEST_SHA256.txt and EXTRACTION_REPORT.txt:
+
+    U132_A_PASCAL_COMPILER_fixed.BLK  every file is on
+                    U132.A_PASCAL_COMPILER_SOURCE_v1.08, unchanged. Where this
+                    README (and BIGGY's VERSION.TEXT) says BIGGY 1.08's
+                    compiler was built from it, that is the same source.
+    Big_Disk_pre_8byte_double.BLK, TINY-C_pre_8byte_double.BLK,
+    TCEXTRA_pre_8byte_double.BLK  the 12-byte floating point revisions,
+                    superseded by the 8-byte ones.
+
+They remain in the git history (the commit before their removal).
