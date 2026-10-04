@@ -1,6 +1,7 @@
-BIGGY boot volume, revision 1.09  (04-Oct-26)
-  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.07 (MAXUNIT = 14:
-                 disk units 4, 5, 9..14), MYGOTOXY's FGOTOXY bound in
+BIGGY boot volume, revision 1.10  (04-Oct-26)
+  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.08 (MAXUNIT = 14:
+                 disk units 4, 5, 9..14; GETCMD runs the programs of
+                 Tiny-C's pexec), MYGOTOXY's FGOTOXY bound in
                  with BINDER (132 x 45, as MYGOTOXY.TEXT)
   SYSTEM.FILER   from U134.4_OS_SOURCE_v1.07: G(et/S(ave take .C, .H
                  and NAME. (exact names); V(olumes lists units to 14
@@ -8,7 +9,9 @@ BIGGY boot volume, revision 1.09  (04-Oct-26)
                  floating point error when a compile takes under a second
   SYSTEM.EDITOR  from U128_L2_YALOE_SOURCE_v1.06 (.C, .H, exact names)
   MYGOTOXY.CODE  compiled from MYGOTOXY.TEXT (the old code was 80 x 24)
-  SYSOLD.PASCAL, SYSOLD.FILER  the OS and Filer of revision 1.06
+  SYSOLD.PASCAL  the OS of revision 1.09 (U134.4_OS_SOURCE_v1.07)
+  SYSOLD.FILER   the Filer of revision 1.06
   SYSOLD.COMPILER  the distribution compiler of revision 1.07
-  PSYS.H         Tiny-C header: SYSCOM->field for the SYSCOM record
+  PSYS.H         Tiny-C header: SYSCOM->field for the SYSCOM record,
+                 pexec() (run a program, then this one again)
 Check: F(iler T(ransfer #4:VERSION.TEXT to CONSOLE:

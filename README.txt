@@ -440,3 +440,43 @@ Big_Disk.BLK (BIGGY), TINY-C.BLK and TCEXTRA.BLK, from the UCSD-C repository:
     VERSION.TEXT  (BIGGY) revision 1.09; its SYSTEM.COMPILER line now
                   names U132.A_PASCAL_COMPILER_SOURCE_v1.08.
 Nothing else changed.
+
+BIGGY REVISION 1.10: OS 1.08 -- PEXEC (A PROGRAM RUNS ANOTHER, THEN ITSELF AGAIN)
+---------------------------------------------------------------------------
+U134.4_OS_SOURCE_v1.08.BLK is v1.07 with three insertions in SYSSEGS.B.TEXT
+(every other line, and every other file but VERSION.TEXT, is unchanged):
+GETCMD's constants PXRUN, PXCHILD, PXBACK; the function LOADSEGS (what
+ASSOCIATE does after FOPEN: point SYSCOM^.SEGTABLE 1 and 7..15 at the
+linked code file whose block 0 is a given block of a given unit); and, at
+the start of GETCMD, a hook driven by SYSCOM^.EXPANSION[0..5] (words no
+part of the system used):
+
+    [0]  PXRUN     a program asked to run the code file at [1],[2] (unit,
+                   first block) and then the one at [3],[4] (itself):
+                   LOADSEGS([1],[2]); GETCMD returns SYSPROG, as X(ecute
+         PXCHILD   that program has ended (or stopped with an execution
+                   error: [5] := -2): LOADSEGS([3],[4]), state PXBACK,
+                   SYSPROG -- the first program starts again
+         PXBACK    cleared by the next GETCMD
+    [5]  exit status (-1: could not be started)
+
+Tiny-C's pexec() (PSYS.H) sets these words and exits. Nothing of the
+calling program stays in memory while the other one runs, and the
+resident operating system is unchanged: SYSTEM.PASCAL is still 16896
+bytes, segment 0 still 7840 bytes; only GETCMD's segment (loaded only
+while GETCMD runs) grew from 2688 to 3054 bytes. A program started this
+way has exactly the free memory it has when started with X(ecute (checked
+in P-Code, Harvard and Z80 mode with UCSD-C's tools/pexectest.py).
+Built as 1.07: compile SYSTEM, BINDER with MYGOTOXY.CODE.
+
+Big_Disk.BLK (BIGGY) revision 1.10:
+    SYSTEM.PASCAL  the 1.08 OS
+    SYSOLD.PASCAL  the OS of revision 1.09 (1.07 source); SYSOLD.FILER is
+                   still revision 1.06's Filer
+    TINYC.CODE, TCLIB.OBJ, PSYS.H  Tiny-C with pexec() (exit() records the
+                   status for pexec_status())
+TINY-C.BLK: TINYC.CODE, TCLIB.OBJ, PSYS.H, PEXEC.C (library module),
+STDLIB.C, LIBS.TEXT, README.TEXT, FILES.TEXT. TCEXTRA.BLK: SHELL.C/.CODE
+(a mini-shell built on pexec), MEMFREE.C/.CODE (a program's free memory),
+every program relinked with the new library, DEMOS.TEXT, README.TEXT,
+FILES.TEXT.

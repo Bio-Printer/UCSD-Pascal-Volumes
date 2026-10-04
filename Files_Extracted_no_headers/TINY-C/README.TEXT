@@ -22,11 +22,17 @@ which is identical to TINYC.CODE apart from its name (check it with
 CMPCODE on TCEXTRA:).  To use it, rename it with the Filer.
 
 REBUILDING THE LIBRARY:  X(ecute TINYC, answer  @LIBS
-LIBS.TEXT compiles the 11 library modules and joins them (/J) into
+LIBS.TEXT compiles the 12 library modules and joins them (/J) into
 TCLIB2.OBJ, identical to TCLIB.OBJ (check it with CMPCODE).  To use it,
 remove TCLIB.OBJ and rename TCLIB2.OBJ to TCLIB.OBJ with the Filer.
 
 THE DEMO PROGRAMS: see DEMOS.TEXT on TCEXTRA: (@DEMOS).
+
+RUNNING PROGRAMS FROM A PROGRAM: PSYS.H's pexec("NAME") runs NAME.CODE
+and then starts the calling program again from the beginning, with
+pexec_returned() and pexec_status() telling it so; nothing of the caller
+stays in memory meanwhile.  It needs the operating system of BIGGY 1.10
+or later.  SHELL.C on TCEXTRA: is a small shell built on it.
 
 FUNCTION POINTERS: a call through a function pointer (qsort, bsearch and
 printf's floating-point formatting use them) is by default compiled to

@@ -3,10 +3,10 @@ Big_Disk  (volume BIGGY, 53 files)
     53 files extracted, 22 text files decoded
 Empty_Big_Disk  (volume EMPTY, 0 files)
     0 files extracted, 0 text files decoded
-TCEXTRA  (volume TCEXTRA, 45 files)
-    45 files extracted, 24 text files decoded
-TINY-C  (volume TINY-C, 48 files)
-    48 files extracted, 46 text files decoded
+TCEXTRA  (volume TCEXTRA, 49 files)
+    49 files extracted, 26 text files decoded
+TINY-C  (volume TINY-C, 49 files)
+    49 files extracted, 47 text files decoded
 U002A.5_Z80_SYS1  (volume U002A.5, 20 files)
     20 files extracted, 4 text files decoded
 U006.5_LSI-11_SYS1  (volume U006.5, 14 files)
@@ -45,6 +45,8 @@ U134.4_OS_SOURCE  (volume U134.4, 14 files)
 U134.4_OS_SOURCE_v1.06  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
 U134.4_OS_SOURCE_v1.07  (volume U134.4, 15 files)
+    15 files extracted, 15 text files decoded
+U134.4_OS_SOURCE_v1.08  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
 U134_4_OS_fixed  (volume U134.4, 14 files)
     14 files extracted, 14 text files decoded
