@@ -424,3 +424,19 @@ of them with LF line ends, so on a Linux checkout or a GitHub zip download
 content was right. They are now stored exactly as extracted (line ends were
 the only difference), and .gitattributes marks the folder -text so git never
 converts them. sha256sum -c MANIFEST_SHA256.txt now passes for all 845 files.
+
+BIGGY REVISION 1.09: PSYS.H (SYSCOM FOR TINY-C PROGRAMS)
+---------------------------------------------------------------------------
+Big_Disk.BLK (BIGGY), TINY-C.BLK and TCEXTRA.BLK, from the UCSD-C repository:
+
+    PSYS.H        (BIGGY and TINY-C) Tiny-C header for the OS's SYSCOM
+                  record: SYSCOM->memtop, SYSCOM->crtinfo.width,
+                  SYSCOM->segtable[n] ... SYSCOM is the OS's first global
+                  variable, read with one LOD 2,1, so it is found in every
+                  engine layout (0x02E4, or 0x0164 in P-Code mode with
+                  reclaimed memory).
+    SYSCOM.C, SYSCOM.CODE  (TCEXTRA) its test; DEMOS.TEXT and FILES.TEXT
+                  list it (TINY-C's FILES.TEXT lists PSYS.H).
+    VERSION.TEXT  (BIGGY) revision 1.09; its SYSTEM.COMPILER line now
+                  names U132.A_PASCAL_COMPILER_SOURCE_v1.08.
+Nothing else changed.
