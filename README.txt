@@ -443,8 +443,16 @@ Nothing else changed.
 
 BIGGY REVISION 1.10: OS 1.08 -- PEXEC (A PROGRAM RUNS ANOTHER, THEN ITSELF AGAIN)
 ---------------------------------------------------------------------------
-U134.4_OS_SOURCE_v1.08.BLK is v1.07 with three insertions in SYSSEGS.B.TEXT
-(every other line, and every other file but VERSION.TEXT, is unchanged):
+U134.4_OS_SOURCE_v1.08.BLK is v1.07 with these changes (every other line,
+and every other file but VERSION.TEXT, is unchanged):
+
+  SYSTEM.A.TEXT   FGOTOXY is MYGOTOXY.TEXT's (132 x 45, CHR(1) X+32 Y+32),
+                  so SYSTEM.PASCAL is simply the compiled SYSTEM: BINDER is
+                  no longer needed
+  SYSSEGS.B.TEXT  $ at the Command: prompt runs *SYSTEM.SHELL (ASSOCIATE,
+                  as X(ecute); the ? prompt lists $(hell), and three
+                  insertions for pexec:
+
 GETCMD's constants PXRUN, PXCHILD, PXBACK; the function LOADSEGS (what
 ASSOCIATE does after FOPEN: point SYSCOM^.SEGTABLE 1 and 7..15 at the
 linked code file whose block 0 is a given block of a given unit); and, at
@@ -462,15 +470,16 @@ part of the system used):
 
 Tiny-C's pexec() (PSYS.H) sets these words and exits. Nothing of the
 calling program stays in memory while the other one runs, and the
-resident operating system is unchanged: SYSTEM.PASCAL is still 16896
-bytes, segment 0 still 7840 bytes; only GETCMD's segment (loaded only
-while GETCMD runs) grew from 2688 to 3054 bytes. A program started this
+resident operating system did not grow: segment 0 is 7756 bytes (7840
+when BINDER bound MYGOTOXY into 1.07); only GETCMD's segment (loaded only
+while GETCMD runs) grew, from 2688 to 3176 bytes. A program started this
 way has exactly the free memory it has when started with X(ecute (checked
 in P-Code, Harvard and Z80 mode with UCSD-C's tools/pexectest.py).
-Built as 1.07: compile SYSTEM, BINDER with MYGOTOXY.CODE.
+Build: compile SYSTEM; the code file is SYSTEM.PASCAL.
 
 Big_Disk.BLK (BIGGY) revision 1.10:
-    SYSTEM.PASCAL  the 1.08 OS
+    SYSTEM.PASCAL  the 1.08 OS ($ runs SYSTEM.SHELL; FGOTOXY built in)
+    SYSTEM.SHELL   the Tiny-C shell (UCSD-C examples/shell.c)
     SYSOLD.PASCAL  the OS of revision 1.09 (1.07 source); SYSOLD.FILER is
                    still revision 1.06's Filer
     TINYC.CODE, TCLIB.OBJ, PSYS.H  Tiny-C with pexec() (exit() records the

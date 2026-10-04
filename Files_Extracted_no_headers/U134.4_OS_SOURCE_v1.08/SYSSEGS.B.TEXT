@@ -398,10 +398,10 @@ BEGIN (*GETCMD*)
 'Command: E(dit, R(un, F(ile, C(omp, L(ink, X(ecute, A(ssem, D(ebug,? [II.0]';
     PROMPT; CH := GETCHAR(BADCMD); CLEARSCREEN;
     IF CH = '?' THEN
-      BEGIN PL := 'Command: U(ser restart, I(nitialize, H(alt';
+      BEGIN PL := 'Command: U(ser restart, I(nitialize, H(alt, $(hell';
         PROMPT; CH := GETCHAR(BADCMD); CLEARSCREEN
       END;
-    BADCMD := NOT (CH IN ['E','R','F','C','L','X','A','D','U','I','H','?']);
+    BADCMD := NOT (CH IN ['E','R','F','C','L','X','A','D','U','I','H','?','$']);
     IF NOT BADCMD THEN
       CASE CH OF
         'E':  BEGIN WRITELN(OUTPUT);
@@ -410,6 +410,10 @@ BEGIN (*GETCMD*)
               END;
         'F':  BEGIN WRITELN(OUTPUT);
                 IF SYS_ASSOCIATE(FILER) THEN
+                  BEGIN GETCMD := SYSPROG; EXIT(GETCMD) END
+              END;
+        '$':  BEGIN WRITELN(OUTPUT); { the Tiny-C shell (pexec) }
+                IF ASSOCIATE('*SYSTEM.SHELL',FALSE,FALSE,TRUE,DONT_CARE) THEN
                   BEGIN GETCMD := SYSPROG; EXIT(GETCMD) END
               END;
         'L':  BEGIN WRITELN(OUTPUT,'Linking...');
