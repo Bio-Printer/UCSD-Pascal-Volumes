@@ -1,5 +1,5 @@
-BIGGY boot volume, revision 1.10  (04-Oct-26)
-  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.08 (MAXUNIT = 14:
+BIGGY boot volume, revision 1.11  (04-Oct-26)
+  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.11 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, $ runs SYSTEM.SHELL); its FGOTOXY is
                  MYGOTOXY.TEXT's (132 x 45): no BINDER needed
@@ -9,8 +9,8 @@ BIGGY boot volume, revision 1.10  (04-Oct-26)
                  floating point error when a compile takes under a second
   SYSTEM.EDITOR  from U128_L2_YALOE_SOURCE_v1.06 (.C, .H, exact names)
   MYGOTOXY.CODE  compiled from MYGOTOXY.TEXT (the old code was 80 x 24);
-                 the 1.10 OS has the same FGOTOXY built in
-  SYSOLD.PASCAL  the OS of revision 1.09 (U134.4_OS_SOURCE_v1.07)
+                 the 1.11 OS has the same FGOTOXY built in
+  SYSOLD.PASCAL  the OS of revision 1.10 (U134.4_OS_SOURCE_v1.10)
   SYSOLD.FILER   the Filer of revision 1.06
   SYSOLD.COMPILER  the distribution compiler of revision 1.07
   PSYS.H         Tiny-C header: SYSCOM->field for the SYSCOM record,
