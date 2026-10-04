@@ -5,10 +5,12 @@ Empty_Big_Disk  (volume EMPTY, 0 files)
     0 files extracted, 0 text files decoded
 TCEXTRA  (volume TCEXTRA, 27 files)
     27 files extracted, 15 text files decoded
+TCSRC  (volume TCSRC, 31 files)
+    31 files extracted, 31 text files decoded
 TCTESTS  (volume TCTESTS, 27 files)
     27 files extracted, 15 text files decoded
-TINY-C  (volume TINY-C, 49 files)
-    49 files extracted, 47 text files decoded
+TINY-C  (volume TINY-C, 20 files)
+    20 files extracted, 18 text files decoded
 U002A.5_Z80_SYS1  (volume U002A.5, 20 files)
     20 files extracted, 4 text files decoded
 U006.5_LSI-11_SYS1  (volume U006.5, 14 files)

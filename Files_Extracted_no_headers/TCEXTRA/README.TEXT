@@ -19,8 +19,8 @@ arguments say: from SHELL try ARGS, ARGS ADD 2 3, ARGS MUL 6 7,
 ARGS REPEAT 3 HELLO, ARGS ECHO A B C.  They need BIGGY 1.10 or later.
 
 CMPCODE compares two files byte by byte (for .CODE files the program
-name in block 0 aside): after @BUILD on TINY-C:, compare
-TINY-C:TINYC.CODE with TINY-C:TINYC2.CODE, after @LIBS TINY-C:TCLIB.OBJ
-with TINY-C:TCLIB2.OBJ; it prints IDENTICAL.
+name in block 0 aside): after @BUILD on TCSRC:, compare
+TINY-C:TINYC.CODE with TCSRC:TINYC2.CODE, after @LIBS TINY-C:TCLIB.OBJ
+with TCSRC:TCLIB2.OBJ; it prints IDENTICAL.
 
 FILES.TEXT lists every file on this volume.

@@ -550,3 +550,20 @@ the tests are now on volumes of their own:
 
 After @DEMOS, TCEXTRA has 41 of its 77 directory entries in use, TCTESTS
 likewise after @TESTS. (TINY-C uses all 77 after @LIBS followed by @BUILD.)
+
+FOUR TINY-C VOLUMES: TINY-C SPLIT INTO TINY-C (USE) AND TCSRC (SOURCES)
+---------------------------------------------------------------------------
+TINY-C.BLK keeps everything needed to use Tiny-C -- TINYC.CODE, TCLIB.OBJ,
+TCMSGS.TEXT, the headers (*.H), README.TEXT, FILES.TEXT -- and keeps its
+name: the compiler looks for TCLIB.OBJ, TCMSGS.TEXT and headers on
+TINY-C: when they are not on the prefix or boot volume. The new TCSRC.BLK
+holds the compiler's and the library's sources and the batch files that
+rebuild them: with the prefix on TCSRC: (and TINY-C: mounted), X(ecute
+TINY-C:TINYC and answer @BUILD (TCSRC:TINYC2.CODE) or @LIBS
+(TCSRC:TCLIB2.OBJ); TCEXTRA:CMPCODE checks them against TINY-C:'s.
+
+    TINY-C.BLK   20 files (after @DEMOS / @TESTS elsewhere: still 20)
+    TCSRC.BLK    31 files; 59 after @LIBS and @BUILD
+    TCEXTRA.BLK  27 files; 41 after @DEMOS
+    TCTESTS.BLK  27 files; 41 after @TESTS
+(a UCSD directory holds 77). Nothing in the files themselves changed.

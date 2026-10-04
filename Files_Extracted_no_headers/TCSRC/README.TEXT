@@ -1,0 +1,21 @@
+TINY-C SOURCES                                    volume TCSRC:
+
+The sources of the Tiny-C compiler (12 modules, TC.H, PARSE.H) and of its
+library (12 modules, LIBINT.H), and the batch files that rebuild them.
+Mount TINY-C: as well: the compiler, the headers, TCLIB.OBJ and
+TCMSGS.TEXT come from there.
+
+REBUILDING THE COMPILER:  set the prefix to TCSRC:, X(ecute
+TINY-C:TINYC, answer  @BUILD.  BUILD.TEXT compiles the compiler's modules
+and links TCSRC:TINYC2.CODE, identical to TINY-C:TINYC.CODE apart from its
+name (check it with TCEXTRA:CMPCODE).  To use it, transfer it to
+TINY-C:TINYC.CODE with the Filer.
+
+REBUILDING THE LIBRARY:  set the prefix to TCSRC:, X(ecute TINY-C:TINYC,
+answer  @LIBS.  LIBS.TEXT compiles the library modules and joins them
+(/J) into TCSRC:TCLIB2.OBJ, identical to TINY-C:TCLIB.OBJ (check it with
+CMPCODE).  To use it, transfer it to TINY-C:TCLIB.OBJ with the Filer.
+
+Each module leaves a NAME.OBJ; remove those with the Filer if you like.
+
+FILES.TEXT lists every file on this volume.

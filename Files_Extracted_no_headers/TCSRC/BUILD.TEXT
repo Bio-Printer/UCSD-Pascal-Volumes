@@ -1,4 +1,4 @@
-; BUILD -- rebuild the Tiny-C compiler: X(ecute TINYC, answer @BUILD
+; BUILD -- rebuild the Tiny-C compiler: prefix TCSRC:, X(ecute TINY-C:TINYC, answer @BUILD
 ; Compiles every module, then links them into TINYC2.CODE.
 /C MAIN
 /C UTIL

@@ -16,15 +16,8 @@ compiles with that volume as the prefix: headers, TCLIB.OBJ and
 TCMSGS.TEXT are found on TINY-C: when they are not on the prefix volume
 or the boot volume.  Temporary files: TCTEMP.TEXT, TCTEMP.IR.
 
-REBUILDING THE COMPILER:  X(ecute TINYC, answer  @BUILD
-BUILD.TEXT compiles the compiler's 12 modules and links TINYC2.CODE,
-which is identical to TINYC.CODE apart from its name (check it with
-CMPCODE on TCEXTRA:).  To use it, rename it with the Filer.
-
-REBUILDING THE LIBRARY:  X(ecute TINYC, answer  @LIBS
-LIBS.TEXT compiles the 12 library modules and joins them (/J) into
-TCLIB2.OBJ, identical to TCLIB.OBJ (check it with CMPCODE).  To use it,
-remove TCLIB.OBJ and rename TCLIB2.OBJ to TCLIB.OBJ with the Filer.
+THE SOURCES of the compiler and the library, and the batch files that
+rebuild them (@BUILD, @LIBS), are on TCSRC: (see its README.TEXT).
 
 THE DEMO PROGRAMS are on TCEXTRA: (DEMOS.TEXT, @DEMOS), the test
 programs on TCTESTS: (TESTS.TEXT, @TESTS).
