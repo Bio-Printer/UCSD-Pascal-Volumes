@@ -577,3 +577,13 @@ once, it runs from there; found on several disks, the shell lists them
 (VOLUME:NAME and its unit) and asks which one to run (RETURN: none); not
 found: "no such program". A name with a volume runs as before.
 VERSION.TEXT revision 1.13. Nothing else changed.
+
+BIGGY REVISION 1.14: NO TINYC.CODE ON BIGGY; ONE-KEY CHOICE IN THE SHELL
+---------------------------------------------------------------------------
+TINYC.CODE is no longer on BIGGY: the compiler is TINY-C:TINYC (X(ecute
+TINY-C:TINYC). TCLIB.OBJ, TCMSGS.TEXT and the headers stay: the compiler
+looks for them on the prefix volume, then the boot volume, then TINY-C:.
+SYSTEM.SHELL (and TCEXTRA's SHELL): when a program is on several disks
+(up to 8, one per disk unit), the shell lists them and one key chooses --
+1..n runs that one at once, no RETURN; any other key runs nothing.
+VERSION.TEXT revision 1.14.
