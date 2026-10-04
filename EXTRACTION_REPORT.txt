@@ -3,8 +3,10 @@ Big_Disk  (volume BIGGY, 54 files)
     54 files extracted, 22 text files decoded
 Empty_Big_Disk  (volume EMPTY, 0 files)
     0 files extracted, 0 text files decoded
-TCEXTRA  (volume TCEXTRA, 49 files)
-    49 files extracted, 26 text files decoded
+TCEXTRA  (volume TCEXTRA, 27 files)
+    27 files extracted, 15 text files decoded
+TCTESTS  (volume TCTESTS, 27 files)
+    27 files extracted, 15 text files decoded
 TINY-C  (volume TINY-C, 49 files)
     49 files extracted, 47 text files decoded
 U002A.5_Z80_SYS1  (volume U002A.5, 20 files)

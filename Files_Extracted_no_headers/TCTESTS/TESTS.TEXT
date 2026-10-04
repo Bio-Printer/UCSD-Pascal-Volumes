@@ -1,0 +1,14 @@
+; TESTS -- compile and link every program on TCTESTS:
+; prefix TCTESTS:, X(ecute TINY-C:TINYC, answer @TESTS
+/Z CONTROL
+/Z DOUBLES
+/Z FCOMPARE
+/Z FILEIO
+/Z FLOATS
+/Z FUNCPTR
+/Z FUNCSEG
+/Z LONGS
+/Z STRCONST
+/Z STRINGS
+/Z STRUCTS
+/Z SYSCOM

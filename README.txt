@@ -515,3 +515,38 @@ MYGOTOXY.CODE stays (the OS has the same FGOTOXY built in). TINY-C.BLK:
 PSYS.H and PEXEC.C (comments only). Checked with UCSD-C's suites,
 pexectest.py included ($ starts the shell; a program started from the
 shell still has exactly the free memory it has from X(ecute).
+
+BIGGY REVISION 1.12: COMMAND LINES FOR PEXEC (main(argc, argv))
+---------------------------------------------------------------------------
+No operating system change (SYSTEM.PASCAL is still U134.4_OS_SOURCE_v1.11's).
+Tiny-C's pexec("NAME ARG1 ARG2 ...") passes the words to NAME's
+main(int argc, char **argv) (argv[0] = NAME): the command line is kept in
+the OS's prompt-line string PL (OS global word 70, a STRING[80]: 80
+characters at most), which nothing writes between two programs, with
+SYSCOM^.EXPANSION[6] = 25604 and [7] a checksum of it. The child takes it
+only while it is the program pexec started (EXPANSION[0] = PXCHILD) and the
+checksum matches; started any other way, argc is 1 and argv[0] is "".
+
+Big_Disk.BLK (BIGGY) revision 1.12: TINYC.CODE and TCLIB.OBJ (the linker
+calls the library's __callmain when main has parameters), PSYS.H,
+SYSTEM.SHELL (passes arguments; says when a line is longer than 80),
+VERSION.TEXT. TINY-C.BLK: the same, plus PEXEC.C (__callmain is in the
+pexec module) and LINK.C.
+
+THREE TINY-C VOLUMES: a UCSD directory holds 77 files, and rebuilding the
+programs on a volume (@DEMOS) leaves a NAME.OBJ for each, so the demos and
+the tests are now on volumes of their own:
+
+    TINY-C.BLK   the compiler, the library, the headers and all their
+                 sources (unchanged)
+    TCEXTRA.BLK  the demos: BOXES CALC DEMO GUESS HANOI PI QUEENS SIEVE,
+                 SHELL, MEMFREE, ARGS (new: does what its arguments say --
+                 from SHELL, ARGS ADD 2 3, ARGS MUL 6 7, ARGS REPEAT 3
+                 HELLO, ARGS ECHO A B C; no arguments: usage) and CMPCODE;
+                 DEMOS.TEXT (@DEMOS) rebuilds them
+    TCTESTS.BLK  (new) the test programs: CONTROL DOUBLES FCOMPARE FILEIO
+                 FLOATS FUNCPTR FUNCSEG LONGS STRCONST STRINGS STRUCTS
+                 SYSCOM; TESTS.TEXT (@TESTS) rebuilds them
+
+After @DEMOS, TCEXTRA has 41 of its 77 directory entries in use, TCTESTS
+likewise after @TESTS. (TINY-C uses all 77 after @LIBS followed by @BUILD.)

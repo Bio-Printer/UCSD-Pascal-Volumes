@@ -26,12 +26,14 @@ LIBS.TEXT compiles the 12 library modules and joins them (/J) into
 TCLIB2.OBJ, identical to TCLIB.OBJ (check it with CMPCODE).  To use it,
 remove TCLIB.OBJ and rename TCLIB2.OBJ to TCLIB.OBJ with the Filer.
 
-THE DEMO PROGRAMS: see DEMOS.TEXT on TCEXTRA: (@DEMOS).
+THE DEMO PROGRAMS are on TCEXTRA: (DEMOS.TEXT, @DEMOS), the test
+programs on TCTESTS: (TESTS.TEXT, @TESTS).
 
 RUNNING PROGRAMS FROM A PROGRAM: PSYS.H's pexec("NAME") runs NAME.CODE
 and then starts the calling program again from the beginning, with
 pexec_returned() and pexec_status() telling it so; nothing of the caller
-stays in memory meanwhile.  It needs the operating system of BIGGY 1.10
+stays in memory meanwhile.  pexec("NAME ARG1 ARG2") passes the words to
+NAME's main(int argc, char **argv) (80 characters at most).  It needs the operating system of BIGGY 1.10
 or later.  SHELL.C on TCEXTRA: is a small shell built on it.
 
 FUNCTION POINTERS: a call through a function pointer (qsort, bsearch and
