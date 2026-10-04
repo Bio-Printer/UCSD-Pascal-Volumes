@@ -1,4 +1,4 @@
-BIGGY boot volume, revision 1.12  (04-Oct-26)
+BIGGY boot volume, revision 1.13  (04-Oct-26)
   SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.11 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, $ runs SYSTEM.SHELL); its FGOTOXY is
@@ -18,6 +18,7 @@ BIGGY boot volume, revision 1.12  (04-Oct-26)
                  a command line for main(argc, argv)
   SYSTEM.SHELL   the Tiny-C shell (UCSD-C examples/shell.c): $ at the
                  Command: prompt (? lists it); NAME ARG1 ARG2 ... passes
-                 the arguments
+                 the arguments; a NAME without a volume is looked for
+                 on every disk on line (on several: you choose)
   TINYC.CODE, TCLIB.OBJ  Tiny-C: main(argc, argv) gets pexec's command line
 Check: F(iler T(ransfer #4:VERSION.TEXT to CONSOLE:

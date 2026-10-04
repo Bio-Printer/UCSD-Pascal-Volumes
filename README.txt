@@ -567,3 +567,13 @@ TINY-C:TINYC and answer @BUILD (TCSRC:TINYC2.CODE) or @LIBS
     TCEXTRA.BLK  27 files; 41 after @DEMOS
     TCTESTS.BLK  27 files; 41 after @TESTS
 (a UCSD directory holds 77). Nothing in the files themselves changed.
+
+BIGGY REVISION 1.13: THE SHELL LOOKS FOR A PROGRAM ON EVERY DISK
+---------------------------------------------------------------------------
+SYSTEM.SHELL (and SHELL.C/.CODE on TCEXTRA): a program name without a
+volume (ARGS rather than TCEXTRA:ARGS or #10:ARGS) is looked for on every
+disk unit on line (4, 5, 9..14: the directory of each is read). Found
+once, it runs from there; found on several disks, the shell lists them
+(VOLUME:NAME and its unit) and asks which one to run (RETURN: none); not
+found: "no such program". A name with a volume runs as before.
+VERSION.TEXT revision 1.13. Nothing else changed.
