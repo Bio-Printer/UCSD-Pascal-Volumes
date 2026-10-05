@@ -638,3 +638,13 @@ of the least free memory of the programs in between.  TCEXTRA:MEMMARK
 the emulator 1.97, Options > Track Least Free Memory.  TINY-C.BLK
 (TCLIB.OBJ, PSYS.H), TCSRC.BLK (MEMSCAN.C, LIBS.TEXT) and TCEXTRA.BLK
 (MEMMARK.C, MEMMARK.CODE, README.TEXT) updated; BIGGY unchanged.
+
+COMPILE.C SPLIT FROM STMT.C; @FILE USES LESS STACK (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+The parser's pass (compile, helpers, pragma) moved from STMT.C to the new
+COMPILE.C: STMT.C needed one more 1 KB block of declarations than the
+others.  CC's @FILE batches read into the command buffer instead of a
+buffer of their own.  Least free memory in Z80 mode: compiling STMT.C 324
+-> 397 words; CC @BUILD @LIBS from the shell 186 -> 352.  TCSRC.BLK
+(STMT.C, COMPILE.C, MAIN.C, BUILD.TEXT, README.TEXT) and TINY-C.BLK
+(CC.CODE) updated; BIGGY unchanged.
