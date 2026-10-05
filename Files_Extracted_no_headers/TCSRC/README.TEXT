@@ -5,6 +5,9 @@ library (12 modules, LIBINT.H), and the batch files that rebuild them.
 Mount TINY-C: as well: the compiler, the headers, TCLIB.OBJ and
 TCMSGS.TEXT come from there.
 
+REBUILDING EVERYTHING:  set the prefix to TCSRC:, then from the shell
+($ at the Command: prompt) type  CC @BUILD @LIBS.
+
 REBUILDING THE COMPILER:  set the prefix to TCSRC:, X(ecute
 TINY-C:CC, answer  @BUILD.  BUILD.TEXT compiles the compiler's modules
 and links TCSRC:CC2.CODE, identical to TINY-C:CC.CODE apart from its

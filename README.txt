@@ -601,3 +601,14 @@ with TINY-C:CC.CODE using TCEXTRA:CMPCODE. TINY-C.BLK, TCSRC.BLK (BUILD.TEXT,
 LIBS.TEXT, README.TEXT, MAIN.C comments), TCEXTRA.BLK and TCTESTS.BLK
 (README.TEXT, DEMOS.TEXT, TESTS.TEXT, CMPCODE.C comment) say CC.
 VERSION.TEXT revision 1.15.
+
+CC TAKES ITS COMMANDS AS ARGUMENTS (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+The compiler (TINY-C:CC.CODE) runs the commands given as arguments, from
+the shell ($ at the Command: prompt), without a prompt: with the prefix on
+TCSRC:, CC @BUILD @LIBS rebuilds the compiler (CC2.CODE) and the library
+(TCLIB2.OBJ); CC /Z HANOI SIEVE compiles two programs. Options (/Z, /C,
+/L, /J) and the word after them make one command; the first that fails
+stops CC with exit status 1. X(ecute TINY-C:CC still prompts. TINY-C.BLK
+(CC.CODE, README.TEXT) and TCSRC.BLK (MAIN.C, README.TEXT) updated; BIGGY
+unchanged.
