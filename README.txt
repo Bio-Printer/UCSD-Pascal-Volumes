@@ -648,3 +648,13 @@ buffer of their own.  Least free memory in Z80 mode: compiling STMT.C 324
 -> 397 words; CC @BUILD @LIBS from the shell 186 -> 352.  TCSRC.BLK
 (STMT.C, COMPILE.C, MAIN.C, BUILD.TEXT, README.TEXT) and TINY-C.BLK
 (CC.CODE) updated; BIGGY unchanged.
+
+CC USES LESS MEMORY: PCHUNK 256, FILES BETWEEN PASSES (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+CC's permanent pool takes 256-byte blocks (was 1 KB); files CC opens
+between passes (does NAME.C exist, the @FILE batch) no longer leave their
+buffer under the next pass; the prompt takes 149 characters; include
+names are held in 30 bytes.  Least free memory in Z80 mode compiling
+every module from X(ecute: 397 -> 1069 words; CC @BUILD @LIBS from the
+shell 352 -> 1024.  TINY-C.BLK (CC.CODE) and TCSRC.BLK (UTIL.C, MAIN.C,
+PP.C, COMPILE.C) updated; BIGGY unchanged.
