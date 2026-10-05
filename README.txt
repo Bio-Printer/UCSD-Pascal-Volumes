@@ -612,3 +612,9 @@ TCSRC:, CC @BUILD @LIBS rebuilds the compiler (CC2.CODE) and the library
 stops CC with exit status 1. X(ecute TINY-C:CC still prompts. TINY-C.BLK
 (CC.CODE, README.TEXT) and TCSRC.BLK (MAIN.C, README.TEXT) updated; BIGGY
 unchanged.
+
+CC: A NEW LINE AFTER LINKING (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+After linking, CC now ends the line ("(15677 words free)"), so the next
+command of CC @BUILD @LIBS ("> @LIBS") and "Done." start a line of their
+own. TINY-C.BLK (CC.CODE) and TCSRC.BLK (MAIN.C) updated; BIGGY unchanged.
