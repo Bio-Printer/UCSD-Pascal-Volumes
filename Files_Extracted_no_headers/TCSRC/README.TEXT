@@ -1,7 +1,8 @@
 TINY-C SOURCES                                    volume TCSRC:
 
-The sources of the Tiny-C compiler (12 modules, TC.H, PARSE.H) and of its
-library (12 modules, LIBINT.H), and the batch files that rebuild them.
+The sources of the Tiny-C compiler (13 modules, TC.H, PARSE.H, GEN.H)
+and of its library (12 modules, LIBINT.H), and the batch files that
+rebuild them.
 Mount TINY-C: as well: the compiler, the headers, TCLIB.OBJ and
 TCMSGS.TEXT come from there.
 

@@ -618,3 +618,13 @@ CC: A NEW LINE AFTER LINKING (TINY-C, TCSRC)
 After linking, CC now ends the line ("(15677 words free)"), so the next
 command of CC @BUILD @LIBS ("> @LIBS") and "Done." start a line of their
 own. TINY-C.BLK (CC.CODE) and TCSRC.BLK (MAIN.C) updated; BIGGY unchanged.
+
+GEN.C SPLIT IN TWO: @BUILD WORKS IN Z80 MODE AGAIN (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+In Z80 mode (and P-Code mode without reclaimed memory) CC ran out of stack
+compiling GEN.C, the largest module (*STK OFLOW*, exit status -2 in the
+shell).  GEN.C is now two modules: GEN.C (the emitter, procedures, the
+object file) and GENX.C (code for expressions, calls, switch), with their
+shared declarations in GEN.H; both are in segment GEN.  CC @BUILD @LIBS
+now runs in Z80 mode.  TCSRC.BLK (GEN.C, GENX.C, GEN.H, BUILD.TEXT,
+README.TEXT) and TINY-C.BLK (CC.CODE) updated; BIGGY unchanged.
