@@ -3,10 +3,10 @@ Big_Disk  (volume BIGGY, 36 files)
     36 files extracted, 6 text files decoded
 Empty_Big_Disk  (volume EMPTY, 0 files)
     0 files extracted, 0 text files decoded
-TCEXTRA  (volume TCEXTRA, 27 files)
-    27 files extracted, 15 text files decoded
-TCSRC  (volume TCSRC, 33 files)
-    33 files extracted, 33 text files decoded
+TCEXTRA  (volume TCEXTRA, 29 files)
+    29 files extracted, 16 text files decoded
+TCSRC  (volume TCSRC, 34 files)
+    34 files extracted, 34 text files decoded
 TCTESTS  (volume TCTESTS, 27 files)
     27 files extracted, 15 text files decoded
 TINY-C  (volume TINY-C, 20 files)

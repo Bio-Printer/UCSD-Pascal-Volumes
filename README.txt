@@ -628,3 +628,13 @@ object file) and GENX.C (code for expressions, calls, switch), with their
 shared declarations in GEN.H; both are in segment GEN.  CC @BUILD @LIBS
 now runs in Z80 mode.  TCSRC.BLK (GEN.C, GENX.C, GEN.H, BUILD.TEXT,
 README.TEXT) and TINY-C.BLK (CC.CODE) updated; BIGGY unchanged.
+
+MEMMARK; MEMFILL/MEMGAP IN PSYS.H (TINY-C, TCSRC, TCEXTRA)
+---------------------------------------------------------------------------
+PSYS.H: memfill() fills the free memory with a pattern; memgap() in a
+program run later returns the longest run of it still intact, an estimate
+of the least free memory of the programs in between.  TCEXTRA:MEMMARK
+(MEMMARK FILL, the program, MEMMARK SCAN) does that.  The exact figure:
+the emulator 1.97, Options > Track Least Free Memory.  TINY-C.BLK
+(TCLIB.OBJ, PSYS.H), TCSRC.BLK (MEMSCAN.C, LIBS.TEXT) and TCEXTRA.BLK
+(MEMMARK.C, MEMMARK.CODE, README.TEXT) updated; BIGGY unchanged.
