@@ -5,7 +5,7 @@ TCEXTRA:): each exercises a part of the language or the library and
 prints what it computed.  Every program is here as source (NAME.C) and
 ready to run (NAME.CODE): X(ecute TCTESTS:NAME.
 
-REBUILDING THEM ALL:  set the prefix to TCTESTS:, X(ecute TINY-C:TINYC,
+REBUILDING THEM ALL:  set the prefix to TCTESTS:, X(ecute TINY-C:CC,
 answer  @TESTS.  TESTS.TEXT compiles and links every program here (each
 leaves a NAME.OBJ as well; remove those with the Filer if you like).
 

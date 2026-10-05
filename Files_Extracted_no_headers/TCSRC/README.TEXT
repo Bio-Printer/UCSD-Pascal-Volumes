@@ -6,12 +6,12 @@ Mount TINY-C: as well: the compiler, the headers, TCLIB.OBJ and
 TCMSGS.TEXT come from there.
 
 REBUILDING THE COMPILER:  set the prefix to TCSRC:, X(ecute
-TINY-C:TINYC, answer  @BUILD.  BUILD.TEXT compiles the compiler's modules
-and links TCSRC:TINYC2.CODE, identical to TINY-C:TINYC.CODE apart from its
+TINY-C:CC, answer  @BUILD.  BUILD.TEXT compiles the compiler's modules
+and links TCSRC:CC2.CODE, identical to TINY-C:CC.CODE apart from its
 name (check it with TCEXTRA:CMPCODE).  To use it, transfer it to
-TINY-C:TINYC.CODE with the Filer.
+TINY-C:CC.CODE with the Filer.
 
-REBUILDING THE LIBRARY:  set the prefix to TCSRC:, X(ecute TINY-C:TINYC,
+REBUILDING THE LIBRARY:  set the prefix to TCSRC:, X(ecute TINY-C:CC,
 answer  @LIBS.  LIBS.TEXT compiles the library modules and joins them
 (/J) into TCSRC:TCLIB2.OBJ, identical to TINY-C:TCLIB.OBJ (check it with
 CMPCODE).  To use it, transfer it to TINY-C:TCLIB.OBJ with the Filer.

@@ -4,9 +4,9 @@ Demo programs for Tiny-C (the compiler is on TINY-C:, the test programs
 on TCTESTS:).  Every program is here as source (NAME.C) and ready to run
 (NAME.CODE):
 X(ecute TCEXTRA:NAME.  To compile one yourself, set the prefix to
-TCEXTRA: and X(ecute TINY-C:TINYC, answer NAME.
+TCEXTRA: and X(ecute TINY-C:CC, answer NAME.
 
-REBUILDING THEM ALL:  set the prefix to TCEXTRA:, X(ecute TINY-C:TINYC,
+REBUILDING THEM ALL:  set the prefix to TCEXTRA:, X(ecute TINY-C:CC,
 answer  @DEMOS.  DEMOS.TEXT compiles and links every program here (each
 leaves a NAME.OBJ as well; remove those with the Filer if you like).
 
@@ -23,7 +23,7 @@ or later.
 
 CMPCODE compares two files byte by byte (for .CODE files the program
 name in block 0 aside): after @BUILD on TCSRC:, compare
-TINY-C:TINYC.CODE with TCSRC:TINYC2.CODE, after @LIBS TINY-C:TCLIB.OBJ
+TINY-C:CC.CODE with TCSRC:CC2.CODE, after @LIBS TINY-C:TCLIB.OBJ
 with TCSRC:TCLIB2.OBJ; it prints IDENTICAL.
 
 FILES.TEXT lists every file on this volume.

@@ -1,4 +1,4 @@
-; LIBS -- rebuild the C library: prefix TCSRC:, X(ecute TINY-C:TINYC, answer @LIBS
+; LIBS -- rebuild the C library: prefix TCSRC:, X(ecute TINY-C:CC, answer @LIBS
 ; Compiles every library module, then joins them into TCLIB2.OBJ.
 /Z /C ASSERT
 /Z /C CONIO

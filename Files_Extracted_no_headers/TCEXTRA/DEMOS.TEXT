@@ -1,5 +1,5 @@
 ; DEMOS -- compile and link every program on TCEXTRA:
-; prefix TCEXTRA:, X(ecute TINY-C:TINYC, answer @DEMOS
+; prefix TCEXTRA:, X(ecute TINY-C:CC, answer @DEMOS
 /Z BOXES
 /Z CALC
 /Z DEMO

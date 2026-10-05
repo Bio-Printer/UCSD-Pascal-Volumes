@@ -1,6 +1,6 @@
-Big_Disk  (volume BIGGY, 53 files)
+Big_Disk  (volume BIGGY, 36 files)
     ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
-    53 files extracted, 22 text files decoded
+    36 files extracted, 6 text files decoded
 Empty_Big_Disk  (volume EMPTY, 0 files)
     0 files extracted, 0 text files decoded
 TCEXTRA  (volume TCEXTRA, 27 files)

@@ -1,6 +1,6 @@
 TINY-C for UCSD Pascal II.0                        volume TINY-C:
 
-Use: set the prefix to TINY-C: (F(iler, P(refix), then X(ecute TINYC and
+Use: set the prefix to TINY-C: (F(iler, P(refix), then X(ecute CC and
 answer "Compile what file?" with
     NAME                 compile NAME.C (or NAME.TEXT), link with
                          TCLIB.OBJ -> NAME.CODE  (NAME.C works too)

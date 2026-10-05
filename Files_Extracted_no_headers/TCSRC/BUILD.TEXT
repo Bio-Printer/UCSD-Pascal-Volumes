@@ -1,5 +1,5 @@
-; BUILD -- rebuild the Tiny-C compiler: prefix TCSRC:, X(ecute TINY-C:TINYC, answer @BUILD
-; Compiles every module, then links them into TINYC2.CODE.
+; BUILD -- rebuild the Tiny-C compiler: prefix TCSRC:, X(ecute TINY-C:CC, answer @BUILD
+; Compiles every module, then links them into CC2.CODE.
 /C MAIN
 /C UTIL
 /C TYPES
@@ -12,4 +12,4 @@
 /C IR
 /C GEN
 /C LINK
-/L TINYC2=MAIN,UTIL,TYPES,PP,LEX,PSYM,EXPR,DECL,STMT,IR,GEN,LINK
+/L CC2=MAIN,UTIL,TYPES,PP,LEX,PSYM,EXPR,DECL,STMT,IR,GEN,LINK

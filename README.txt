@@ -587,3 +587,17 @@ SYSTEM.SHELL (and TCEXTRA's SHELL): when a program is on several disks
 (up to 8, one per disk unit), the shell lists them and one key chooses --
 1..n runs that one at once, no RETURN; any other key runs nothing.
 VERSION.TEXT revision 1.14.
+
+BIGGY REVISION 1.15: TINY-C ONLY ON TINY-C:; THE COMPILER IS CC.CODE
+---------------------------------------------------------------------------
+One copy of each file: TCLIB.OBJ, TCMSGS.TEXT and the headers (*.H) left
+BIGGY (TINYC.CODE already left in 1.14). Tiny-C is on TINY-C: only; the
+compiler finds them there (it looks on the prefix volume, the boot volume,
+then TINY-C:). BIGGY keeps SYSTEM.SHELL, which $ runs.
+
+The compiler's code file is now CC.CODE (was TINYC.CODE): X(ecute
+TINY-C:CC. @BUILD on TCSRC: links CC2.CODE (was TINYC2.CODE); compare it
+with TINY-C:CC.CODE using TCEXTRA:CMPCODE. TINY-C.BLK, TCSRC.BLK (BUILD.TEXT,
+LIBS.TEXT, README.TEXT, MAIN.C comments), TCEXTRA.BLK and TCTESTS.BLK
+(README.TEXT, DEMOS.TEXT, TESTS.TEXT, CMPCODE.C comment) say CC.
+VERSION.TEXT revision 1.15.

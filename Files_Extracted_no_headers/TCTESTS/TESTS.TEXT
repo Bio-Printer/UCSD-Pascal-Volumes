@@ -1,5 +1,5 @@
 ; TESTS -- compile and link every program on TCTESTS:
-; prefix TCTESTS:, X(ecute TINY-C:TINYC, answer @TESTS
+; prefix TCTESTS:, X(ecute TINY-C:CC, answer @TESTS
 /Z CONTROL
 /Z DOUBLES
 /Z FCOMPARE
