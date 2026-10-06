@@ -668,3 +668,13 @@ the case table for each switch.  Its permanent pool takes 512-byte blocks.
 Least free memory in Z80 mode compiling every module from X(ecute: 1069 ->
 1497 words; CC @BUILD @LIBS from the shell 1024 -> 1452.  TINY-C.BLK
 (CC.CODE) and TCSRC.BLK (TC.H, GEN.C, IR.C, UTIL.C) updated.
+
+CC'S "WORDS FREE" IS EACH PASS'S LEAST (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+After each pass CC printed the free memory at its end.  With the emulator
+1.99 it prints the least free memory during the pass, which the emulator
+keeps in SYSCOM^.EXPANSION[8] (PSYS.H: memleast_start, memleast,
+memleast_stop); the least of the figures is what Options > Track Least
+Free Memory shows.  On another machine CC prints the free memory at the
+pass's end as before.  TINY-C.BLK (CC.CODE, PSYS.H) and TCSRC.BLK (MAIN.C)
+updated; BIGGY unchanged.
