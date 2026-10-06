@@ -1,0 +1,16 @@
+TOOL SOURCES                                      volume TOOLSRC:
+
+The sources of the tools on TOOLS:.
+
+REBUILDING THEM:  set the prefix to TOOLSRC:, X(ecute TINY-C:CC, answer
+@TOOLS.  TOOLS.TEXT compiles and links every tool (NAME.CODE here, and
+a NAME.OBJ); copy the new NAME.CODE to TOOLS: with the Filer.
+
+VI.C, VIUCSD.H   vi: the BusyBox "tiny vi" (GPL v2 or later, see its
+        header), edited for Tiny-C; VIUCSD.H is the P-System side (keys,
+        screen, files).  For now VI.C needs more memory than the compiler
+        has in the normal layout: rebuild it in P-Code mode with Options >
+        Reclaim Z80 Interpreter and BIOS Memory and Options > Harvard Mode
+        on (the compiler's code then takes no data memory).
+
+FILES.TEXT lists every file on this volume.

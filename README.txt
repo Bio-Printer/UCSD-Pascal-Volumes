@@ -721,3 +721,38 @@ Least free memory in Z80 mode: linking CC2.CODE 1954 -> 2813 words; every
 @BUILD/@LIBS command from X(ecute 1954 -> 2713; CC @BUILD @LIBS from the
 shell 1909 -> 2573.  TINY-C.BLK (CC.CODE) and TCSRC.BLK (LINK.C, UTIL.C)
 updated; BIGGY unchanged.
+
+SETJMP AND LONGJMP (TINY-C, TCSRC, TCTESTS)
+---------------------------------------------------------------------------
+The library has setjmp() and longjmp() with a SETJMP.H header: longjmp
+returns from the setjmp call again, out of any calls and segments (their
+segments are given back as their returns would have).  TINY-C.BLK
+(TCLIB.OBJ, SETJMP.H), TCSRC.BLK (SETJMP.C) and TCTESTS.BLK (SETJMP.C,
+SETJMP.CODE) updated; BIGGY unchanged.
+
+COMPILER AND LIBRARY FIXES FOUND PORTING VI (TINY-C, TCSRC, TCTESTS)
+---------------------------------------------------------------------------
+The preprocessor no longer expands a macro again inside its own expansion
+(#define rows (G.rows) with f(rows) gave G.(G.rows)), and carries out
+#if/#else/#endif lines inside a call spread over several lines.  A static
+array inside a function, sized by its initializer, is no longer
+initialized over the first global variables.  Writing a text file, a full
+page moves the unfinished line to the next page without needing memory
+(lines under 512 characters); fputc reports an error instead of dropping
+part of a line.  An if / else if chain is parsed in a loop (no stack per
+link).  New tests: MACROS, STATICS, TEXTPAGE, ELSEIF on TCTESTS.
+TINY-C.BLK (CC.CODE, TCLIB.OBJ), TCSRC.BLK (PP.C, STMT.C, STDIO.C) and
+TCTESTS.BLK updated; BIGGY unchanged.
+
+TOOLS AND TOOLSRC (NEW VOLUMES)
+---------------------------------------------------------------------------
+    TOOLS.BLK    tools written in Tiny-C, ready to run: VI.CODE, the
+                 screen editor vi (the BusyBox "tiny vi"): from the shell,
+                 VI NAME.C; from X(ecute TOOLS:VI it asks for the file
+    TOOLSRC.BLK  their sources: VI.C, VIUCSD.H (the P-System side: keys,
+                 screen, files) and TOOLS.TEXT: with the prefix on
+                 TOOLSRC:, X(ecute TINY-C:CC and answer @TOOLS
+For now VI.C compiles on the P-System only in P-Code mode with Options >
+Reclaim Z80 Interpreter and BIOS Memory and Options > Harvard Mode (it
+then gives exactly TOOLS:VI.CODE); in one piece it needs more memory than
+the compiler has in the normal layout and in Z80 mode.

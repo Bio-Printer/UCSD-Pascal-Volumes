@@ -1,0 +1,13 @@
+TOOLS                                               volume TOOLS:
+
+Tools written in Tiny-C, ready to run.  Their sources are on TOOLSRC:.
+
+VI      the screen editor vi (the BusyBox "tiny vi"):  from the shell,
+        VI NAME.C  (the name as typed; .C, .H and .TEXT files are text
+        files); from X(ecute TOOLS:VI it asks for the file.  Most of vi's
+        commands: moving, i a o O, x dd dw cw D C J p P y yy, . u U,
+        marks, / ? n N, :w :q :wq ZZ :s :set :r :e, ...  The cursor keys
+        are the P-System's (they take ^T ^R ^Q ^U); ^L redraws.  Memory
+        limits the file: about 6 KB in Z80 mode, 14 KB in P-Code mode.
+
+FILES.TEXT lists every file on this volume.

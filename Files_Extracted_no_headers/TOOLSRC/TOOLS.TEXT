@@ -1,0 +1,3 @@
+; TOOLS -- compile and link every tool on TOOLSRC:
+; prefix TOOLSRC:, X(ecute TINY-C:CC, answer @TOOLS
+/Z VI
