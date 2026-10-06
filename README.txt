@@ -686,3 +686,10 @@ it now declares each when first needed.  Least free memory in Z80 mode:
 every @BUILD/@LIBS command from X(ecute 1472 -> 1748 words; CC @BUILD
 @LIBS from the shell 1427 -> 1641.  TINY-C.BLK (CC.CODE) and TCSRC.BLK
 (EXPR.C, COMPILE.C, PARSE.H) updated; BIGGY unchanged.
+
+LINKER GIVES BACK ITS REFERENCE LISTS (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+CC's linker frees the lists of what each procedure uses once it knows what
+to link, before it writes the code.  Least free memory in Z80 mode linking
+CC2.CODE: 1703 -> 2229 words.  TINY-C.BLK (CC.CODE) and TCSRC.BLK (LINK.C,
+UTIL.C, TC.H) updated; BIGGY unchanged.
