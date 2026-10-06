@@ -693,3 +693,13 @@ CC's linker frees the lists of what each procedure uses once it knows what
 to link, before it writes the code.  Least free memory in Z80 mode linking
 CC2.CODE: 1703 -> 2229 words.  TINY-C.BLK (CC.CODE) and TCSRC.BLK (LINK.C,
 UTIL.C, TC.H) updated; BIGGY unchanged.
+
+LESS RESIDENT WHILE COMPILING (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+CC finishes each module's Compiling pass outside the PARSE segment, the
+preprocessor converts real constants (the Compiling pass no longer loads
+REALLIT deep in an expression), and the linker's tables grow in blocks.
+Least free memory in Z80 mode, every @BUILD/@LIBS command from X(ecute:
+1777 -> 1953 words; CC @BUILD @LIBS from the shell 1637 -> 1813.
+TINY-C.BLK (CC.CODE) and TCSRC.BLK (COMPILE.C, IR.C, LEX.C, PP.C, MAIN.C,
+LINK.C, TC.H, PARSE.H) updated; BIGGY unchanged.
