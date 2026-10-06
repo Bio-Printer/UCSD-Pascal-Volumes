@@ -33,6 +33,11 @@ stays in memory meanwhile.  pexec("NAME ARG1 ARG2") passes the words to
 NAME's main(int argc, char **argv) (80 characters at most).  It needs the operating system of BIGGY 1.10
 or later.  SHELL.C on TCEXTRA: is a small shell built on it.
 
+SETJMP.H: setjmp(env) and longjmp(env, val) -- back to the setjmp from
+any depth, through any segments (their code is given back as their
+returns would have).  The function that called setjmp must not have
+returned.
+
 FUNCTION POINTERS: a call through a function pointer (qsort, bsearch and
 printf's floating-point formatting use them) is by default compiled to
 CSP 138 (CALLI), which the native P-Code engine implements and the Z80
