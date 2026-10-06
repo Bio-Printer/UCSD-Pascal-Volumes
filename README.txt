@@ -658,3 +658,13 @@ names are held in 30 bytes.  Least free memory in Z80 mode compiling
 every module from X(ecute: 397 -> 1069 words; CC @BUILD @LIBS from the
 shell 352 -> 1024.  TINY-C.BLK (CC.CODE) and TCSRC.BLK (UTIL.C, MAIN.C,
 PP.C, COMPILE.C) updated; BIGGY unchanged.
+
+SMALLER CODE GENERATOR BUFFERS (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+CC's code generator allocated about 9,000 words of buffers for the largest
+possible procedure and a 1024-case switch; they are now sized for 1.5
+times the largest procedure of the compiler, library, demos and tests, and
+the case table for each switch.  Its permanent pool takes 512-byte blocks.
+Least free memory in Z80 mode compiling every module from X(ecute: 1069 ->
+1497 words; CC @BUILD @LIBS from the shell 1024 -> 1452.  TINY-C.BLK
+(CC.CODE) and TCSRC.BLK (TC.H, GEN.C, IR.C, UTIL.C) updated.
