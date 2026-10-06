@@ -712,3 +712,12 @@ every @BUILD/@LIBS command in Z80 mode is now the link of CC2.CODE (1954
 words from X(ecute, 1909 from the shell).  TINY-C.BLK (CC.CODE) and
 TCSRC.BLK (TC.H, PARSE.H, PSYM.C, DECL.C, EXPR.C, STMT.C, COMPILE.C, IR.C,
 GENX.C) updated; BIGGY unchanged.
+
+SMALLER LINKER RECORDS (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+CC's linker keeps 12-byte procedure records (were 16) and static names
+without their MODULE' prefix; the permanent pool takes 448-byte blocks.
+Least free memory in Z80 mode: linking CC2.CODE 1954 -> 2813 words; every
+@BUILD/@LIBS command from X(ecute 1954 -> 2713; CC @BUILD @LIBS from the
+shell 1909 -> 2573.  TINY-C.BLK (CC.CODE) and TCSRC.BLK (LINK.C, UTIL.C)
+updated; BIGGY unchanged.
