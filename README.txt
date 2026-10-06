@@ -703,3 +703,12 @@ Least free memory in Z80 mode, every @BUILD/@LIBS command from X(ecute:
 1777 -> 1953 words; CC @BUILD @LIBS from the shell 1637 -> 1813.
 TINY-C.BLK (CC.CODE) and TCSRC.BLK (COMPILE.C, IR.C, LEX.C, PP.C, MAIN.C,
 LINK.C, TC.H, PARSE.H) updated; BIGGY unchanged.
+
+SMALLER SYMBOL AND TYPE RECORDS (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+CC's symbol records are 14 bytes (were 18), its type records 12 (were 22).
+Every Compiling pass has about 667 words more; the least free memory of
+every @BUILD/@LIBS command in Z80 mode is now the link of CC2.CODE (1954
+words from X(ecute, 1909 from the shell).  TINY-C.BLK (CC.CODE) and
+TCSRC.BLK (TC.H, PARSE.H, PSYM.C, DECL.C, EXPR.C, STMT.C, COMPILE.C, IR.C,
+GENX.C) updated; BIGGY unchanged.
