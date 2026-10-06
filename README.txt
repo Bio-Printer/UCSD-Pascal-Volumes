@@ -678,3 +678,11 @@ memleast_stop); the least of the figures is what Options > Track Least
 Free Memory shows.  On another machine CC prints the free memory at the
 pass's end as before.  TINY-C.BLK (CC.CODE, PSYS.H) and TCSRC.BLK (MAIN.C)
 updated; BIGGY unchanged.
+
+RUNTIME HELPERS DECLARED WHEN NEEDED (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+CC declared all 35 runtime helpers (__divi, __lmul ...) in every module;
+it now declares each when first needed.  Least free memory in Z80 mode:
+every @BUILD/@LIBS command from X(ecute 1472 -> 1748 words; CC @BUILD
+@LIBS from the shell 1427 -> 1641.  TINY-C.BLK (CC.CODE) and TCSRC.BLK
+(EXPR.C, COMPILE.C, PARSE.H) updated; BIGGY unchanged.
