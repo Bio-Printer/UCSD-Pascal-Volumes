@@ -814,3 +814,21 @@ Two more commands in the Tiny-C shell:
            deletes, any other keeps them); a plain name: at once.
 VERSION.TEXT revision 1.17.  Big_Disk.BLK and TCEXTRA.BLK updated;
 extracted files, report and manifest regenerated.
+
+WHICH DISK CC TAKES A FILE FROM (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+A source, an #include file or an @batch file named with a volume
+(TOOLSRC:VI.H, #5:X.C, *X.H) is taken from that volume only; copies of
+the same name elsewhere do not matter.  Named without one, CC reads the
+directory of every disk unit (4, 5, 9..14):
+    on one disk only          that one;
+    on several                the one on the disk of the file that names
+                              it (the including file; for a source, the
+                              @batch file), else the one on the prefix
+                              volume (the Filer's Prefix, the shell's CD),
+                              else an error (message 117) that lists the
+                              volumes, and the compile stops.
+This replaces the old order for <x.h> (prefix, boot volume, TINY-C:).
+The code that looks (PP.C, segment FIND) is in memory only while it
+looks.  TINY-C.BLK (CC.CODE, TCMSGS.TEXT) and TCSRC.BLK (PP.C, MAIN.C,
+TC.H) updated; BIGGY unchanged.
