@@ -802,3 +802,15 @@ TCEXTRA) has two commands of its own:
            a screen at a time (ESC stops).
 VERSION.TEXT revision 1.16.  Big_Disk.BLK and TCEXTRA.BLK updated;
 extracted files, report and manifest regenerated.
+
+BIGGY REVISION 1.17: TYPE AND DELETE IN THE SHELL (BIGGY, TCEXTRA)
+---------------------------------------------------------------------------
+Two more commands in the Tiny-C shell:
+    TYPE [VOL: or #5:]NAME   a text file on the console (no pause at a
+           screenful); with wildcards (* = ?) each file that matches,
+           under its name; a file that is not text: says so.
+    DELETE (or DEL) [VOL: or #5:]PATTERN   deletes the files that match;
+           with wildcards it lists them first and asks (one key: Y
+           deletes, any other keeps them); a plain name: at once.
+VERSION.TEXT revision 1.17.  Big_Disk.BLK and TCEXTRA.BLK updated;
+extracted files, report and manifest regenerated.
