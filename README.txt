@@ -750,9 +750,27 @@ TOOLS AND TOOLSRC (NEW VOLUMES)
                  screen editor vi (the BusyBox "tiny vi"): from the shell,
                  VI NAME.C; from X(ecute TOOLS:VI it asks for the file
     TOOLSRC.BLK  their sources: VI.C, VIUCSD.H (the P-System side: keys,
-                 screen, files) and TOOLS.TEXT: with the prefix on
+                 screen, files), VIPAGE.H (the window) and TOOLS.TEXT: with the prefix on
                  TOOLSRC:, X(ecute TINY-C:CC and answer @TOOLS
 For now VI.C compiles on the P-System only in P-Code mode with Options >
 Reclaim Z80 Interpreter and BIOS Memory and Options > Harvard Mode (it
 then gives exactly TOOLS:VI.CODE); in one piece it needs more memory than
 the compiler has in the normal layout and in Z80 mode.
+
+VI: A WINDOW INTO BIG FILES; LINKER FIX (TOOLS, TOOLSRC, TINY-C, TCSRC)
+---------------------------------------------------------------------------
+As the L2 editor does it, VI now keeps only a window of the file in
+memory; the rest goes into VI.SWAP (on the prefix volume, deleted when VI
+ends) in 1 KB slots, on a stack of the lines before the window and a
+stack of the lines after it.  j, k, ^F, ^B ... move the window at its
+edges; / ? n N { } search on through the whole file; G, :N, marks and ''
+jump anywhere; line numbers count from the file's start.  A range
+(5dd, :100,200d, :%s/a/b/) is brought into memory whole, or refused with
+a message if it does not fit (working through bigger ranges a window at
+a time is still to come).  :w and ZZ write the whole file.  The window is
+about 4 KB in Z80 mode, 12 KB in P-Code mode, 30 KB with the Harvard
+layout; files up to about 125 KB.  New source VIPAGE.H on TOOLSRC:.
+Also: p/P with an empty register no longer makes the next '.' loop for
+ever.  The linker took segment lengths over 32767 bytes as negative (VI's
+code segment is now 34 KB): CC.CODE and LINK.C, UTIL.C, TC.H updated.
+TOOLS.BLK, TOOLSRC.BLK, TINY-C.BLK and TCSRC.BLK updated; BIGGY unchanged.
