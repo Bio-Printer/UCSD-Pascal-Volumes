@@ -858,3 +858,17 @@ BIGGY REVISION 1.19: COPY, MOVE AND RENAME IN THE SHELL (BIGGY, TCEXTRA)
            when NEWNAME is there already.
 VERSION.TEXT revision 1.19.  Big_Disk.BLK and TCEXTRA.BLK updated;
 extracted files, report and manifest regenerated.
+
+VI: PAGE UP, PAGE DOWN, HOME, END, INSERT, DELETE (TOOLS, TOOLSRC, TINY-C)
+---------------------------------------------------------------------------
+The emulator types the L2 editor's commands for these keys (Page Down
+>P, Page Up <P>, Home JB, End JE, Insert I, Delete D ^U ^C), which VI
+took as its own commands.  VI now sets SYSCOM^.EXPANSION[1] to 25605
+while it runs (PX_KEYS in PSYS.H, which also names the codes) and clears
+it when it ends.  An emulator with the keys change (UCSD-C:
+emulator/PSystemEngine-keys.patch, emulator/KEYS.md) then sends one code
+each: Home 84H, End 85H, Insert 86H, Delete 87H, Page Up 88H, Page Down
+89H, which VI already understands (start/end of the line, insert, delete
+a character, a screen back/forward).  The L2 editor and every other
+program get the keys as before.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK
+(VIUCSD.C) and TINY-C.BLK (PSYS.H) updated; BIGGY unchanged.
