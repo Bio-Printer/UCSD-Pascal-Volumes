@@ -786,3 +786,19 @@ module (/Z /C) and links them (/L VI=...); in modules VI compiles in Z80
 mode and the normal layout too (it needed P-Code mode with the Harvard
 layout).  VI.CODE does the same as before.  TOOLS.BLK and TOOLSRC.BLK
 updated.
+
+BIGGY REVISION 1.16: CD AND DIR IN THE SHELL (BIGGY, TCEXTRA)
+---------------------------------------------------------------------------
+The Tiny-C shell (SYSTEM.SHELL on BIGGY, SHELL.C and SHELL.CODE on
+TCEXTRA) has two commands of its own:
+    CD #5  (or CD 5, CD VOL, CD *)   the prefix becomes unit 5's volume,
+           as the Filer's Prefix does it (the OS's DKVID): the files of
+           later commands, and of the programs they run, are there when
+           they name no volume.  CD alone shows the prefix.
+    DIR [VOL: or #5:][PATTERN]   the files of the prefix volume, or of
+           VOL: or unit 5, whose names match the pattern: * or = any
+           characters, ? any one (DIR *.C, DIR #9:, DIR TOOLSRC:VI*.C);
+           size, date and kind, then the files and blocks used and free;
+           a screen at a time (ESC stops).
+VERSION.TEXT revision 1.16.  Big_Disk.BLK and TCEXTRA.BLK updated;
+extracted files, report and manifest regenerated.

@@ -1,4 +1,4 @@
-BIGGY boot volume, revision 1.15  (04-Oct-26)
+BIGGY boot volume, revision 1.16  (07-Oct-26)
   SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.11 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, $ runs SYSTEM.SHELL); its FGOTOXY is
@@ -16,7 +16,9 @@ BIGGY boot volume, revision 1.15  (04-Oct-26)
   SYSTEM.SHELL   the Tiny-C shell (UCSD-C examples/shell.c): $ at the
                  Command: prompt (? lists it); NAME ARG1 ARG2 ... passes
                  the arguments; a NAME without a volume is looked for
-                 on every disk on line (on several: you choose, one key)
+                 on every disk on line (on several: you choose, one key);
+                 1.16: CD #n sets the prefix to unit n's volume, DIR
+                 [VOL:|#n:][PATTERN] lists files (* = ? wildcards)
   Tiny-C itself is on TINY-C: only: X(ecute TINY-C:CC (the compiler is
                  CC.CODE now, was TINYC.CODE); TINYC.CODE left BIGGY in
                  1.14, TCLIB.OBJ, TCMSGS.TEXT and the headers in 1.15
