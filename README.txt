@@ -872,3 +872,5 @@ each: Home 84H, End 85H, Insert 86H, Delete 87H, Page Up 88H, Page Down
 a character, a screen back/forward).  The L2 editor and every other
 program get the keys as before.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK
 (VIUCSD.C) and TINY-C.BLK (PSYS.H) updated; BIGGY unchanged.
+The emulator does this from version 2.00 (UCSD-Pascal_Windows_Emulator);
+TINY-C.BLK (PSYS.H comment) and TOOLS.BLK (README.TEXT) say so.
