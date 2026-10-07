@@ -749,8 +749,9 @@ TOOLS AND TOOLSRC (NEW VOLUMES)
     TOOLS.BLK    tools written in Tiny-C, ready to run: VI.CODE, the
                  screen editor vi (the BusyBox "tiny vi"): from the shell,
                  VI NAME.C; from X(ecute TOOLS:VI it asks for the file
-    TOOLSRC.BLK  their sources: VI.C, VIUCSD.H (the P-System side: keys,
-                 screen, files), VIPAGE.H (the window) and TOOLS.TEXT: with the prefix on
+    TOOLSRC.BLK  their sources: VI.H and the modules VIMAIN.C, VISCREEN.C,
+                 VITEXT.C, VICOLON.C, VICMD.C, VIPAGE.C (with VIPAGE.H, the
+                 window), VIUCSD.C (the P-System side), and TOOLS.TEXT: with the prefix on
                  TOOLSRC:, X(ecute TINY-C:CC and answer @TOOLS
 For now VI.C compiles on the P-System only in P-Code mode with Options >
 Reclaim Z80 Interpreter and BIOS Memory and Options > Harvard Mode (it
@@ -774,3 +775,14 @@ Also: p/P with an empty register no longer makes the next '.' loop for
 ever.  The linker took segment lengths over 32767 bytes as negative (VI's
 code segment is now 34 KB): CC.CODE and LINK.C, UTIL.C, TC.H updated.
 TOOLS.BLK, TOOLSRC.BLK, TINY-C.BLK and TCSRC.BLK updated; BIGGY unchanged.
+
+VI IN MODULES (TOOLSRC, TOOLS)
+---------------------------------------------------------------------------
+VI.C (123 KB) was too big to edit with VI itself.  It is now VI.H (what
+the modules share) and VIMAIN.C, VISCREEN.C, VITEXT.C, VICOLON.C,
+VICMD.C, VIPAGE.C, VIUCSD.C (8 to 25 KB each; VIUCSD.H became VIUCSD.C,
+VIPAGE.H keeps only the window's declarations).  @TOOLS compiles each
+module (/Z /C) and links them (/L VI=...); in modules VI compiles in Z80
+mode and the normal layout too (it needed P-Code mode with the Harvard
+layout).  VI.CODE does the same as before.  TOOLS.BLK and TOOLSRC.BLK
+updated.
