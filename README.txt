@@ -889,3 +889,6 @@ the shell:  GREP [-i] PATTERN [VOL: or #5:]FILES ...
     (the shell splits its words at blanks).
     GREP printf *.C     GREP -i ^int #9:*.H     GREP fopen\s*\( TOOLSRC:VI*.C
 TINY-C.BLK (PSYS.H: a comment) updated too; BIGGY unchanged.
+GREP update: * in a PATTERN now means any characters, as in file names
+(GREP vi*pageup *.C finds VI_K_PAGEUP); . is any one character, x+ and x?
+still repeat, \* is a star.  TOOLS.BLK and TOOLSRC.BLK updated.
