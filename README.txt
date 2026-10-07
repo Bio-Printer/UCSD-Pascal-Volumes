@@ -874,3 +874,18 @@ program get the keys as before.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK
 (VIUCSD.C) and TINY-C.BLK (PSYS.H) updated; BIGGY unchanged.
 The emulator does this from version 2.00 (UCSD-Pascal_Windows_Emulator);
 TINY-C.BLK (PSYS.H comment) and TOOLS.BLK (README.TEXT) say so.
+
+GREP (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+TOOLS:GREP.CODE, source TOOLSRC:GREP.C (@TOOLS builds it after VI).  From
+the shell:  GREP [-i] PATTERN [VOL: or #5:]FILES ...
+    prints each line of a text file that matches as VOL:NAME:LINE: text,
+    then how many lines in how many files.  Case is ignored unless -i is
+    given (-i makes case count: the other way round from Unix).  FILES
+    takes the wildcards * = ? and is looked for on every disk on line
+    unless it names a volume.  PATTERN is a regular expression: . any
+    character, [abc] [^abc] [a-z] a class, * + ? repeat what is before
+    it, ^ $ the start and end of the line, \c the character c, \s a blank
+    (the shell splits its words at blanks).
+    GREP printf *.C     GREP -i ^int #9:*.H     GREP fopen\s*\( TOOLSRC:VI*.C
+TINY-C.BLK (PSYS.H: a comment) updated too; BIGGY unchanged.
