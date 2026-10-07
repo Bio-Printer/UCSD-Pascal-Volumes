@@ -1,4 +1,4 @@
-BIGGY boot volume, revision 1.18  (07-Oct-26)
+BIGGY boot volume, revision 1.19  (07-Oct-26)
   SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.11 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, $ runs SYSTEM.SHELL); its FGOTOXY is
@@ -22,7 +22,9 @@ BIGGY boot volume, revision 1.18  (07-Oct-26)
                  1.17: TYPE shows text files, DELETE deletes files
                  (with wildcards it lists them and asks first);
                  1.18: WHEREIS finds files on every disk, VOLUMES
-                 lists the disks (unit, name, files, blocks used)
+                 lists the disks (unit, name, files, blocks used);
+                 1.19: COPY, MOVE and RENAME (a copy keeps its kind
+                 and date)
   Tiny-C itself is on TINY-C: only: X(ecute TINY-C:CC (the compiler is
                  CC.CODE now, was TINYC.CODE); TINYC.CODE left BIGGY in
                  1.14, TCLIB.OBJ, TCMSGS.TEXT and the headers in 1.15

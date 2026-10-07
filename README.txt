@@ -844,3 +844,17 @@ BIGGY REVISION 1.18: WHEREIS AND VOLUMES IN THE SHELL (BIGGY, TCEXTRA)
            the prefix volume are marked.
 VERSION.TEXT revision 1.18.  Big_Disk.BLK and TCEXTRA.BLK updated;
 extracted files, report and manifest regenerated.
+
+BIGGY REVISION 1.19: COPY, MOVE AND RENAME IN THE SHELL (BIGGY, TCEXTRA)
+---------------------------------------------------------------------------
+    COPY SOURCE DEST   SOURCE is [VOL: or #5:]PATTERN (wildcards * = ?);
+           DEST is a volume (#9:, TOOLSRC:), keeping the names, or for one
+           file a new name ([VOL:]NAME; without a volume, the prefix).
+           The copy keeps the original's kind (a .C file stays a text
+           file), date and length; a file of that name there is replaced.
+    MOVE SOURCE DEST   the same, then the original is deleted; on its own
+           disk only its name changes.
+    RENAME (or REN) [VOL: or #5:]NAME NEWNAME   on the same disk; refused
+           when NEWNAME is there already.
+VERSION.TEXT revision 1.19.  Big_Disk.BLK and TCEXTRA.BLK updated;
+extracted files, report and manifest regenerated.
