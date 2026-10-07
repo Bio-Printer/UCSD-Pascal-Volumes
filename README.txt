@@ -892,3 +892,23 @@ TINY-C.BLK (PSYS.H: a comment) updated too; BIGGY unchanged.
 GREP update: * in a PATTERN now means any characters, as in file names
 (GREP vi*pageup *.C finds VI_K_PAGEUP); . is any one character, x+ and x?
 still repeat, \* is a star.  TOOLS.BLK and TOOLSRC.BLK updated.
+
+BIGGY REVISION 1.20: THE SHELL'S COMMAND HISTORY AND LINE EDITING (BIGGY, TCEXTRA)
+---------------------------------------------------------------------------
+The shell keeps its last 10 commands in #4:SYSTEM.CMDS (written before
+each command runs, read when the shell starts or comes back from a
+program), so they are there the next time too.  On its command line:
+    Up / Down        the commands before / after (Down past the newest:
+                     what was being typed)
+    Left / Right     a character back / on
+    Home / End       the start / end of the line
+    Insert           switches between inserting (at the start of every
+                     line) and typing over
+    Delete           deletes the character at the cursor
+    Backspace        deletes the one before it
+    ESC              clears the line
+Empty lines, BYE and a repeat of the newest are not kept.  Home, End,
+Insert and Delete need emulator 2.00 or later (the shell asks for them
+through SYSCOM^.EXPANSION[1] while it reads a line).
+VERSION.TEXT revision 1.20.  Big_Disk.BLK and TCEXTRA.BLK updated;
+extracted files, report and manifest regenerated.
