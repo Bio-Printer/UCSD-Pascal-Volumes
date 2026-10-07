@@ -832,3 +832,15 @@ This replaces the old order for <x.h> (prefix, boot volume, TINY-C:).
 The code that looks (PP.C, segment FIND) is in memory only while it
 looks.  TINY-C.BLK (CC.CODE, TCMSGS.TEXT) and TCSRC.BLK (PP.C, MAIN.C,
 TC.H) updated; BIGGY unchanged.
+
+BIGGY REVISION 1.18: WHEREIS AND VOLUMES IN THE SHELL (BIGGY, TCEXTRA)
+---------------------------------------------------------------------------
+    WHEREIS [VOL: or #5:]PATTERN   the files that match (* = ?) on every
+           disk on line, each with its unit, volume, size, date and
+           kind, then how many on how many volumes; with a volume named,
+           on that one only.
+    VOLUMES (or VOLS)   every disk on line: unit, volume name, number of
+           files, blocks used of the volume's size; the boot volume and
+           the prefix volume are marked.
+VERSION.TEXT revision 1.18.  Big_Disk.BLK and TCEXTRA.BLK updated;
+extracted files, report and manifest regenerated.
