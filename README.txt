@@ -912,3 +912,14 @@ Insert and Delete need emulator 2.00 or later (the shell asks for them
 through SYSCOM^.EXPANSION[1] while it reads a line).
 VERSION.TEXT revision 1.20.  Big_Disk.BLK and TCEXTRA.BLK updated;
 extracted files, report and manifest regenerated.
+
+BATCH FILES BUILD ONTO THE VOLUME THE RESULT BELONGS ON (TCSRC, TOOLSRC)
+---------------------------------------------------------------------------
+    TCSRC:BUILD.TEXT    /L TINY-C:CC2=...     the rebuilt compiler goes
+                        next to CC.CODE (rename it CC.CODE to use it)
+    TCSRC:LIBS.TEXT     /J TINY-C:TCLIB2=...  the rebuilt library goes
+                        next to TCLIB.OBJ (rename it TCLIB.OBJ to use it)
+    TOOLSRC:TOOLS.TEXT  /L TOOLS:VI=..., /L TOOLS:GREP=...  each tool is
+                        linked straight onto TOOLS: (TOOLS: must be on line)
+The objects (NAME.OBJ) stay on the source volume.  The README.TEXT files
+of TCSRC: and TOOLSRC: say so.  TCSRC.BLK and TOOLSRC.BLK updated.

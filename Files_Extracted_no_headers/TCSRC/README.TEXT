@@ -11,15 +11,16 @@ REBUILDING EVERYTHING:  set the prefix to TCSRC:, then from the shell
 
 REBUILDING THE COMPILER:  set the prefix to TCSRC:, X(ecute
 TINY-C:CC, answer  @BUILD.  BUILD.TEXT compiles the compiler's modules
-and links TCSRC:CC2.CODE, identical to TINY-C:CC.CODE apart from its
-name (check it with TCEXTRA:CMPCODE).  To use it, transfer it to
-TINY-C:CC.CODE with the Filer.
+and links TINY-C:CC2.CODE (next to the compiler), identical to
+TINY-C:CC.CODE apart from its name (check it with TCEXTRA:CMPCODE).  To
+use it, change its name to CC.CODE with the Filer.
 
 REBUILDING THE LIBRARY:  set the prefix to TCSRC:, X(ecute TINY-C:CC,
 answer  @LIBS.  LIBS.TEXT compiles the library modules and joins them
-(/J) into TCSRC:TCLIB2.OBJ, identical to TINY-C:TCLIB.OBJ (check it with
-CMPCODE).  To use it, transfer it to TINY-C:TCLIB.OBJ with the Filer.
+(/J) into TINY-C:TCLIB2.OBJ, identical to TINY-C:TCLIB.OBJ (check it
+with CMPCODE).  To use it, change its name to TCLIB.OBJ with the Filer.
 
-Each module leaves a NAME.OBJ; remove those with the Filer if you like.
+Each module leaves a NAME.OBJ here; remove those with the Filer if you
+like.
 
 FILES.TEXT lists every file on this volume.

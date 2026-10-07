@@ -3,8 +3,9 @@ TOOL SOURCES                                      volume TOOLSRC:
 The sources of the tools on TOOLS:.
 
 REBUILDING THEM:  set the prefix to TOOLSRC:, X(ecute TINY-C:CC, answer
-@TOOLS.  TOOLS.TEXT compiles and links every tool (NAME.CODE here, and
-a NAME.OBJ); copy the new NAME.CODE to TOOLS: with the Filer.
+@TOOLS (TOOLS: on line too).  TOOLS.TEXT compiles every tool's modules
+(a NAME.OBJ here for each) and links the tool straight onto TOOLS:
+(TOOLS:NAME.CODE, replacing the one there).
 
 VI      vi: the BusyBox "tiny vi" (GPL v2 or later, see VI.H), edited
         for Tiny-C, in modules: VI.H (what they share), VIMAIN.C (start,
