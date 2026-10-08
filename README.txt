@@ -938,3 +938,12 @@ and LIBS's objects stay on TCSRC:.  CC also no longer keeps memory from
 one command to the next (link and join), which a run this long needs.
 TINY-C.BLK (CC.CODE, its README), TCSRC.BLK (MAIN.C) and TOOLSRC.BLK
 (ALL.TEXT, README) updated.
+
+VI: THE MOUSE WHEEL SCROLLS (TOOLS, TOOLSRC, TINY-C)
+---------------------------------------------------------------------------
+With emulator 2.01 or later the mouse wheel scrolls VI's screen, 3 lines
+a notch (as ^Y / ^E), in command mode; while typing, or on a : line, it
+is ignored.  The emulator sends 96H (a notch away from you) and 97H
+(towards you) only to a program that asks for one code per key, as VI
+does (PSYS.H: KEY_WHEELUP, KEY_WHEELDN).  TOOLS.BLK (VI.CODE, README),
+TOOLSRC.BLK (VIUCSD.C) and TINY-C.BLK (PSYS.H) updated.
