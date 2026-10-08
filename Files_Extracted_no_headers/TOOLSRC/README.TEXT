@@ -7,6 +7,11 @@ REBUILDING THEM:  set the prefix to TOOLSRC:, X(ecute TINY-C:CC, answer
 (a NAME.OBJ here for each) and links the tool straight onto TOOLS:
 (TOOLS:NAME.CODE, replacing the one there).
 
+EVERYTHING AT ONCE:  @ALL instead (TCSRC: and TINY-C: on line too).
+ALL.TEXT runs TCSRC:BUILD (the compiler -> TINY-C:CC2.CODE), TCSRC:LIBS
+(the library -> TINY-C:TCLIB2.OBJ) and TOOLS; a batch file can name
+other batch files (@NAME), and their objects stay on TCSRC:.
+
 VI      vi: the BusyBox "tiny vi" (GPL v2 or later, see VI.H), edited
         for Tiny-C, in modules: VI.H (what they share), VIMAIN.C (start,
         main loop), VISCREEN.C (the screen), VITEXT.C (moving, changing

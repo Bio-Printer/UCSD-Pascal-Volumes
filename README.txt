@@ -923,3 +923,18 @@ BATCH FILES BUILD ONTO THE VOLUME THE RESULT BELONGS ON (TCSRC, TOOLSRC)
                         linked straight onto TOOLS: (TOOLS: must be on line)
 The objects (NAME.OBJ) stay on the source volume.  The README.TEXT files
 of TCSRC: and TOOLSRC: say so.  TCSRC.BLK and TOOLSRC.BLK updated.
+
+ONE BATCH FILE FOR EVERYTHING: TOOLSRC:ALL.TEXT (TOOLSRC, TINY-C, TCSRC)
+---------------------------------------------------------------------------
+A batch file can now run other batch files: a line @OTHER runs
+OTHER.TEXT, then the first one goes on.  TOOLSRC:ALL.TEXT is
+    @TCSRC:BUILD     the compiler  -> TINY-C:CC2.CODE
+    @TCSRC:LIBS      the library   -> TINY-C:TCLIB2.OBJ
+    @TOOLS           every tool    -> TOOLS:
+(prefix TOOLSRC:, X(ecute TINY-C:CC, answer @ALL; TCSRC:, TINY-C: and
+TOOLS: on line).  An object (NAME.OBJ) now goes on its source's volume,
+and /L and /J look for objects the way CC looks for sources, so BUILD's
+and LIBS's objects stay on TCSRC:.  CC also no longer keeps memory from
+one command to the next (link and join), which a run this long needs.
+TINY-C.BLK (CC.CODE, its README), TCSRC.BLK (MAIN.C) and TOOLSRC.BLK
+(ALL.TEXT, README) updated.

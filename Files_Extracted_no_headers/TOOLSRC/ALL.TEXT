@@ -1,0 +1,5 @@
+; ALL -- rebuild the compiler, the library and every tool
+; prefix TOOLSRC:, X(ecute TINY-C:CC, answer @ALL (TCSRC:, TINY-C: and TOOLS: on line)
+@TCSRC:BUILD
+@TCSRC:LIBS
+@TOOLS

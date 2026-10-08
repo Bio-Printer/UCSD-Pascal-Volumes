@@ -10,7 +10,8 @@ answer "Compile what file?" with
     /L OUT=A,B,...       link A.OBJ, B.OBJ, ... and TCLIB.OBJ -> OUT.CODE
     /J LIB=A,B,...       join A.OBJ, B.OBJ, ... into the library LIB.OBJ
     @FILE                run the commands in FILE.TEXT, one per line
-                         (blank lines and lines starting with ; skipped)
+                         (blank lines and lines starting with ; skipped;
+                         a line @OTHER runs OTHER.TEXT, then goes on)
 The same commands can be arguments instead (from the shell: $ at the
 Command: prompt): CC @BUILD @LIBS, CC /Z HANOI SIEVE.  Options and the
 word after them make one command; they run in turn, no prompt, and the
@@ -20,8 +21,10 @@ an @FILE named with a volume (TOOLSRC:VI.H, #5:X.C) is taken from there
 only.  Named without one, CC looks on every disk: on one disk only, that
 one; on several, the one on the disk of the file that names it (the
 including file, the @FILE), else the one on the prefix volume, else it
-lists the volumes and stops (name one).  Objects, code and temporary
-files (TCTEMP.TEXT, TCTEMP.IR) go to the prefix volume; TCLIB.OBJ and
+lists the volumes and stops (name one).  An object (NAME.OBJ) goes on
+its source's volume, and /L and /J find objects the same way as
+sources; code and temporary files (TCTEMP.TEXT, TCTEMP.IR) go to the
+prefix volume unless named with a volume; TCLIB.OBJ and
 TCMSGS.TEXT are found on TINY-C: when they are not on the prefix volume
 or the boot volume.
 
