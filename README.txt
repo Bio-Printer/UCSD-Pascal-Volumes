@@ -947,3 +947,12 @@ is ignored.  The emulator sends 96H (a notch away from you) and 97H
 (towards you) only to a program that asks for one code per key, as VI
 does (PSYS.H: KEY_WHEELUP, KEY_WHEELDN).  TOOLS.BLK (VI.CODE, README),
 TOOLSRC.BLK (VIUCSD.C) and TINY-C.BLK (PSYS.H) updated.
+
+VI: A BLOCK CURSOR (TOOLS, TOOLSRC, TINY-C)
+---------------------------------------------------------------------------
+With emulator 2.02 or later the cursor is a block while VI runs (its cell
+inverted: green ground, the character black), easy to find; when VI ends
+it is the usual line again.  VI asks for it with SYSCOM^.EXPANSION[1] =
+25606 (PSYS.H: PX_KEYS_BLOCK; 25605, PX_KEYS, gives the keys alone, as the
+shell uses).  TOOLS.BLK (VI.CODE, README), TOOLSRC.BLK (VIUCSD.C) and
+TINY-C.BLK (PSYS.H) updated.
