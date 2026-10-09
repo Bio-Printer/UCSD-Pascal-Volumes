@@ -956,3 +956,19 @@ it is the usual line again.  VI asks for it with SYSCOM^.EXPANSION[1] =
 25606 (PSYS.H: PX_KEYS_BLOCK; 25605, PX_KEYS, gives the keys alone, as the
 shell uses).  TOOLS.BLK (VI.CODE, README), TOOLSRC.BLK (VIUCSD.C) and
 TINY-C.BLK (PSYS.H) updated.
+
+BIGGY REVISION 1.21: A SMALLER PRINTF (BIGGY, TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS)
+---------------------------------------------------------------------------
+The library's printf (STDIO.C) uses much less stack: its working
+procedure needed 51 words for its locals and now needs 16, because the
+flags (- 0 + blank # l) are bits in one word, the digit buffer holds
+just a long's 11 digits (the zeros a precision asks for are written,
+not stored), and %f %e %g are formatted in a procedure of their own
+that is on the stack only while a number is printed.  printf("%d")
+takes 38 words (76 bytes) less stack in all; every program that uses
+printf is about 500 bytes smaller.  %E and %G now print a capital E
+for floats too.  Output is otherwise the same.
+TINY-C.BLK (TCLIB.OBJ), TCSRC.BLK (STDIO.C, LIBINT.H), TCTESTS.BLK
+(PRINTF.C, a new test, and the relinked tests), TCEXTRA.BLK and
+TOOLS.BLK (relinked programs) updated; Big_Disk.BLK: SYSTEM.SHELL
+relinked, VERSION.TEXT revision 1.21.

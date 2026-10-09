@@ -1,4 +1,4 @@
-BIGGY boot volume, revision 1.20  (07-Oct-26)
+BIGGY boot volume, revision 1.21  (09-Oct-26)
   SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.11 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, $ runs SYSTEM.SHELL); its FGOTOXY is
@@ -27,6 +27,8 @@ BIGGY boot volume, revision 1.20  (07-Oct-26)
                  and date); 1.20: the command line keeps the last 10
                  commands in SYSTEM.CMDS (Up, Down), and Left, Right,
                  Home, End, Insert, Delete, Backspace and ESC edit it
+                 1.21: built with the new printf (TCLIB: 38 words
+                 less stack for a number, %E/%G capitals for floats)
   Tiny-C itself is on TINY-C: only: X(ecute TINY-C:CC (the compiler is
                  CC.CODE now, was TINYC.CODE); TINYC.CODE left BIGGY in
                  1.14, TCLIB.OBJ, TCMSGS.TEXT and the headers in 1.15

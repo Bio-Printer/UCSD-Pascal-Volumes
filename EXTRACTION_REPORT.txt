@@ -7,8 +7,8 @@ TCEXTRA  (volume TCEXTRA, 29 files)
     29 files extracted, 16 text files decoded
 TCSRC  (volume TCSRC, 36 files)
     36 files extracted, 36 text files decoded
-TCTESTS  (volume TCTESTS, 37 files)
-    37 files extracted, 20 text files decoded
+TCTESTS  (volume TCTESTS, 39 files)
+    39 files extracted, 21 text files decoded
 TINY-C  (volume TINY-C, 21 files)
     21 files extracted, 19 text files decoded
 TOOLS  (volume TOOLS, 4 files)
