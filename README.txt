@@ -1065,3 +1065,14 @@ keyboard every 8th row (a page of text about 30% faster).  TOOLS.BLK
 (VI.CODE) and TOOLSRC.BLK updated.  Checked: UCSD-TinyC tools/viscreentest.py
 (every screen the same as before, paged and not) and tools/vitest.py (native
 and Z80 mode).
+
+VI SCROLLS WITH THE EMULATOR'S SCROLL CODES (TINY-C, TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+Emulator 2.03 (UCSD-Pascal_Windows_Emulator) scrolls the console on request
+(ESC [ n S, ESC [ n T, ESC [ top ; bottom r; a program stores 25607 in
+SYSCOM^.EXPANSION[1] and the emulator answers 25608).  vi uses them: j or k
+at the screen's edge, ^E, ^Y, the mouse wheel and a short ^D / ^U draw only
+the rows that came in, not the whole screen.  A page (^F, ^B, Page Down,
+Page Up) still draws almost every row.  With an older emulator vi works as
+before.  vi's window in Z80 mode is 2.8 KB (was 3 KB: the code is 500 bytes
+bigger).  TINY-C.BLK (psys.h), TOOLS.BLK (VI.CODE), TOOLSRC.BLK updated.
