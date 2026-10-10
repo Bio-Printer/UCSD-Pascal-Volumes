@@ -1,0 +1,8 @@
+move disk 5 from A to C
+move disk 6 from A to B
+move disk 5 from C to B
+move disk 7 from A to C
+move disk 5 from B to A
+move disk 6 from B to C
+move disk 5 from A to C
+127 moves

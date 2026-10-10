@@ -972,3 +972,37 @@ TINY-C.BLK (TCLIB.OBJ), TCSRC.BLK (STDIO.C, LIBINT.H), TCTESTS.BLK
 (PRINTF.C, a new test, and the relinked tests), TCEXTRA.BLK and
 TOOLS.BLK (relinked programs) updated; Big_Disk.BLK: SYSTEM.SHELL
 relinked, VERSION.TEXT revision 1.21.
+
+CC NEEDS LESS MEMORY: cc @all FROM THE SHELL HAS 2,954 WORDS FREE, WAS 589 (TINY-C, TCSRC, TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+The least free memory of a total rebuild -- the shell ($ at the Command:
+prompt), then  cc @all  (TOOLSRC:ALL.TEXT: the compiler, the library, vi
+and grep) -- was 589 words (compiling VICMD.C); it is 2,954 now (compiling
+VICOLON.C; linking CC2.CODE 2,974, VITEXT.C 2,981, ...).  The compiler
+changed, not what it makes: TCLIB.OBJ, BIGGY's SYSTEM.SHELL and the code
+files of TCEXTRA and TCTESTS are byte for byte the ones already here.
+  - printf/scanf format fix-up no longer loads a 2.3 KB code segment for
+    every call of a variadic function; a switch's case labels are not two
+    tables in memory that double at 64 cases; statements, parenthesised
+    expressions and case-label runs take much less stack in the parser
+  - expression nodes are 16 bytes (were 24); the linker allocates its code
+    buffer after it has opened the object files, not before; code the
+    passes do not need (the /L and /J commands, the message reader, the
+    double conversions) is out of the segments that are always in memory
+  - the preprocessor stores a macro in one block, and #includes in vi.h
+    come before its 150 macros (opening a file needs 1,000 words of stack)
+  - vi's < and > are a function of their own (VICMD.C), vi.h includes
+    vipage.h first (VI.H), so VI.CODE is new too
+TINY-C.BLK (CC.CODE), TCSRC.BLK (the compiler's sources), TOOLS.BLK
+(VI.CODE) and TOOLSRC.BLK (VI.H, VICMD.C) updated.  UCSD-TinyC:
+tools/shellalltest.py measures it (PSYS_MODE=z80 for the real thing).
+
+TINY-C VERIFY ON TWO VOLUMES: TCVERIF.BLK, TCEXPCT.BLK (new)
+---------------------------------------------------------------------------
+The Tiny-C Verify content is on two volumes that go with TINY-C, TCSRC,
+TCTESTS and TCEXTRA (units 5, 9, 10, 11; these two on 12 and 13):
+TCVERIF: VERIFY.SCRIPT (the Verify keyboard script), RMFILES.C/.CODE;
+TCEXPCT: NAME.EXPECT, what each of the 26 tests prints.  The script
+compiles and runs every test where its source is, rebuilds the compiler
+with @BUILD, checks CC2.CODE is IDENTICAL to CC.CODE, and runs HANOI with
+CC2.  Passes in P-Code and Z80 mode (UCSD-TinyC tools/tcverify.py).
