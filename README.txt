@@ -1036,3 +1036,8 @@ TOOLS.BLK and TOOLSRC.BLK updated.
 Removed from the volume set: the *_pre_8byte_double volumes (earlier) and
 U134.4_OS_SOURCE_v1.06, _v1.07 and _v1.10 (_v1.11 and the unnumbered
 U134.4_OS_SOURCE.BLK remain).
+
+CC BANNER [0.5] (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+CC starts with "Tiny-C compiler for UCSD Pascal II.0  [0.5]".  TINY-C.BLK
+(CC.CODE) and TCSRC.BLK (MAIN.C) updated.  Not regression tested (a banner).
