@@ -1,0 +1,17 @@
+Tiny-C calculator: + - * / % ( ), empty line ends
+> 2+3*4
+= 14
+> (1+2)*(3+4)
+= 21
+> 100000*3
+= 300000
+> -17/5
+= -3
+> -17%5
+= -2
+> 7/0
+division by zero
+> 2+
+syntax error
+>
+bye

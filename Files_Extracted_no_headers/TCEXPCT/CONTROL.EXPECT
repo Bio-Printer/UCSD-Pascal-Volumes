@@ -1,0 +1,6 @@
+-1:minus one 0:zero 1:one 2:two 3:three 4:four 5:many 6:many 7:many 8:many 9:many 10:ten 11:many
+1 2 3 0
+12456
+goto 5
+comma 5 5
+logic 0 1 0 7

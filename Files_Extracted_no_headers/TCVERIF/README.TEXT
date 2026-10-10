@@ -1,0 +1,17 @@
+TINY-C VERIFY                                    volume TCVERIF:
+
+Checks Tiny-C on the P-System itself with the system's own volumes, nothing
+copied.  Mount: #5 TINY-C:, #9 TCSRC:, #10 TCTESTS:, #11 TCEXTRA:,
+#12 TCVERIF: (this), #13 TCEXPCT: (what every test prints).
+
+VERIFY.SCRIPT   a Verify P-System keyboard script (WAIT / TYPE): for every
+                test set the prefix to its volume, compile it (X TINY-C:CC,
+                /Z NAME), run it, wait for each line of TCEXPCT:NAME.EXPECT
+                in order, remove NAME.OBJ (RMFILES; a directory holds 77
+                files); then @BUILD on TCSRC:, CMPCODE: TINY-C:CC2.CODE is
+                IDENTICAL to CC.CODE, and CC2 compiles and runs HANOI.
+RMFILES.CODE    removes the files named, one per line (RMFILES.C)
+The results stay on the volumes (TINY-C:CC2.CODE, the objects on TCSRC:,
+NAME.CODE on TCTESTS: and TCEXTRA:); the host keeps the volume files.
+
+FILES.TEXT lists every file on this volume.

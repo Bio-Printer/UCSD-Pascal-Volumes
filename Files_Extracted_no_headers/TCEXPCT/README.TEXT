@@ -1,0 +1,8 @@
+TINY-C EXPECTED OUTPUT                           volume TCEXPCT:
+
+NAME.EXPECT is what test NAME (on TCTESTS: or TCEXTRA:) prints; the Verify
+script on TCVERIF: waits for each of its lines, in order.  (Tests with
+cursor addressing wait for the texts of tests/NAME.wait instead, and the keys
+a test is given are in the script.)
+
+FILES.TEXT lists every file on this volume.

@@ -996,3 +996,13 @@ files of TCEXTRA and TCTESTS are byte for byte the ones already here.
 TINY-C.BLK (CC.CODE), TCSRC.BLK (the compiler's sources), TOOLS.BLK
 (VI.CODE) and TOOLSRC.BLK (VI.H, VICMD.C) updated.  UCSD-TinyC:
 tools/shellalltest.py measures it (PSYS_MODE=z80 for the real thing).
+
+TINY-C VERIFY ON TWO VOLUMES: TCVERIF.BLK, TCEXPCT.BLK (new)
+---------------------------------------------------------------------------
+The Tiny-C Verify content is on two volumes that go with TINY-C, TCSRC,
+TCTESTS and TCEXTRA (units 5, 9, 10, 11; these two on 12 and 13):
+TCVERIF: VERIFY.SCRIPT (the Verify keyboard script), RMFILES.C/.CODE;
+TCEXPCT: NAME.EXPECT, what each of the 26 tests prints.  The script
+compiles and runs every test where its source is, rebuilds the compiler
+with @BUILD, checks CC2.CODE is IDENTICAL to CC.CODE, and runs HANOI with
+CC2.  Passes in P-Code and Z80 mode (UCSD-TinyC tools/tcverify.py).
