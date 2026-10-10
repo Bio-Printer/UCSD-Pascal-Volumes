@@ -1013,3 +1013,12 @@ The name of the file CC is preprocessing, compiling or generating code
 for is on the screen while the pass runs, not after it (a long pass
 looked frozen).  cc @all from the shell: 2,898 words free at the least
 (the flush costs 56).  TINY-C.BLK (CC.CODE), TCSRC.BLK (MAIN.C) updated.
+
+CC'S PASS LINES IN COLUMNS (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+Preprocessing NAME  (N free)  Compiling (N free)  Generating code (N free)
+on one line of 97 characters: the source's name is padded to 18, the object
+name is not repeated and "words" is left out, so a long volume and file
+name no longer wraps.  The code is 22 bytes smaller.  cc @all from the
+shell: 2,909 words free at the least.  TINY-C.BLK (CC.CODE) and TCSRC.BLK
+(MAIN.C) updated.
