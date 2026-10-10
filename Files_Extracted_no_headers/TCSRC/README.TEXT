@@ -7,7 +7,7 @@ Mount TINY-C: as well: the compiler, the headers, TCLIB.OBJ and
 TCMSGS.TEXT come from there.
 
 REBUILDING EVERYTHING:  set the prefix to TCSRC:, then from the shell
-($ at the Command: prompt) type  CC @BUILD @LIBS.
+(S at the Command: prompt) type  CC @BUILD @LIBS.
 
 REBUILDING THE COMPILER:  set the prefix to TCSRC:, X(ecute
 TINY-C:CC, answer  @BUILD.  BUILD.TEXT compiles the compiler's modules

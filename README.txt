@@ -1041,3 +1041,16 @@ CC BANNER [0.5] (TINY-C, TCSRC)
 ---------------------------------------------------------------------------
 CC starts with "Tiny-C compiler for UCSD Pascal II.0  [0.5]".  TINY-C.BLK
 (CC.CODE) and TCSRC.BLK (MAIN.C) updated.  Not regression tested (a banner).
+
+S, NOT $, STARTS THE SHELL: BIGGY 1.22, U134.4_OS_SOURCE_v1.12 (new)
+---------------------------------------------------------------------------
+At the Command: prompt the key that runs *SYSTEM.SHELL (the Tiny-C shell) is
+now S; the ? prompt says S(hell.  U134.4_OS_SOURCE_v1.12.BLK is v1.11 with
+SYSSEGS.B.TEXT GETCMD's '$' changed to 'S' (the command set, the CASE label
+and the ? text) and VERSION.TEXT.  GETCMD's segment is 3118 bytes (was
+3176: the CASE table is smaller); the rest of SYSTEM.PASCAL is as built
+from v1.11.  Big_Disk.BLK (BIGGY) revision 1.22: SYSTEM.PASCAL is the OS
+of v1.12 (compiled with the emulator's compiler from the BLK's files);
+SYSOLD.PASCAL stays the 1.10 OS; VERSION.TEXT says 1.22.  TINY-C.BLK and
+TCSRC.BLK: README texts say S.  Not regression tested (UCSD-TinyC's
+scripts and tests type S now).
