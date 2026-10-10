@@ -1054,3 +1054,14 @@ of v1.12 (compiled with the emulator's compiler from the BLK's files);
 SYSOLD.PASCAL stays the 1.10 OS; VERSION.TEXT says 1.22.  TINY-C.BLK and
 TCSRC.BLK: README texts say S.  Not regression tested (UCSD-TinyC's
 scripts and tests type S now).
+
+VI IS FASTER (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+vi compares the screen's rows only when something they depend on changed
+(a cursor move within the screen redraws nothing but the cursor: about 4
+times faster), puts the cursor codes (FGOTOXY of BIGGY 1.11 or later) into
+the output buffer instead of a flush and a call per row, and polls the
+keyboard every 8th row (a page of text about 30% faster).  TOOLS.BLK
+(VI.CODE) and TOOLSRC.BLK updated.  Checked: UCSD-TinyC tools/viscreentest.py
+(every screen the same as before, paged and not) and tools/vitest.py (native
+and Z80 mode).
