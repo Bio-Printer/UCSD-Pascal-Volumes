@@ -1006,3 +1006,10 @@ TCEXPCT: NAME.EXPECT, what each of the 26 tests prints.  The script
 compiles and runs every test where its source is, rebuilds the compiler
 with @BUILD, checks CC2.CODE is IDENTICAL to CC.CODE, and runs HANOI with
 CC2.  Passes in P-Code and Z80 mode (UCSD-TinyC tools/tcverify.py).
+
+CC FLUSHES THE CONSOLE AT EACH PASS (TINY-C, TCSRC)
+---------------------------------------------------------------------------
+The name of the file CC is preprocessing, compiling or generating code
+for is on the screen while the pass runs, not after it (a long pass
+looked frozen).  cc @all from the shell: 2,898 words free at the least
+(the flush costs 56).  TINY-C.BLK (CC.CODE), TCSRC.BLK (MAIN.C) updated.
