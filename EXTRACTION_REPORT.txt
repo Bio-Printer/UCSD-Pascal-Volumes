@@ -15,10 +15,10 @@ TCVERIF  (volume TCVERIF, 5 files)
     5 files extracted, 4 text files decoded
 TINY-C  (volume TINY-C, 21 files)
     21 files extracted, 19 text files decoded
-TOOLS  (volume TOOLS, 4 files)
-    4 files extracted, 2 text files decoded
-TOOLSRC  (volume TOOLSRC, 14 files)
-    14 files extracted, 14 text files decoded
+TOOLS  (volume TOOLS, 5 files)
+    5 files extracted, 2 text files decoded
+TOOLSRC  (volume TOOLSRC, 15 files)
+    15 files extracted, 15 text files decoded
 U002A.5_Z80_SYS1  (volume U002A.5, 20 files)
     20 files extracted, 4 text files decoded
 U006.5_LSI-11_SYS1  (volume U006.5, 14 files)
@@ -54,12 +54,6 @@ U132B.2_PASCAL_LINKER_SOURCE  (volume U132B.2, 7 files)
     7 files extracted, 7 text files decoded
 U134.4_OS_SOURCE  (volume U134.4, 14 files)
     14 files extracted, 14 text files decoded
-U134.4_OS_SOURCE_v1.06  (volume U134.4, 15 files)
-    15 files extracted, 15 text files decoded
-U134.4_OS_SOURCE_v1.07  (volume U134.4, 15 files)
-    15 files extracted, 15 text files decoded
-U134.4_OS_SOURCE_v1.10  (volume U134.4, 15 files)
-    15 files extracted, 15 text files decoded
 U134.4_OS_SOURCE_v1.11  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
 U134_4_OS_fixed  (volume U134.4, 14 files)

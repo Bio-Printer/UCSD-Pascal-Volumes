@@ -1022,3 +1022,17 @@ name is not repeated and "words" is left out, so a long volume and file
 name no longer wraps.  The code is 22 bytes smaller.  cc @all from the
 shell: 2,909 words free at the least.  TINY-C.BLK (CC.CODE) and TCSRC.BLK
 (MAIN.C) updated.
+
+BINDERC: THE BINDER IN TINY-C (TOOLS, TOOLSRC); VOLUMES REMOVED
+---------------------------------------------------------------------------
+BINDER.CODE (Big_Disk) has no Pascal source here, so BINDERC is a C
+equivalent: TOOLS:BINDERC.CODE, source TOOLSRC:BINDERC.C (tool sources
+live on TOOLSRC:; TOOLS: holds the programs).  BINDERC [FILE], or
+X(ecute TOOLS:BINDERC, puts the GOTOXY procedure of a code file into
+SYSTEM.PASCAL of the prefix volume; it makes the same SYSTEM.PASCAL as
+BINDER (UCSD-TinyC tools/bindertest.py, native and Z80 mode).
+TOOLS.BLK and TOOLSRC.BLK updated.
+
+Removed from the volume set: the *_pre_8byte_double volumes (earlier) and
+U134.4_OS_SOURCE_v1.06, _v1.07 and _v1.10 (_v1.11 and the unnumbered
+U134.4_OS_SOURCE.BLK remain).
