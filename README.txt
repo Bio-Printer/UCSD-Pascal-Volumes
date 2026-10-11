@@ -1147,3 +1147,10 @@ VI: THE WHEEL WAITS ABOUT 70 ms FOR THE NEXT NOTCH (TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
 Wheel notches that come within about 70 ms of each other make one scroll and one repaint
 (it was one tick).  TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
+
+VI: TYPING ON A LONG LINE REFRESHES ONE ROW (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+Putting a character in or taking one out of a line used to make vi format and sum all rows
+of the screen again after every key (0.23 s a key in the Z80 emulator, more with a full
+screen of long lines; typed-ahead keys piled up).  Now only the row of the edited line is
+checked (0.035 s).  TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
