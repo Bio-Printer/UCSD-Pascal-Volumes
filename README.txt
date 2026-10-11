@@ -1128,3 +1128,11 @@ VI SCROLLS WHEN THE WINDOW MOVES TOO (TOOLS, TOOLSRC)
 j at the bottom of the screen repainted every row about every other time: a chunk
 of the file loaded into the window at the same moment hid the scroll.  vi now finds
 the scroll by the top line's line number.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK updated.
+
+VI STATUS LINE SHOWS ITS WINDOW; A CUT-SHORT REPAINT STILL SCROLLS (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+The status line ends with  w<a>+<b> b<lines>/<chunks> a<lines>/<chunks> [L]  : the bytes
+of vi's memory window above and below the cursor, what is parked before and after the
+window, L while loading.  Screen rows now remember their line numbers, so a repaint that
+a typed-ahead 'j' interrupted no longer makes the next ones repaint every row; they scroll.
+TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
