@@ -1142,3 +1142,8 @@ VI: WINDOW INFO AT THE RIGHT; MOUSE WHEEL SCROLLS ONCE (TOOLS, TOOLSRC)
 The window information (w.. b.. a.. L) is at the far right of the status line.  Wheel
 notches that are waiting are added up (3 lines each) into one scroll and one repaint.
 TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
+
+VI: THE WHEEL WAITS ABOUT 70 ms FOR THE NEXT NOTCH (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+Wheel notches that come within about 70 ms of each other make one scroll and one repaint
+(it was one tick).  TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
