@@ -1109,3 +1109,9 @@ The block-at-a-time library functions had cost the compiler 240 words: fread
 and a fwrite for vi are now a library module of their own (stdioblk.c) that
 only vi carries; the compiler and the other programs have the plain ones.
 vipage.c is two modules.  cc @all from the shell: 2,900 words free at the least.
+
+VI HAS ITS OWN SMALL FORMATTER (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+vi no longer links the library's printf (2.8 KB of code): its window in Z80 mode
+is 4.3 KB, was 2.5 KB (a Page Down page is full more often).  TOOLS.BLK
+(VI.CODE) and TOOLSRC.BLK (VI.H, VIUCSD.C, ...) updated.
