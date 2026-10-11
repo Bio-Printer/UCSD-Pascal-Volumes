@@ -1136,3 +1136,9 @@ of vi's memory window above and below the cursor, what is parked before and afte
 window, L while loading.  Screen rows now remember their line numbers, so a repaint that
 a typed-ahead 'j' interrupted no longer makes the next ones repaint every row; they scroll.
 TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
+
+VI: WINDOW INFO AT THE RIGHT; MOUSE WHEEL SCROLLS ONCE (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+The window information (w.. b.. a.. L) is at the far right of the status line.  Wheel
+notches that are waiting are added up (3 lines each) into one scroll and one repaint.
+TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
