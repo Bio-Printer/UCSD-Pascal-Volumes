@@ -1093,3 +1093,12 @@ Windows emulator is not changed.  TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS,
 TOOLSRC (everything relinked with the new library) and Big_Disk.BLK
 (SYSTEM.SHELL, revision 1.23) updated.  cc @all from the shell: least free memory
 2,900 words (was 2,909: vi.h and vipage.h have a few more declarations).
+
+VI PAGE DOWN IN A SMALL WINDOW (TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+Page Down / Up showed a few lines and then nothing (Z80 mode, window 2.5 KB):
+vi kept a screen of text on both sides of the cursor, which the window cannot
+hold.  Now the screen comes first, then half a screen above it, then the rest
+below the cursor; a scroll moves as far as the window allows and brings more in.
+Swap file writes go a block at a time.  KNOWN: cc @all least free memory is
+2,613 words with this library (2,900 before); a fix follows.
