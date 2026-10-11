@@ -1122,3 +1122,9 @@ Without the emulator 2.03 scroll codes (older emulators), vi scrolls the screen
 up with line feeds sent from the last row and draws only the rows that come in
 (j past the bottom, ^E, a short ^D); scrolling down still redraws.  With 2.03 the
 scroll codes are used as before.  TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
+
+VI SCROLLS WHEN THE WINDOW MOVES TOO (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+j at the bottom of the screen repainted every row about every other time: a chunk
+of the file loaded into the window at the same moment hid the scroll.  vi now finds
+the scroll by the top line's line number.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK updated.
