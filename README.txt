@@ -1169,3 +1169,12 @@ VI REQUIRES EMULATOR 2.04; THE FALLBACKS ARE GONE (TOOLS, TOOLSRC)
 vi no longer works around older emulators: no line-feed scrolling, no PX_KEYS_SCROLL /
 PX_KEYS_BLOCK steps, no kbhit.  On an emulator before 2.04 it prints "vi needs emulator
 2.04 or later" and ends.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK updated.
+
+THE BREAK KEY: ` (BIGGY 1.24, EMULATOR 2.05)
+---------------------------------------------------------------------------
+SYSTEM.MISCINFO and NEW.MISCINFO on BIGGY: have the backquote as CRTINFO.BREAK (it was none;
+^C is EOF/ETX and stays).  Emulator 2.05 acts on it: typed while a program runs and has not
+read a key for 1.5 s (a loop that never ends, a long grep), it stops the program with the
+run-time error "Program interrupted by user" (press <space>), back at the command level.  A
+` typed at a prompt or soon after the program read a key (vi's mark command) is an ordinary
+key.  Big_Disk.BLK updated (the same disk as BIGGY.zip in UCSD-TinyC).
