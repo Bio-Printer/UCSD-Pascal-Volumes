@@ -1154,3 +1154,12 @@ Putting a character in or taking one out of a line used to make vi format and su
 of the screen again after every key (0.23 s a key in the Z80 emulator, more with a full
 screen of long lines; typed-ahead keys piled up).  Now only the row of the edited line is
 checked (0.035 s).  TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
+
+VI KNOWS WHEN KEYS ARE WAITING (EMULATOR 2.04) (TOOLS, TOOLSRC, TINY-C)
+---------------------------------------------------------------------------
+kbhit() (UNITBUSY) is always false on this system, so vi never saw typed-ahead keys and
+repainted after every key.  Emulator 2.04 keeps the number of keys waiting in
+SYSCOM^.EXPANSION[2] (a program asks with 25609, PX_KEYS_AHEAD in PSYS.H, and gets 25610);
+vi uses it: no repaint while keys wait (typing, j, the mouse wheel: one repaint after a
+burst).  62 typed spaces: 3.0 s -> 1.0 s in the Z80 emulator.  With an older emulator vi works
+as before.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK, TINY-C.BLK (PSYS.H) updated.
