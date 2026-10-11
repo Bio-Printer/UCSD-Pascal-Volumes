@@ -1163,3 +1163,9 @@ SYSCOM^.EXPANSION[2] (a program asks with 25609, PX_KEYS_AHEAD in PSYS.H, and ge
 vi uses it: no repaint while keys wait (typing, j, the mouse wheel: one repaint after a
 burst).  62 typed spaces: 3.0 s -> 1.0 s in the Z80 emulator.  With an older emulator vi works
 as before.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK, TINY-C.BLK (PSYS.H) updated.
+
+VI REQUIRES EMULATOR 2.04; THE FALLBACKS ARE GONE (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+vi no longer works around older emulators: no line-feed scrolling, no PX_KEYS_SCROLL /
+PX_KEYS_BLOCK steps, no kbhit.  On an emulator before 2.04 it prints "vi needs emulator
+2.04 or later" and ends.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK updated.
