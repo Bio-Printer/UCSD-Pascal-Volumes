@@ -1,4 +1,4 @@
-BIGGY boot volume, revision 1.22  (10-Oct-26)
+BIGGY boot volume, revision 1.23  (11-Oct-26)
   SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.12 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, S runs SYSTEM.SHELL); its FGOTOXY is
@@ -31,6 +31,8 @@ BIGGY boot volume, revision 1.22  (10-Oct-26)
                  less stack for a number, %E/%G capitals for floats)
                  (1.22: S, not $, starts the shell; the ? prompt says
                  S(hell; the OS is U134.4_OS_SOURCE_v1.12)
+                 1.23: built with the library that reads and writes a block at
+                 a time (fgets, fread, fwrite to the console)
   Tiny-C itself is on TINY-C: only: X(ecute TINY-C:CC (the compiler is
                  CC.CODE now, was TINYC.CODE); TINYC.CODE left BIGGY in
                  1.14, TCLIB.OBJ, TCMSGS.TEXT and the headers in 1.15

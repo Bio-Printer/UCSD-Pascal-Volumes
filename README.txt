@@ -1076,3 +1076,20 @@ the rows that came in, not the whole screen.  A page (^F, ^B, Page Down,
 Page Up) still draws almost every row.  With an older emulator vi works as
 before.  vi's window in Z80 mode is 2.8 KB (was 3 KB: the code is 500 bytes
 bigger).  TINY-C.BLK (psys.h), TOOLS.BLK (VI.CODE), TOOLSRC.BLK updated.
+
+VI SHOWS ITS FIRST SCREEN AT ONCE; THE LIBRARY READS A BLOCK AT A TIME (BIGGY 1.23, TINY-C ...)
+---------------------------------------------------------------------------
+vi no longer reads the whole file before it draws: the first screen is up in
+0.4 s in Z80 mode for a 94 KB file (it was 20 s); the rest of the file is read
+while vi waits for a key, when the window needs it, and all at once by G, a
+search, a : command and :w (the status line's line total counts what is loaded
+until then).  A file with a line over 1023 characters or more than 128 chunks
+that is found out only after the screen is up stays as far as it was loaded and
+:w refuses it.  The Tiny-C library's fread, fgets and fwrite (to the console)
+work a block at a time (the P-System's SCAN and block moves), memchr too: vi's
+loading, grep, the shell.  vi's calls within the program are 2-byte (#pragma
+segment MAIN): 690 bytes less code; its window in Z80 mode stays 2.8 KB.  The
+Windows emulator is not changed.  TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS,
+TOOLSRC (everything relinked with the new library) and Big_Disk.BLK
+(SYSTEM.SHELL, revision 1.23) updated.  cc @all from the shell: least free memory
+2,900 words (was 2,909: vi.h and vipage.h have a few more declarations).
