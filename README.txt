@@ -1115,3 +1115,10 @@ VI HAS ITS OWN SMALL FORMATTER (TOOLS, TOOLSRC)
 vi no longer links the library's printf (2.8 KB of code): its window in Z80 mode
 is 4.3 KB, was 2.5 KB (a Page Down page is full more often).  TOOLS.BLK
 (VI.CODE) and TOOLSRC.BLK (VI.H, VIUCSD.C, ...) updated.
+
+VI SCROLLS UP WITH LINE FEEDS ON ANY CONSOLE (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+Without the emulator 2.03 scroll codes (older emulators), vi scrolls the screen
+up with line feeds sent from the last row and draws only the rows that come in
+(j past the bottom, ^E, a short ^D); scrolling down still redraws.  With 2.03 the
+scroll codes are used as before.  TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
