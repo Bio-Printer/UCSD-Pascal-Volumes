@@ -1102,3 +1102,10 @@ hold.  Now the screen comes first, then half a screen above it, then the rest
 below the cursor; a scroll moves as far as the window allows and brings more in.
 Swap file writes go a block at a time.  KNOWN: cc @all least free memory is
 2,613 words with this library (2,900 before); a fix follows.
+
+CC @ALL MEMORY BACK TO 2,900 WORDS (TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+The block-at-a-time library functions had cost the compiler 240 words: fread
+and a fwrite for vi are now a library module of their own (stdioblk.c) that
+only vi carries; the compiler and the other programs have the plain ones.
+vipage.c is two modules.  cc @all from the shell: 2,900 words free at the least.
