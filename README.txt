@@ -1178,3 +1178,9 @@ read a key for 1.5 s (a loop that never ends, a long grep), it stops the program
 run-time error "Program interrupted by user" (press <space>), back at the command level.  A
 ` typed at a prompt or soon after the program read a key (vi's mark command) is an ordinary
 key.  Big_Disk.BLK updated (the same disk as BIGGY.zip in UCSD-TinyC).
+
+VI: show_help() REMOVED (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+show_help() and what called it are gone from vi: the :features command and the -H / --
+options (they now give the usage message like any unknown option).  TOOLS.BLK (VI.CODE)
+and TOOLSRC.BLK updated.
