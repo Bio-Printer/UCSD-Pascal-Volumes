@@ -1206,3 +1206,5 @@ freopen; stdin and stdout are closed at exit when they are files): GREP PAT FILE
 DIR #5:= | GREP .C.  GREP with no FILES reads its standard input.  A name ending in .TEXT is a text
 file (what TYPE and the Editor read), any other is raw bytes.  \> \< \| are ordinary characters.
 TCLIB.OBJ, TCLIB2 and the programs built with it changed; cc @all is at 2,929 words (it was 2,900).
+
+(The shell's builtin names are a table now: the compiler in the P-System could not compile the long || chain, SHELL.C on TCEXTRA.  SYSTEM.SHELL, TCEXTRA, TOOLSRC etc. rebuilt.)
