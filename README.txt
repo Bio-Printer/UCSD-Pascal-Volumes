@@ -1289,3 +1289,8 @@ read of the file being loaded; when that read was closed nothing took the reserv
 freed block, and the save's fopen had to take new memory, leaving the stack too little for FOPEN.  The reserve
 is now taken again when the file being read is closed.  The status line shows the byte count after a :w
 (%ld was not understood).  WC: the names may have the wild cards of DIR (WC *.C, WC #5:*.TEXT).
+
+GREP -n (TOOLS:GREP.CODE)
+-------------------------
+GREP [-i] [-n] PATTERN [[VOL: | #n:]FILE ...]: -n prints the lines that do NOT contain the pattern (-in and -ni
+both work), from files and from the standard input; the count line at the end counts the lines printed.
