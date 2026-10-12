@@ -1280,3 +1280,12 @@ pipe (-C forces columns); "lc" was taken as Plan 9's lc, not a line count.  PATC
 [-i PATCHFILE] [FILE]: applies normal, unified and context diffs (DIFF's or the host's): hunks that moved,
 fuzz up to 2, rejects in NAME.REJ.TEXT, -R, -b (NAME.ORIG.TEXT), -o, -C, names from the headers, hunks of up to
 190 lines.  Checked against the host's diff output in all five forms.
+
+VI SAVE FIX, WC WILD CARDS (TOOLS:VI.CODE, TOOLS:WC.CODE)
+---------------------------------------------------------
+VI: after an edit (x, dd ...) :w and ZZ stopped the emulator with STK OFLOW and left the file as it was.  The
+memory vi sets aside for saving a file (a 1 KB page and a file information block) had been handed to the
+read of the file being loaded; when that read was closed nothing took the reserve back, a yank then used the
+freed block, and the save's fopen had to take new memory, leaving the stack too little for FOPEN.  The reserve
+is now taken again when the file being read is closed.  The status line shows the byte count after a :w
+(%ld was not understood).  WC: the names may have the wild cards of DIR (WC *.C, WC #5:*.TEXT).
