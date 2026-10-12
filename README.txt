@@ -1269,3 +1269,14 @@ suffix before the extension).  The shell takes < > | itself: write \< \> \| or u
 on 150 scripts.  DIFF [-iwbBqs] [-u|-U N|-c|-C N] FILE1 FILE2: what differs between two text files, normal,
 unified or context form, status 0/1/2, files of any size (a 40-line look-ahead for common lines: always a
 correct diff, patch-able, not always the shortest); checked against the host's diff and patch.
+
+WC, LC AND PATCH (TOOLS:WC.CODE, TOOLS:LC.CODE, TOOLS:PATCH.CODE; sources on TOOLSRC:; pages in MAN.TEXT)
+---------------------------------------------------------------------------------------------------------
+WC [-clmwL] [FILE ...]: the lines, words and bytes of files (-L the longest line, tabs to multiples of 8), a
+total for several files, the standard input for no FILE or -; the numbers equal the host's wc.  LC
+[-1xFsrSC] [VOL: | #n:][PATTERN ...]: the file names of a disk in columns as wide as the console, sorted, down the
+columns (-x across), -F marks CODE files, -s sizes, -r reversed, -S by size; one name a line into a file or a
+pipe (-C forces columns); "lc" was taken as Plan 9's lc, not a line count.  PATCH [-RsbClN] [-F N] [-pN] [-o OUT]
+[-i PATCHFILE] [FILE]: applies normal, unified and context diffs (DIFF's or the host's): hunks that moved,
+fuzz up to 2, rejects in NAME.REJ.TEXT, -R, -b (NAME.ORIG.TEXT), -o, -C, names from the headers, hunks of up to
+190 lines.  Checked against the host's diff output in all five forms.
