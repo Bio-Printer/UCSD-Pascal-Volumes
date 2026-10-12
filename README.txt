@@ -1240,3 +1240,11 @@ MORE [-N] [-s] [-i] [+N] [FILE ...]: a screen at a time with a --More--(NN%) pro
 G, Ng, N%, /text, ?text, n, N, :n :p :x, =, h, q; PgUp/PgDn/Home/End and the mouse wheel), any size of
 file: it reads 1 KB pages as the keys need them and keeps a sparse index of line starts.  LESS uses the
 console's scroll codes (emulator 2.04).  Both take the standard input (DIR | LESS).
+
+^S AND ^Q STOP AND START THE CONSOLE OUTPUT (EMULATOR 2.06)
+---------------------------------------------------------------------------
+BIGGY's SYSTEM.MISCINFO already had ^S as CRTINFO.STOP; nothing acted on it.  Emulator 2.06 does:
+^S typed while a program is running and not waiting for a key stops its console output (the program
+waits in its next write), ^Q (also what the arrow keys' Left sends) starts it again; the status bar says
+"Output stopped (^S) -- ^Q goes on".  At a prompt, or while a program waits for a key, both are ordinary
+keys.  No disk changed.  (Break is `, as before: it ends the program.)
