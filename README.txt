@@ -1248,3 +1248,13 @@ BIGGY's SYSTEM.MISCINFO already had ^S as CRTINFO.STOP; nothing acted on it.  Em
 waits in its next write), ^Q (also what the arrow keys' Left sends) starts it again; the status bar says
 "Output stopped (^S) -- ^Q goes on".  At a prompt, or while a program waits for a key, both are ordinary
 keys.  No disk changed.  (Break is `, as before: it ends the program.)
+
+MAN (TOOLS:MAN.CODE, TOOLS:MAN.TEXT, TOOLSRC:MAN.C)
+---------------------------------------------------------------------------
+MAN [-l] [-k WORD] [NAME ...] from the shell: the manual page of a program on TOOLS: -- what it is for
+and every option and key (VI, GREP, CAT, HEXDUMP, OBJCOPY, MORE, LESS, MAN, BINDERC, and the SHELL's
+commands, redirection and pipes).  MAN alone lists the pages, -k WORD finds the ones with WORD in them,
+a long page stops at --More-- (SPACE, RETURN, q); MAN VI | LESS to go back and forth.  All the text is
+the one file MAN.TEXT beside MAN.CODE (one directory slot): a page is a "%% NAME" line and what follows;
+the head of MAN.TEXT says how to add one.  The sources keep it as ports/man/MAN.TEXT in UCSD-TinyC, and
+tools/mkvolume.py refuses to build TOOLS: when a program on it has no page.

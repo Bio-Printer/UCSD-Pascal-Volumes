@@ -24,6 +24,8 @@ GREP.C  grep (a regular expression, wildcards, every disk).
 
 CAT.C   cat (the options of cat(1)).
 
+MAN.C   man (the manual pages program; MAN.TEXT on TOOLS: is its data).
+
 HEXDUMP.C  hexdump (a hex dump, Intel Hex with -i).
 
 OBJCOPY.C  objcopy (a hex dump or Intel Hex back into a file).
