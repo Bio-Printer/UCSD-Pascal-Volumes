@@ -1184,3 +1184,13 @@ VI: show_help() REMOVED (TOOLS, TOOLSRC)
 show_help() and what called it are gone from vi: the :features command and the -H / --
 options (they now give the usage message like any unknown option).  TOOLS.BLK (VI.CODE)
 and TOOLSRC.BLK updated.
+
+GREP IS 20 TIMES FASTER (TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+GREP already read the file two blocks at a time (FBLOCKIO), but then looked at every character
+in P-code and tried the pattern at every position with three calls.  Now a line is found with
+the SCAN-based memchr (CR, DLE), a line without the pattern's first character is skipped without
+formatting, a table says which characters a match can begin with, and the pattern is compared
+with one call a step: 100 KB of source, a pattern that is not there: 24 s -> 1 s in the Z80
+emulator (0.1 s native); a class first ([z]zqq) 34 s -> 5 s.  The same lines as before.
+TOOLS.BLK (GREP.CODE) and TOOLSRC.BLK (GREP.C) updated.
