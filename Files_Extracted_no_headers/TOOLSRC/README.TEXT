@@ -22,4 +22,6 @@ VI      vi: the BusyBox "tiny vi" (GPL v2 or later, see VI.H), edited
 
 GREP.C  grep (a regular expression, wildcards, every disk).
 
+CAT.C   cat (the options of cat(1)).
+
 FILES.TEXT lists every file on this volume.

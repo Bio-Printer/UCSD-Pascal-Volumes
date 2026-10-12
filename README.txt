@@ -1208,3 +1208,12 @@ file (what TYPE and the Editor read), any other is raw bytes.  \> \< \| are ordi
 TCLIB.OBJ, TCLIB2 and the programs built with it changed; cc @all is at 2,929 words (it was 2,900).
 
 (The shell's builtin names are a table now: the compiler in the P-System could not compile the long || chain, SHELL.C on TCEXTRA.  SYSTEM.SHELL, TCEXTRA, TOOLSRC etc. rebuilt.)
+
+CAT (TOOLS:CAT.CODE, TOOLSRC:CAT.C)
+---------------------------------------------------------------------------
+CAT [-AbeEnstTuv] [FILE ...] from the shell: every option of cat(1) except the long ones (--show-all
+and so on).  -A -vET, -b number the non-empty lines, -e -vE, -E $ at each line's end, -n number all
+lines, -s one empty line for several, -t -vT, -T tabs as ^I, -u ignored, -v control characters as
+^X (DEL ^?) and bytes of 128 and up as M-x; joined (-bn, -vET), -- ends the options.  No FILE or -:
+the standard input, so the shell's < and | work (DIR #5:= | CAT -n).  .TEXT, .C and .H files are
+text, any other file is read as the bytes it holds.  Checked against the host's cat option by option.
