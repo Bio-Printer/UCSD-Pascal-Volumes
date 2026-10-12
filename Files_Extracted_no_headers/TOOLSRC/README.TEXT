@@ -24,4 +24,6 @@ GREP.C  grep (a regular expression, wildcards, every disk).
 
 CAT.C   cat (the options of cat(1)).
 
+HEXDUMP.C  hexdump (a hex dump, Intel Hex with -i).
+
 FILES.TEXT lists every file on this volume.

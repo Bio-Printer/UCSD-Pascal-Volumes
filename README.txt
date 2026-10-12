@@ -1217,3 +1217,14 @@ lines, -s one empty line for several, -t -vT, -T tabs as ^I, -u ignored, -v cont
 ^X (DEL ^?) and bytes of 128 and up as M-x; joined (-bn, -vET), -- ends the options.  No FILE or -:
 the standard input, so the shell's < and | work (DIR #5:= | CAT -n).  .TEXT, .C and .H files are
 text, any other file is read as the bytes it holds.  Checked against the host's cat option by option.
+
+HEXDUMP (TOOLS:HEXDUMP.CODE, TOOLSRC:HEXDUMP.C)
+---------------------------------------------------------------------------
+HEXDUMP [-i] [FILE ...] from the shell (no FILE or -: the standard input; the files are one stream).
+A line: the offset in hex, 16 bytes in hex with a blank between them and two more after the 8th, then
+the bytes as characters (. for the unprintable):
+  00000000  48 65 6C 6C 6F 20 77 6F   72 6C 64 0A 00 01 02 03  Hello world.....
+-i: Intel Hex, 16 data bytes a record (:LLAAAATTDD..CC), an extended linear address record every
+64 KB, the end record :00000001FF (HEXDUMP -i A.CODE >A.HEX).  .TEXT, .C and .H files are text, any
+other file is read as the bytes it holds.  The Intel Hex of a 66 KB file is read back by the host's
+objcopy -I ihex byte for byte.
