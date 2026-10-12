@@ -1194,3 +1194,15 @@ formatting, a table says which characters a match can begin with, and the patter
 with one call a step: 100 KB of source, a pattern that is not there: 24 s -> 1 s in the Z80
 emulator (0.1 s native); a class first ([z]zqq) 34 s -> 5 s.  The same lines as before.
 TOOLS.BLK (GREP.CODE) and TOOLSRC.BLK (GREP.C) updated.
+
+SHELL: > >> < REDIRECTION AND | PIPES (BIGGY 1.25: SYSTEM.SHELL; TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+COMMAND >FILE puts what a command writes into FILE (>>FILE appends), COMMAND <FILE is its standard
+input, A | B | C runs the programs one after the other with each one's output as the next one's
+input (a text file #4:PIPE1.TEXT / PIPE2.TEXT, gone when the last one ends).  It works for the
+shell's own commands (DIR *.C >LIST.TEXT) and for a program whose main has argc and argv -- the
+library's startup takes >NAME and <NAME off its command line (new library module REDIRECT, with
+freopen; stdin and stdout are closed at exit when they are files): GREP PAT FILES >OUT.TEXT,
+DIR #5:= | GREP .C.  GREP with no FILES reads its standard input.  A name ending in .TEXT is a text
+file (what TYPE and the Editor read), any other is raw bytes.  \> \< \| are ordinary characters.
+TCLIB.OBJ, TCLIB2 and the programs built with it changed; cc @all is at 2,929 words (it was 2,900).
