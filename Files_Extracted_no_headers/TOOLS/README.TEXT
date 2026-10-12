@@ -77,6 +77,17 @@ LESS    LESS [-NSiF] [+N] [FILE ...]  from the shell: a screen at a time,
         N.  Any size of file: it reads as far as the keys need and keeps a
         sparse index of line starts (needs emulator 2.04).
 
+SED     SED [-nEsur] [-i[SUFFIX]] [-e SCRIPT] [-f FILE] [SCRIPT] [FILE ...]
+        from the shell: a stream editor: the commands of a script (s y a i c
+        d p q n N h H g G x b t = l r w ...) run on each line of the files,
+        with addresses (N $ /re/ ranges first~step), basic or extended (-E)
+        regular expressions.  SED -n /x/p A.C; SED s/a/b/g A.TEXT; -i edits in
+        place.  (Write \< \> \| for the shell's special characters, or use -f.)
+
+DIFF    DIFF [-iwbBqs] [-u|-U N|-c|-C N] FILE1 FILE2  from the shell: what
+        differs between two text files: normal, unified or context form;
+        exit status 0 same, 1 different, 2 trouble.  Any size of file.
+
 MAN     MAN [-l] [-k WORD] [NAME ...]  from the shell: the manual page of a
         program on this volume (what it is for, every option and key); MAN
         alone lists them, -k WORD finds the pages with WORD in them.  The text

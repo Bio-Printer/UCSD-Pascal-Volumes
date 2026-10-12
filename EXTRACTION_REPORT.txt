@@ -15,10 +15,10 @@ TCVERIF  (volume TCVERIF, 5 files)
     5 files extracted, 4 text files decoded
 TINY-C  (volume TINY-C, 21 files)
     21 files extracted, 19 text files decoded
-TOOLS  (volume TOOLS, 12 files)
-    12 files extracted, 3 text files decoded
-TOOLSRC  (volume TOOLSRC, 22 files)
-    22 files extracted, 22 text files decoded
+TOOLS  (volume TOOLS, 14 files)
+    14 files extracted, 3 text files decoded
+TOOLSRC  (volume TOOLSRC, 26 files)
+    26 files extracted, 26 text files decoded
 U002A.5_Z80_SYS1  (volume U002A.5, 20 files)
     20 files extracted, 4 text files decoded
 U006.5_LSI-11_SYS1  (volume U006.5, 14 files)

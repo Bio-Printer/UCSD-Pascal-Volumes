@@ -24,6 +24,10 @@ GREP.C  grep (a regular expression, wildcards, every disk).
 
 CAT.C   cat (the options of cat(1)).
 
+SED.C, SEDRE.C, SED.H  sed (the stream editor, its regular expressions).
+
+DIFF.C  diff (two files compared, three output forms).
+
 MAN.C   man (the manual pages program; MAN.TEXT on TOOLS: is its data).
 
 HEXDUMP.C  hexdump (a hex dump, Intel Hex with -i).

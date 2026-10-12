@@ -1258,3 +1258,14 @@ a long page stops at --More-- (SPACE, RETURN, q); MAN VI | LESS to go back and f
 the one file MAN.TEXT beside MAN.CODE (one directory slot): a page is a "%% NAME" line and what follows;
 the head of MAN.TEXT says how to add one.  The sources keep it as ports/man/MAN.TEXT in UCSD-TinyC, and
 tools/mkvolume.py refuses to build TOOLS: when a program on it has no page.
+
+SED AND DIFF (TOOLS:SED.CODE, TOOLS:DIFF.CODE; sources on TOOLSRC:; pages in MAN.TEXT)
+---------------------------------------------------------------------------
+SED [-nEsur] [-i[SUFFIX]] [-e SCRIPT] [-f FILE] [SCRIPT] [FILE ...]: a stream editor.  Addresses (N $ /re/
+first~step ranges addr,+N addr,~N 0,/re/ and !), the commands { } = a b c d D g G h H i l n N p P q Q r s t T
+w x y z : #, s with the flags g p N i w and & \1..\9 \n \U \L \u \l \E, y, in basic and (-E) extended regular
+expressions with groups and back references (SEDRE.C), -s and -i[SUFFIX] (the original kept as NAME with the
+suffix before the extension).  The shell takes < > | itself: write \< \> \| or use -f.  Checked against GNU sed
+on 150 scripts.  DIFF [-iwbBqs] [-u|-U N|-c|-C N] FILE1 FILE2: what differs between two text files, normal,
+unified or context form, status 0/1/2, files of any size (a 40-line look-ahead for common lines: always a
+correct diff, patch-able, not always the shortest); checked against the host's diff and patch.
