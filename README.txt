@@ -1228,3 +1228,15 @@ the bytes as characters (. for the unprintable):
 64 KB, the end record :00000001FF (HEXDUMP -i A.CODE >A.HEX).  .TEXT, .C and .H files are text, any
 other file is read as the bytes it holds.  The Intel Hex of a 66 KB file is read back by the host's
 objcopy -I ihex byte for byte.
+
+OBJCOPY, MORE, LESS (TOOLS:, sources on TOOLSRC:)
+---------------------------------------------------------------------------
+OBJCOPY [-I ihex|hexdump] [-O binary] [INFILE [OUTFILE]]: HEXDUMP's output (either form) back into the
+bytes; the offsets place them (gaps are filled with 0 bytes), Intel Hex checksums are checked; the
+standard input / output without names (HEXDUMP -I A.CODE | OBJCOPY - B.CODE).  UCSD files do not keep a
+length: a file that is not .TEXT/.C/.H is whole blocks, the last one filled up with 0 bytes.
+MORE [-N] [-s] [-i] [+N] [FILE ...]: a screen at a time with a --More--(NN%) prompt (SPACE, RETURN, d,
+/text, n, =, h, q).  LESS [-NSiF] [+N] [FILE ...]: forwards and backwards (SPACE/f, b, RETURN/j, k, d, u, g,
+G, Ng, N%, /text, ?text, n, N, :n :p :x, =, h, q; PgUp/PgDn/Home/End and the mouse wheel), any size of
+file: it reads 1 KB pages as the keys need them and keeps a sparse index of line starts.  LESS uses the
+console's scroll codes (emulator 2.04).  Both take the standard input (DIR | LESS).

@@ -26,4 +26,8 @@ CAT.C   cat (the options of cat(1)).
 
 HEXDUMP.C  hexdump (a hex dump, Intel Hex with -i).
 
+OBJCOPY.C  objcopy (a hex dump or Intel Hex back into a file).
+
+MORE.C, LESS.C  the pagers.
+
 FILES.TEXT lists every file on this volume.
