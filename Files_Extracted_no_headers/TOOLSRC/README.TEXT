@@ -28,6 +28,12 @@ SED.C, SEDRE.C, SED.H  sed (the stream editor, its regular expressions).
 
 DIFF.C  diff (two files compared, three output forms).
 
+WC.C    wc (lines, words, bytes).
+
+LC.C    lc (the file names of a disk in columns).
+
+PATCH.C patch (a diff applied to a file).
+
 MAN.C   man (the manual pages program; MAN.TEXT on TOOLS: is its data).
 
 HEXDUMP.C  hexdump (a hex dump, Intel Hex with -i).
