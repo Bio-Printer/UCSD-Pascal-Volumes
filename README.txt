@@ -1365,3 +1365,11 @@ writes its last slot, closes it (the rest of the free area is free again) and op
 write.  Before, it kept the volume's largest free area, so :w or ZZ of a file on the prefix volume said
 "Write error: I/O error".  Vi's window in Z80 mode is about 4 KB (4040 bytes).  VI.CODE is 72 blocks.
 Emulator: v2.06.
+
+VI OPENS A COMPILER'S LISTING (TOOLS:VI.CODE, TOOLS:MAN.TEXT)
+-------------------------------------------------------------
+VI SYSTEM.LIST (287 blocks) and VI SETUP-ALL.LIST (152 blocks) said "cannot be loaded": a listing is a data
+file whose lines end in CR, which vi did not take as a line's end, so the whole file was one line too long for
+it.  In a file that is not text (not .TEXT, .C or .H) vi now takes a CR as the end of a line and writes CRs
+back when it saves; the NULs that fill out a data file's last block are dropped when it is read.  Files up to
+about 185 KB (it was 125 KB: SYSTEM.LIST is 146 KB).  Emulator: v2.06.
