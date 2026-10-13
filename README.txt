@@ -1314,3 +1314,13 @@ disk.  VI.SWAP is now made the size the file needs -- the file's size and 25 KB 
 closing it (the system keeps the size written), then opened again to read and write; the chunk tables are sized by
 it too (77 entries instead of 128 for a 60 KB file), which keeps vi's small Z80 window.  Vi's own place record no
 longer needs a number-to-text conversion: the jump goes straight to the line.  Emulator: any.
+
+VI: SLOWNESS IN Z80 MODE FIXED; THE PLACE IS IN THE MIDDLE OF THE SCREEN (TOOLS:VI.CODE)
+-----------------------------------------------------------------------------------------
+The VI of the previous entry was slow and showed ~ rows in Z80 mode: its chunk table (one entry for each piece of
+the file kept in VI.SWAP) was sized by the file but the chunks are only about half full, so the table filled and
+vi could not move its window; and the window had shrunk (the new code) until it could not hold the screen and the
+margin vi keeps, so every key moved chunks in and out.  The table is now two entries to a KB of the file (and
+VI.SWAP a slot to an entry), the margin is made smaller when the window cannot hold it, the header code is leaner
+(6 bytes: 'V' 'I' 1 column line-low line-high), and a file over 32 KB shows its size in K after :w.  The place
+a file is opened at is in the middle of the screen.  Emulator: any.
