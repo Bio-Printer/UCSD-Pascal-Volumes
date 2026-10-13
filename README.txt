@@ -1324,3 +1324,9 @@ margin vi keeps, so every key moved chunks in and out.  The table is now two ent
 VI.SWAP a slot to an entry), the margin is made smaller when the window cannot hold it, the header code is leaner
 (6 bytes: 'V' 'I' 1 column line-low line-high), and a file over 32 KB shows its size in K after :w.  The place
 a file is opened at is in the middle of the screen.  Emulator: any.
+
+VI BACK TO THE SAVE FIX (TOOLS:VI.CODE)
+---------------------------------------
+VI is back to the version of "VI SAVE FIX, WC WILD CARDS" above (UCSD-TinyC commit a525be8): the remembered place
+in the header page, the sized VI.SWAP and chunk table and the smaller margin are taken out, to go forward again one
+change at a time.  The other tools are as they were (GREP -n stays).
