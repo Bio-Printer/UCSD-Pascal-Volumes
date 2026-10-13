@@ -1387,3 +1387,10 @@ In SYSTEM.LIST in Z80 mode, after 687G, Page Up (^B) moved a few lines and then 
 holds not much more than a screen of this file; to bring in the lines above, vi kept the whole screen and had
 nothing else to put out.  It now also puts out the lines that are about to leave the bottom of the screen.
 Emulator: v2.06.
+
+VI: A JUMP IN A BIG FILE PUTS THE LINE IN THE MIDDLE OF THE SCREEN (TOOLS:VI.CODE)
+---------------------------------------------------------------------------------
+In SYSTEM.LIST in Z80 mode, 687G put line 687 at the top of the screen.  Vi's window there holds not much
+more than a screen, and it asked for a whole screen above and below the line; now it asks for the lines the
+screen will show (as it was, scrolled just enough, or the line in the middle).  When a whole 1 KB piece of
+the file has no room, the lines of it that are wanted come in and the rest stays in VI.SWAP.  Emulator: v2.06.
