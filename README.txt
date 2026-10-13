@@ -1294,3 +1294,14 @@ GREP -n (TOOLS:GREP.CODE)
 -------------------------
 GREP [-i] [-n] PATTERN [[VOL: | #n:]FILE ...]: -n prints the lines that do NOT contain the pattern (-in and -ni
 both work), from files and from the standard input; the count line at the end counts the lines printed.
+
+VI REMEMBERS WHERE IT LEFT A FILE (TOOLS:VI.CODE, TOOLS:MAN.TEXT)
+-----------------------------------------------------------------
+On leaving a text file (.TEXT, .C, .H) that was saved or not changed, vi writes the cursor's line and column
+into 7 bytes of the file's 1 KB header page: 'V' 'I' 1, column, line (2 bytes), check, at byte 1000 -- the 892
+bytes at the end of the Pascal Editor's page zero (HEAD.TEXT: FILLER) that the Editor never uses.  The next VI
+of the file starts at that place (VI -c CMD wins; a file that has become shorter opens at its last line).  When
+vi saves a file the library makes a new, empty header page; vi now puts the old one (the Editor's markers,
+environment and dates) into a spare slot of VI.SWAP first and writes it back, so the Editor's information
+survives vi's saves too (it was lost before).  If the Editor starts a file whose page it has not used it
+clears the page and the place is gone: nothing else changes.  Emulator: any.
