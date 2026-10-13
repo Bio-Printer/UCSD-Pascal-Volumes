@@ -1305,3 +1305,12 @@ vi saves a file the library makes a new, empty header page; vi now puts the old 
 environment and dates) into a spare slot of VI.SWAP first and writes it back, so the Editor's information
 survives vi's saves too (it was lost before).  If the Editor starts a file whose page it has not used it
 clears the page and the place is gone: nothing else changes.  Emulator: any.
+
+VI: SAVING TO THE PREFIX VOLUME (TOOLS:VI.CODE)
+-----------------------------------------------
+The UCSD system gives a new file the largest free piece of the disk, so VI.SWAP (opened when vi starts) took the
+whole free area of the prefix volume and the file :w writes found no room ("I/O error") when it was on the same
+disk.  VI.SWAP is now made the size the file needs -- the file's size and 25 KB -- by writing its last block and
+closing it (the system keeps the size written), then opened again to read and write; the chunk tables are sized by
+it too (77 entries instead of 128 for a 60 KB file), which keeps vi's small Z80 window.  Vi's own place record no
+longer needs a number-to-text conversion: the jump goes straight to the line.  Emulator: any.
