@@ -1340,3 +1340,10 @@ the Editor never uses; the rest of the page is read and written back as it was. 
 at that place with the line in the middle of the screen (VI -c CMD wins; a file that has become shorter opens at
 its last line).  VI.SWAP is unchanged (it still takes the largest free area of the prefix volume).  Cost: about
 450 bytes of vi's window in Z80 mode (3236 -> 2788 bytes).  Emulator: any.
+
+VI: THE PLACE IS KEPT AFTER ZZ; THE "L" GOES WHEN THE FILE HAS LOADED (TOOLS:VI.CODE)
+-------------------------------------------------------------------------------------
+ZZ after a change wrote the file but left vi's "modified" mark set, so the end of the session did not write the
+place into the header page (only :w, or leaving an unchanged file, did): fixed.  A big file goes on loading while
+vi waits for a key; when it is all in, the status line is now drawn again -- the total number of lines, and no
+"L" (still loading) at its right end.  Before, both changed only at the next key.  Emulator: any.
