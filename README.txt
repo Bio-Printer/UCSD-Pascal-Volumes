@@ -1373,3 +1373,10 @@ file whose lines end in CR, which vi did not take as a line's end, so the whole 
 it.  In a file that is not text (not .TEXT, .C or .H) vi now takes a CR as the end of a line and writes CRs
 back when it saves; the NULs that fill out a data file's last block are dropped when it is read.  Files up to
 about 185 KB (it was 125 KB: SYSTEM.LIST is 146 KB).  Emulator: v2.06.
+
+VI: THE WINDOW KEEPS MOVING IN A BIG FILE (TOOLS:VI.CODE)
+---------------------------------------------------------
+In SYSTEM.LIST, 687G and then some Up arrows stopped at the top of vi's window: Up, Page Up and a ? search
+no longer brought in the lines above.  As the window moves, the lines it leaves behind are put in VI.SWAP a
+chunk at a time, and those chunks were often only part full, so VI.SWAP (the file and 25 KB) ran out of room.
+Lines that go out now join the chunk next to them when they fit.  Emulator: v2.06.
