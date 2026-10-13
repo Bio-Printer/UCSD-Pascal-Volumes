@@ -1380,3 +1380,10 @@ In SYSTEM.LIST, 687G and then some Up arrows stopped at the top of vi's window: 
 no longer brought in the lines above.  As the window moves, the lines it leaves behind are put in VI.SWAP a
 chunk at a time, and those chunks were often only part full, so VI.SWAP (the file and 25 KB) ran out of room.
 Lines that go out now join the chunk next to them when they fit.  Emulator: v2.06.
+
+VI: PAGE UP IN A BIG FILE (TOOLS:VI.CODE)
+-----------------------------------------
+In SYSTEM.LIST in Z80 mode, after 687G, Page Up (^B) moved a few lines and then stuck.  In Z80 mode vi's window
+holds not much more than a screen of this file; to bring in the lines above, vi kept the whole screen and had
+nothing else to put out.  It now also puts out the lines that are about to leave the bottom of the screen.
+Emulator: v2.06.
