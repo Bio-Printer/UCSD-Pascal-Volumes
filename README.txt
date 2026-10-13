@@ -1394,3 +1394,11 @@ In SYSTEM.LIST in Z80 mode, 687G put line 687 at the top of the screen.  Vi's wi
 more than a screen, and it asked for a whole screen above and below the line; now it asks for the lines the
 screen will show (as it was, scrolled just enough, or the line in the middle).  When a whole 1 KB piece of
 the file has no room, the lines of it that are wanted come in and the rest stays in VI.SWAP.  Emulator: v2.06.
+
+VI: SYSTEM.LIST OPENS WITH A FULL SCREEN AGAIN (TOOLS:VI.CODE)
+--------------------------------------------------------------
+The previous VI opened SYSTEM.LIST in Z80 mode with half a screen and "~" rows: the code that brought in part
+of a chunk took about 450 bytes from vi's window.  It is taken out, and vi's chunk table now has no more
+entries than VI.SWAP has slots, which gives 144 bytes back: the window for SYSTEM.LIST is 3200 bytes (it was
+3048 before the centring change).  687G puts line 687 on row 18 of 44 in Z80 mode (in the middle in P-Code
+mode); Page Up works.  Emulator: v2.06.
