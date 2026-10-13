@@ -293,10 +293,6 @@ dc5:
                         break;
                 }
                 if (file_modified) {
-                        if (ENABLE_FEATURE_VI_READONLY && readonly_mode) {
-                                status_line_bold("\"%s\" File is read only", current_filename);
-                                break;
-                        }
                         cnt = file_write(current_filename, text, end - 1);
                         if (cnt < 0) {
                                 if (cnt == -1)
@@ -618,9 +614,6 @@ again:
         case 6:                 // ctrl-F  scroll down full screen
         case VI_K_PAGEDOWN:     // Cursor Key Page Down
                 dot_scroll(rows - 2, 1);
-                break;
-        case 7:                 // ctrl-G  show current status
-                format_edit_status(EDIT_STATUS " col %d");
                 break;
         case 'h':                       // h- move left
         case VI_K_LEFT: // cursor key Left

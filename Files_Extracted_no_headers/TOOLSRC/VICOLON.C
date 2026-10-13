@@ -391,23 +391,6 @@ void colon1(char *buf)
                         dot_skip_over_ws();
                 }
         }
-#if ENABLE_FEATURE_ALLOW_EXEC
-        else if (strncmp(cmd, "!", 1) == 0) {   // run a cmd
-                int retcode;
-                // :!ls   run the <cmd>
-                clear_screen();
-                standout_start();
-                write1(status_buffer+2);
-                standout_end();
-                cookmode();
-                write1("\n");
-                retcode = system(orig_buf + 1) >> 8;    // run the cmd
-                if (retcode)
-                        printf("\nshell returned %i\n\n", retcode);
-                rawmode();
-                Hit_Return();                   // let user see results
-        }
-#endif
         else if (strncmp(cmd, "=", i) == 0) {   // where is the address
                 if (b < 0) {    // no addr given- use defaults
                         b = e = ABSLINE(dot);
@@ -420,55 +403,6 @@ void colon1(char *buf)
                 }
                 dot = yank_delete(q, r, 1, YANKDEL);    // save, then delete lines
                 dot_skip_over_ws();
-        } else if (strncasecmp(cmd, "edit", i) == 0) {  // Edit a file
-                // don't edit, if the current file has been modified
-                if (file_modified && !useforce) {
-                        status_line_bold("No write since last change (:edit! overrides)");
-                        goto vc1;
-                }
-                if (args[0]) {
-                        // the user supplied a file name
-                        fn = args;
-                } else if (current_filename && current_filename[0]) {
-                        // no user supplied name- use the current filename
-                        // fn = current_filename;  was set by default
-                } else {
-                        // no user file name, no current name- punt
-                        status_line_bold("No current filename");
-                        goto vc1;
-                }
-
-                if (init_text_buffer(fn) < 0)
-                        goto vc1;
-
-#if ENABLE_FEATURE_VI_YANKMARK
-                if (Ureg >= 0 && Ureg < 28 && reg[Ureg] != 0) {
-                        free(reg[Ureg]);        //   free orig line reg- for 'U'
-                        reg[Ureg]= 0;
-                }
-                if (YDreg >= 0 && YDreg < 28 && reg[YDreg] != 0) {
-                        free(reg[YDreg]);       //   free default yank/delete register
-                        reg[YDreg]= 0;
-                }
-#endif
-                // how many lines in text[]?
-                li = TOTLINES();
-                status_line("\"%s\"%s"
-                        USE_FEATURE_VI_READONLY("%s")
-                        " %dL, %dC", current_filename,
-                        (file_size(fn) < 0 ? " [New file]" : ""),
-                        ((readonly_mode) ? " [Readonly]" : ""),
-                        li, ch);
-        } else if (strncasecmp(cmd, "file", i) == 0) {  // what File is this
-                if (b != -1 || e != -1) {
-                        not_implemented("No address allowed on this command");
-                        goto vc1;
-                }
-                if (args[0]) {
-                        // user wants a new filename
-                        free(current_filename);
-                        current_filename = xstrdup(args);
-                }
         } else if (strncasecmp(cmd, "list", i) == 0) {  // literal print line
                 if (b < 0) {    // no addr given- use defaults
                         q = begin_line(dot);    // assume .,. for the range
@@ -544,11 +478,7 @@ void colon1(char *buf)
                         goto vc1;       // nothing was inserted
                 // how many lines in text[]?
                 li = count_lines(q, q + ch - 1);
-                status_line("\"%s\""
-                        USE_FEATURE_VI_READONLY("%s")
-                        " %dL, %dC", fn,
-                        (readonly_mode ? " [Readonly]" : ""),
-                        li, ch);
+                status_line("\"%s\" %dL, %dC", fn, li, ch);
                 if (ch > 0) {
                         // if the insert is before "dot" then we need to update
                         if (q <= dot)
@@ -585,12 +515,6 @@ void colon1(char *buf)
                 if (args[0]) {
                         fn = args;
                 }
-#if ENABLE_FEATURE_VI_READONLY
-                if (readonly_mode && !useforce) {
-                        status_line_bold("\"%s\" File is read only", fn);
-                        goto vc3;
-                }
-#endif
                 // how many lines in text[]?
                 li = count_lines(q, r);
                 ch = r - q + 1;
@@ -632,9 +556,6 @@ void colon1(char *buf)
                                 editing = 0;
                         }
                 }
-#if ENABLE_FEATURE_VI_READONLY
- vc3:;
-#endif
 #if ENABLE_FEATURE_VI_YANKMARK
         } else if (strncasecmp(cmd, "yank", i) == 0) {  // yank lines
                 if (b < 0) {    // no addr given- use defaults

@@ -1355,3 +1355,13 @@ back to vi's window in Z80 mode (3000 -> 3634 bytes), with the 1 KB reserve kept
 the half screen above the remembered line: a restart (like typing NG at once) puts it in the middle of the
 screen in Z80 mode as well, with no "~" rows.  The chunk table is sized by the file (two entries to a KB, plus
 24).  VI.CODE is 72 blocks.  Emulator: v2.06.
+
+VI: NO :e OR :f/^G; UNUSED CODE OUT; A SAVE ON THE PREFIX VOLUME WORKS (TOOLS:VI.CODE, TOOLS:MAN.TEXT)
+-----------------------------------------------------------------------------------------------------
+:e NAME, :e! and :f, ^G are gone (about 470 bytes of code back for vi's window), and so is the code of the
+features that were switched off (signals, read-only, window-size queries, locale and 8-bit printing, shell
+escapes).  VI.SWAP, vi's temporary file on the prefix volume, is now the size of the file plus 25 KB: vi
+writes its last slot, closes it (the rest of the free area is free again) and opens it again to read and
+write.  Before, it kept the volume's largest free area, so :w or ZZ of a file on the prefix volume said
+"Write error: I/O error".  Vi's window in Z80 mode is about 4 KB (4040 bytes).  VI.CODE is 72 blocks.
+Emulator: v2.06.

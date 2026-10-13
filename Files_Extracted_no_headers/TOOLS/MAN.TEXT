@@ -43,8 +43,9 @@ DESCRIPTION
     A vi: moving, inserting, deleting, searching and substituting on a screen.
     FILE is a text file as typed (.C, .H and .TEXT files are text files).  A
     file larger than memory is edited through a window (the rest is kept in a
-    temporary file VI.SWAP on the prefix volume): moving, searching, G and :N
-    move the window; a command that needs more lines than the window holds
+    temporary file VI.SWAP on the prefix volume, the file's size and 25 KB, so
+    a save on that volume finds room): moving, searching, G and :N move the
+    window; a command that needs more lines than the window holds
     (500dd on a big file) is refused.  Needs emulator 2.04.
 MOVING
     h j k l, the arrow keys   left, down, up, right
@@ -69,14 +70,13 @@ CHANGING
 COLON COMMANDS (: then the command; ranges 1,5  .,$  %  'a,'b  /pat/)
     :w  :w NAME  :wq  :x  ZZ  write, write to NAME, write and quit
     :q  :q!                   quit, quit without writing
-    :e NAME  :e!              edit another file; edit the file again
     :r NAME                   read a file in below the cursor line
     :N  :$                    go to line N, the last line
     :d  :y  :p                delete, yank, put lines of the range
     :s/old/new/  :s/old/new/g  substitute (in the range; g: every one in a line)
     :set ai  noai             autoindent;  :set ic  noic  ignorecase;  :set sm  nosm  showmatch
     :set ts=N                 the tab stop;  :set fl  noflash;  :set  shows them
-    :f  ^G                    file name and line;  :version  the version
+    :version                  the version
 WHERE IT WAS LEFT
     On leaving a text file (.TEXT, .C, .H) that was saved or not changed, vi keeps the
     cursor's line and column, in binary, in 6 bytes of the file's 1 KB header page (the
