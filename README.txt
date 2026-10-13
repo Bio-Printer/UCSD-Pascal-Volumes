@@ -1347,3 +1347,11 @@ ZZ after a change wrote the file but left vi's "modified" mark set, so the end o
 place into the header page (only :w, or leaving an unchanged file, did): fixed.  A big file goes on loading while
 vi waits for a key; when it is all in, the status line is now drawn again -- the total number of lines, and no
 "L" (still loading) at its right end.  Before, both changed only at the next key.  Emulator: any.
+
+VI: NO -R OR -c; THE RESTART LINE IS IN THE MIDDLE IN Z80 MODE TOO (TOOLS:VI.CODE, TOOLS:MAN.TEXT)
+--------------------------------------------------------------------------------------------------
+VI has no options now: VI [FILE ...] (-R read-only, -c CMD and EXINIT are gone).  That gives 634 bytes of code
+back to vi's window in Z80 mode (3000 -> 3634 bytes), with the 1 KB reserve kept, and the window can now hold
+the half screen above the remembered line: a restart (like typing NG at once) puts it in the middle of the
+screen in Z80 mode as well, with no "~" rows.  The chunk table is sized by the file (two entries to a KB, plus
+24).  VI.CODE is 72 blocks.  Emulator: v2.06.

@@ -331,6 +331,7 @@ int vi_main(int argc, char **argv)
         //  1-  process $HOME/.exrc file (not inplemented yet)
         //  2-  process EXINIT variable from environment
         //  3-  process command line args
+#ifndef __UCSD__
 #if ENABLE_FEATURE_VI_COLON
         {
                 char *p = getenv("EXINIT");
@@ -356,6 +357,7 @@ int vi_main(int argc, char **argv)
                         return 1;
                 }
         }
+#endif  // (the P-System's vi has no options: VI NAME ...)
 
         // The argv array can be used by the ":next"  and ":rewind" commands
         // save optind.
@@ -395,7 +397,7 @@ int init_text_buffer(char *fn)
 #if ENABLE_FEATURE_VI_PAGING
         /* the window: allocated once, as big as memory allows */
         if (!text) {
-                pg_init();
+                pg_init(fn);
                 text_size = pg_cap;
                 text = xzalloc(text_size + 1);
         }
@@ -499,20 +501,19 @@ static void edit_file(char *fn)
 #endif
 
 #ifdef __UCSD__
-        if (hdr_line > 0 && !initial_cmds[0]) { // where the file was left: that line in the middle of the screen
+        if (hdr_line > 0) {     // where the file was left: as if NG had been typed, and the column
                 char *p;
-                int n;
 
-                dot = find_line(hdr_line);      // (beyond the end: the last line)
-                for (p = dot; hdr_col > 0 && *p != '\n' && p < end - 1; hdr_col--)
+                cmdcnt = hdr_line;
+                do_cmd('G');                    // (G puts the line in the middle of the screen when the window can hold that)
+                cmdcnt = 0;
+                for (p = begin_line(dot); hdr_col > 0 && *p != '\n' && p < end - 1; hdr_col--)
                         p++;
-                screenbegin = begin_line(dot);
-                for (n = rows / 2; n > 0 && screenbegin > text; n--)
-                        screenbegin = prev_line(screenbegin);
                 dot = p;
+                hdr_line = 0;                   // (the first file of the command line only)
         }
 #endif
-#if ENABLE_FEATURE_VI_COLON
+#if ENABLE_FEATURE_VI_COLON && !defined(__UCSD__)
         {
                 char *p, *q;
                 int n = 0;
