@@ -1330,3 +1330,13 @@ VI BACK TO THE SAVE FIX (TOOLS:VI.CODE)
 VI is back to the version of "VI SAVE FIX, WC WILD CARDS" above (UCSD-TinyC commit a525be8): the remembered place
 in the header page, the sized VI.SWAP and chunk table and the smaller margin are taken out, to go forward again one
 change at a time.  The other tools are as they were (GREP -n stays).
+
+VI OPENS A FILE WHERE IT WAS LEFT (TOOLS:VI.CODE, TOOLS:MAN.TEXT)
+-----------------------------------------------------------------
+Step 1 after going back to the save fix.  On leaving a text file (.TEXT, .C, .H) that was saved or not changed,
+vi writes the cursor's line and column, in binary, into 6 bytes of the file's 1 KB header page: 'V' 'I' 1,
+column, line-low, line-high at byte 1000 -- in the 892 bytes at the end of the Pascal Editor's page zero that
+the Editor never uses; the rest of the page is read and written back as it was.  The next VI of the file starts
+at that place with the line in the middle of the screen (VI -c CMD wins; a file that has become shorter opens at
+its last line).  VI.SWAP is unchanged (it still takes the largest free area of the prefix volume).  Cost: about
+450 bytes of vi's window in Z80 mode (3236 -> 2788 bytes).  Emulator: any.
