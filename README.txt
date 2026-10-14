@@ -1437,3 +1437,9 @@ A : command's /pattern/ address (:/abc/d) was copied into a new string for the s
 ended where it is in the command line and the / put back afterwards, and the search beyond vi's window is
 made once, not twice.  xstrndup is gone: 68 bytes more for vi's window in Z80 mode (4304 -> 4372).
 Emulator: v2.06.
+
+VI: PATTERN NOT FOUND (TOOLS:VI.CODE)
+-------------------------------------
+A : command with a /pattern/ address that matches no line now says "Pattern not found" and does nothing.
+Before, the address was dropped and the command took the current line: :/nomatch/d deleted it.  (The search
+goes forward from the cursor, so a pattern only above it is not found either.)  Emulator: v2.06.
