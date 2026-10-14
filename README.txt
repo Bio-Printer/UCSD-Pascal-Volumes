@@ -1529,3 +1529,12 @@ sources, #include files, objects and @batch files (then on every disk, as before
 from a sub-volume finds its "x.h" in that sub-volume first.  NAME.OBJ goes next to its source; NAME.CODE
 and the temporary files (TCTEMP.TEXT, TCTEMP.IR) go on the volume that holds the sub-volume, where
 X(ecute and the shell can run the program.  Emulator: v2.06.
+
+A \ IS A / IN PATHS (TINY-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
+---------------------------------------------------------------------
+Paths into sub-volumes may be written with \ as Windows writes them: COPY TOOLS:\*.CODE \TMP, DIR
+#5:\A\B, CD \TMP, GREP X A\*.C, CC #5:\A\PROG.  Before, the shell's COPY took \TMP for a new file
+name and made a file called \TMP; now a \ is a / in every file name and path (the library's fopen,
+remove and path walk, the shell's commands, GREP's files, LC, WC, KRUNCH, GROW, SHRINK, CC and its
+#include names), and a new file name with a \ in it is refused.  A file \TMP made before can be
+removed with DELETE ?TMP (Y).  Emulator: v2.06.
