@@ -1402,3 +1402,10 @@ of a chunk took about 450 bytes from vi's window.  It is taken out, and vi's chu
 entries than VI.SWAP has slots, which gives 144 bytes back: the window for SYSTEM.LIST is 3200 bytes (it was
 3048 before the centring change).  687G puts line 687 on row 18 of 44 in Z80 mode (in the middle in P-Code
 mode); Page Up works.  Emulator: v2.06.
+
+NO DUPLICATE DEFINITIONS (TINY-C:PSYS.H, TCEXTRA:SHELL.C, TOOLSRC: VI.H, VIPAGE.H, LC.C, WC.C)
+----------------------------------------------------------------------------------------------
+No macro is defined twice to the same value any more: vi.h writes its settings common to the P-System and
+Linux builds once; PG_MAXCH is only in vipage.h; OS_DKVID, OS_SYVID (the prefix and system volume words of the
+OS) and MAXDIR (77, the files a directory holds) are in PSYS.H instead of the shell, LC and WC.  The programs
+compile to the same code (TOOLS and Big_Disk are unchanged).  Emulator: any.
