@@ -1466,3 +1466,14 @@ SYSTEM.PASCAL, the shell, KRUNCH itself -- and tells the operating system where 
 table, and the place pexec comes back to); it will not krunch the disk its own output goes to.  MAN KRUNCH.
 The shell's DIR has /E (extended): each file's first block and the bytes in its last block, and the unused
 areas between the files, where they are (DIR /E #5:, DIR #4: /E).  Emulator: v2.06.
+
+THE DISK AND DIRECTORY FUNCTIONS IN THE LIBRARY; CC'S TEMPORARY FILES (TINY-C, TCSRC, TCEXTRA, TOOLS,
+TOOLSRC, Big_Disk)
+-----------------------------------------------------------------------------------------------------
+The shell, LC, WC, GREP and KRUNCH each had their own copy of the functions that read a disk's directory,
+find a volume's unit, name the prefix volume and match wild cards.  They are now one library module,
+TCSRC:DIRS.C (in TCLIB.OBJ, with units[]), declared in the new header TINY-C:DIRS.H: units[], dirread,
+dirwrite, direntname, volunit, prefixvol, namesame, wildmatch.  CC now removes its temporary files
+(TCTEMP.TEXT, TCTEMP.IR) before and after each source: with CC's output on the same disk (CC @LIBS | GREP
+...) the old and new temporary files had to share what space was left, and a big source's intermediate file
+could come out truncated.  Emulator: any.

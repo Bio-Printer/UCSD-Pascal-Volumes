@@ -13,8 +13,8 @@ TCTESTS  (volume TCTESTS, 41 files)
     41 files extracted, 22 text files decoded
 TCVERIF  (volume TCVERIF, 5 files)
     5 files extracted, 4 text files decoded
-TINY-C  (volume TINY-C, 21 files)
-    21 files extracted, 19 text files decoded
+TINY-C  (volume TINY-C, 22 files)
+    22 files extracted, 20 text files decoded
 TOOLS  (volume TOOLS, 18 files)
     18 files extracted, 3 text files decoded
 TOOLSRC  (volume TOOLSRC, 30 files)
