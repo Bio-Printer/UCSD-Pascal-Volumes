@@ -101,6 +101,11 @@ LC      LC [-1xFsrSC] [VOL: | #n:][PATTERN ...]  from the shell: the file names
         across), -F marks CODE files, -s shows the sizes; one name to a line
         when the output goes to a file or a pipe.
 
+KRUNCH  KRUNCH [-y] [VOL: | #n]  from the shell: moves the files of a disk
+        down so that its unused blocks become one area at its end (the
+        Filer's K(runch); asks first unless -y).  Running code files
+        (SYSTEM.PASCAL, the shell) may move: KRUNCH tells the OS.
+
 PATCH   PATCH [-RsbClN] [-F N] [-pN] [-o OUT] [-i PATCHFILE] [FILE]  from the
         shell: applies a normal, unified or context diff (DIFF's, or the
         host's) to a file, finds hunks that moved and with 2 lines of fuzz,

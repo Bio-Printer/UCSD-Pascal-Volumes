@@ -1457,3 +1457,12 @@ A : command's /pattern/ address now searches as vi does: from the line after the
 file, then around from its start, the cursor's own line last (:/x/d on a line with x takes the next line
 with x).  So :/line 20:/d with the cursor below line 20 finds it, also when line 20 is outside vi's window;
 "Pattern not found" only when no line matches.  Emulator: v2.06.
+
+KRUNCH, AND THE SHELL'S DIR /E (TOOLS:KRUNCH.CODE, TCEXTRA:SHELL, Big_Disk:SYSTEM.SHELL, TOOLSRC:KRUNCH.C)
+---------------------------------------------------------------------------------------------------------
+KRUNCH [-y] [VOL: | #n] moves the files of a disk down so that its unused blocks become one area at its end,
+as the Filer's K(runch); it asks first (one key, Y) unless -y.  It may move code files that are running --
+SYSTEM.PASCAL, the shell, KRUNCH itself -- and tells the operating system where they went (SYSCOM's segment
+table, and the place pexec comes back to); it will not krunch the disk its own output goes to.  MAN KRUNCH.
+The shell's DIR has /E (extended): each file's first block and the bytes in its last block, and the unused
+areas between the files, where they are (DIR /E #5:, DIR #4: /E).  Emulator: v2.06.

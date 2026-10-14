@@ -32,6 +32,8 @@ WC.C    wc (lines, words, bytes).
 
 LC.C    lc (the file names of a disk in columns).
 
+KRUNCH.C  krunch (the files of a disk moved down, the free blocks in one area).
+
 PATCH.C patch (a diff applied to a file).
 
 MAN.C   man (the manual pages program; MAN.TEXT on TOOLS: is its data).
