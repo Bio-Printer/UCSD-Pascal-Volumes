@@ -1477,3 +1477,15 @@ dirwrite, direntname, volunit, prefixvol, namesame, wildmatch.  CC now removes i
 (TCTEMP.TEXT, TCTEMP.IR) before and after each source: with CC's output on the same disk (CC @LIBS | GREP
 ...) the old and new temporary files had to share what space was left, and a big source's intermediate file
 could come out truncated.  Emulator: any.
+
+SUB-VOLUMES, PHASE 1: PATHS, MKDIR, CD PATH (TINY-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
+-----------------------------------------------------------------------------------------------
+A sub-volume is a Data file whose own blocks 2..5 hold a UCSD directory: a volume (77 files) inside a
+file, its block numbers counted from the file's first block.  Its files are named VOL:A/NAME or
+VOL:/A/NAME, and sub-volumes nest (VOL:/A/B/NAME).  The library (TCSRC:DIRS.C, STDIO.C) resolves such
+paths in fopen and remove, so every Tiny-C program reads and writes them.  The shell: MKDIR NAME [BLOCKS]
+makes one (100 blocks unless BLOCKS); CD VOL:/A sets the path for names without a volume (CD .. goes up,
+CD VOL: leaves it), for the shell and the programs it runs (pexec passes it); DIR, TYPE, DELETE and
+WHEREIS take paths.  Not yet: COPY, MOVE, RENAME, the wildcards of GREP, LC and WC, CC's search for sources
+in a path, GROW and SHRINK.  The volumes stay readable by the Filer and the OS (a sub-volume is an ordinary
+data file).  MAN SHELL.  Emulator: v2.06.
