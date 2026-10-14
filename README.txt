@@ -1538,3 +1538,9 @@ name and made a file called \TMP; now a \ is a / in every file name and path (th
 remove and path walk, the shell's commands, GREP's files, LC, WC, KRUNCH, GROW, SHRINK, CC and its
 #include names), and a new file name with a \ in it is refused.  A file \TMP made before can be
 removed with DELETE ?TMP (Y).  Emulator: v2.06.
+
+THE SHELL'S DELETE TAKES THE ENTRIES IT LISTED (TCEXTRA, Big_Disk)
+-----------------------------------------------------------------
+DELETE removes the directory entries that matched, as they are, instead of opening a path made from
+each name: so DELETE ?TMP (then Y) removes a file named \TMP, which the shell's COPY made before
+the change above.  Emulator: v2.06.
