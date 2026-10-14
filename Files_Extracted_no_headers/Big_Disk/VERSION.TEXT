@@ -1,8 +1,9 @@
-BIGGY boot volume, revision 1.23  (11-Oct-26)
-  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.12 (MAXUNIT = 14:
+BIGGY boot volume, revision 1.26  (14-Oct-26)
+  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.13 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
-                 Tiny-C's pexec, S runs SYSTEM.SHELL); its FGOTOXY is
-                 MYGOTOXY.TEXT's (132 x 45): no BINDER needed
+                 Tiny-C's pexec, S runs SYSTEM.SHELL, X(ecute takes a
+                 path into sub-volumes: VOL:A/B/NAME, \ as /); its
+                 FGOTOXY is MYGOTOXY.TEXT's (132 x 45): no BINDER needed
   SYSTEM.FILER   from U134.4_OS_SOURCE_v1.07: G(et/S(ave take .C, .H
                  and NAME. (exact names); V(olumes lists units to 14
   SYSTEM.COMPILER  from U132.A_PASCAL_COMPILER_SOURCE_v1.08 (FIXUP): no

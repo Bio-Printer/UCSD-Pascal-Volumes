@@ -1553,3 +1553,17 @@ on every disk.  Nothing is copied: pexec hands the operating system the code fil
 disk, and the OS loads its segments from there (CC itself runs from a sub-volume).  So CC now puts
 NAME.CODE where NAME says again, next to its source in a sub-volume; only its temporary files go to
 the volume that holds the sub-volume.  Emulator: v2.06.
+
+X(ECUTE RUNS CODE FILES IN SUB-VOLUMES: BIGGY 1.26, U134.4_OS_SOURCE_v1.13 (new; Big_Disk, TCEXTRA, TOOLS)
+-------------------------------------------------------------------------------------------------------
+At the Command: prompt, X(ecute takes a path into sub-volumes: #5:A/PROG, #5:/A/B/PROG, A/PROG (on the
+prefix volume), with \ as / (#5:\A\PROG) and the usual NAME. for an exact name.  The code file runs where
+it is: nothing is copied.  U134.4_OS_SOURCE_v1.13.BLK is v1.12 with SYSSEGS.B.TEXT's EXECUTE handing such
+a name to the new SUBEXEC -- FOPEN of its first part (so #5:, * and the prefix work as for any file), the
+inner directories read with UNITREAD (each checked as a sub-volume's), and LOADSEGS (PEXEC's) at the code
+file's block -- and VERSION.TEXT.  GETCMD's segment is 3882 bytes (was 3118); segment 0, the resident
+system, is byte-identical, so programs have the memory they had.  Build: compile #5:SYSTEM to a short name
+(#5:OS -- named SYSTEM.PASCAL, the compiler stops with String overflow) and use that code file as
+SYSTEM.PASCAL; compiled the same way, v1.12 gives BIGGY 1.23's SYSTEM.PASCAL byte for byte.  Big_Disk.BLK
+(BIGGY) revision 1.26: SYSTEM.PASCAL is the OS of v1.13, VERSION.TEXT says so.  Checked with UCSD-TinyC's
+tools/xsubvoltest.py (both modes).  Emulator: v2.06.

@@ -58,6 +58,8 @@ U134.4_OS_SOURCE_v1.11  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
 U134.4_OS_SOURCE_v1.12  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
+U134.4_OS_SOURCE_v1.13  (volume U134.4, 15 files)
+    15 files extracted, 15 text files decoded
 U134_4_OS_fixed  (volume U134.4, 14 files)
     14 files extracted, 14 text files decoded
 U136.3_LONG_INTEGER_SOURCE  (volume U136.3, 5 files)
