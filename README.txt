@@ -1497,3 +1497,13 @@ sub-volumes "Sub-volume" in its listings.  CD A goes into the sub-volume A where
 volume or the path), and is the volume A when there is no such sub-volume.  RMDIR NAME removes an empty
 sub-volume; it will not remove a file, a sub-volume that still holds files (DELETE NAME/* first), or one
 the shell's path is in (CD .. first).  MAN SHELL.  Emulator: v2.06 (Import/Export into sub-volumes: 2.07).
+
+THE SHELL: COPY, MOVE AND RENAME IN SUB-VOLUMES; RMDIR OF ONE WITH FILES (TCEXTRA, TOOLS, Big_Disk)
+--------------------------------------------------------------------------------------------------
+COPY, MOVE and RENAME take sub-volumes at either end: COPY X.C A (into the sub-volume A), COPY
+#5:/A/B/*.C #9:, MOVE A/X.C A/B/, RENAME A/X.C Y.C.  The copy keeps the kind, date and length, as
+before, and a whole sub-volume copies or moves as one file (MOVE #5:WORK #9:).  Refused: a sub-volume
+into itself, replacing a sub-volume with a file, and moving or renaming the sub-volume the shell's path
+is in.  RMDIR NAME now also removes a sub-volume that holds files: it says how many and asks first (Y).
+DELETE leaves sub-volumes alone ("is a sub-volume (RMDIR removes it)"), so DELETE * cannot take one
+with everything in it.  MAN SHELL.  Emulator: v2.06.
