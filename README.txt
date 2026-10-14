@@ -1489,3 +1489,11 @@ CD VOL: leaves it), for the shell and the programs it runs (pexec passes it); DI
 WHEREIS take paths.  Not yet: COPY, MOVE, RENAME, the wildcards of GREP, LC and WC, CC's search for sources
 in a path, GROW and SHRINK.  The volumes stay readable by the Filer and the OS (a sub-volume is an ordinary
 data file).  MAN SHELL.  Emulator: v2.06.
+
+THE SHELL: DIR AND CD ON A SUB-VOLUME'S NAME, RMDIR (TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
+--------------------------------------------------------------------------------------
+DIR A lists what is in the sub-volume A (before, A had to be written A/ or #5:/A/), and DIR marks
+sub-volumes "Sub-volume" in its listings.  CD A goes into the sub-volume A where you are (the prefix
+volume or the path), and is the volume A when there is no such sub-volume.  RMDIR NAME removes an empty
+sub-volume; it will not remove a file, a sub-volume that still holds files (DELETE NAME/* first), or one
+the shell's path is in (CD .. first).  MAN SHELL.  Emulator: v2.06 (Import/Export into sub-volumes: 2.07).
