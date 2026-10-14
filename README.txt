@@ -1545,8 +1545,8 @@ DELETE removes the directory entries that matched, as they are, instead of openi
 each name: so DELETE ?TMP (then Y) removes a file named \TMP, which the shell's COPY made before
 the change above.  Emulator: v2.06.
 
-PROGRAMS RUN FROM SUB-VOLUMES (TINY-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
---------------------------------------------------------------------------------
+PROGRAMS RUN FROM SUB-VOLUMES (TINY-C, TCSRC, TCEXTRA, TOOLS, Big_Disk)
+-----------------------------------------------------------------------
 A code file in a sub-volume runs where it is, from the shell: give its path (A/PROG, #5:/A/PROG,
 A\PROG), or, after a CD into the sub-volume, just its name -- the shell looks on its path first, then
 on every disk.  Nothing is copied: pexec hands the operating system the code file's blocks on the
