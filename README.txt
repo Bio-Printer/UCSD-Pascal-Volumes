@@ -1520,3 +1520,12 @@ KRUNCH now takes a sub-volume too (KRUNCH #5:/A).  The wildcards of GREP, LC and
 sub-volumes (GREP X A/*.C, LC #5:/A/B/, WC A/*.TEXT, LC A for every file in A) and, after a CD into one,
 work there.  The library has a new module, TCSRC:SUBVOL.C (svcanon, dirfree, fileson, dirkrunch,
 svresize; declared in TINY-C:DIRS.H).  MAN GROW, MAN SHRINK.  Emulator: v2.06.
+
+CC FINDS SOURCES AND INCLUDES IN SUB-VOLUMES (TINY-C, TCSRC, Big_Disk)
+----------------------------------------------------------------------
+CC takes paths into sub-volumes wherever it takes a file name: CC A/X, CC #5:/A/B/X, #include
+"A/X.H", /L OUT=A/X,A/Y, @A/MK.  After the shell's CD into a sub-volume, CC looks there first for
+sources, #include files, objects and @batch files (then on every disk, as before); and a file included
+from a sub-volume finds its "x.h" in that sub-volume first.  NAME.OBJ goes next to its source; NAME.CODE
+and the temporary files (TCTEMP.TEXT, TCTEMP.IR) go on the volume that holds the sub-volume, where
+X(ecute and the shell can run the program.  Emulator: v2.06.
