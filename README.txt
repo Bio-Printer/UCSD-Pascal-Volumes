@@ -1423,3 +1423,10 @@ VI ALWAYS PAGES (TOOLSRC: THE VI SOURCES)
 The switch ENABLE_FEATURE_VI_PAGING and the code for a vi that holds the whole file in memory are taken out:
 vi always keeps a window of the file and the rest in VI.SWAP.  VI.CODE is unchanged (TOOLS and Big_Disk are
 the same); only the sources on TOOLSRC are shorter.  Emulator: any.
+
+VI WITHOUT FEATURE SWITCHES (TOOLSRC: THE VI SOURCES)
+-----------------------------------------------------
+The switches left from BusyBox (ENABLE_FEATURE_VI_*, USE_FEATURE_VI_*) and VI_ROW_SUMS are gone: the :
+commands, yank and marks, search, ".", :set and the screen kept as row checksums are always there, and the
+code of the cursor-motion optimisation that was switched off is taken out.  VI.CODE is unchanged (TOOLS and
+Big_Disk are the same); only the sources on TOOLSRC are shorter.  Emulator: any.
