@@ -26,10 +26,11 @@ A/X, CC #5:/A/B/X, #include "A/X.H", /L OUT=A/X,A/Y) is taken from
 there; after the shell's CD into a sub-volume CC looks in it first; and
 a file included from a sub-volume finds its "x.h" there first.  An
 object (NAME.OBJ) goes next to its source, and /L and /J find objects
-the same way as sources; code and temporary files (TCTEMP.TEXT,
-TCTEMP.IR) go to the prefix volume unless named with a volume -- from a
-sub-volume (a path, or the shell's), to the volume that holds it, where
-X(ecute and the shell can run the code file; TCLIB.OBJ and
+the same way as sources; the code file goes where NAME says (its volume
+or path, else the shell's path or the prefix volume) -- the shell runs a
+code file in a sub-volume where it is; the temporary files (TCTEMP.TEXT,
+TCTEMP.IR) go to the prefix volume, or to the volume that holds the
+shell's path; TCLIB.OBJ and
 TCMSGS.TEXT are found on TINY-C: when they are not on the prefix volume
 or the boot volume.
 
