@@ -1450,3 +1450,10 @@ TCSRC:OBJFORMAT.TEXT describes the Tiny-C object file (NAME.OBJ, TINY-C:TCLIB.OB
 made of (TCOB, then M, P, D, U, G, E), a procedure's image, the five kinds of places the linker fills in, how
 the linker reads the files and links a program, ASSERT.OBJ decoded byte by byte, and the linker's messages.
 TCSRC's README.TEXT points to it.  Emulator: any.
+
+VI: A /PATTERN/ ADDRESS GOES AROUND THE FILE (TOOLS:VI.CODE)
+------------------------------------------------------------
+A : command's /pattern/ address now searches as vi does: from the line after the cursor to the end of the
+file, then around from its start, the cursor's own line last (:/x/d on a line with x takes the next line
+with x).  So :/line 20:/d with the cursor below line 20 finds it, also when line 20 is outside vi's window;
+"Pattern not found" only when no line matches.  Emulator: v2.06.
