@@ -34,6 +34,8 @@ LC.C    lc (the file names of a disk in columns).
 
 KRUNCH.C  krunch (the files of a disk moved down, the free blocks in one area).
 
+GROW.C, SHRINK.C  grow, shrink (a sub-volume's size: the library's svresize).
+
 PATCH.C patch (a diff applied to a file).
 
 MAN.C   man (the manual pages program; MAN.TEXT on TOOLS: is its data).

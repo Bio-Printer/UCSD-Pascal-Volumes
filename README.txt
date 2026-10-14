@@ -1507,3 +1507,16 @@ into itself, replacing a sub-volume with a file, and moving or renaming the sub-
 is in.  RMDIR NAME now also removes a sub-volume that holds files: it says how many and asks first (Y).
 DELETE leaves sub-volumes alone ("is a sub-volume (RMDIR removes it)"), so DELETE * cannot take one
 with everything in it.  MAN SHELL.  Emulator: v2.06.
+
+GROW AND SHRINK; GREP, LC AND WC IN SUB-VOLUMES; KRUNCH OF A SUB-VOLUME (TINY-C, TCSRC, TCEXTRA, TOOLS,
+TOOLSRC, Big_Disk)
+-----------------------------------------------------------------------------------------------------
+TOOLS:GROW and TOOLS:SHRINK change a sub-volume's size, with one syntax for both: GROW NAME +N (N blocks
+more), SHRINK NAME -N (N fewer), or N (that many blocks).  Growing takes the free blocks after the
+sub-volume; when they are not free it moves, whole, to a free area that holds it, and when there is no
+such area the volume that holds it is krunched first.  Shrinking krunches the sub-volume first when its
+files reach past the new end -- only then -- and stops at the blocks its directory and files take.
+KRUNCH now takes a sub-volume too (KRUNCH #5:/A).  The wildcards of GREP, LC and WC reach into
+sub-volumes (GREP X A/*.C, LC #5:/A/B/, WC A/*.TEXT, LC A for every file in A) and, after a CD into one,
+work there.  The library has a new module, TCSRC:SUBVOL.C (svcanon, dirfree, fileson, dirkrunch,
+svresize; declared in TINY-C:DIRS.H).  MAN GROW, MAN SHRINK.  Emulator: v2.06.

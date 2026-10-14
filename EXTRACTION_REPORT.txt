@@ -7,18 +7,18 @@ TCEXPCT  (volume TCEXPCT, 28 files)
     28 files extracted, 28 text files decoded
 TCEXTRA  (volume TCEXTRA, 29 files)
     29 files extracted, 16 text files decoded
-TCSRC  (volume TCSRC, 40 files)
-    40 files extracted, 40 text files decoded
+TCSRC  (volume TCSRC, 41 files)
+    41 files extracted, 41 text files decoded
 TCTESTS  (volume TCTESTS, 41 files)
     41 files extracted, 22 text files decoded
 TCVERIF  (volume TCVERIF, 5 files)
     5 files extracted, 4 text files decoded
 TINY-C  (volume TINY-C, 22 files)
     22 files extracted, 20 text files decoded
-TOOLS  (volume TOOLS, 18 files)
-    18 files extracted, 3 text files decoded
-TOOLSRC  (volume TOOLSRC, 30 files)
-    30 files extracted, 30 text files decoded
+TOOLS  (volume TOOLS, 20 files)
+    20 files extracted, 3 text files decoded
+TOOLSRC  (volume TOOLSRC, 32 files)
+    32 files extracted, 32 text files decoded
 U002A.5_Z80_SYS1  (volume U002A.5, 20 files)
     20 files extracted, 4 text files decoded
 U006.5_LSI-11_SYS1  (volume U006.5, 14 files)
