@@ -21,6 +21,7 @@ answer  @LIBS.  LIBS.TEXT compiles the library modules and joins them
 with CMPCODE).  To use it, change its name to TCLIB.OBJ with the Filer.
 
 Each module leaves a NAME.OBJ here; remove those with the Filer if you
-like.
+like.  OBJFORMAT.TEXT describes what is in a .OBJ file and how the
+linker reads it.
 
 FILES.TEXT lists every file on this volume.

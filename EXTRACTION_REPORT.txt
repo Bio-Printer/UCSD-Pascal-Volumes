@@ -7,8 +7,8 @@ TCEXPCT  (volume TCEXPCT, 28 files)
     28 files extracted, 28 text files decoded
 TCEXTRA  (volume TCEXTRA, 29 files)
     29 files extracted, 16 text files decoded
-TCSRC  (volume TCSRC, 39 files)
-    39 files extracted, 39 text files decoded
+TCSRC  (volume TCSRC, 40 files)
+    40 files extracted, 40 text files decoded
 TCTESTS  (volume TCTESTS, 41 files)
     41 files extracted, 22 text files decoded
 TCVERIF  (volume TCVERIF, 5 files)

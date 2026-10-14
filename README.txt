@@ -1443,3 +1443,10 @@ VI: PATTERN NOT FOUND (TOOLS:VI.CODE)
 A : command with a /pattern/ address that matches no line now says "Pattern not found" and does nothing.
 Before, the address was dropped and the command took the current line: :/nomatch/d deleted it.  (The search
 goes forward from the cursor, so a pattern only above it is not found either.)  Emulator: v2.06.
+
+THE OBJECT FILE FORMAT DOCUMENTED (TCSRC:OBJFORMAT.TEXT)
+--------------------------------------------------------
+TCSRC:OBJFORMAT.TEXT describes the Tiny-C object file (NAME.OBJ, TINY-C:TCLIB.OBJ): the records a module is
+made of (TCOB, then M, P, D, U, G, E), a procedure's image, the five kinds of places the linker fills in, how
+the linker reads the files and links a program, ASSERT.OBJ decoded byte by byte, and the linker's messages.
+TCSRC's README.TEXT points to it.  Emulator: any.
