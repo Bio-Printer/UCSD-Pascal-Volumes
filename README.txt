@@ -1417,3 +1417,9 @@ declared in PSYS.H) instead of a copy in the shell, LC, WC and GREP.  Vi has no 
 carries the code for them (the -c commands' table, the Linux build's getopt), and it no longer looks for the
 screen size in an environment the P-System does not have: 412 bytes more for vi's window in Z80 mode (3892 ->
 4304 bytes for a small file; SYSTEM.LIST 3200 -> 3612).  Emulator: v2.06.
+
+VI ALWAYS PAGES (TOOLSRC: THE VI SOURCES)
+-----------------------------------------
+The switch ENABLE_FEATURE_VI_PAGING and the code for a vi that holds the whole file in memory are taken out:
+vi always keeps a window of the file and the rest in VI.SWAP.  VI.CODE is unchanged (TOOLS and Big_Disk are
+the same); only the sources on TOOLSRC are shorter.  Emulator: any.
