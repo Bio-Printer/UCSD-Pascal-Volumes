@@ -1567,3 +1567,11 @@ system, is byte-identical, so programs have the memory they had.  Build: compile
 SYSTEM.PASCAL; compiled the same way, v1.12 gives BIGGY 1.23's SYSTEM.PASCAL byte for byte.  Big_Disk.BLK
 (BIGGY) revision 1.26: SYSTEM.PASCAL is the OS of v1.13, VERSION.TEXT says so.  Checked with UCSD-TinyC's
 tools/xsubvoltest.py (both modes).  Emulator: v2.06.
+
+THE SHELL'S PROMPT IS WHERE YOU ARE; PWD; . AND .. IN PATHS (Big_Disk TCEXTRA TCSRC TINY-C TOOLS )
+---------------------------------------------------------------------------
+The shell's prompt is where names without a volume are: BIGGY:> (the prefix volume), or BIGGY:/TMP/SRC>
+after a CD into a sub-volume; PWD prints the same.  In every path . is where the path is and .. the
+sub-volume that holds it -- in the shell (COPY X.C .., DIR .., CD ../B) and in every program (WC ../B/*.C,
+CC ../X), as the library resolves them.  COPY with no destination copies into the current directory
+(COPY #9:*).  Emulator: v2.06.
