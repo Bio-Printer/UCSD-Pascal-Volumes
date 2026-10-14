@@ -1409,3 +1409,11 @@ No macro is defined twice to the same value any more: vi.h writes its settings c
 Linux builds once; PG_MAXCH is only in vipage.h; OS_DKVID, OS_SYVID (the prefix and system volume words of the
 OS) and MAXDIR (77, the files a directory holds) are in PSYS.H instead of the shell, LC and WC.  The programs
 compile to the same code (TOOLS and Big_Disk are unchanged).  Emulator: any.
+
+UNITS[] IN THE LIBRARY; VI READS NO OPTIONS (TINY-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
+---------------------------------------------------------------------------------------------
+units[], the list of disk units (4, 5, 9 .. 14), is now one library module (TCSRC:UNITS.C, in TCLIB.OBJ,
+declared in PSYS.H) instead of a copy in the shell, LC, WC and GREP.  Vi has no options, so it no longer
+carries the code for them (the -c commands' table, the Linux build's getopt), and it no longer looks for the
+screen size in an environment the P-System does not have: 412 bytes more for vi's window in Z80 mode (3892 ->
+4304 bytes for a small file; SYSTEM.LIST 3200 -> 3612).  Emulator: v2.06.
