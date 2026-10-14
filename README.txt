@@ -1430,3 +1430,10 @@ The switches left from BusyBox (ENABLE_FEATURE_VI_*, USE_FEATURE_VI_*) and VI_RO
 commands, yank and marks, search, ".", :set and the screen kept as row checksums are always there, and the
 code of the cursor-motion optimisation that was switched off is taken out.  VI.CODE is unchanged (TOOLS and
 Big_Disk are the same); only the sources on TOOLSRC are shorter.  Emulator: any.
+
+VI: NO STRING COPY FOR A :/PATTERN/ ADDRESS (TOOLS:VI.CODE)
+-----------------------------------------------------------
+A : command's /pattern/ address (:/abc/d) was copied into a new string for the search; the pattern is now
+ended where it is in the command line and the / put back afterwards, and the search beyond vi's window is
+made once, not twice.  xstrndup is gone: 68 bytes more for vi's window in Z80 mode (4304 -> 4372).
+Emulator: v2.06.
