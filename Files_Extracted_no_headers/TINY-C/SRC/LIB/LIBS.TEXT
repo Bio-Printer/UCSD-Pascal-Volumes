@@ -1,6 +1,8 @@
 ; LIBS -- rebuild the C library: CC @TINY-C:/SRC/LIB/LIBS from the shell
 ; (or X(ecute TINY-C:CC and answer @TINY-C:/SRC/LIB/LIBS).  Compiles every library
-; module here (each leaves NAME.OBJ here), then joins them into TINY-C:/LIB/TCLIB2.OBJ.
+; module here (/O: each NAME.OBJ into TINY-C:/OBJ), then joins them into
+; TINY-C:/LIB/TCLIB2.OBJ.
+/O TINY-C:/OBJ
 /Z /C ASSERT
 /Z /C CONIO
 /Z /C CTYPE

@@ -1628,3 +1628,11 @@ the path code and a 2 KB directory: headers cost the preprocessor less memory th
 FILES.TEXT lists the sub-volumes' files too (SRC/CC/MAIN.C).  tools/extract_all.py now extracts a
 sub-volume as a folder of its files (Files_Extracted_Raw/TINY-C/SRC/CC/MAIN.C).  vi's VI.SWAP is
 the file and 32 KB (was 25 KB).  Big_Disk: SYSTEM.SHELL relinked.  Emulator: v2.06.
+
+AN OBJ SUB-VOLUME FOR THE OBJECTS (TINY-C, TOOLS)
+---------------------------------------------------------------------------
+TINY-C: and TOOLS: each have an OBJ sub-volume beside SRC, empty, for the objects a rebuild makes.
+CC's new /O DIR command sends the objects of the commands after it into DIR (and /L, /J look there
+first; in a batch file it lasts to the file's end): BUILD.TEXT and LIBS.TEXT start with
+/O TINY-C:/OBJ, TOOLS.TEXT with /O TOOLS:/OBJ, so the source sub-volumes stay clean.  The source
+sub-volumes are smaller now (room for edits only).  Emulator: v2.06.

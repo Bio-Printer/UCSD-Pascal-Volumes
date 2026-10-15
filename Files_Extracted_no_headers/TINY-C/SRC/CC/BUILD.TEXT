@@ -1,6 +1,7 @@
 ; BUILD -- rebuild the Tiny-C compiler: CC @TINY-C:/SRC/CC/BUILD from the shell
 ; (or X(ecute TINY-C:CC and answer @TINY-C:/SRC/CC/BUILD).  Compiles every module
-; here (each leaves NAME.OBJ here), then links them into TINY-C:CC2.CODE.
+; here (/O: each NAME.OBJ into TINY-C:/OBJ), then links them into TINY-C:CC2.CODE.
+/O TINY-C:/OBJ
 /C MAIN
 /C UTIL
 /C TYPES

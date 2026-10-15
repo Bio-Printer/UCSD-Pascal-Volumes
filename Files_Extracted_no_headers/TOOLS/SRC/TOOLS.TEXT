@@ -1,5 +1,7 @@
 ; TOOLS -- compile and link every tool onto TOOLS:
 ; CC @TOOLS:/SRC/TOOLS from the shell, or X(ecute TINY-C:CC and answer @TOOLS:/SRC/TOOLS
+; (/O: the objects into TOOLS:/OBJ)
+/O TOOLS:/OBJ
 /Z /C VI/VIMAIN
 /Z /C VI/VISCREEN
 /Z /C VI/VITEXT

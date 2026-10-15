@@ -5,6 +5,7 @@ WHAT IS WHERE (FILES.TEXT lists every file):
     TCMSGS.TEXT      its messages
     INCLUDE/         the headers: STDIO.H, STRING.H, PSYS.H ...
     LIB/             the C library, TCLIB.OBJ
+    OBJ/             empty: the objects a rebuild makes (BUILD's and LIBS's /O)
     SRC/             the sources, and the batch files that rebuild everything:
       SRC/ALL.TEXT     the compiler, the library and the tools at once
       SRC/CC/          the compiler's modules, BUILD.TEXT
@@ -23,6 +24,9 @@ X(ecute TINY-C:CC and answer "Compile what file?" with
                          for the Z80 interpreter (see FUNCTION POINTERS)
     /L OUT=A,B,...       link A.OBJ, B.OBJ, ... and TCLIB.OBJ -> OUT.CODE
     /J LIB=A,B,...       join A.OBJ, B.OBJ, ... into the library LIB.OBJ
+    /O DIR               the objects of the commands after it go into DIR
+                         (TINY-C:/OBJ), and /L and /J look there first; in a
+                         batch file until its end
     @FILE                run the commands in FILE.TEXT, one per line
                          (blank lines and lines starting with ; skipped;
                          a line @OTHER runs OTHER.TEXT, then goes on)

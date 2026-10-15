@@ -1,7 +1,8 @@
 TOOLS                                               volume TOOLS:
 
 Tools written in Tiny-C, ready to run.  Their sources are in TOOLS:/SRC, a
-sub-volume each (TOOLS:/SRC/VI, TOOLS:/SRC/GREP ...; SRC/README.TEXT).
+sub-volume each (TOOLS:/SRC/VI, TOOLS:/SRC/GREP ...; SRC/README.TEXT); the
+objects a rebuild makes go into TOOLS:/OBJ (empty until then).
 
 VI      the screen editor vi (the BusyBox "tiny vi"):  from the shell,
         VI NAME.C  (the name as typed; .C, .H and .TEXT files are text
