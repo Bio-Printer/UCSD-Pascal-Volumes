@@ -1,5 +1,6 @@
 /* stdio.c -- Tiny-C library: the code behind <stdio.h> */
 #include "libint.h"
+#include <dirs.h>
 #pragma nofltused
 FILE __files[FOPEN_MAX + 3];
 char __conout[80];
@@ -102,9 +103,9 @@ int __istext(char *name)
 char __svpath[64];
 #pragma segment DIRS
 int __svopen(FILE *f, char *name, char *mode);
-int __svclose(FILE *f);
 int __svremove(char *path);
 #pragma segment MAIN
+struct svat *__svat;                    /* set: a sub-volume path's file is at its place (dirs.h) */
 
 /* a path (a / or \\ in it), or a name on the shell's path: dirs.c's sub-volumes (dirs.h) */
 int __svname(char *name)
@@ -215,7 +216,7 @@ FILE *fopen(char *name, char *mode)
     old = mode[0] == 'r' || mode[0] == 'a';
     if (__svname(name)) {
         f->flags = f->flags | __F_SUB;
-        ok = __svopen(f, name, mode);
+        ok = __svat ? __svopenat(f, mode, __svat) : __svopen(f, name, mode);
     } else {
         __ptitle(name, title);
         __cxp0v(3, f->fib, 0, -1);              /* FINIT(fib, NIL, untyped) */
@@ -460,8 +461,8 @@ int fclose(FILE *f)
     }
     r = __flushbuf(f);
     if (f->flags & __F_SUB) {
-        if (!(f->flags & __F_ERR) && !__svclose(f))     /* its directory entry */
-            r = EOF;
+        if (!(f->flags & __F_ERR) && !(__svat ? __svcloseat(f, __svat) : __svclose(f)))
+            r = EOF;                    /* its directory entry */
     } else {
         __cxp0v(6, f->fib, (f->flags & __F_NEW) ? 1 : 0);   /* FCLOSE, LOCK new files */
         if (__cspi(34) != 0)

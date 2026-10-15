@@ -1594,3 +1594,16 @@ found no room: ZZ did not write the file.  A file in a sub-volume is edited with
 no such room, and vi says so ("no memory in a sub-volume") and leaves the file as it was.  The place
 a file was left (its header page) is kept for files in sub-volumes too.  vi's window for other files is
 104 bytes smaller (Z80 mode).  Emulator: v2.06.
+
+VI EDITS BIG FILES IN SUB-VOLUMES IN Z80 MODE (Big_Disk, TCEXTRA, TCSRC, TINY-C, TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+vi now edits a file in a sub-volume in Z80 mode too (before: "no memory in a sub-volume").  The path
+is followed once, when vi starts and memory is still free; after that the file is loaded and saved by
+where it is (its unit, sub-volume and name), its directory read into 2 KB of vi's window (empty when
+the file is loaded; for a save the window's bytes are parked in VI.SWAP and brought back).  Only the
+library's new small SVAT segment (TCSRC:DIRS.C, 916 bytes) is loaded then, not the path code and a
+2 KB directory.  vi's Z80 window: 3842 bytes for a text file on a volume (3876 before), 2728 for one in
+a sub-volume.  The library: TINY-C:DIRS.H has struct svat and __svplace; fopen and fclose (STDIO.C) go
+through a place when one is set; closing a sub-volume file that was only read no longer reads its
+directory.  The compiler's fmtfix (EXPR.C) is in PARSE now, not a segment of its own (a code file may
+have ten segments; CC's free memory is unchanged).  Big_Disk: SYSTEM.SHELL relinked.  Emulator: v2.06.
