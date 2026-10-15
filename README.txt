@@ -1584,3 +1584,13 @@ procedures take no memory while the code is written.  CC linking itself (CC @BUI
 at its least (it had 5748); every code file is byte for byte as before.  The library (TCSRC:DIRS.C,
 SUBVOL.C) folds small helpers into their callers; TINY-C:DIRS.H has dirread and dirwrite as macros.
 Emulator: v2.06.
+
+VI SAVES FILES IN SUB-VOLUMES (TCSRC, TINY-C, TOOLS, TOOLSRC)
+---------------------------------------------------------------------------
+vi's VI.SWAP (the file's size and 25 KB) is now always on the prefix volume (:VI.SWAP).  After a CD
+into a sub-volume it was made inside that sub-volume, and in a small one (MKDIR's 100 blocks) the save
+found no room: ZZ did not write the file.  A file in a sub-volume is edited with a window 5 KB smaller
+(its opens and the save load the library's directory code and a 2 KB directory); in Z80 mode there is
+no such room, and vi says so ("no memory in a sub-volume") and leaves the file as it was.  The place
+a file was left (its header page) is kept for files in sub-volumes too.  vi's window for other files is
+104 bytes smaller (Z80 mode).  Emulator: v2.06.
