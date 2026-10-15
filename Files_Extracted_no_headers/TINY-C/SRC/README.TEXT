@@ -16,7 +16,7 @@ to TINY-C:/LIB/TCLIB.OBJ (check it with CMPCODE).  To use it, RENAME
 TINY-C:/LIB/TCLIB2.OBJ TCLIB.OBJ from the shell (after deleting the old
 one).
 
-EVERYTHING AT ONCE:  CC @TINY-C:/SRC/ALL (TOOLS: on line too): BUILD, LIBS,
+EVERYTHING AT ONCE:  CC @TINY-C:ALL (TOOLS: on line too): BUILD, LIBS,
 then TOOLS:/SRC/TOOLS (every tool linked onto TOOLS:).
 
 The names in a batch file are looked for beside it first, so these work

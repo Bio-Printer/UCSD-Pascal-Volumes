@@ -9,7 +9,7 @@ modules (VI/VIMAIN: found beside TOOLS.TEXT; -O TOOLS:/OBJ puts each
 NAME.OBJ into TOOLS:/OBJ) and links the tool straight onto TOOLS:
 (TOOLS:NAME.CODE, replacing the one there).
 
-EVERYTHING AT ONCE:  CC @TINY-C:/SRC/ALL: the compiler (TINY-C:CC2.CODE),
+EVERYTHING AT ONCE:  CC @TINY-C:ALL: the compiler (TINY-C:CC2.CODE),
 the library (TINY-C:/LIB/TCLIB2.OBJ), then TOOLS; a batch file can name
 other batch files (@NAME).
 

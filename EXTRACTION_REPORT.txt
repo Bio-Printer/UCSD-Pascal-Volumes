@@ -11,10 +11,10 @@ TCTESTS  (volume TCTESTS, 41 files)
     41 files extracted, 22 text files decoded
 TCVERIF  (volume TCVERIF, 5 files)
     5 files extracted, 4 text files decoded
-TINY-C  (volume TINY-C, 8 files)
+TINY-C  (volume TINY-C, 9 files)
     INCLUDE/  (a sub-volume, 171 blocks, 17 files)
     LIB/  (a sub-volume, 204 blocks, 1 files)
-    SRC/  (a sub-volume, 1140 blocks, 4 files)
+    SRC/  (a sub-volume, 1135 blocks, 3 files)
         CC/  (a sub-volume, 741 blocks, 19 files)
         LIB/  (a sub-volume, 341 blocks, 20 files)
     OBJ/  (a sub-volume, 658 blocks, 0 files)

@@ -1645,3 +1645,12 @@ the shell's DIR -E (was /E).  The tools always took - options.  CC's -O lasts un
 (one copy: more memory for the compile).  DIR -S lists the files by size, the largest first,
 DIR -N by name (-ES both).  SHRINK NAME without a size leaves the sub-volume no free blocks.
 Big_Disk: SYSTEM.SHELL (the new DIR).  Emulator: v2.06.
+
+ALL.TEXT AT THE TOP OF TINY-C:; WHEREIS LOOKS IN SUB-VOLUMES (TINY-C, TCEXTRA, Big_Disk)
+---------------------------------------------------------------------------
+The batch file that rebuilds everything (the compiler, the library and every tool) is
+TINY-C:ALL.TEXT now, next to CC.CODE, where the Filer and DIR TINY-C: show it (it was
+TINY-C:/SRC/ALL.TEXT, inside a sub-volume).  Run it with CC @TINY-C:ALL from the shell.  The
+shell's WHEREIS looks into every sub-volume too, at any depth: WHEREIS ALL* finds
+TINY-C:ALL.TEXT, WHEREIS STDIO.H finds TINY-C:/INCLUDE/STDIO.H; with a volume or path given it
+searches there and below.  Big_Disk: SYSTEM.SHELL.  Emulator: v2.06.

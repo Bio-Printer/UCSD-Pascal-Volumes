@@ -51,7 +51,8 @@ Its own commands:
   DELETE (or DEL) [VOL: or #5:]PATTERN   deletes the files that match;
         with wildcards it lists them and asks first (Y deletes).
   WHEREIS [VOL: or #5:]PATTERN   the files that match on every disk on
-        line (WHEREIS STDIO.H, WHEREIS *.C), or on the volume named.
+        line and in their sub-volumes (WHEREIS STDIO.H, WHEREIS *.C,
+        WHEREIS ALL*), or on the volume or in the sub-volume named.
   VOLUMES (or VOLS)              every disk on line: unit, volume,
         files, blocks used of its size; (boot) and (prefix) marked.
   COPY SOURCE DEST    SOURCE: [VOL: or #5: or a path]PATTERN; DEST: a
