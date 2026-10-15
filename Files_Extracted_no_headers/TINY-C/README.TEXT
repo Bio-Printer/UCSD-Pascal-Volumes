@@ -5,7 +5,7 @@ WHAT IS WHERE (FILES.TEXT lists every file):
     TCMSGS.TEXT      its messages
     INCLUDE/         the headers: STDIO.H, STRING.H, PSYS.H ...
     LIB/             the C library, TCLIB.OBJ
-    OBJ/             empty: the objects a rebuild makes (BUILD's and LIBS's /O)
+    OBJ/             empty: the objects a rebuild makes (BUILD's and LIBS's -O)
     SRC/             the sources, and the batch files that rebuild everything:
       SRC/ALL.TEXT     the compiler, the library and the tools at once
       SRC/CC/          the compiler's modules, BUILD.TEXT
@@ -19,18 +19,19 @@ Use: from the shell (S at the Command: prompt) type CC NAME, or
 X(ecute TINY-C:CC and answer "Compile what file?" with
     NAME                 compile NAME.C (or NAME.TEXT), link with
                          TCLIB.OBJ -> NAME.CODE  (NAME.C works too)
-    /C NAME              compile only -> NAME.OBJ
-    /Z NAME, /Z /C NAME  the same, with calls through function pointers made
+    -C NAME              compile only -> NAME.OBJ
+    -Z NAME, -Z -C NAME  the same, with calls through function pointers made
                          for the Z80 interpreter (see FUNCTION POINTERS)
-    /L OUT=A,B,...       link A.OBJ, B.OBJ, ... and TCLIB.OBJ -> OUT.CODE
-    /J LIB=A,B,...       join A.OBJ, B.OBJ, ... into the library LIB.OBJ
-    /O DIR               the objects of the commands after it go into DIR
-                         (TINY-C:/OBJ), and /L and /J look there first; in a
-                         batch file until its end
+    -L OUT=A,B,...       link A.OBJ, B.OBJ, ... and TCLIB.OBJ -> OUT.CODE
+    -J LIB=A,B,...       join A.OBJ, B.OBJ, ... into the library LIB.OBJ
+    -O DIR               the objects of the commands after it go into DIR
+                         (TINY-C:/OBJ), and -L and -J look there first; until
+                         the next -O
+Options start with - (a path may start with /); -c and -C are the same.
     @FILE                run the commands in FILE.TEXT, one per line
                          (blank lines and lines starting with ; skipped;
                          a line @OTHER runs OTHER.TEXT, then goes on)
-The same commands can be arguments instead: CC @TINY-C:/SRC/ALL, CC /Z
+The same commands can be arguments instead: CC @TINY-C:/SRC/ALL, CC -Z
 HANOI SIEVE.  Options and the word after them make one command; they run
 in turn, no prompt, and the first that fails stops CC.
 X(ecute NAME runs a program.  WHICH DISK: a source, a #include file or
@@ -41,11 +42,11 @@ including file, the @FILE), else the one on the prefix volume, else it
 lists the volumes and stops (name one).  HEADERS: <x.h> is taken from
 TINY-C:/INCLUDE first, "x.h" from the including file's sub-volume first,
 then as above, then from TINY-C:/INCLUDE.  SUB-VOLUMES: a path (CC A/X,
-CC #5:/A/B/X, #include "A/X.H", /L OUT=A/X,A/Y) is taken from there;
+CC #5:/A/B/X, #include "A/X.H", -L OUT=A/X,A/Y) is taken from there;
 after the shell's CD into a sub-volume CC looks in it first; the names in
 an @FILE in a sub-volume (SRC/CC/BUILD's MAIN, TOOLS:/SRC/TOOLS's VI/VIMAIN)
 are looked for beside it first.  An object (NAME.OBJ) goes next to its
-source, and /L and /J find objects the same way as sources; the code file
+source, and -L and -J find objects the same way as sources; the code file
 goes where NAME says (its volume or path, else the shell's path or the
 prefix volume) -- the shell runs a code file in a sub-volume where it is;
 the temporary files (TCTEMP.TEXT, TCTEMP.IR) go to the prefix volume, or to
@@ -75,10 +76,10 @@ returned.
 FUNCTION POINTERS: a call through a function pointer (qsort, bsearch and
 printf's floating-point formatting use them) is by default compiled to
 CSP 138 (CALLI), which the native P-Code engine implements and the Z80
-interpreter does not.  /Z compiles the older sequence that works in both,
-so TCLIB.OBJ and the programs on TCEXTRA: are built with /Z (LIBS.TEXT and
-DEMOS.TEXT say so).  Build with /Z anything that must run in Z80 mode,
-the library included; without /Z a program that calls through a function
+interpreter does not.  -Z compiles the older sequence that works in both,
+so TCLIB.OBJ and the programs on TCEXTRA: are built with -Z (LIBS.TEXT and
+DEMOS.TEXT say so).  Build with -Z anything that must run in Z80 mode,
+the library included; without -Z a program that calls through a function
 pointer runs in Z80 mode but gives wrong results.
 
 MEMORY: Tiny-C runs in Z80 mode as well as P-Code mode, and @BUILD

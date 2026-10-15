@@ -112,9 +112,9 @@ KRUNCH  KRUNCH [-y] [VOL: | #n | PATH]  from the shell: moves the files of
         unless -y).  Running code files (SYSTEM.PASCAL, the shell) may move:
         KRUNCH tells the OS.
 
-GROW    GROW NAME SIZE, SHRINK NAME SIZE  from the shell: the sub-volume NAME
+GROW    GROW NAME SIZE, SHRINK NAME [SIZE]  from the shell: the sub-volume NAME
 SHRINK  (MKDIR makes one) becomes SIZE blocks: +N (N more), -N (N fewer) or
-        N.  Growing takes the blocks after it, or moves it to a free area,
+        N; SHRINK NAME alone leaves it no free blocks.  Growing takes the blocks after it, or moves it to a free area,
         krunching the volume that holds it when it must; shrinking krunches
         the sub-volume first only when its files reach past the new end.
 

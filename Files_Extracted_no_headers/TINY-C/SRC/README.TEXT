@@ -11,7 +11,7 @@ identical to TINY-C:CC.CODE apart from its name (check it with
 TCEXTRA:CMPCODE).  To use it, change its name to CC.CODE with the Filer.
 
 REBUILDING THE LIBRARY:  CC @TINY-C:/SRC/LIB/LIBS.  LIBS.TEXT compiles the
-library modules and joins them (/J) into TINY-C:/LIB/TCLIB2.OBJ, identical
+library modules and joins them (-J) into TINY-C:/LIB/TCLIB2.OBJ, identical
 to TINY-C:/LIB/TCLIB.OBJ (check it with CMPCODE).  To use it, RENAME
 TINY-C:/LIB/TCLIB2.OBJ TCLIB.OBJ from the shell (after deleting the old
 one).
@@ -20,7 +20,7 @@ EVERYTHING AT ONCE:  CC @TINY-C:/SRC/ALL (TOOLS: on line too): BUILD, LIBS,
 then TOOLS:/SRC/TOOLS (every tool linked onto TOOLS:).
 
 The names in a batch file are looked for beside it first, so these work
-from anywhere.  Their first command, /O TINY-C:/OBJ, puts every NAME.OBJ
+from anywhere.  Their first command, -O TINY-C:/OBJ, puts every NAME.OBJ
 into TINY-C:/OBJ, not among the sources (DELETE TINY-C:/OBJ/*.OBJ from
 the shell to clear it).
 CC/OBJFORMAT.TEXT describes what is in a .OBJ file and how the linker

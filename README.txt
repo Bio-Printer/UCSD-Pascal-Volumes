@@ -1636,3 +1636,12 @@ CC's new /O DIR command sends the objects of the commands after it into DIR (and
 first; in a batch file it lasts to the file's end): BUILD.TEXT and LIBS.TEXT start with
 /O TINY-C:/OBJ, TOOLS.TEXT with /O TOOLS:/OBJ, so the source sub-volumes stay clean.  The source
 sub-volumes are smaller now (room for edits only).  Emulator: v2.06.
+
+OPTIONS START WITH -; DIR -S AND -N; SHRINK NAME (TINY-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, TCEXPCT, Big_Disk)
+---------------------------------------------------------------------------
+Now that a path may start with /, every option starts with -: CC's -C, -Z, -L, -J and -O (they
+were /C, /Z, /L, /J, /O; the batch files BUILD, LIBS, TOOLS, DEMOS and TESTS use the new ones) and
+the shell's DIR -E (was /E).  The tools always took - options.  CC's -O lasts until the next -O
+(one copy: more memory for the compile).  DIR -S lists the files by size, the largest first,
+DIR -N by name (-ES both).  SHRINK NAME without a size leaves the sub-volume no free blocks.
+Big_Disk: SYSTEM.SHELL (the new DIR).  Emulator: v2.06.

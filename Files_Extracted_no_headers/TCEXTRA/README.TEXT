@@ -39,11 +39,13 @@ Its own commands:
         DIR A lists what is in A; DIR marks sub-volumes "Sub-volume".
   RMDIR NAME   a sub-volume goes; with files in it, after a Y (not one
         the shell's path is in).  DELETE leaves sub-volumes alone.
-  DIR [/E] [VOL: or #5:][PATTERN]   the files of the prefix volume (or
-        VOL:, or unit 5) whose names match: * or = any characters, ? any
-        one (DIR *.C, DIR #9:, DIR TOOLS:/SRC/VI/*.C); ESC stops a long list.
-        /E: each file's first block and bytes in its last block too, and
-        the unused areas between the files.
+  DIR [-E] [-S | -N] [VOL: or #5:][PATTERN]   the files of the prefix
+        volume (or VOL:, or unit 5) whose names match: * or = any
+        characters, ? any one (DIR *.C, DIR #9:, DIR TOOLS:/SRC/VI/*.C); ESC
+        stops a long list.  -E: each file's first block and bytes in its
+        last block too, and the unused areas between the files; -S sorts
+        the files by size (the largest first), -N by name (else they are in
+        the order of their blocks); -ES both.
   TYPE [VOL: or #5:]NAME         a text file on the console; with
         wildcards each file that matches, under its name.
   DELETE (or DEL) [VOL: or #5:]PATTERN   deletes the files that match;

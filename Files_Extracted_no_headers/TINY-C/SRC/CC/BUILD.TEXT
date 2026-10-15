@@ -1,19 +1,19 @@
 ; BUILD -- rebuild the Tiny-C compiler: CC @TINY-C:/SRC/CC/BUILD from the shell
 ; (or X(ecute TINY-C:CC and answer @TINY-C:/SRC/CC/BUILD).  Compiles every module
-; here (/O: each NAME.OBJ into TINY-C:/OBJ), then links them into TINY-C:CC2.CODE.
-/O TINY-C:/OBJ
-/C MAIN
-/C UTIL
-/C TYPES
-/C PP
-/C LEX
-/C PSYM
-/C EXPR
-/C DECL
-/C STMT
-/C COMPILE
-/C IR
-/C GEN
-/C GENX
-/C LINK
-/L TINY-C:CC2=MAIN,UTIL,TYPES,PP,LEX,PSYM,EXPR,DECL,STMT,COMPILE,IR,GEN,GENX,LINK
+; here (-O: each NAME.OBJ into TINY-C:/OBJ), then links them into TINY-C:CC2.CODE.
+-O TINY-C:/OBJ
+-C MAIN
+-C UTIL
+-C TYPES
+-C PP
+-C LEX
+-C PSYM
+-C EXPR
+-C DECL
+-C STMT
+-C COMPILE
+-C IR
+-C GEN
+-C GENX
+-C LINK
+-L TINY-C:CC2=MAIN,UTIL,TYPES,PP,LEX,PSYM,EXPR,DECL,STMT,COMPILE,IR,GEN,GENX,LINK
