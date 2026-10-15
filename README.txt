@@ -1575,3 +1575,12 @@ after a CD into a sub-volume; PWD prints the same.  In every path . is where the
 sub-volume that holds it -- in the shell (COPY X.C .., DIR .., CD ../B) and in every program (WC ../B/*.C,
 CC ../X), as the library resolves them.  COPY with no destination copies into the current directory
 (COPY #9:*).  Emulator: v2.06.
+
+THE LINKER NEEDS LESS MEMORY (Big_Disk, TCEXTRA, TCSRC, TINY-C, TOOLS)
+---------------------------------------------------------------------------
+CC's linker keeps no reference list for each procedure any more: it reads the object files again until
+nothing more is linked, and then makes its table again with only what is linked, so a library's unused
+procedures take no memory while the code is written.  CC linking itself (CC @BUILD) has 8238 words free
+at its least (it had 5748); every code file is byte for byte as before.  The library (TCSRC:DIRS.C,
+SUBVOL.C) folds small helpers into their callers; TINY-C:DIRS.H has dirread and dirwrite as macros.
+Emulator: v2.06.
