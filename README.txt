@@ -1654,3 +1654,10 @@ TINY-C:/SRC/ALL.TEXT, inside a sub-volume).  Run it with CC @TINY-C:ALL from the
 shell's WHEREIS looks into every sub-volume too, at any depth: WHEREIS ALL* finds
 TINY-C:ALL.TEXT, WHEREIS STDIO.H finds TINY-C:/INCLUDE/STDIO.H; with a volume or path given it
 searches there and below.  Big_Disk: SYSTEM.SHELL.  Emulator: v2.06.
+
+CC'S PASS LINES IN COLUMNS AGAIN (TINY-C, Big_Disk)
+---------------------------------------------------------------------------
+A source in a sub-volume has a long name (TINY-C:/SRC/CC/COMPILE.C), and CC padded file names
+to 18 characters only, so the "(N free)" figures of a long compile no longer lined up.  The
+name is padded to 29 now (TOOLS:/SRC/BINDERC/BINDERC.C is 28), with always a blank after it: a
+line is about 107 of the emulator's 132 columns.  Emulator: v2.06.
