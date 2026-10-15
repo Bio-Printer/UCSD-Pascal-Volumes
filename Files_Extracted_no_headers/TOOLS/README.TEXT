@@ -106,11 +106,12 @@ LC      LC [-1xFsrSC] [VOL: | #n: | PATH][PATTERN ...]  from the shell: the
         across), -F marks CODE files, -s shows the sizes; one name to a line
         when the output goes to a file or a pipe.
 
-KRUNCH  KRUNCH [-y] [VOL: | #n | PATH]  from the shell: moves the files of
-        a disk (or of a sub-volume: KRUNCH #5:/A) down so that its unused
+KRUNCH  KRUNCH [-y] [-r] [VOL: | #n | PATH]  from the shell: moves the files
+        of a disk (or of a sub-volume: KRUNCH #5:/A) down so that its unused
         blocks become one area at its end (the Filer's K(runch); asks first
-        unless -y).  Running code files (SYSTEM.PASCAL, the shell) may move:
-        KRUNCH tells the OS.
+        unless -y).  -r: every sub-volume in it too, no question; KRUNCH -r *
+        every disk on line.  Running code files (SYSTEM.PASCAL, the shell)
+        may move: KRUNCH tells the OS.
 
 GROW    GROW NAME SIZE, SHRINK NAME [SIZE]  from the shell: the sub-volume NAME
 SHRINK  (MKDIR makes one) becomes SIZE blocks: +N (N more), -N (N fewer) or

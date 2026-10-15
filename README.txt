@@ -1661,3 +1661,10 @@ A source in a sub-volume has a long name (TINY-C:/SRC/CC/COMPILE.C), and CC padd
 to 18 characters only, so the "(N free)" figures of a long compile no longer lined up.  The
 name is padded to 29 now (TOOLS:/SRC/BINDERC/BINDERC.C is 28), with always a blank after it: a
 line is about 107 of the emulator's 132 columns.  Emulator: v2.06.
+
+KRUNCH -R (TOOLS, Big_Disk)
+---------------------------------------------------------------------------
+KRUNCH -r krunches every sub-volume inside the disk or sub-volume named too, at any depth (each
+one before the volume that holds it), without asking.  KRUNCH -r * krunches every disk on line
+and all their sub-volumes (without -r, * is still the system volume).  The exit status is the
+worst of them.  MAN KRUNCH has it.  Emulator: v2.06.
