@@ -3,22 +3,41 @@ Big_Disk  (volume BIGGY, 36 files)
     36 files extracted, 6 text files decoded
 Empty_Big_Disk  (volume EMPTY, 0 files)
     0 files extracted, 0 text files decoded
-TCEXPCT  (volume TCEXPCT, 28 files)
-    28 files extracted, 28 text files decoded
+TCEXPCT  (volume TCEXPCT, 29 files)
+    29 files extracted, 29 text files decoded
 TCEXTRA  (volume TCEXTRA, 29 files)
     29 files extracted, 16 text files decoded
-TCSRC  (volume TCSRC, 41 files)
-    41 files extracted, 41 text files decoded
 TCTESTS  (volume TCTESTS, 41 files)
     41 files extracted, 22 text files decoded
 TCVERIF  (volume TCVERIF, 5 files)
     5 files extracted, 4 text files decoded
-TINY-C  (volume TINY-C, 22 files)
-    22 files extracted, 20 text files decoded
-TOOLS  (volume TOOLS, 20 files)
-    20 files extracted, 3 text files decoded
-TOOLSRC  (volume TOOLSRC, 32 files)
-    32 files extracted, 32 text files decoded
+TINY-C  (volume TINY-C, 7 files)
+    INCLUDE/  (a sub-volume, 246 blocks, 17 files)
+    LIB/  (a sub-volume, 204 blocks, 1 files)
+    SRC/  (a sub-volume, 1734 blocks, 4 files)
+        CC/  (a sub-volume, 1150 blocks, 19 files)
+        LIB/  (a sub-volume, 518 blocks, 20 files)
+    63 files extracted, 61 text files decoded
+TOOLS  (volume TOOLS, 21 files)
+    SRC/  (a sub-volume, 2288 blocks, 19 files)
+        VI/  (a sub-volume, 758 blocks, 10 files)
+        GREP/  (a sub-volume, 94 blocks, 1 files)
+        CAT/  (a sub-volume, 70 blocks, 1 files)
+        HEXDUMP/  (a sub-volume, 70 blocks, 1 files)
+        OBJCOPY/  (a sub-volume, 74 blocks, 1 files)
+        MORE/  (a sub-volume, 82 blocks, 1 files)
+        LESS/  (a sub-volume, 126 blocks, 1 files)
+        SED/  (a sub-volume, 214 blocks, 3 files)
+        DIFF/  (a sub-volume, 110 blocks, 1 files)
+        WC/  (a sub-volume, 78 blocks, 1 files)
+        LC/  (a sub-volume, 78 blocks, 1 files)
+        KRUNCH/  (a sub-volume, 66 blocks, 1 files)
+        GROW/  (a sub-volume, 58 blocks, 1 files)
+        SHRINK/  (a sub-volume, 54 blocks, 1 files)
+        PATCH/  (a sub-volume, 130 blocks, 1 files)
+        MAN/  (a sub-volume, 74 blocks, 1 files)
+        BINDERC/  (a sub-volume, 78 blocks, 1 files)
+    50 files extracted, 33 text files decoded
 U002A.5_Z80_SYS1  (volume U002A.5, 20 files)
     20 files extracted, 4 text files decoded
 U006.5_LSI-11_SYS1  (volume U006.5, 14 files)

@@ -1,6 +1,7 @@
 TOOLS                                               volume TOOLS:
 
-Tools written in Tiny-C, ready to run.  Their sources are on TOOLSRC:.
+Tools written in Tiny-C, ready to run.  Their sources are in TOOLS:/SRC, a
+sub-volume each (TOOLS:/SRC/VI, TOOLS:/SRC/GREP ...; SRC/README.TEXT).
 
 VI      the screen editor vi (the BusyBox "tiny vi"):  from the shell,
         VI NAME.C  (the name as typed; .C, .H and .TEXT files are text
@@ -15,10 +16,10 @@ VI      the screen editor vi (the BusyBox "tiny vi"):  from the shell,
         Big files: vi keeps a window of the file in memory (about 4 KB in
         Z80 mode, 12 KB in P-Code mode, 30 KB with the Harvard layout) and
         the rest in VI.SWAP, a temporary file on the prefix volume (the
-        file's size and 25 KB; deleted when vi ends; on the prefix volume
+        file's size and 32 KB; deleted when vi ends; on the prefix volume
         even after a CD into a sub-volume -- a file in one is found once, at
         the start, and read and saved by where it is, its window 1 KB
-        smaller: in Z80 mode about 2.7 KB).  Moving, searching (/ ? n N go on through the whole
+        smaller: in Z80 mode about 2.4 KB).  Moving, searching (/ ? n N go on through the whole
         file), G and :N move the window; files up to about 185 KB.  A
         command on more lines than fit in the window at once (500dd,
         :1,$s/a/b/ on a big file) is refused with a message.

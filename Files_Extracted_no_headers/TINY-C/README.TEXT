@@ -1,7 +1,21 @@
 TINY-C for UCSD Pascal II.0                        volume TINY-C:
 
-Use: set the prefix to TINY-C: (F(iler, P(refix), then X(ecute CC and
-answer "Compile what file?" with
+WHAT IS WHERE (FILES.TEXT lists every file):
+    CC.CODE          the compiler
+    TCMSGS.TEXT      its messages
+    INCLUDE/         the headers: STDIO.H, STRING.H, PSYS.H ...
+    LIB/             the C library, TCLIB.OBJ
+    SRC/             the sources, and the batch files that rebuild everything:
+      SRC/ALL.TEXT     the compiler, the library and the tools at once
+      SRC/CC/          the compiler's modules, BUILD.TEXT
+      SRC/LIB/         the library's modules, LIBS.TEXT
+The tools (VI, GREP, ...) are on TOOLS:, their sources in TOOLS:/SRC; the
+demos on TCEXTRA:, the test programs on TCTESTS:.  INCLUDE, LIB and SRC are
+sub-volumes (the shell's MKDIR, CD, DIR: DIR TINY-C:/INCLUDE, CD
+TINY-C:/SRC/CC); the Filer sees each as one data file.
+
+Use: from the shell (S at the Command: prompt) type CC NAME, or
+X(ecute TINY-C:CC and answer "Compile what file?" with
     NAME                 compile NAME.C (or NAME.TEXT), link with
                          TCLIB.OBJ -> NAME.CODE  (NAME.C works too)
     /C NAME              compile only -> NAME.OBJ
@@ -12,30 +26,32 @@ answer "Compile what file?" with
     @FILE                run the commands in FILE.TEXT, one per line
                          (blank lines and lines starting with ; skipped;
                          a line @OTHER runs OTHER.TEXT, then goes on)
-The same commands can be arguments instead (from the shell: S at the
-Command: prompt): CC @BUILD @LIBS, CC /Z HANOI SIEVE.  Options and the
-word after them make one command; they run in turn, no prompt, and the
-first that fails stops CC.
+The same commands can be arguments instead: CC @TINY-C:/SRC/ALL, CC /Z
+HANOI SIEVE.  Options and the word after them make one command; they run
+in turn, no prompt, and the first that fails stops CC.
 X(ecute NAME runs a program.  WHICH DISK: a source, a #include file or
-an @FILE named with a volume (TOOLSRC:VI.H, #5:X.C) is taken from there
-only.  Named without one, CC looks on every disk: on one disk only, that
-one; on several, the one on the disk of the file that names it (the
+an @FILE named with a volume (TOOLS:/SRC/VI/VI.H, #5:X.C) is taken from
+there only.  Named without one, CC looks on every disk: on one disk only,
+that one; on several, the one on the disk of the file that names it (the
 including file, the @FILE), else the one on the prefix volume, else it
-lists the volumes and stops (name one).  SUB-VOLUMES: a path (CC
-A/X, CC #5:/A/B/X, #include "A/X.H", /L OUT=A/X,A/Y) is taken from
-there; after the shell's CD into a sub-volume CC looks in it first; and
-a file included from a sub-volume finds its "x.h" there first.  An
-object (NAME.OBJ) goes next to its source, and /L and /J find objects
-the same way as sources; the code file goes where NAME says (its volume
-or path, else the shell's path or the prefix volume) -- the shell runs a
-code file in a sub-volume where it is; the temporary files (TCTEMP.TEXT,
-TCTEMP.IR) go to the prefix volume, or to the volume that holds the
-shell's path; TCLIB.OBJ and
-TCMSGS.TEXT are found on TINY-C: when they are not on the prefix volume
-or the boot volume.
+lists the volumes and stops (name one).  HEADERS: <x.h> is taken from
+TINY-C:/INCLUDE first, "x.h" from the including file's sub-volume first,
+then as above, then from TINY-C:/INCLUDE.  SUB-VOLUMES: a path (CC A/X,
+CC #5:/A/B/X, #include "A/X.H", /L OUT=A/X,A/Y) is taken from there;
+after the shell's CD into a sub-volume CC looks in it first; the names in
+an @FILE in a sub-volume (SRC/CC/BUILD's MAIN, TOOLS:/SRC/TOOLS's VI/VIMAIN)
+are looked for beside it first.  An object (NAME.OBJ) goes next to its
+source, and /L and /J find objects the same way as sources; the code file
+goes where NAME says (its volume or path, else the shell's path or the
+prefix volume) -- the shell runs a code file in a sub-volume where it is;
+the temporary files (TCTEMP.TEXT, TCTEMP.IR) go to the prefix volume, or to
+the volume that holds the shell's path; TCLIB.OBJ and TCMSGS.TEXT are
+taken from the prefix volume or the boot volume when they are there, else
+from TINY-C:/LIB and TINY-C:.
 
-THE SOURCES of the compiler and the library, and the batch files that
-rebuild them (@BUILD, @LIBS), are on TCSRC: (see its README.TEXT).
+REBUILDING (see SRC/README.TEXT):  CC @TINY-C:/SRC/CC/BUILD makes
+TINY-C:CC2.CODE, CC @TINY-C:/SRC/LIB/LIBS TINY-C:/LIB/TCLIB2.OBJ, CC
+@TINY-C:/SRC/ALL both and every tool.
 
 THE DEMO PROGRAMS are on TCEXTRA: (DEMOS.TEXT, @DEMOS), the test
 programs on TCTESTS: (TESTS.TEXT, @TESTS).

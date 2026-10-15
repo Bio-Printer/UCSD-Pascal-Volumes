@@ -1607,3 +1607,24 @@ a sub-volume.  The library: TINY-C:DIRS.H has struct svat and __svplace; fopen a
 through a place when one is set; closing a sub-volume file that was only read no longer reads its
 directory.  The compiler's fmtfix (EXPR.C) is in PARSE now, not a segment of its own (a code file may
 have ten segments; CC's free memory is unchanged).  Big_Disk: SYSTEM.SHELL relinked.  Emulator: v2.06.
+
+TINY-C AND THE TOOLS IN SUB-VOLUMES; TCSRC AND TOOLSRC GONE (TINY-C, TOOLS, TCEXTRA, TCTESTS,
+TCVERIF, TCEXPCT, Big_Disk)
+---------------------------------------------------------------------------
+Tiny-C is laid out as a tree of sub-volumes (Tiny-C's MKDIR), so the separate source disks are
+gone: BLK_format/TCSRC.BLK and TOOLSRC.BLK and their extracted files are removed.
+    TINY-C:   CC.CODE, TCMSGS.TEXT, README.TEXT, FILES.TEXT
+              INCLUDE/   the headers (STDIO.H ...)
+              LIB/       TCLIB.OBJ
+              SRC/       ALL.TEXT; CC/ the compiler and BUILD.TEXT, LIB/ the library and LIBS.TEXT
+    TOOLS:    the tools ready to run (VI.CODE ...), MAN.TEXT, README.TEXT, FILES.TEXT
+              SRC/       TOOLS.TEXT and a sub-volume of sources for each tool (SRC/VI, SRC/GREP ...)
+CC takes <x.h> from TINY-C:/INCLUDE (and "x.h" last from there), TCLIB.OBJ from TINY-C:/LIB, and
+the names in a batch file in a sub-volume from beside it: CC @TINY-C:/SRC/ALL (from the shell)
+rebuilds the compiler (TINY-C:CC2.CODE), the library (TINY-C:/LIB/TCLIB2.OBJ) and every tool,
+from anywhere, byte for byte the shipped ones.  Files in sub-volumes named with their volume are
+opened by the sub-volume's place, found once and read a directory block at a time, not through
+the path code and a 2 KB directory: headers cost the preprocessor less memory than before.
+FILES.TEXT lists the sub-volumes' files too (SRC/CC/MAIN.C).  tools/extract_all.py now extracts a
+sub-volume as a folder of its files (Files_Extracted_Raw/TINY-C/SRC/CC/MAIN.C).  vi's VI.SWAP is
+the file and 32 KB (was 25 KB).  Big_Disk: SYSTEM.SHELL relinked.  Emulator: v2.06.

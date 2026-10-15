@@ -1,0 +1,26 @@
+TINY-C SOURCES                              TINY-C:/SRC
+
+The sources of the Tiny-C compiler (CC/: 14 modules, TC.H, PARSE.H,
+GEN.H) and of its library (LIB/: 18 modules, LIBINT.H), and the batch
+files that rebuild them; the tools' sources are in TOOLS:/SRC.
+
+REBUILDING THE COMPILER:  from the shell, CC @TINY-C:/SRC/CC/BUILD (or
+X(ecute TINY-C:CC, answer @TINY-C:/SRC/CC/BUILD).  BUILD.TEXT compiles the
+compiler's modules and links TINY-C:CC2.CODE (next to the compiler),
+identical to TINY-C:CC.CODE apart from its name (check it with
+TCEXTRA:CMPCODE).  To use it, change its name to CC.CODE with the Filer.
+
+REBUILDING THE LIBRARY:  CC @TINY-C:/SRC/LIB/LIBS.  LIBS.TEXT compiles the
+library modules and joins them (/J) into TINY-C:/LIB/TCLIB2.OBJ, identical
+to TINY-C:/LIB/TCLIB.OBJ (check it with CMPCODE).  To use it, RENAME
+TINY-C:/LIB/TCLIB2.OBJ TCLIB.OBJ from the shell (after deleting the old
+one).
+
+EVERYTHING AT ONCE:  CC @TINY-C:/SRC/ALL (TOOLS: on line too): BUILD, LIBS,
+then TOOLS:/SRC/TOOLS (every tool linked onto TOOLS:).
+
+The names in a batch file are looked for beside it first, so these work
+from anywhere, and each module leaves its NAME.OBJ next to its source
+(DELETE them from the shell if you like: DELETE TINY-C:/SRC/CC/*.OBJ).
+CC/OBJFORMAT.TEXT describes what is in a .OBJ file and how the linker
+reads it.

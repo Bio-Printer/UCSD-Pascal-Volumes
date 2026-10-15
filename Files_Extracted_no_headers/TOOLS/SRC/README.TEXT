@@ -1,0 +1,54 @@
+TOOL SOURCES                                TOOLS:/SRC
+
+The sources of the tools on TOOLS:, a sub-volume each: SRC/VI holds vi's
+modules, SRC/GREP GREP.C, and so on.
+
+REBUILDING THEM:  from the shell, CC @TOOLS:/SRC/TOOLS (or X(ecute
+TINY-C:CC, answer @TOOLS:/SRC/TOOLS).  TOOLS.TEXT compiles every tool's
+modules (VI/VIMAIN: found beside TOOLS.TEXT; each leaves its NAME.OBJ next
+to its source) and links the tool straight onto TOOLS: (TOOLS:NAME.CODE,
+replacing the one there).
+
+EVERYTHING AT ONCE:  CC @TINY-C:/SRC/ALL: the compiler (TINY-C:CC2.CODE),
+the library (TINY-C:/LIB/TCLIB2.OBJ), then TOOLS; a batch file can name
+other batch files (@NAME).
+
+A NEW TOOL: MKDIR TOOLS:/SRC/NAME, its sources there, its lines in
+TOOLS.TEXT (/Z /C NAME/NAME, /L TOOLS:NAME=NAME/NAME) and a page in
+TOOLS:MAN.TEXT.
+
+VI      vi: the BusyBox "tiny vi" (GPL v2 or later, see VI.H), edited
+        for Tiny-C, in modules: VI.H (what they share), VIMAIN.C (start,
+        main loop), VISCREEN.C (the screen), VITEXT.C (moving, changing
+        text), VICOLON.C (the : commands), VICMD.C (the vi commands),
+        VIPAGE.C and VIPAGE.H (the window into big files), VIUCSD.C (the
+        P-System: keys, screen, files).  @TOOLS compiles each (/Z /C) and
+        links them (/L VI=...), in P-Code or Z80 mode.
+
+GREP.C  grep (a regular expression, wildcards, every disk).
+
+CAT.C   cat (the options of cat(1)).
+
+SED.C, SEDRE.C, SED.H  sed (the stream editor, its regular expressions).
+
+DIFF.C  diff (two files compared, three output forms).
+
+WC.C    wc (lines, words, bytes).
+
+LC.C    lc (the file names of a disk in columns).
+
+KRUNCH.C  krunch (the files of a disk moved down, the free blocks in one area).
+
+GROW.C, SHRINK.C  grow, shrink (a sub-volume's size: the library's svresize).
+
+PATCH.C patch (a diff applied to a file).
+
+MAN.C   man (the manual pages program; MAN.TEXT on TOOLS: is its data).
+
+HEXDUMP.C  hexdump (a hex dump, Intel Hex with -i).
+
+OBJCOPY.C  objcopy (a hex dump or Intel Hex back into a file).
+
+MORE.C, LESS.C  the pagers.
+
+FILES.TEXT lists every file on this volume.

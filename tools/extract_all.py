@@ -20,6 +20,10 @@ The no_headers version: header removed, DLE indents expanded to spaces,
 NUL padding dropped, each CR -> CR LF. Every other byte (including TABs,
 which the original sources use, and the few damaged bytes noted in the
 README) is kept exactly. Non-text files are identical to the Raw version.
+
+A sub-volume (a data file whose blocks 2..5 hold a directory of its own: Tiny-C's MKDIR, as on
+TINY-C: and TOOLS:) is extracted as a folder of its files, DISK/NAME/..., not as one data file
+(the disk image keeps it whole).
 """
 import os, sys, struct, hashlib
 
@@ -70,6 +74,53 @@ def safe(name):
     bad = '<>:"/\\|?*'
     return ''.join('_' if (c in bad or ord(c) < 32) else c for c in name).rstrip('. ') or '_UNNAMED_'
 
+def is_subvolume(data, nb):
+    """a sub-volume: a data (or untyped) file whose blocks 2..5 hold a UCSD directory of its own
+    (Tiny-C's MKDIR: its volume's end at most the file's length)"""
+    if len(data) < 6 * 512:
+        return False
+    h = data[1024:1024 + 26]
+    return (w(h, 0) == 0 and w(h, 2) == 6 and 1 <= h[6] <= 7 and 6 <= w(h, 14) <= nb
+            and w(h, 16) <= 77)
+
+def extract(img, disk, raw_root, nh_root, report, manifest, depth=0):
+    """the live files of the volume img into raw_root/disk and nh_root/disk; a sub-volume becomes
+    a folder of its own files (disk/NAME/...).  (files, text files) extracted"""
+    os.makedirs(os.path.join(raw_root, disk), exist_ok=True)
+    os.makedirs(os.path.join(nh_root, disk), exist_ok=True)
+    seen, nfiles, ntext = {}, 0, 0
+    pad = '    ' * (depth + 1)
+    for e in live_entries(img):
+        nb = e['last'] - e['first']
+        if e['last'] < e['first'] or e['last'] * 512 > len(img) or not (1 <= e['lastbyte'] <= 512):
+            report.append(f"{pad}! {e['name']}: implausible entry {e}; skipped"); continue
+        data = img[e['first'] * 512:e['first'] * 512 + (nb - 1) * 512 + e['lastbyte']] if nb else b''
+        name = safe(e['name'])
+        if name in seen:
+            seen[name] += 1; stem, dot, ext = name.rpartition('.')
+            name = f"{stem} (dup{seen[name]}).{ext}" if dot else f"{name} (dup{seen[name]})"
+            report.append(f"{pad}! duplicate live directory entry '{e['name']}' (blocks {e['first']}-{e['last']}) saved as '{name}'")
+        else:
+            seen[name] = 1
+        if e['kind'] in (0, 5) and is_subvolume(img[e['first'] * 512:e['last'] * 512], nb):
+            sub = img[e['first'] * 512:e['last'] * 512]
+            n = w(sub, 1024 + 16)
+            report.append(f"{pad}{name}/  (a sub-volume, {nb} blocks, {n} files)")
+            f, t = extract(sub, os.path.join(disk, name), raw_root, nh_root, report, manifest, depth + 1)
+            nfiles, ntext = nfiles + f, ntext + t
+            continue
+        nfiles += 1
+        open(os.path.join(raw_root, disk, name), 'wb').write(data)
+        nh = data
+        if e['kind'] == 3:
+            ntext += 1
+            nh, anomalies = decode_text(data)
+            for a in anomalies: report.append(f"{pad}! {e['name']}: {a}")
+        open(os.path.join(nh_root, disk, name), 'wb').write(nh)
+        for tree, content in (('Files_Extracted_Raw', data), ('Files_Extracted_no_headers', nh)):
+            manifest.append(f"{hashlib.sha256(content).hexdigest()}  {tree}/{disk.replace(os.sep, '/')}/{name}")
+    return nfiles, ntext
+
 def main(src, dst):
     raw_root, nh_root = os.path.join(dst, 'Files_Extracted_Raw'), os.path.join(dst, 'Files_Extracted_no_headers')
     report, manifest = [], []
@@ -78,33 +129,9 @@ def main(src, dst):
         img = open(os.path.join(src, f), 'rb').read()
         disk = f[:-4]
         vol = bytes(img[1024 + 7:1024 + 7 + img[1024 + 6]]).decode('latin1')
-        os.makedirs(os.path.join(raw_root, disk), exist_ok=True)
-        os.makedirs(os.path.join(nh_root, disk), exist_ok=True)
-        seen, ntext = {}, 0
-        ents = list(live_entries(img))
-        report.append(f"{disk}  (volume {vol}, {len(ents)} files)")
-        for e in ents:
-            nb = e['last'] - e['first']
-            if e['last'] < e['first'] or e['last'] * 512 > len(img) or not (1 <= e['lastbyte'] <= 512):
-                report.append(f"    ! {e['name']}: implausible entry {e}; skipped"); continue
-            data = img[e['first'] * 512:e['first'] * 512 + (nb - 1) * 512 + e['lastbyte']] if nb else b''
-            name = safe(e['name'])
-            if name in seen:
-                seen[name] += 1; stem, dot, ext = name.rpartition('.')
-                name = f"{stem} (dup{seen[name]}).{ext}" if dot else f"{name} (dup{seen[name]})"
-                report.append(f"    ! duplicate live directory entry '{e['name']}' (blocks {e['first']}-{e['last']}) saved as '{name}'")
-            else:
-                seen[name] = 1
-            open(os.path.join(raw_root, disk, name), 'wb').write(data)
-            nh = data
-            if e['kind'] == 3:
-                ntext += 1
-                nh, anomalies = decode_text(data)
-                for a in anomalies: report.append(f"    ! {e['name']}: {a}")
-            open(os.path.join(nh_root, disk, name), 'wb').write(nh)
-            for tree, content in (('Files_Extracted_Raw', data), ('Files_Extracted_no_headers', nh)):
-                manifest.append(f"{hashlib.sha256(content).hexdigest()}  {tree}/{disk}/{name}")
-        report.append(f"    {len(ents)} files extracted, {ntext} text files decoded")
+        report.append(f"{disk}  (volume {vol}, {len(list(live_entries(img)))} files)")
+        nfiles, ntext = extract(img, disk, raw_root, nh_root, report, manifest)
+        report.append(f"    {nfiles} files extracted, {ntext} text files decoded")
     open(os.path.join(dst, 'EXTRACTION_REPORT.txt'), 'w').write('\n'.join(report) + '\n')
     for bd in ('BLK_format', 'raw_8inch_format'):
         p = os.path.join(dst, bd)
