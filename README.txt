@@ -1692,3 +1692,24 @@ one, as the reference.  The repository's Big_Disk_C.zip is Big_Disk with the C o
 TINY-C has the new #pragma system that compiles it: a module laid out as SYSTEM.PASCAL, with
 lex level 0 procedures, its statics as the outer block's globals, and Pascal-style function
 results.  Emulator: any (tested on v2.07).
+
+THE BOOT CHOOSES SYSTEM.C OR SYSTEM.PASCAL: BIGGY 1.27, SYS-C (new; Big_Disk, SYS-C)
+---------------------------------------------------------------------------
+BIGGY holds both operating systems now: SYSTEM.PASCAL, and SYSTEM.C, the same system written in
+C (UCSD-SYSTEM-C).  Its SYSTEM.MICRO has a boot that asks
+
+  Type any key within 2 seconds to boot SYSTEM.PASCAL instead of SYSTEM.C:
+
+and boots SYSTEM.C unless a key is typed (the key is not passed on).  If the one chosen is not on
+the boot disk, the other one is booted.  The boot is the interpreter's BOOT (U120 BOOT.TEXT) with
+two instructions changed (CALL IOINIT -> CALL CHOOSE, the not-found loop -> JP NOTFND) and 280
+bytes of new code in the unused end of the file, at 2A40H.  BLK_format/SYS-C.BLK, the new volume
+SYS-C:, holds the OS's C sources (SYSC.C, SEG0.C, SEGS.C, GLOBALS.H; X(ecute TINY-C:CC, SYS-C:SYSC
+makes SYSC.CODE, which equals SYSTEM.C byte for byte), SYSTEM.C, that SYSTEM.MICRO, and
+BOOTC.TEXT, the boot's source: the P-System's Z80 Assembler turns it into the same bytes.  There is
+also a README.TEXT and a FILES.TEXT.  Its files are in Files_Extracted_*/SYS-C.  Big_Disk.BLK
+(BIGGY) revision 1.27: SYSTEM.C, SYSTEM.MICRO and VERSION.TEXT.
+Known limit: the Filer's K(runch) asks for a reboot only when it moves SYSTEM.PASCAL, so boot again
+after a Filer K(runch) of the boot disk while SYSTEM.C runs.  Tiny-C's KRUNCH is safe.
+Emulator: v2.08 for the 2 seconds (its key wait, OUT (2)).  An older one does not wait, and boots
+SYSTEM.C.

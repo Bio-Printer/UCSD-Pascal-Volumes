@@ -1,0 +1,92 @@
+;BOOTC -- the boot that chooses the operating system (SYSTEM.MICRO, BIGGY)
+;
+;  SYSTEM.C is booted; a key typed within 2 seconds boots SYSTEM.PASCAL.
+;  The interpreter's BOOT (U120 BOOT.TEXT) changes in two places:
+;
+;    1EE2  CALL     CHOOSE   was CALL IOINIT   (CD 40 2A)
+;    1F27  JP       NOTFND   was JP $45   (C3 7B 2A)
+;
+;  and this code is put into the unused end of SYSTEM.MICRO, at 2A40H
+;  (file offset 2C40H): above the directory buffer (NRPTOP, 2019H) and
+;  RELSEG (2819H), so it is still there when NOTFND runs.  OUT (2) is the
+;  emulator's key wait (version 2.08): it returns when a key is typed or
+;  after A tenths of a second.  An emulator's native P-Code boot does the
+;  same when it finds these bytes.
+
+        .ABSOLUTE
+        .PROC   BOOTC
+IOINIT  .EQU    1EBAH
+SYSTLE  .EQU    1ECCH
+SEARCH  .EQU    1EFCH
+CMPLEN  .EQU    1F0CH
+
+        .ORG    2A40H
+CHOOSE  CALL    IOINIT                          ;2A40  CD BA 1E     what BOOT called here: the I/O drivers, MEMTOP
+        LD      HL,ASK                          ;2A43  21 BC 2A
+        CALL    PRINT                           ;2A46  CD 73 2A
+        LD      A,20                            ;2A49  3E 14        2 seconds, in tenths
+        OUT     (2),A                           ;2A4B  D3 02        wait until a key is typed or the time is up (emulator 2.08)
+        IN      A,(0)                           ;2A4D  DB 00        CONST: a key?
+        OR      A                               ;2A4F  B7
+        LD      HL,NAMEC                        ;2A50  21 B2 2A
+        JR      Z,USE                           ;2A53  28 05        no: SYSTEM.C
+        IN      A,(1)                           ;2A55  DB 01        CONIN: the key is read (not left for the system)
+        LD      HL,NAMEP                        ;2A57  21 A4 2A     SYSTEM.PASCAL
+USE     LD      A,(HL)                          ;2A5A  7E           HL = the name (a string): its length
+        INC     A                               ;2A5B  3C
+        LD      (CMPLEN),A                      ;2A5C  32 0C 1F     the search compares the length byte and the characters
+        LD      C,A                             ;2A5F  4F
+        LD      B,0                             ;2A60  06 00
+        PUSH    HL                              ;2A62  E5
+        LD      DE,SYSTLE                       ;2A63  11 CC 1E     SYSTLE := the name
+        LDIR                                    ;2A66  ED B0
+        POP     HL                              ;2A68  E1
+        LD      B,(HL)                          ;2A69  46           say it
+$1      INC     HL                              ;2A6A  23
+        LD      A,(HL)                          ;2A6B  7E
+        OUT     (1),A                           ;2A6C  D3 01
+        DJNZ    $1                              ;2A6E  10 FA
+        LD      HL,CRLF                         ;2A70  21 55 2B
+PRINT   LD      A,(HL)                          ;2A73  7E           HL = text ending in 0
+        OR      A                               ;2A74  B7
+        RET     Z                               ;2A75  C8
+        OUT     (1),A                           ;2A76  D3 01        CONOUT
+        INC     HL                              ;2A78  23
+        JR      PRINT                           ;2A79  18 F8
+NOTFND  LD      HL,TRIED                        ;2A7B  21 BB 2A     the name is not in the directory
+        LD      A,(HL)                          ;2A7E  7E
+        OR      A                               ;2A7F  B7
+        JR      NZ,NONE                         ;2A80  20 1A        the other one was not there either
+        INC     (HL)                            ;2A82  34
+        LD      HL,NOTMSG                       ;2A83  21 08 2B
+        CALL    PRINT                           ;2A86  CD 73 2A
+        LD      A,(CMPLEN)                      ;2A89  3A 0C 1F     which one was it?
+        CP      0EH                             ;2A8C  FE 0E
+        LD      HL,NAMEC                        ;2A8E  21 B2 2A
+        JR      Z,$2                            ;2A91  28 03        SYSTEM.PASCAL: try SYSTEM.C
+        LD      HL,NAMEP                        ;2A93  21 A4 2A     SYSTEM.C: try SYSTEM.PASCAL
+$2      CALL    USE                             ;2A96  CD 5A 2A
+        JP      SEARCH                          ;2A99  C3 FC 1E     search the directory again (it is still in its buffer)
+NONE    LD      HL,NONMSG                       ;2A9C  21 1E 2B
+        CALL    PRINT                           ;2A9F  CD 73 2A
+$3      JR      $3                              ;2AA2  18 FE        stop, as BOOT did
+NAMEP   .BYTE   0DH                             ;2AA4  0D
+        .ASCII  "SYSTEM.PASCAL"                 ;2AA5  53 59 53 54 45 4D 2E 50 41 53 43 41 4C
+NAMEC   .BYTE   08H                             ;2AB2  08
+        .ASCII  "SYSTEM.C"                      ;2AB3  53 59 53 54 45 4D 2E 43
+TRIED   .BYTE   0                               ;2ABB  00           1 when the other name has been tried
+ASK     .BYTE   0DH                             ;2ABC
+        .BYTE   0AH
+        .ASCII  "Type any key within 2 seconds to boot SYSTEM.PASCAL instead of SYSTEM.C: "
+        .BYTE   0
+NOTMSG  .ASCII  "  not found, booting "         ;2B08
+        .BYTE   0
+NONMSG  .ASCII  "  not found either: no operating system on this disk";2B1E
+        .BYTE   0DH
+        .BYTE   0AH
+        .BYTE   0
+CRLF    .BYTE   0DH                             ;2B55
+        .BYTE   0AH
+        .BYTE   0
+
+        .END

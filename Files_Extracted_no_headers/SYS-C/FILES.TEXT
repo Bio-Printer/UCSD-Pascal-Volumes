@@ -1,0 +1,13 @@
+SYS-C:  the operating system in C (SYSTEM.C) and the boot that chooses it
+
+  FILE            BLOCKS  WHAT
+
+  README.TEXT          6  what is on SYS-C:, how to build and install it
+  SYSC.C              16  the operating system: the procedures' numbers, the segments (CC SYS-C:SYSC)
+  GLOBALS.H           22  its types and global variables, word for word as the Pascal one's
+  SEG0.C              76  segment 0: EXECERROR .. COMMAND, the outer block
+  SEGS.C              54  USERPROG, DEBUGGER, PRINTERR, INITIALI, GETCMD
+  SYSTEM.C            33  the operating system, compiled: BIGGY:SYSTEM.C
+  SYSTEM.MICRO        23  the interpreter with the boot that chooses SYSTEM.C or SYSTEM.PASCAL
+  BOOTC.TEXT          14  the source of that boot (Z80 assembly)
+  FILES.TEXT              this list
