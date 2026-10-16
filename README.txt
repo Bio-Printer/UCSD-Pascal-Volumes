@@ -1678,3 +1678,17 @@ word "Preprocessing" is gone; Compiling, Generating code), then the lines a seco
 A link ends in its least free bytes and the bytes a second it linked.  The rates come from the
 P-System's clock (TIME): turn on the emulator's Options > Host clock; without it they are left
 out.  Emulator: v2.06.
+
+SYSTEM.PASCAL IN C (TINY-C; UCSD-SYSTEM-C)
+---------------------------------------------------------------------------
+The operating system, SYSTEM.PASCAL (U134.4_OS_SOURCE_v1.13), has been rewritten in C:
+https://github.com/Bio-Printer/UCSD-SYSTEM-C.  Its SYSTEM.PASCAL can replace the one on
+Big_Disk: segment 0's procedures have the same numbers, the globals are at the same words,
+and the segments are the same.  The Filer, Editor, Compiler, Linker, Assembler, Pascal and
+Tiny-C programs, the shell, pexec and sub-volumes all run as before.  Their transcripts and
+the disks they leave are byte for byte the same.  Segment 0, which stays in memory, is 7,564
+bytes (it was 7,756), so programs have 96 more words free.  Big_Disk.BLK keeps the Pascal
+one, as the reference.  The repository's Big_Disk_C.zip is Big_Disk with the C one.  CC on
+TINY-C has the new #pragma system that compiles it: a module laid out as SYSTEM.PASCAL, with
+lex level 0 procedures, its statics as the outer block's globals, and Pascal-style function
+results.  Emulator: any (tested on v2.07).
