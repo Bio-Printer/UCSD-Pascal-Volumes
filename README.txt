@@ -1668,3 +1668,13 @@ KRUNCH -r krunches every sub-volume inside the disk or sub-volume named too, at 
 one before the volume that holds it), without asking.  KRUNCH -r * krunches every disk on line
 and all their sub-volumes (without -r, * is still the system volume).  The exit status is the
 worst of them.  MAN KRUNCH has it.  Emulator: v2.06.
+
+CC'S PASS LINES: BYTES FREE, LINES/S, BYTES/S (TINY-C, Big_Disk)
+---------------------------------------------------------------------------
+A compile's line is the source's name, then the least free memory of each pass in bytes (the
+word "Preprocessing" is gone; Compiling, Generating code), then the lines a second it compiled
+(the source's and its headers', over the three passes):
+  TINY-C:/SRC/CC/MAIN.C   5798 bytes free  Compiling  5018 bytes free  Generating code  8728 bytes free   2000 lines/s
+A link ends in its least free bytes and the bytes a second it linked.  The rates come from the
+P-System's clock (TIME): turn on the emulator's Options > Host clock; without it they are left
+out.  Emulator: v2.06.
