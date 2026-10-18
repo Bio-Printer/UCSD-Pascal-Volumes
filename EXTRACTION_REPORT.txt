@@ -19,7 +19,7 @@ TINY-C  (volume TINY-C, 9 files)
     SRC/  (a sub-volume, 1145 blocks, 3 files)
         CC/  (a sub-volume, 751 blocks, 19 files)
         LIB/  (a sub-volume, 341 blocks, 20 files)
-    OBJ/  (a sub-volume, 666 blocks, 0 files)
+    OBJ/  (a sub-volume, 664 blocks, 0 files)
     63 files extracted, 61 text files decoded
 TOOLS  (volume TOOLS, 22 files)
     SRC/  (a sub-volume, 1744 blocks, 19 files)

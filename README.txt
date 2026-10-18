@@ -1728,3 +1728,14 @@ SYSTEM.FILER byte for byte.  Big_Disk.BLK (BIGGY) revision 1.28: SYSTEM.FILER is
 VERSION.TEXT says so.  The disk's free areas are as they were (CC's temporary files need the second
 largest while a pipe holds the largest).  Checked with UCSD-SYSTEM-C's tools/filertest.py and
 UCSD-TinyC's quicktest in both modes.  Emulator: any (v2.08 for the 2 seconds at the boot).
+
+NO SCRATCH WORD IN A FRAME: EVERY TINY-C PROGRAM HAS A WORD MORE PER CALL (TINY-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, Big_Disk)
+---------------------------------------------------------------------------
+CC dropped a value that is not used (an expression statement's: a call's result, x++) by storing it
+into a scratch word, which every function's frame had for nothing else.  Now it drops it with FJP 0:
+that takes the word off the stack and goes to the next instruction either way.  It is as many bytes
+as the store, and the frame has no such word, so each active call of every Tiny-C function uses one
+word less.  The operating system in C (SYSTEM.C) was already compiled this way.  A total rebuild
+started from the shell (cc @tiny-c:all) has 68 words more at its least (1476, was 1408), and CC
+compiling the shell 106 bytes more.  Rebuilt with it: CC.CODE and the library (TINY-C), every tool
+(TOOLS), the demos and tests (TCEXTRA, TCTESTS, TCVERIF), and BIGGY's SYSTEM.SHELL.  Emulator: any.
