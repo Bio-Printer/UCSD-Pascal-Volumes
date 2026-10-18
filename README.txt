@@ -1713,3 +1713,18 @@ Known limit: the Filer's K(runch) asks for a reboot only when it moves SYSTEM.PA
 after a Filer K(runch) of the boot disk while SYSTEM.C runs.  Tiny-C's KRUNCH is safe.
 Emulator: v2.08 for the 2 seconds (its key wait, OUT (2)).  An older one does not wait, and boots
 SYSTEM.C.
+
+THE FILER'S K(RUNCH) KNOWS THE RUNNING SYSTEM: BIGGY 1.28, U134.4_OS_SOURCE_v1.14 (new; Big_Disk)
+---------------------------------------------------------------------------
+The Filer's K(runch) says "Please re-boot", and waits, when it has moved the running operating
+system: the system reads its segments from their blocks.  It looked for a file named
+SYSTEM.PASCAL on the system disk.  So with SYSTEM.C running, a K(runch) that moved SYSTEM.C went
+on, and the system then read its next segment from where the file had been.  Now it finds the
+running system by its segment 0's unit and block (SYSCOM^.SEGTABLE[0]), whatever its name:
+SYSTEM.C or SYSTEM.PASCAL, whichever was booted.  U134.4_OS_SOURCE_v1.14.BLK is v1.13 with that in
+FILER.E.TEXT (8 lines; every other line as it was) and VERSION.TEXT.  Build: with the prefix on the
+volume, compile II.0.FILER to get SYSTEM.FILER.  Compiled the same way, v1.13 gives BIGGY 1.27's
+SYSTEM.FILER byte for byte.  Big_Disk.BLK (BIGGY) revision 1.28: SYSTEM.FILER is v1.14's, and
+VERSION.TEXT says so.  The disk's free areas are as they were (CC's temporary files need the second
+largest while a pipe holds the largest).  Checked with UCSD-SYSTEM-C's tools/filertest.py and
+UCSD-TinyC's quicktest in both modes.  Emulator: any (v2.08 for the 2 seconds at the boot).

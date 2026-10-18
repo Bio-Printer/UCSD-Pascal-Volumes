@@ -1,4 +1,4 @@
-BIGGY boot volume, revision 1.27  (16-Oct-26)
+BIGGY boot volume, revision 1.28  (17-Oct-26)
   SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.13 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, S runs SYSTEM.SHELL, X(ecute takes a
@@ -8,8 +8,10 @@ BIGGY boot volume, revision 1.27  (16-Oct-26)
                  unless a key is typed within 2 seconds (1.27)
   SYSTEM.MICRO   the interpreter, with the boot that asks for that key
                  (emulator 2.08 waits; source SYS-C:BOOTC.TEXT)
-  SYSTEM.FILER   from U134.4_OS_SOURCE_v1.07: G(et/S(ave take .C, .H
-                 and NAME. (exact names); V(olumes lists units to 14
+  SYSTEM.FILER   from U134.4_OS_SOURCE_v1.14: G(et/S(ave take .C, .H
+                 and NAME. (exact names); V(olumes lists units to 14;
+                 K(runch asks for a reboot when it moved the running
+                 system, SYSTEM.C or SYSTEM.PASCAL (1.28)
   SYSTEM.COMPILER  from U132.A_PASCAL_COMPILER_SOURCE_v1.08 (FIXUP): no
                  floating point error when a compile takes under a second
   SYSTEM.EDITOR  from U128_L2_YALOE_SOURCE_v1.06 (.C, .H, exact names)
