@@ -1739,3 +1739,17 @@ word less.  The operating system in C (SYSTEM.C) was already compiled this way. 
 started from the shell (cc @tiny-c:all) has 68 words more at its least (1476, was 1408), and CC
 compiling the shell 106 bytes more.  Rebuilt with it: CC.CODE and the library (TINY-C), every tool
 (TOOLS), the demos and tests (TCEXTRA, TCTESTS, TCVERIF), and BIGGY's SYSTEM.SHELL.  Emulator: any.
+
+TINY-C:ALL BUILDS SYSTEM.C TOO (TINY-C, TOOLS, TCEXTRA, TCTESTS, SYS-C, Big_Disk)
+---------------------------------------------------------------------------
+CC @TINY-C:ALL rebuilds the compiler, the library and every tool, and now the operating system in
+C as well.  Its last line is @SYS-C:BUILD, and SYS-C:BUILD.TEXT (new) compiles SYSC.C (SYSC.OBJ goes
+onto SYS-C:) and links SYS-C:SYSTEM.C, the same as BIGGY's byte for byte.  SYS-C: must be on line,
+as TOOLS: must; CC @SYS-C:BUILD builds the system alone.  For it, CC's -L OUT.= (and -J LIB.=), with a
+dot at the end, makes the name exactly, as the Filer's NAME. does: -L SYS-C:SYSTEM.C.=SYSC.  And the
+library opens a .C or .H file named with "b" (binary) as plain bytes, not as a C source text file,
+so the linker writes a real code file under that name.  SYS-C:SYSTEM.C as CC writes it is a data
+file in the directory (its name does not end in .CODE); the boot finds it by its name.  Rebuilt:
+TINY-C (CC, the library, ALL.TEXT), TOOLS, TCEXTRA, TCTESTS, BIGGY's SYSTEM.SHELL, SYS-C.  Checked
+with UCSD-TinyC's alltest.py (ALL on the P-System: CC, the library, the tools and SYSTEM.C each
+identical to the shipped one).  Emulator: any.

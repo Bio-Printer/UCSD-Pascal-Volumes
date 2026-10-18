@@ -1,5 +1,7 @@
-; ALL -- rebuild the compiler, the library and every tool (TOOLS: on line too):
-; CC @TINY-C:ALL from the shell, or X(ecute TINY-C:CC and answer @TINY-C:ALL
+; ALL -- rebuild the compiler, the library, every tool and the operating system
+; in C (TOOLS: and SYS-C: on line too): CC @TINY-C:ALL from the shell, or X(ecute
+; TINY-C:CC and answer @TINY-C:ALL
 @TINY-C:/SRC/CC/BUILD
 @TINY-C:/SRC/LIB/LIBS
 @TOOLS:/SRC/TOOLS
+@SYS-C:BUILD
