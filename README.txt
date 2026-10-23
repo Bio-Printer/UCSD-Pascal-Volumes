@@ -1764,3 +1764,20 @@ U132B.2_PASCAL_LINKER_SOURCE).  Nothing else on the disk changed.  With the pref
 compiling BASICIO with BIGGY's SYSTEM.COMPILER gives the same code file as before, when the file
 was brought from the OS disk.  (BASICIO.CODE on the disk is an older build, for II.1, and differs.)
 Its files are in Files_Extracted_*/U130.1_BASIC_SOURCE.  Emulator: any.
+
+THE PASCAL COMPILER IN C: PASCAL-C.BLK (new; volume PASCALC:)
+---------------------------------------------------------------------------
+BLK_format/PASCAL-C.BLK, the new volume PASCALC: (a volume's name has at most 7 characters),
+holds PC, the UCSD Pascal II.0 compiler written in C (Tiny-C): a translation, routine by routine,
+of U132.A_PASCAL_COMPILER_SOURCE_v1.08, the source of BIGGY's SYSTEM.COMPILER.  Its code files are
+the Pascal compiler's: compiled with PC, the compiler's own source (COMPILER.TEXT on U132.A), the
+operating system and the Filer (U134.4_OS_SOURCE_v1.14), L2, the linker, BASIC and BASICIO,
+PASCALIO, the U138.3 utilities and the emulator's test programs each give the same code file as
+with SYSTEM.COMPILER (apart from bytes the Pascal compiler never sets, which hold whatever was in
+memory).  From the shell: PC NAME compiles NAME.TEXT to NAME.CODE (PC NAME CODE: to CODE.CODE).
+The volume has PC.CODE, its sources (COMPGLBL.H, PCIO.H and the .C modules), BUILD.TEXT -- CC
+@PASCALC:BUILD, TINY-C: on line, compiles them and links PASCALC:PC.CODE again, the same byte for
+byte -- README.TEXT and FILES.TEXT.  PC is not yet SYSTEM.COMPILER: C(ompile at the Command: prompt
+runs the Pascal one.  Its files are in Files_Extracted_*/PASCAL-C.  Checked in P-Code and Z80
+mode: the 25 programs, and the build.  Source and tests: UCSD-Pascal-compiler-written-in-C.
+Emulator: any.
