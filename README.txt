@@ -1753,3 +1753,14 @@ file in the directory (its name does not end in .CODE); the boot finds it by its
 TINY-C (CC, the library, ALL.TEXT), TOOLS, TCEXTRA, TCTESTS, BIGGY's SYSTEM.SHELL, SYS-C.  Checked
 with UCSD-TinyC's alltest.py (ALL on the P-System: CC, the library, the tools and SYSTEM.C each
 identical to the shipped one).  Emulator: any.
+
+GLOBALS.TEXT ON THE BASIC SOURCE DISK (U130.1_BASIC_SOURCE)
+---------------------------------------------------------------------------
+BASICIO.TEXT, the BASIC compiler's run-time unit, begins with (*$I GLOBALS.TEXT*), the operating
+system's globals, but the file was not on its disk, so BASICIO could not be compiled from it.
+U130.1_BASIC_SOURCE.BLK now has GLOBALS.TEXT: a copy, byte for byte and with its date, of the
+one on U134.4_OS_SOURCE (the same file is on U136.3_LONG_INTEGER_SOURCE and
+U132B.2_PASCAL_LINKER_SOURCE).  Nothing else on the disk changed.  With the prefix on the disk,
+compiling BASICIO with BIGGY's SYSTEM.COMPILER gives the same code file as before, when the file
+was brought from the OS disk.  (BASICIO.CODE on the disk is an older build, for II.1, and differs.)
+Its files are in Files_Extracted_*/U130.1_BASIC_SOURCE.  Emulator: any.
