@@ -1801,3 +1801,22 @@ Rebuilt: TINY-C (CC, ALL.TEXT, the linker's source), every tool (TOOLS), the dem
 (#pragma system) is linked as before.  Checked with UCSD-TinyC's tests (runtests, quicktest and
 shellalltest in both modes; selfcompile, voltest, vitest --build, alltest, ostest) and the Pascal
 compiler's 25 programs and its build on the P-System in both modes.  Emulator: any.
+
+THE PASCAL COMPILER IN C HAS DOUBLE (PASCAL-C)
+---------------------------------------------------------------------------
+PC, the Pascal compiler in C on PASCALC:, has a type the Pascal compiler does not: DOUBLE, 8-byte
+IEEE floating point (16 significant digits, exponents to 308), done by the emulator's CSPs
+100..137.  1.5D0 is a DOUBLE constant (a D for the E); a REAL constant (0.1) is made a DOUBLE from
+its digits where it meets one, so it is exact.  INTEGER and REAL become DOUBLE by themselves;
+SNGL(D) (new) is D as a REAL, TRUNC and ROUND give an INTEGER.  + - * /, the sign, the comparisons,
+ABS SQR SQRT SIN COS ATAN LN EXP LOG, function results, parameters, arrays and records work as for
+a REAL; WRITE(D:W:F) writes F decimals, WRITE(D) 16 significant digits (3.141592653589793e+00), and
+READ(D) reads a number as READ of a REAL does.  WRITE and READ are made in place, so a program
+needs nothing from SYSTEM.LIBRARY for them.  Programs without DOUBLE compile as before, byte for
+byte.  New on the volume: PI.TEXT (Tiny-C's PI.C in Pascal: it prints the same, byte for byte),
+DOUBLES.TEXT and READTEST.TEXT, the test programs (PC PI, then PI).  The compiler's own source
+compiles from the shell with 3434 words to spare (3777 before).  Its files are in
+Files_Extracted_*/PASCAL-C.  Checked in P-Code and Z80 mode: the 25 programs (identical code
+files), the build (CC @PASCALC:BUILD), and the three DOUBLE programs (compiled on the P-System the
+same as on the host; their output).  Emulator: 1.93 or later for DOUBLE in Z80 mode (its
+coprocessor runs the CSPs 100..137); any for the rest.

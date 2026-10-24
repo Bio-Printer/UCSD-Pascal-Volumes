@@ -2,10 +2,10 @@ PASCALC:  the UCSD Pascal compiler written in C (PASCAL-C.BLK)
 
   FILE            BLOCKS  WHAT
 
-  README.TEXT         10  what is on PASCALC:, how to use and build it
-  PC.CODE             79  the compiler: PC NAME [CODE] from the shell
+  README.TEXT         12  what is on PASCALC:, how to use and build it
+  PC.CODE             83  the compiler: PC NAME [CODE] from the shell
   BUILD.TEXT           4  CC @PASCALC:BUILD makes PC.CODE again
-  COMPGLBL.H          38  COMPGLBLS: constants, types, global variables
+  COMPGLBL.H          40  COMPGLBLS: constants, types, global variables
   PCIO.H               6  what the compiler reads and writes
   GLOBALS.C            6  the global variables
   BUILTIN.C           12  the interpreter's TREESEARCH and SCAN
@@ -13,11 +13,14 @@ PASCALC:  the UCSD Pascal compiler written in C (PASCAL-C.BLK)
   HEAP.C               6  NEW, MARK, RELEASE, MEMAVAIL
   PROCS.C             38  PROCS.A, PROCS.B: the scanner, the symbol table, the code buffer
   COMPINIT.C          28  COMPINIT: the standard names
-  DECPART.C           74  DECPART.A-C: DECLARATIONPART
-  BODYPART.C         136  BODYPART.A-E: code, expressions, statements
+  DECPART.C           76  DECPART.A-C: DECLARATIONPART
+  BODYPART.C         162  BODYPART.A-E: code, expressions, statements
   UNITPART.C          24  UNITPART: WRITELINKERINFO, UNITPART
   BLOCK.C             10  BLOCK, and the compiler's main body
-  RARE.C              20  ERROR, the options, long and REAL constants, the end
+  RARE.C              22  ERROR, the options, long and REAL constants, the end
   PCIO_PSYS.C         10  the system's files, the console
   PC_PSYS.C           10  PC NAME [CODE]
+  PI.TEXT              8  DOUBLE: pi by Archimedes' method (Tiny-C's PI.C)
+  DOUBLES.TEXT        10  DOUBLE: arithmetic, functions, WRITE, parameters
+  READTEST.TEXT        4  DOUBLE: READ from the console and a file
   FILES.TEXT              this list
