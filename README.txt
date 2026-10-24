@@ -1837,3 +1837,25 @@ Checked in P-Code and Z80 mode: the 25 programs, the build from PASCALC:/SRC, th
 the volume from the shell (UCSD-Pascal-compiler-written-in-C's tools/voltest.py), and
 UCSD-TinyC's alltest and shellalltest (cc @tiny-c:all).  Emulator: any (1.93 or later for DOUBLE
 in Z80 mode).
+
+CC SAYS WHEN A FILE DOES NOT FIT; PATHS COST LESS MEMORY; VI'S O ON LINE 1 (TINY-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, Big_Disk, PASCAL-C)
+---------------------------------------------------------------------------
+When a file CC writes does not fit on its disk (the preprocessor's TCTEMP.TEXT, an object, the
+code file, the joined library of LIBS), CC now says so -- message 118, "cannot write all of it: no
+room left on its disk (or a disk error); it is not kept", with the file's name -- removes the
+short file and stops; before, it could leave a truncated code file that looked whole.  The C
+library's sub-volume path code no longer calls the resident string functions, so a program that
+takes paths does not bring them into memory, and the Pascal compiler in C (PC.CODE) does its
+block reads and writes in sub-volumes through the library instead of its own copy: the compiler's
+own source compiles from the shell with 3337 words to spare (3146 before).  PC's DOUBLE code
+generation is its own source file, DOUBLE.C, in PASCALC:/SRC.  CC keeps one copy of each file name
+instead of one per #include: the least free memory of a total rebuild from the shell (cc
+@tiny-c:all) is 371 words (303 before).  vi: O on the first line of a file opened the new line
+below it, not above, when the byte just before vi's text happened to be a newline (seen in Z80
+mode).  Rebuilt: TINY-C (CC, the library, their sources), every tool (TOOLS), the demos and tests
+(TCEXTRA, TCTESTS, TCVERIF), BIGGY's SYSTEM.SHELL, and PASCAL-C (PC.CODE, SRC).  Checked with
+UCSD-TinyC's tests in both modes (runtests, quicktest, greptest, subvoltest, visubvoltest,
+growtest, krunchtest, the new fulltest, vitest, vipostest, viswaptest, shellalltest; native also
+selfcompile, pexectest, voltest, ccsubvoltest, findtest, ostest, alltest and the other vi tests)
+and the Pascal compiler's tests in both modes.  Emulator: any (1.93 or later for DOUBLE in Z80
+mode).
