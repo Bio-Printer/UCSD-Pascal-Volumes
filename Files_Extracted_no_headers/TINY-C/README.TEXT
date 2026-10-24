@@ -4,8 +4,8 @@ WHAT IS WHERE (FILES.TEXT lists every file):
     CC.CODE          the compiler
     TCMSGS.TEXT      its messages
     ALL.TEXT         CC @TINY-C:ALL rebuilds the compiler, the library,
-                     every tool and the operating system in C (SYS-C:SYSTEM.C)
-                     at once
+                     every tool, the operating system in C (SYS-C:SYSTEM.C)
+                     and the Pascal compiler in C (PASCALC:PC.CODE) at once
     INCLUDE/         the headers: STDIO.H, STRING.H, PSYS.H ...
     LIB/             the C library, TCLIB.OBJ
     OBJ/             empty: the objects a rebuild makes (BUILD's and LIBS's -O)

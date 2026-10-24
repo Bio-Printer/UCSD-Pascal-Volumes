@@ -1781,3 +1781,23 @@ byte -- README.TEXT and FILES.TEXT.  PC is not yet SYSTEM.COMPILER: C(ompile at 
 runs the Pascal one.  Its files are in Files_Extracted_*/PASCAL-C.  Checked in P-Code and Z80
 mode: the 25 programs, and the build.  Source and tests: UCSD-Pascal-compiler-written-in-C.
 Emulator: any.
+
+SHORT GLOBAL OPERANDS: TINY-C'S LINKER MAKES EVERY PROGRAM SMALLER; ALL BUILDS PC TOO (TINY-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, Big_Disk, PASCAL-C)
+---------------------------------------------------------------------------
+CC writes the operand of every global load, store and address (LDO, SRO, LAO) in the 2-byte form,
+because only the linker knows where each variable is.  The linker now makes it 1 byte where the
+address is below word 128 (and an LDO of words 1..16 an SLDO, 1 byte for 3), drops the NOP of a
+call within the segment (CGP p NOP), and writes each procedure again with its jumps, case tables,
+long-jump table and word alignment moved to match.  To put as many uses as it can below word 128,
+it lays out first the variables and module statics with the most uses for their size.  The Pascal
+compiler in C (PC.CODE) is 3.3 KB smaller (BODYPART 1150 bytes, the resident segment 760), and so
+compiles the compiler's own source from the shell with 3777 words to spare (was 2822).  CC.CODE is
+1.9 KB smaller.  CC @TINY-C:ALL now also rebuilds the Pascal compiler in C: its last line is
+@PASCALC:BUILD (PASCALC: on line; CC's temporary files for BODYPART.C need more than 400 free
+blocks on the prefix volume).  Its BODYPART.C is now the least of a total rebuild from the shell
+(cc @tiny-c:all): 755 words to spare; without it the least is 1528 words (was 1476).
+Rebuilt: TINY-C (CC, ALL.TEXT, the linker's source), every tool (TOOLS), the demos and tests
+(TCEXTRA, TCTESTS, TCVERIF), BIGGY's SYSTEM.SHELL, and PASCAL-C (PC.CODE, README.TEXT).  SYSTEM.C
+(#pragma system) is linked as before.  Checked with UCSD-TinyC's tests (runtests, quicktest and
+shellalltest in both modes; selfcompile, voltest, vitest --build, alltest, ostest) and the Pascal
+compiler's 25 programs and its build on the P-System in both modes.  Emulator: any.

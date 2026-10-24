@@ -7,7 +7,7 @@
 
 static void setname(CTP cp, const char *name)
 {
-    memcpy(cp->NAME, name, 8);
+    MOVELEFT(name, cp->NAME, 8);
 }
 
 static void ENTSTDTYPES(void)
@@ -149,15 +149,15 @@ static void ENTSPCPROCS(void)
     CTP LCP;
     INTEGER I;
     BOOLEAN ISFUNC;
-    SETOF(&tinyset, 2, 7, 8, 10, 13, 17, 18, 19, 20, 32, 34, 35, 40, 42, 43, -1);
-    SETOF(&funcs, 5, 6, 7, 8, 9, 10, 11, 15, 16, 19, 20, 25, 36, 37, 38, 39, 41, -1);
+    SETOF(&tinyset, 2, 7, 8, 10, 13, 17, 18, 19, 20, 32, 34, 35, 40, 42, 43, SETEND);
+    SETOF(&funcs, 5, 6, 7, 8, 9, 10, 11, 15, 16, 19, 20, 25, 36, 37, 38, 39, 41, SETEND);
     for (I = 1; I <= 43; I++) {
         if (TINY)
             if (IN(I, &tinyset))
                 continue;                       /* GOTO 1 */
         ISFUNC = IN(I, &funcs);
         LCP = NEWIDN(2);                 /* NEW(LCP, FUNC/PROC, SPECIAL) */
-        memcpy(LCP->NAME, I <= 31 ? NA1 + 8 * (I - 1) : NA2 + 8 * (I - 32), 8);
+        MOVELEFT(I <= 31 ? NA1 + 8 * (I - 1) : NA2 + 8 * (I - 32), LCP->NAME, 8);
         LCP->NEXT = NULL;
         LCP->IDTYPE = NULL;
         LCP->KLASS = ISFUNC ? FUNC : PROC;
@@ -180,7 +180,7 @@ static void ENTSTDPROCS(void)
     STP LSP, FTYPE;
     INTEGER I;
     BOOLEAN ISPROC;
-    SETOF(&procs, 12, 13, 17, 18, 19, -1);
+    SETOF(&procs, 12, 13, 17, 18, 19, SETEND);
     PARAM = NULL;
     FTYPE = NULL;
     for (I = 1; I <= 19; I++) {
@@ -240,7 +240,7 @@ static void ENTSTDPROCS(void)
             break;
         }
         LCP = NEWIDN(3);              /* NEW(LCP, PROC/FUNC, STANDARD) */
-        memcpy(LCP->NAME, NA + 8 * (I - 1), 8);
+        MOVELEFT(NA + 8 * (I - 1), LCP->NAME, 8);
         LCP->U.P.PFDECKIND = STANDARD;
         LCP->U.P.CSPNUM = I + 20;
         LCP->KLASS = ISPROC ? PROC : FUNC;
@@ -275,15 +275,15 @@ static void INITSCALARS(void)
     for (SEG = 0; SEG <= MAXSEG; SEG++) {
         SEGTABLE[SEG].DISKADDR = 0;
         SEGTABLE[SEG].CODELENG = 0;
-        memcpy(SEGTABLE[SEG].SEGNAME, "        ", 8);
+        MOVELEFT("        ", SEGTABLE[SEG].SEGNAME, 8);
         SEGTABLE[SEG].SEGKIND = 0;
         SEGTABLE[SEG].TEXTADDR = 0;
     }
     USINGLIST = NULL;
     if (USERINFO.STUPID)
-        memcpy(SYSTEMLIB, "\016*SYSTEM.PASCAL", 15);
+        MOVELEFT("\016*SYSTEM.PASCAL", SYSTEMLIB, 15);
     else
-        memcpy(SYSTEMLIB, "\017*SYSTEM.LIBRARY", 16);
+        MOVELEFT("\017*SYSTEM.LIBRARY", SYSTEMLIB, 16);
     LC = LCAFTERMARKSTACK;
     IOCHECK = TRUE;
     DP = TRUE;
@@ -326,15 +326,15 @@ static void INITSCALARS(void)
 
 static void INITSETS(void)
 {
-    SETOF(&CONSTBEGSYS, ADDOP, INTCONST, REALCONST, STRINGCONST, IDENT, -1);
-    SETADD(&SIMPTYPEBEGSYS, &CONSTBEGSYS, LPARENT, -1);
-    SETADD(&TYPEBEGSYS, &SIMPTYPEBEGSYS, ARROW, PACKEDSY, ARRAYSY, RECORDSY, SETSY, FILESY, -1);
-    SETOF(&TYPEDELS, ARRAYSY, RECORDSY, SETSY, FILESY, -1);
-    SETOF(&BLOCKBEGSYS, USESSY, LABELSY, CONSTSY, TYPESY, VARSY, PROCSY, FUNCSY, PROGSY, BEGINSY, -1);
-    SETOF(&SELECTSYS, ARROW, PERIOD, LBRACK, -1);
-    SETOF(&FACBEGSYS, INTCONST, REALCONST, LONGCONST, STRINGCONST, IDENT, LPARENT, LBRACK, NOTSY, -1);
-    SETOF(&STATBEGSYS, BEGINSY, GOTOSY, IFSY, WHILESY, REPEATSY, FORSY, WITHSY, CASESY, -1);
-    SETOF(&VARS, FORMALVARS, ACTUALVARS, -1);
+    SETOF(&CONSTBEGSYS, ADDOP, INTCONST, REALCONST, STRINGCONST, IDENT, SETEND);
+    SETADD(&SIMPTYPEBEGSYS, &CONSTBEGSYS, LPARENT, SETEND);
+    SETADD(&TYPEBEGSYS, &SIMPTYPEBEGSYS, ARROW, PACKEDSY, ARRAYSY, RECORDSY, SETSY, FILESY, SETEND);
+    SETOF(&TYPEDELS, ARRAYSY, RECORDSY, SETSY, FILESY, SETEND);
+    SETOF(&BLOCKBEGSYS, USESSY, LABELSY, CONSTSY, TYPESY, VARSY, PROCSY, FUNCSY, PROGSY, BEGINSY, SETEND);
+    SETOF(&SELECTSYS, ARROW, PERIOD, LBRACK, SETEND);
+    SETOF(&FACBEGSYS, INTCONST, REALCONST, LONGCONST, STRINGCONST, IDENT, LPARENT, LBRACK, NOTSY, SETEND);
+    SETOF(&STATBEGSYS, BEGINSY, GOTOSY, IFSY, WHILESY, REPEATSY, FORSY, WITHSY, CASESY, SETEND);
+    SETOF(&VARS, FORMALVARS, ACTUALVARS, SETEND);
 }
 
 void COMPINIT(void)
@@ -368,7 +368,7 @@ void COMPINIT(void)
         SEG = 0;
         NEXTSEG = 1;
         GLEV = 1;
-        SETADD(&BLOCKBEGSYS, &BLOCKBEGSYS, UNITSY, SEPARATSY, -1);
+        SETADD(&BLOCKBEGSYS, &BLOCKBEGSYS, UNITSY, SEPARATSY, SETEND);
     } else {
         TOP = 1;
         LEVEL = 1;
@@ -381,7 +381,7 @@ void COMPINIT(void)
         OUTERBLOCK = NEWID(P);                  /* NEW(OUTERBLOCK, PROC, DECLARED, ACTUAL, FALSE) */
         OUTERBLOCK->NEXT = NULL;
         OUTERBLOCK->U.P.LOCALLC = LC;
-        memcpy(OUTERBLOCK->NAME, "PROGRAM ", 8);
+        MOVELEFT("PROGRAM ", OUTERBLOCK->NAME, 8);
         OUTERBLOCK->IDTYPE = NULL;
         OUTERBLOCK->KLASS = PROC;
         OUTERBLOCK->U.P.PFDECKIND = DECLARED;
@@ -396,9 +396,9 @@ void COMPINIT(void)
     if (SY == PROGSY) {
         INSYMBOL();
         if (SY == IDENT) {
-            memcpy(SEGTABLE[SEG].SEGNAME, ID, 8);
+            MOVELEFT(ID, SEGTABLE[SEG].SEGNAME, 8);
             if (OUTERBLOCK != NULL) {
-                memcpy(OUTERBLOCK->NAME, ID, 8);
+                MOVELEFT(ID, OUTERBLOCK->NAME, 8);
                 ENTERID(OUTERBLOCK);            /* (allows EXIT on the program's name) */
             }
         } else
@@ -407,7 +407,7 @@ void COMPINIT(void)
         if (SY == LPARENT) {
             do
                 INSYMBOL();
-            while (!IN(SY, SETPLUS(&t, SETOF(&s, RPARENT, SEMICOLON, -1), &BLOCKBEGSYS)));
+            while (!IN(SY, SETPLUS(&t, SETOF(&s, RPARENT, SEMICOLON, SETEND), &BLOCKBEGSYS)));
             if (SY == RPARENT)
                 INSYMBOL();
             else
