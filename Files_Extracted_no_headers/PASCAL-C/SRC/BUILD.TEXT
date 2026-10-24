@@ -1,0 +1,19 @@
+; BUILD -- the Pascal compiler in C: CC @PASCALC:/SRC/BUILD from the shell (or
+; X(ecute TINY-C:CC and answer @PASCALC:/SRC/BUILD), TINY-C: on line.  Compiles
+; every module (the names beside this file; -O: each NAME.OBJ into PASCALC:/OBJ),
+; then links them into PASCALC:PC.CODE, the same as the one it replaces.
+-O PASCALC:/OBJ
+-C GLOBALS
+-C BUILTIN
+-C SETS
+-C HEAP
+-C PROCS
+-C COMPINIT
+-C DECPART
+-C BODYPART
+-C UNITPART
+-C BLOCK
+-C RARE
+-C PCIO_PSYS
+-C PC_PSYS
+-L PASCALC:PC=GLOBALS,BUILTIN,SETS,HEAP,PROCS,COMPINIT,DECPART,BODYPART,UNITPART,BLOCK,RARE,PCIO_PSYS,PC_PSYS

@@ -3,7 +3,11 @@ Big_Disk  (volume BIGGY, 37 files)
     37 files extracted, 6 text files decoded
 Empty_Big_Disk  (volume EMPTY, 0 files)
     0 files extracted, 0 text files decoded
-PASCAL-C  (volume PASCALC, 22 files)
+PASCAL-C  (volume PASCALC, 7 files)
+    SRC/  (a sub-volume, 628 blocks, 16 files)
+    OBJ/  (a sub-volume, 258 blocks, 0 files)
+    DEMOS/  (a sub-volume, 56 blocks, 1 files)
+    TESTS/  (a sub-volume, 63 blocks, 2 files)
     22 files extracted, 21 text files decoded
 SYS-C  (volume SYS-C, 10 files)
     10 files extracted, 8 text files decoded

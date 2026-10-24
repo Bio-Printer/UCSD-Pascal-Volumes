@@ -1820,3 +1820,20 @@ Files_Extracted_*/PASCAL-C.  Checked in P-Code and Z80 mode: the 25 programs (id
 files), the build (CC @PASCALC:BUILD), and the three DOUBLE programs (compiled on the P-System the
 same as on the host; their output).  Emulator: 1.93 or later for DOUBLE in Z80 mode (its
 coprocessor runs the CSPs 100..137); any for the rest.
+
+PASCALC: IN SUB-VOLUMES, AS TINY-C: IS; PC TAKES PATHS (PASCAL-C, TINY-C)
+---------------------------------------------------------------------------
+PASCAL-C.BLK (volume PASCALC:) is laid out as TINY-C: is: PC.CODE, README.TEXT and FILES.TEXT at
+the top, and the sub-volumes SRC (the compiler's C sources and BUILD.TEXT), OBJ (empty: the
+objects a rebuild makes), DEMOS (PI.TEXT) and TESTS (DOUBLES.TEXT, READTEST.TEXT).  PC takes paths
+into sub-volumes as every Tiny-C program does: PC PASCALC:/DEMOS/PI compiles DEMOS/PI.TEXT to
+DEMOS/PI.CODE, and PASCALC:/DEMOS/PI runs it there; after the shell's CD PASCALC:/TESTS, PC
+READTEST and READTEST do the same with the names alone (include files and units are found that
+way too, else as before).  The rebuild is CC @PASCALC:/SRC/BUILD (its objects into PASCALC:/OBJ),
+and TINY-C:ALL.TEXT's last line is that now.  PC needs more memory for the paths (the C library's
+string functions are resident): the compiler's own source compiles from the shell with 3146 words
+to spare (3434 before).  Its files are in Files_Extracted_*/PASCAL-C, a sub-volume's in a folder.
+Checked in P-Code and Z80 mode: the 25 programs, the build from PASCALC:/SRC, the DOUBLE programs,
+the volume from the shell (UCSD-Pascal-compiler-written-in-C's tools/voltest.py), and
+UCSD-TinyC's alltest and shellalltest (cc @tiny-c:all).  Emulator: any (1.93 or later for DOUBLE
+in Z80 mode).

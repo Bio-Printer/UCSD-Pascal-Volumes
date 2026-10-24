@@ -1,26 +1,31 @@
-PASCALC:  the UCSD Pascal compiler written in C (PASCAL-C.BLK)
+PASCALC:  the UCSD Pascal compiler written in C (PASCAL-C.BLK): every file,
+          the sub-volumes' too (A/NAME: NAME in the sub-volume A)
 
-  FILE            BLOCKS  WHAT
+  FILE                     BLOCKS  WHAT
 
-  README.TEXT         12  what is on PASCALC:, how to use and build it
-  PC.CODE             83  the compiler: PC NAME [CODE] from the shell
-  BUILD.TEXT           4  CC @PASCALC:BUILD makes PC.CODE again
-  COMPGLBL.H          40  COMPGLBLS: constants, types, global variables
-  PCIO.H               6  what the compiler reads and writes
-  GLOBALS.C            6  the global variables
-  BUILTIN.C           12  the interpreter's TREESEARCH and SCAN
-  SETS.C               6  Pascal's sets
-  HEAP.C               6  NEW, MARK, RELEASE, MEMAVAIL
-  PROCS.C             38  PROCS.A, PROCS.B: the scanner, the symbol table, the code buffer
-  COMPINIT.C          28  COMPINIT: the standard names
-  DECPART.C           76  DECPART.A-C: DECLARATIONPART
-  BODYPART.C         162  BODYPART.A-E: code, expressions, statements
-  UNITPART.C          24  UNITPART: WRITELINKERINFO, UNITPART
-  BLOCK.C             10  BLOCK, and the compiler's main body
-  RARE.C              22  ERROR, the options, long and REAL constants, the end
-  PCIO_PSYS.C         10  the system's files, the console
-  PC_PSYS.C           10  PC NAME [CODE]
-  PI.TEXT              8  DOUBLE: pi by Archimedes' method (Tiny-C's PI.C)
-  DOUBLES.TEXT        10  DOUBLE: arithmetic, functions, WRITE, parameters
-  READTEST.TEXT        4  DOUBLE: READ from the console and a file
-  FILES.TEXT              this list
+  PC.CODE                      88  the compiler: PC NAME [CODE] from the shell
+  README.TEXT                  12  what is on PASCALC:, how to use and build it
+  SRC/                        628  sub-volume: the compiler's sources and BUILD.TEXT
+  SRC/BUILD.TEXT                4  CC @PASCALC:/SRC/BUILD makes PASCALC:PC.CODE again
+  SRC/COMPGLBL.H               40  COMPGLBLS: constants, types, global variables
+  SRC/PCIO.H                    6  what the compiler reads and writes
+  SRC/GLOBALS.C                 6  the global variables
+  SRC/BUILTIN.C                12  the interpreter's TREESEARCH and SCAN
+  SRC/SETS.C                    6  Pascal's sets
+  SRC/HEAP.C                    6  NEW, MARK, RELEASE, MEMAVAIL
+  SRC/PROCS.C                  38  PROCS.A, PROCS.B: the scanner, the symbol table, the code buffer
+  SRC/COMPINIT.C               28  COMPINIT: the standard names
+  SRC/DECPART.C                76  DECPART.A-C: DECLARATIONPART
+  SRC/BODYPART.C              162  BODYPART.A-E: code, expressions, statements
+  SRC/UNITPART.C               24  UNITPART: WRITELINKERINFO, UNITPART
+  SRC/BLOCK.C                  10  BLOCK, and the compiler's main body
+  SRC/RARE.C                   22  ERROR, the options, long and REAL constants, the end
+  SRC/PCIO_PSYS.C              16  the system's files, the console
+  SRC/PC_PSYS.C                10  PC NAME [CODE]
+  OBJ/                        258  sub-volume: empty: the objects BUILD makes (-O PASCALC:/OBJ)
+  DEMOS/                       56  sub-volume: programs to try: PC PASCALC:/DEMOS/NAME, then PASCALC:/DEMOS/NAME
+  DEMOS/PI.TEXT                 8  pi by Archimedes' method, in DOUBLEs (Tiny-C's PI.C)
+  TESTS/                       63  sub-volume: the tests of DOUBLE: PC PASCALC:/TESTS/NAME, then PASCALC:/TESTS/NAME
+  TESTS/DOUBLES.TEXT           10  DOUBLE: arithmetic, functions, WRITE, parameters
+  TESTS/READTEST.TEXT           4  DOUBLE: READ from the console and a file
+  FILES.TEXT                    8  this list
