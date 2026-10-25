@@ -1914,3 +1914,14 @@ on the volume rebuilds BC2.CODE and BASLIB2.OBJ byte for byte the host's, compil
 test into its sub-volume, and X(ecute BASIC:/DEMO/STATS and BASIC:/TEST/PROCS run; Tiny-C's
 shell compiles and runs BASIC:/DEMO/HELLO and lists BASIC:/DEMO.  Emulator: BC needs the Harvard
 layout (VERIFY_HARVARD=1); the programs it makes run in either layout.
+
+BASIC: A NEW DEMO, PI (BASIC)
+---------------------------------------------------------------------------
+BASIC:/DEMO/PI.TEXT is Tiny-C's PI.C (TCEXTRA:) in BASIC: Archimedes' method with DOUBLEs,
+polygons of 6, 12, 24 ... sides inside and around a circle until both bounds agree with pi to 15
+significant digits.  BASIC has no PRINT USING, so the bounds are written by a function of the
+program's own (whole-number DOUBLE arithmetic, as PASCAL-C:/DEMOS/PI.TEXT does it), to 15
+decimals; every row matches PI.C's to that many decimals.  DEMOS.TEXT compiles it.  Checked with
+UCSD-BASIC's voltest under SYSTEM.C and SYSTEM.PASCAL (@BASIC:ALL, then X(ecute BASIC:/DEMO/PI,
+STATS and TEST/PROCS from the sub-volumes).  Emulator: BC needs the Harvard layout; PI, like any
+program with DOUBLEs, needs the emulator's CSP 100..137.

@@ -32,12 +32,13 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   LIB/RTNUM.TEXT                10
   LIB/RTSTR.TEXT                12
   LIB/RTSUBV.TEXT               22
-  DEMO/                        430  (sub-volume)
+  DEMO/                        508  (sub-volume)
   DEMO/DEMOS.TEXT                4
   DEMO/GUESS.TEXT                4
   DEMO/HANOI.TEXT                4
   DEMO/HELLO.TEXT                4
   DEMO/MANDEL.TEXT               4
+  DEMO/PI.TEXT                   8
   DEMO/PRIMES.TEXT               4
   DEMO/STATLIB.TEXT              4
   DEMO/STATS.TEXT                4
