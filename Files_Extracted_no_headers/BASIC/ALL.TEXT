@@ -1,0 +1,5 @@
+' everything: the compiler, the library, the demos, the tests
+@BASIC:/SRC/BUILD
+@BASIC:/LIB/LIBS
+@BASIC:/DEMO/DEMOS
+@BASIC:/TEST/TESTS

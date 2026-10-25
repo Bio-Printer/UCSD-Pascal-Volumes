@@ -1895,3 +1895,22 @@ P-System byte for byte the host build's (selfcompile), and the volume itself (vo
 and LIBS on the disk, BC2 identical but for its segment name, BASLIB2 identical, an example
 run) under both SYSTEM.PASCAL and BIGGY's SYSTEM.C.  Emulator: BC needs the Harvard layout
 (VERIFY_HARVARD=1) for its memory; the programs it makes run in either layout.
+
+BASIC: IN SUB-VOLUMES SRC, LIB, DEMO, TEST; BC'S FILES IN SUB-VOLUMES (BASIC)
+---------------------------------------------------------------------------
+BASIC.BLK is laid out in sub-volumes, as TINY-C: is: at the top BC.CODE, README.TEXT,
+LANGUAGE.TEXT, DESIGN.TEXT, ALL.TEXT (@BASIC:ALL runs the four batch files below) and FILES.TEXT
+(every file, the sub-volumes' too); SRC/ the compiler's sources with BUILD.TEXT (@BASIC:/SRC/BUILD
+rebuilds the compiler as BASIC:BC2.CODE); LIB/ BASLIB.OBJ and its sources with LIBS.TEXT
+(@BASIC:/LIB/LIBS: BASIC:/LIB/BASLIB2.OBJ); DEMO/ new example programs (HELLO, PRIMES, HANOI,
+MANDEL, GUESS, and STATS + STATLIB, a program of two modules) with DEMOS.TEXT; TEST/ the
+compiler's tests with TESTS.TEXT and EXPECT/ (what each prints).  BC's run-time library opens,
+writes and deletes files in sub-volumes by their paths (VOL:/A/B/NAME, VOL:A/NAME, /A/NAME), two
+at once in one sub-volume; BC puts an object, listing and code file beside its source and takes
+#INCLUDE files from the source's sub-volume first.  Fixed: printing numbers to a file in a loop
+could run out of string space.  Checked with UCSD-BASIC's tests (runtests, 12, the new subvol
+among them), selfcompile (IDENTICAL), and voltest under SYSTEM.C and SYSTEM.PASCAL: @BASIC:ALL
+on the volume rebuilds BC2.CODE and BASLIB2.OBJ byte for byte the host's, compiles every demo and
+test into its sub-volume, and X(ecute BASIC:/DEMO/STATS and BASIC:/TEST/PROCS run; Tiny-C's
+shell compiles and runs BASIC:/DEMO/HELLO and lists BASIC:/DEMO.  Emulator: BC needs the Harvard
+layout (VERIFY_HARVARD=1); the programs it makes run in either layout.

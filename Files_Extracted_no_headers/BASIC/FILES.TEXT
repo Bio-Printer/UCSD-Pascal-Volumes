@@ -1,45 +1,69 @@
-' files: text (UCSD .TEXT), byte files with GET/PUT, APPEND, EOF, KILL, ERR
-DEFINT A-Z
-OPEN "TEST1.TEXT" FOR OUTPUT AS #1
-FOR i = 1 TO 3: PRINT #1, "line"; i: NEXT
-PRINT #1, "        indented"
-CLOSE #1
-OPEN "TEST1.TEXT" FOR APPEND AS #1
-PRINT #1, "appended"
-CLOSE
-OPEN "TEST1.TEXT" FOR INPUT AS #2
-DO WHILE NOT EOF(2)
-  LINE INPUT #2, l$
-  PRINT "["; l$; "]"
-LOOP
-CLOSE #2
-OPEN "DATA.BIN" FOR OUTPUT AS #3
-DIM b AS BYTE
-FOR i = 0 TO 600
-  b = i AND 255: PUT #3, , b
-NEXT
-w = -2: PUT #3, , w
-PUT #3, , "abc"
-CLOSE #3
-OPEN "DATA.BIN" FOR BINARY AS #3
-sum = 0
-FOR i = 0 TO 600: GET #3, , b: sum = sum + b: NEXT
-GET #3, , w
-s$ = SPACE$(3): GET #3, , s$
-CLOSE #3
-PRINT sum; w; s$
-KILL "DATA.BIN"
-ON ERROR RESUME NEXT
-OPEN "NOSUCH.TEXT" FOR INPUT AS #1
-PRINT "err"; ERR
-KILL "DATA.BIN"
-PRINT "err"; ERR
-ON ERROR GOTO 0
-n = 0
-OPEN "BIG.TEXT" FOR OUTPUT AS #1
-FOR i = 1 TO 200: PRINT #1, "This is line number"; i; "of the big file": NEXT
-CLOSE #1
-OPEN "BIG.TEXT" FOR INPUT AS #1
-DO WHILE NOT EOF(1): LINE INPUT #1, l$: n = n + 1: LOOP
-CLOSE #1
-PRINT n; l$
+BASIC: -- the BC BASIC compiler for the UCSD P-System
+
+Every file (A/NAME: NAME in the sub-volume A) and its blocks:
+
+  BC.CODE                      142
+  README.TEXT                   10
+  LANGUAGE.TEXT                 44
+  DESIGN.TEXT                   30
+  ALL.TEXT                       4
+  SRC/                         884  (sub-volume)
+  SRC/BUILD.TEXT                 4
+  SRC/BC.TEXT                   32
+  SRC/BCCOM.TEXT                10
+  SRC/BCDECL.TEXT               18
+  SRC/BCEMIT.TEXT               26
+  SRC/BCEXPR.TEXT               70
+  SRC/BCGEN.TEXT                70
+  SRC/BCGENCOM.TEXT              8
+  SRC/BCLEX.TEXT                20
+  SRC/BCLINK.TEXT               32
+  SRC/BCLIST.TEXT               16
+  SRC/BCPROCS.TEXT               8
+  LIB/                         438  (sub-volume)
+  LIB/BASLIB.OBJ                50
+  LIB/LIBS.TEXT                  4
+  LIB/RTARR.TEXT                10
+  LIB/RTCOM.TEXT                 8
+  LIB/RTCORE.TEXT               24
+  LIB/RTDATA.TEXT                6
+  LIB/RTFILE.TEXT               26
+  LIB/RTINPUT.TEXT              12
+  LIB/RTNUM.TEXT                10
+  LIB/RTSTR.TEXT                12
+  LIB/RTSUBV.TEXT               22
+  DEMO/                        430  (sub-volume)
+  DEMO/DEMOS.TEXT                4
+  DEMO/GUESS.TEXT                4
+  DEMO/HANOI.TEXT                4
+  DEMO/HELLO.TEXT                4
+  DEMO/MANDEL.TEXT               4
+  DEMO/PRIMES.TEXT               4
+  DEMO/STATLIB.TEXT              4
+  DEMO/STATS.TEXT                4
+  TEST/                        892  (sub-volume)
+  TEST/TESTS.TEXT                4
+  TEST/ARITH.TEXT                4
+  TEST/ARRAYS.TEXT               4
+  TEST/CONTROL.TEXT              6
+  TEST/DATA.TEXT                 4
+  TEST/DEEP.TEXT                 6
+  TEST/DOUBLES.TEXT              4
+  TEST/FILES.TEXT                6
+  TEST/INPUT.TEXT                4
+  TEST/PROCS.TEXT                6
+  TEST/SEGS.TEXT                 4
+  TEST/STRINGS.TEXT              4
+  TEST/EXPECT/                  90  (sub-volume)
+  TEST/EXPECT/ARITH.TEXT         4
+  TEST/EXPECT/ARRAYS.TEXT        4
+  TEST/EXPECT/CONTROL.TEXT       4
+  TEST/EXPECT/DATA.TEXT          4
+  TEST/EXPECT/DEEP.TEXT          4
+  TEST/EXPECT/DOUBLES.TEXT       4
+  TEST/EXPECT/FILES.TEXT         4
+  TEST/EXPECT/INPUT.TEXT         4
+  TEST/EXPECT/PROCS.TEXT         4
+  TEST/EXPECT/SEGS.TEXT          4
+  TEST/EXPECT/STRINGS.TEXT       4
+  FILES.TEXT                     8
