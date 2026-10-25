@@ -4,7 +4,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
   BC.CODE                      143
   README.TEXT                   12
-  LANGUAGE.TEXT                 46
+  LANGUAGE.TEXT                 48
   DESIGN.TEXT                   32
   ALL.TEXT                       4
   SRC/                         888  (sub-volume)

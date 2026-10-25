@@ -1951,3 +1951,18 @@ keytest, subvoltest, greptest and ccsubvoltest, and UCSD-BASIC's runtests, selfc
 under both systems.  Note: UCSD-SYSTEM-C's systest and suite had compared BIGGY's own SYSTEM.C
 with itself since BIGGY 1.27 (its boot prefers SYSTEM.C to the SYSTEM.PASCAL under test); fixed.
 Emulator: any (v2.08 for the 2 seconds at the boot).
+
+TINY-C'S TOOLS TAKE NAME.BAS AS A TEXT FILE: BIGGY 1.30 (TINY-C, TOOLS, TCEXTRA, TCTESTS, Big_Disk, BASIC)
+---------------------------------------------------------------------------
+Tiny-C's library opened a file as a UCSD text file only by its name (.TEXT, .C, .H), so the
+BASIC sources of BASIC: (NAME.BAS, text files) came out of the shell's TYPE as raw bytes -- the
+header and the blank-compression codes, a ( before a line indented 8 -- and vi said "cannot be
+loaded".  stdio's __istext takes NAME.BAS too, and a new NAME.BAS in a sub-volume is entered as a
+text file (dirs.c svkind), as BIGGY 1.29's systems do on a volume.  So TYPE, vi, cat, grep, wc,
+less, diff, sed and the others read and write NAME.BAS as text; MAN.TEXT says so.  Rebuilt with
+the library: TINY-C (CC, TCLIB.OBJ, the sources), every tool (TOOLS), the demos and the shell
+(TCEXTRA), the tests (TCTESTS), and BIGGY's SYSTEM.SHELL: Big_Disk.BLK (BIGGY) revision 1.30,
+VERSION.TEXT.  BASIC.BLK: the manuals say so.  Checked with UCSD-TinyC's runtests, quicktest,
+vitest, subvoltest and visubvoltest in both modes, and selfcompile, greptest, pexectest,
+mantest, cattest and wctest; on BASIC:/DEMO from the shell: TYPE HELLO.BAS, GREP -n and WC of
+PI.BAS, vi of HELLO.BAS (an edit saved and TYPEd again); UCSD-BASIC's voltest.  Emulator: any.
