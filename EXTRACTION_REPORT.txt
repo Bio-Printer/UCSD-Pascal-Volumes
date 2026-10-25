@@ -1,8 +1,8 @@
 BASIC  (volume BASIC, 10 files)
-    SRC/  (a sub-volume, 888 blocks, 12 files)
-    LIB/  (a sub-volume, 445 blocks, 11 files)
-    DEMO/  (a sub-volume, 520 blocks, 9 files)
-    TEST/  (a sub-volume, 910 blocks, 13 files)
+    SRC/  (a sub-volume, 904 blocks, 12 files)
+    LIB/  (a sub-volume, 450 blocks, 11 files)
+    DEMO/  (a sub-volume, 522 blocks, 9 files)
+    TEST/  (a sub-volume, 914 blocks, 13 files)
         EXPECT/  (a sub-volume, 90 blocks, 11 files)
     61 files extracted, 59 text files decoded
 Big_Disk  (volume BIGGY, 37 files)

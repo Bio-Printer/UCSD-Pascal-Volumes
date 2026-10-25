@@ -2,12 +2,12 @@ BASIC: -- the BC BASIC compiler for the UCSD P-System
 
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
-  BC.CODE                      143
+  BC.CODE                      144
   README.TEXT                   12
   LANGUAGE.TEXT                 48
-  DESIGN.TEXT                   32
+  DESIGN.TEXT                   34
   ALL.TEXT                       4
-  SRC/                         888  (sub-volume)
+  SRC/                         904  (sub-volume)
   SRC/BUILD.TEXT                 4
   SRC/BC.BAS                    34
   SRC/BCCOM.BAS                 10
@@ -18,21 +18,21 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/BCGENCOM.BAS               8
   SRC/BCLEX.BAS                 20
   SRC/BCLINK.BAS                32
-  SRC/BCLIST.BAS                16
+  SRC/BCLIST.BAS                20
   SRC/BCPROCS.BAS                8
-  LIB/                         445  (sub-volume)
-  LIB/BASLIB.OBJ                51
+  LIB/                         450  (sub-volume)
+  LIB/BASLIB.OBJ                52
   LIB/LIBS.TEXT                  4
   LIB/RTARR.BAS                 10
   LIB/RTCOM.BAS                  8
   LIB/RTCORE.BAS                26
   LIB/RTDATA.BAS                 6
-  LIB/RTFILE.BAS                28
+  LIB/RTFILE.BAS                30
   LIB/RTINPUT.BAS               10
   LIB/RTNUM.BAS                 10
   LIB/RTSTR.BAS                 12
   LIB/RTSUBV.BAS                22
-  DEMO/                        520  (sub-volume)
+  DEMO/                        522  (sub-volume)
   DEMO/DEMOS.TEXT                4
   DEMO/GUESS.BAS                 4
   DEMO/HANOI.BAS                 4
@@ -42,7 +42,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   DEMO/PRIMES.BAS                4
   DEMO/STATLIB.BAS               4
   DEMO/STATS.BAS                 4
-  TEST/                        910  (sub-volume)
+  TEST/                        914  (sub-volume)
   TEST/TESTS.TEXT                4
   TEST/ARITH.BAS                 4
   TEST/ARRAYS.BAS                4

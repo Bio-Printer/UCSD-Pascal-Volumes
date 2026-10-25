@@ -1966,3 +1966,20 @@ VERSION.TEXT.  BASIC.BLK: the manuals say so.  Checked with UCSD-TinyC's runtest
 vitest, subvoltest and visubvoltest in both modes, and selfcompile, greptest, pexectest,
 mantest, cattest and wctest; on BASIC:/DEMO from the shell: TYPE HELLO.BAS, GREP -n and WC of
 PI.BAS, vi of HELLO.BAS (an edit saved and TYPEd again); UCSD-BASIC's voltest.  Emulator: any.
+
+BC -S (A LISTING) WORKS ON THE P-SYSTEM (BASIC)
+---------------------------------------------------------------------------
+BC -S NAME, a compile with a listing (each BASIC statement with the P-code made for it, in
+NAME.LST.TEXT), stopped the P-System: *STK OFLOW*, System re-initialized.  In the emulator's
+Harvard layout the code segments are stacked in a 64K code space of their own, and the
+operating system's segment 0, BC's resident part, its code generator (GEN) and the listing's
+disassembler (LIST) were more than it holds.  The code generator now writes each procedure's code
+to a temporary file, and LIST runs after it, with GEN gone; the listing is the same, byte for byte,
+as the host build's.  Before that, -S failed with File not found: the object file took the
+disk's largest free area, the listing found no room; the two are opened with [*] now (half the
+largest area), and BC's run-time library takes such a size, [n] or [*], off a name for every
+program.  BC's temporary files are on the prefix volume.  An error while a file is closed no
+longer loops until the stack overflows.  BASIC.BLK rebuilt (BC.CODE, LIB/BASLIB.OBJ, the sources,
+the manuals).  Checked with UCSD-BASIC's runtests, selfcompile and voltest (it now compiles
+BASIC:/DEMO/PI with -S and compares the listing) under SYSTEM.C and SYSTEM.PASCAL, and from the
+shell: CD BASIC:/DEMO, BC -S PI, BC -S MANDEL.  Emulator: any with the Harvard layout (BC needs it).
