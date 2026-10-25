@@ -1877,3 +1877,21 @@ runtests, growtest, krunchtest, subvoltest, visubvoltest, vitest, vipostest, vis
 native also selfcompile, pexectest, voltest, vitest --build, viaddrtest, viscrolltest,
 viscreentest, vipagetest, mantest).  Emulator: 2.09 or later for GROW and SHRINK of a volume,
 and for a GROW that has to grow the volume; any for the rest.
+
+BASIC.BLK: BC, A BASIC COMPILER WRITTEN IN BASIC (NEW DISK, VOLUME BASIC:)
+---------------------------------------------------------------------------
+A new disk, volume BASIC: (4000 blocks), from https://github.com/Bio-Printer/UCSD-BASIC.  BC
+compiles a modern, QuickBASIC-like BASIC (SUB and FUNCTION, optional line numbers and labels,
+16-bit INTEGERs, SINGLE, DOUBLE and STRING, multi-dimensional arrays from 0,
+separate modules linked with a library) into II.0 code files, and compiles itself on the
+P-System.  On it: BC.CODE (the compiler), BASLIB.OBJ (its run-time library), README.TEXT,
+LANGUAGE.TEXT (the language reference) and DESIGN.TEXT (how it works), the compiler's sources
+(BC*.TEXT) and the library's (RT*.TEXT), BUILD.TEXT (BASIC:BC @BASIC:BUILD rebuilds the compiler
+as BASIC:BC2.CODE) and LIBS.TEXT (the library as BASIC:BASLIB2.OBJ), the example programs
+(ARITH.TEXT, ARRAYS.TEXT ... the compiler's tests) and CATALOG.TEXT.  Usage: X(ecute
+BASIC:BC with the source's name, or from Tiny-C's shell BASIC:BC -Q BASIC:PROCS; the program
+made is BASIC:PROCS.CODE.  Checked: the 11 tests (runtests), BC and BASLIB rebuilt on the
+P-System byte for byte the host build's (selfcompile), and the volume itself (voltest: BUILD
+and LIBS on the disk, BC2 identical but for its segment name, BASLIB2 identical, an example
+run) under both SYSTEM.PASCAL and BIGGY's SYSTEM.C.  Emulator: BC needs the Harvard layout
+(VERIFY_HARVARD=1) for its memory; the programs it makes run in either layout.

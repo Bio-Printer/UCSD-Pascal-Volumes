@@ -1,3 +1,10 @@
+BASIC  (volume BASIC, 38 files)
+    ! README.TEXT: line 34: unusual byte(s) ['0x80', '0x94', '0xe2'] kept as-is
+    ! README.TEXT: line 35: unusual byte(s) ['0x80', '0x94', '0xe2'] kept as-is
+    ! README.TEXT: line 36: unusual byte(s) ['0x80', '0x94', '0xe2'] kept as-is
+    ! README.TEXT: line 37: unusual byte(s) ['0x80', '0x94', '0xe2'] kept as-is
+    ! README.TEXT: line 38: unusual byte(s) ['0x80', '0x94', '0xe2'] kept as-is
+    38 files extracted, 36 text files decoded
 Big_Disk  (volume BIGGY, 37 files)
     ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
     37 files extracted, 6 text files decoded
