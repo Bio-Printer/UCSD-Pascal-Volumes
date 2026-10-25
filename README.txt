@@ -1859,3 +1859,21 @@ growtest, krunchtest, the new fulltest, vitest, vipostest, viswaptest, shellallt
 selfcompile, pexectest, voltest, ccsubvoltest, findtest, ostest, alltest and the other vi tests)
 and the Pascal compiler's tests in both modes.  Emulator: any (1.93 or later for DOUBLE in Z80
 mode).
+
+GROW AND SHRINK OF A VOLUME; GROW GROWS WHAT HOLDS A SUB-VOLUME; VI'S SMALLEST WINDOW (TINY-C, TOOLS, TCEXTRA, Big_Disk)
+---------------------------------------------------------------------------
+GROW and SHRINK (TOOLS:) work on a volume as well as a sub-volume: GROW #5: +1000 makes the
+volume on unit 5 1000 blocks bigger, SHRINK #5: as small as its files (krunched first if it
+must be), and the disk image on the PC grows or is cut with it (the emulator's new CSP 139,
+UNITSIZE: version 2.09).  GROW of a sub-volume that finds no room -- not after it, in no free
+area, nor after krunching what holds it -- now grows what holds it first, by what it lacks,
+and that in turn what holds it, up to the volume and its image; each step is shown with its
+full name (no room for WORK:/P/R: WORK:/P grows first, by 20 blocks).  vi's smallest window
+(2 KB: a big file in a sub-volume with little memory) now scrolls as a whole one does: before,
+a ^F could stop at the window's end and a ^B some lines short.  Rebuilt: TINY-C (the library,
+its source), TOOLS (GROW, SHRINK, VI and the tools that use the library's path code, MAN.TEXT),
+TCEXTRA, and BIGGY's SYSTEM.SHELL.  Checked with UCSD-TinyC's tests in both modes (quicktest,
+runtests, growtest, krunchtest, subvoltest, visubvoltest, vitest, vipostest, viswaptest;
+native also selfcompile, pexectest, voltest, vitest --build, viaddrtest, viscrolltest,
+viscreentest, vipagetest, mantest).  Emulator: 2.09 or later for GROW and SHRINK of a volume,
+and for a GROW that has to grow the volume; any for the rest.
