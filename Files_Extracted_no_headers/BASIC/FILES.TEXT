@@ -2,59 +2,59 @@ BASIC: -- the BC BASIC compiler for the UCSD P-System
 
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
-  BC.CODE                      142
-  README.TEXT                   10
-  LANGUAGE.TEXT                 44
-  DESIGN.TEXT                   30
+  BC.CODE                      143
+  README.TEXT                   12
+  LANGUAGE.TEXT                 46
+  DESIGN.TEXT                   32
   ALL.TEXT                       4
-  SRC/                         884  (sub-volume)
+  SRC/                         888  (sub-volume)
   SRC/BUILD.TEXT                 4
-  SRC/BC.TEXT                   32
-  SRC/BCCOM.TEXT                10
-  SRC/BCDECL.TEXT               18
-  SRC/BCEMIT.TEXT               26
-  SRC/BCEXPR.TEXT               70
-  SRC/BCGEN.TEXT                70
-  SRC/BCGENCOM.TEXT              8
-  SRC/BCLEX.TEXT                20
-  SRC/BCLINK.TEXT               32
-  SRC/BCLIST.TEXT               16
-  SRC/BCPROCS.TEXT               8
-  LIB/                         438  (sub-volume)
-  LIB/BASLIB.OBJ                50
+  SRC/BC.BAS                    34
+  SRC/BCCOM.BAS                 10
+  SRC/BCDECL.BAS                18
+  SRC/BCEMIT.BAS                26
+  SRC/BCEXPR.BAS                70
+  SRC/BCGEN.BAS                 70
+  SRC/BCGENCOM.BAS               8
+  SRC/BCLEX.BAS                 20
+  SRC/BCLINK.BAS                32
+  SRC/BCLIST.BAS                16
+  SRC/BCPROCS.BAS                8
+  LIB/                         445  (sub-volume)
+  LIB/BASLIB.OBJ                51
   LIB/LIBS.TEXT                  4
-  LIB/RTARR.TEXT                10
-  LIB/RTCOM.TEXT                 8
-  LIB/RTCORE.TEXT               24
-  LIB/RTDATA.TEXT                6
-  LIB/RTFILE.TEXT               26
-  LIB/RTINPUT.TEXT              12
-  LIB/RTNUM.TEXT                10
-  LIB/RTSTR.TEXT                12
-  LIB/RTSUBV.TEXT               22
-  DEMO/                        508  (sub-volume)
+  LIB/RTARR.BAS                 10
+  LIB/RTCOM.BAS                  8
+  LIB/RTCORE.BAS                26
+  LIB/RTDATA.BAS                 6
+  LIB/RTFILE.BAS                28
+  LIB/RTINPUT.BAS               10
+  LIB/RTNUM.BAS                 10
+  LIB/RTSTR.BAS                 12
+  LIB/RTSUBV.BAS                22
+  DEMO/                        520  (sub-volume)
   DEMO/DEMOS.TEXT                4
-  DEMO/GUESS.TEXT                4
-  DEMO/HANOI.TEXT                4
-  DEMO/HELLO.TEXT                4
-  DEMO/MANDEL.TEXT               4
-  DEMO/PI.TEXT                   8
-  DEMO/PRIMES.TEXT               4
-  DEMO/STATLIB.TEXT              4
-  DEMO/STATS.TEXT                4
-  TEST/                        892  (sub-volume)
+  DEMO/GUESS.BAS                 4
+  DEMO/HANOI.BAS                 4
+  DEMO/HELLO.BAS                 4
+  DEMO/MANDEL.BAS                4
+  DEMO/PI.BAS                    8
+  DEMO/PRIMES.BAS                4
+  DEMO/STATLIB.BAS               4
+  DEMO/STATS.BAS                 4
+  TEST/                        910  (sub-volume)
   TEST/TESTS.TEXT                4
-  TEST/ARITH.TEXT                4
-  TEST/ARRAYS.TEXT               4
-  TEST/CONTROL.TEXT              6
-  TEST/DATA.TEXT                 4
-  TEST/DEEP.TEXT                 6
-  TEST/DOUBLES.TEXT              4
-  TEST/FILES.TEXT                6
-  TEST/INPUT.TEXT                4
-  TEST/PROCS.TEXT                6
-  TEST/SEGS.TEXT                 4
-  TEST/STRINGS.TEXT              4
+  TEST/ARITH.BAS                 4
+  TEST/ARRAYS.BAS                4
+  TEST/CONTROL.BAS               6
+  TEST/DATA.BAS                  4
+  TEST/DEEP.BAS                  6
+  TEST/DOUBLES.BAS               4
+  TEST/FILES.BAS                 6
+  TEST/INPUT.BAS                 4
+  TEST/PROCS.BAS                 6
+  TEST/SEGS.BAS                  4
+  TEST/STRINGS.BAS               4
   TEST/EXPECT/                  90  (sub-volume)
   TEST/EXPECT/ARITH.TEXT         4
   TEST/EXPECT/ARRAYS.TEXT        4

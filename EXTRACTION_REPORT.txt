@@ -1,8 +1,8 @@
 BASIC  (volume BASIC, 10 files)
-    SRC/  (a sub-volume, 884 blocks, 12 files)
-    LIB/  (a sub-volume, 438 blocks, 11 files)
-    DEMO/  (a sub-volume, 508 blocks, 9 files)
-    TEST/  (a sub-volume, 892 blocks, 13 files)
+    SRC/  (a sub-volume, 888 blocks, 12 files)
+    LIB/  (a sub-volume, 445 blocks, 11 files)
+    DEMO/  (a sub-volume, 520 blocks, 9 files)
+    TEST/  (a sub-volume, 910 blocks, 13 files)
         EXPECT/  (a sub-volume, 90 blocks, 11 files)
     61 files extracted, 59 text files decoded
 Big_Disk  (volume BIGGY, 37 files)
@@ -97,6 +97,8 @@ U134.4_OS_SOURCE_v1.12  (volume U134.4, 15 files)
 U134.4_OS_SOURCE_v1.13  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
 U134.4_OS_SOURCE_v1.14  (volume U134.4, 15 files)
+    15 files extracted, 15 text files decoded
+U134.4_OS_SOURCE_v1.15  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
 U134_4_OS_fixed  (volume U134.4, 14 files)
     14 files extracted, 14 text files decoded

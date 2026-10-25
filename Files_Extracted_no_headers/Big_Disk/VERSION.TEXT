@@ -1,9 +1,11 @@
-BIGGY boot volume, revision 1.28  (17-Oct-26)
-  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.13 (MAXUNIT = 14:
+BIGGY boot volume, revision 1.29  (25-Oct-26)
+  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.15 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, S runs SYSTEM.SHELL, X(ecute takes a
                  path into sub-volumes: VOL:A/B/NAME, \ as /); its
                  FGOTOXY is MYGOTOXY.TEXT's (132 x 45): no BINDER needed
+                 1.29: a new NAME.BAS (a BASIC source) is a text
+                 file, as NAME.TEXT is; SYSTEM.C as well
   SYSTEM.C       the same OS written in C (UCSD-SYSTEM-C, SYS-C:): booted
                  unless a key is typed within 2 seconds (1.27)
   SYSTEM.MICRO   the interpreter, with the boot that asks for that key

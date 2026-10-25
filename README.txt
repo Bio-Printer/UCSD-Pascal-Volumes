@@ -1925,3 +1925,29 @@ decimals; every row matches PI.C's to that many decimals.  DEMOS.TEXT compiles i
 UCSD-BASIC's voltest under SYSTEM.C and SYSTEM.PASCAL (@BASIC:ALL, then X(ecute BASIC:/DEMO/PI,
 STATS and TEST/PROCS from the sub-volumes).  Emulator: BC needs the Harvard layout; PI, like any
 program with DOUBLEs, needs the emulator's CSP 100..137.
+
+A NEW NAME.BAS IS A TEXT FILE: BIGGY 1.29, U134.4_OS_SOURCE_v1.15 (new; Big_Disk, SYS-C, BASIC)
+---------------------------------------------------------------------------
+SCANTITLE gives a new file its kind by the end of its name: .TEXT and .BACK text, .CODE code, and
+so on; any other name a data file.  Revision 1.15 of the OS source adds .BAS, the BASIC sources of
+UCSD-BASIC's BC: a file the Editor, the Filer or a program makes under such a name is now a text
+file, as one named .TEXT is.  (An old file was always read by its kind, whatever its name.)  The
+Editor adds .TEXT to a name unless it ends with a dot: E(dit PI.BAS.  U134.4_OS_SOURCE_v1.15.BLK is
+v1.14 with that in SYSTEM.A.TEXT (3 lines; every other line as it was) and VERSION.TEXT.  Build:
+with the prefix on the volume, compile SYSTEM to a short name (OS: named SYSTEM.PASCAL the
+compiler stops with String overflow); that code file is SYSTEM.PASCAL.  Compiled the same way,
+v1.14 gives BIGGY 1.28's SYSTEM.PASCAL but for the bytes the compiler never sets (a block's end
+after a segment's code, a case table's pad byte: 0xE5 in BIGGY's).  SYSTEM.C (UCSD-SYSTEM-C,
+SYS-C:SEG0.C) does the same.  Segment 0: SYSTEM.PASCAL 7794 bytes (was 7756), SYSTEM.C 7620 (7564);
+a program has 19 and 28 words less (in the Harvard layout 3 and 0).  Big_Disk.BLK (BIGGY) revision
+1.29: SYSTEM.PASCAL, SYSTEM.C and VERSION.TEXT, each in its old place.  SYS-C.BLK: SEG0.C,
+SYSTEM.C, README.TEXT.  BASIC.BLK: the sources are NAME.BAS (text files); BC compiles NAME.BAS,
+finds a name on Tiny-C's shell's path (after CD BASIC:/DEMO, BC PI), and says that it needs the
+emulator's Harvard layout instead of failing in the others.  Checked with UCSD-SYSTEM-C's systest
+(every scenario, a new one for .BAS, in the standard, Reclaim and Harvard layouts and Z80 mode:
+the Pascal and the C system give the same transcripts and disks) and psbuild (IDENTICAL),
+UCSD-TinyC's quicktest (both systems; SYSTEM.C also in Z80 mode), pexectest, xsubvoltest,
+keytest, subvoltest, greptest and ccsubvoltest, and UCSD-BASIC's runtests, selfcompile and voltest
+under both systems.  Note: UCSD-SYSTEM-C's systest and suite had compared BIGGY's own SYSTEM.C
+with itself since BIGGY 1.27 (its boot prefers SYSTEM.C to the SYSTEM.PASCAL under test); fixed.
+Emulator: any (v2.08 for the 2 seconds at the boot).
