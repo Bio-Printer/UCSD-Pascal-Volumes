@@ -2077,3 +2077,17 @@ P-System ran out of memory. BASIC.BLK rebuilt (BCGEN.CODE, BCLINK.CODE, the sour
 Checked with UCSD-BASIC's runtests, selfcompile (all six identical), smalltest (PI in Z80 mode
 and without the Harvard layout), chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL.
 Emulator: any.
+
+BC'S TOKEN FILE HAS A HEADER (BASIC)
+---------------------------------------------------------------------------
+BCLEX, BC's first pass, now leaves room at the start of its token file and fills it in at
+the end of the pass. It records what it counted in the source: the names at the module's
+level and the most names in one procedure, the parameters, the CONSTs, the largest
+procedure's size and its control statements, and the longest statement. BCGEN sizes its
+tables from these counts instead of guessing. The symbol, parameter and constant tables are
+always large enough. The code tables are estimates and still grow by 100 entries when one is
+too small; of all BC's sources, the library, the demos and the tests, only one test needs
+that, once. BC -M shows the sizes, the most used and how often a table grew. BASIC.BLK rebuilt
+(the five code files, the sources, DESIGN.TEXT). Checked with UCSD-BASIC's runtests, selfcompile
+(all six identical), smalltest (PI in Z80 mode and without the Harvard layout), chaintest and
+voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
