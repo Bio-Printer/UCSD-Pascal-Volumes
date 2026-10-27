@@ -1983,3 +1983,20 @@ longer loops until the stack overflows.  BASIC.BLK rebuilt (BC.CODE, LIB/BASLIB.
 the manuals).  Checked with UCSD-BASIC's runtests, selfcompile and voltest (it now compiles
 BASIC:/DEMO/PI with -S and compares the listing) under SYSTEM.C and SYSTEM.PASCAL, and from the
 shell: CD BASIC:/DEMO, BC -S PI, BC -S MANDEL.  Emulator: any with the Harvard layout (BC needs it).
+
+LISTINGS AS NAME.LST: VI AND TYPE TAKE FILES OF CR LINES; BIGGY 1.31 (TOOLS, TCEXTRA, Big_Disk, BASIC)
+---------------------------------------------------------------------------
+UCSD-BASIC's BC -S writes its listing to NAME.LST (was NAME.LST.TEXT): a data file of lines that
+end in CR, its last block filled out with NULs, not a UCSD text file.  vi (TOOLS:) edits such a
+file -- its CRs are its line ends, and it is written back with CRs -- now also when it has no
+VI.SWAP and holds the whole file in memory; and it refuses a binary file, one with a NUL before
+the NULs that fill out its last block (a code file, an object): "not a file of lines (a binary
+file)".  vi without room for VI.SWAP on the prefix volume now works without it (it loaded the
+file only in part and could not save it).  The shell's TYPE shows a file of CR lines too, and
+says "not a text file" for a binary one before showing any of it.  Rebuilt: TOOLS (VI.CODE,
+MAN.TEXT, SRC/VI), TCEXTRA (SHELL), Big_Disk.BLK (BIGGY) revision 1.31 (SYSTEM.SHELL,
+VERSION.TEXT), BASIC.BLK (BC.CODE, its sources, the manuals).  Checked with UCSD-TinyC's new
+vicrtest (both modes), vitest, vipostest, viswaptest and visubvoltest (both modes), vipagetest,
+viscreentest, viaddrtest, viscrolltest, pexectest, quicktest, mantest and redirtest, and
+UCSD-BASIC's runtests, selfcompile and voltest (DEMO/PI.LST as the host's listing) under
+SYSTEM.C and SYSTEM.PASCAL.  Emulator: any (BC needs the Harvard layout).
