@@ -2014,3 +2014,17 @@ one.  It needs BIGGY's systems (SYSTEM.PASCAL 1.10 or later, SYSTEM.C).  BASIC.B
 UCSD-BASIC's runtests (a new test: three programs chained, the errors), the new chaintest (from
 the shell, also in a sub-volume after a CD; under SYSTEM.C and SYSTEM.PASCAL), selfcompile and
 voltest under both systems.  Emulator: any (BC needs the Harvard layout).
+
+BC AS FIVE CHAINED PROGRAMS (BASIC)
+---------------------------------------------------------------------------
+BC, the BASIC compiler, is now five programs that run one at a time and CHAIN to one another
+through a job file (:BCTEMP.JOB). They are BC.CODE (the driver: the commands and batch files),
+BCLEX.CODE (pass 1), BCGEN.CODE (passes 2 and 3), BCLIST.CODE (the -S listing) and BCLINK.CODE
+(-L and -J). Each has only its own code and data in memory. The least free memory during a
+compile is now about 12,400 words; before, with one program, it was about 5,900. The
+commands and the results are the same as before. BC.CODE has to be on the same volume as the
+other four. SRC/BUILD.TEXT rebuilds all five as BASIC:BC2.CODE ... BCLINK2.CODE. BASIC.BLK
+rebuilt (the five code files, the sources with the new modules BCUTIL, BCTOK and BCKW, the
+manuals). Checked with UCSD-BASIC's runtests, chaintest, selfcompile (BASLIB and all five
+programs identical to the host build) and voltest under SYSTEM.C and SYSTEM.PASCAL, and from
+the shell (CD BASIC:/DEMO, BC -S PI). Emulator: any with the Harvard layout (BC needs it).

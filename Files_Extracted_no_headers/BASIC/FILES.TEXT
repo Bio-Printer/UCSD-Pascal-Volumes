@@ -2,24 +2,31 @@ BASIC: -- the BC BASIC compiler for the UCSD P-System
 
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
-  BC.CODE                      144
-  README.TEXT                   12
+  BC.CODE                       41
+  BCLEX.CODE                    48
+  BCGEN.CODE                   113
+  BCLIST.CODE                   46
+  BCLINK.CODE                   52
+  README.TEXT                   14
   LANGUAGE.TEXT                 50
-  DESIGN.TEXT                   36
+  DESIGN.TEXT                   40
   ALL.TEXT                       4
-  SRC/                         904  (sub-volume)
+  SRC/                         952  (sub-volume)
   SRC/BUILD.TEXT                 4
-  SRC/BC.BAS                    34
+  SRC/BC.BAS                    16
   SRC/BCCOM.BAS                 10
   SRC/BCDECL.BAS                18
   SRC/BCEMIT.BAS                26
   SRC/BCEXPR.BAS                70
-  SRC/BCGEN.BAS                 70
+  SRC/BCGEN.BAS                 72
   SRC/BCGENCOM.BAS               8
-  SRC/BCLEX.BAS                 20
-  SRC/BCLINK.BAS                32
+  SRC/BCKW.BAS                   8
+  SRC/BCLEX.BAS                 22
+  SRC/BCLINK.BAS                34
   SRC/BCLIST.BAS                20
   SRC/BCPROCS.BAS                8
+  SRC/BCTOK.BAS                 12
+  SRC/BCUTIL.BAS                14
   LIB/                         477  (sub-volume)
   LIB/BASLIB.OBJ                55
   LIB/LIBS.TEXT                  4
