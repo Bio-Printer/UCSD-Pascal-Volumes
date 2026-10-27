@@ -1,0 +1,8 @@
+' the compiler @BASIC:/SRC/BUILD rebuilt in the place of the old one: in the
+' shell, @BASIC:INSTALL.  Each MOVE deletes the old file and renames the new
+' one; when the new one is not there it says so and leaves the old one.
+MOVE BASIC:BC2.CODE BASIC:BC.CODE
+MOVE BASIC:BCLEX2.CODE BASIC:BCLEX.CODE
+MOVE BASIC:BCGEN2.CODE BASIC:BCGEN.CODE
+MOVE BASIC:BCLIST2.CODE BASIC:BCLIST.CODE
+MOVE BASIC:BCLINK2.CODE BASIC:BCLINK.CODE

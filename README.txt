@@ -2028,3 +2028,21 @@ rebuilt (the five code files, the sources with the new modules BCUTIL, BCTOK and
 manuals). Checked with UCSD-BASIC's runtests, chaintest, selfcompile (BASLIB and all five
 programs identical to the host build) and voltest under SYSTEM.C and SYSTEM.PASCAL, and from
 the shell (CD BASIC:/DEMO, BC -S PI). Emulator: any with the Harvard layout (BC needs it).
+
+BATCH FILES IN THE SHELL; BIGGY 1.32; BASIC:INSTALL.TEXT (Big_Disk, TCEXTRA, TOOLS, BASIC)
+---------------------------------------------------------------------------
+The Tiny-C shell (UCSD-TinyC's examples/shell.c, SYSTEM.SHELL on BIGGY:) runs batch files:
+@FILE runs the lines of FILE (FILE.TEXT when the name has no '.') one after the other as
+commands, each shown after the prompt. Empty lines and lines that start with ' are comments.
+A line @OTHER runs OTHER's lines there (4 deep at most). A batch file goes on after a program
+it runs: while the program runs, the shell keeps its place in #4:SYSTEM.BATCH. A program that
+ends with an exit status other than 0 stops the batch file. MOVE within one directory now
+replaces a file of the new name, as COPY does; RENAME still refuses to. BASIC: has
+INSTALL.TEXT: after @BASIC:/SRC/BUILD, @BASIC:INSTALL in the shell moves BC2.CODE ...
+BCLINK2.CODE onto BC.CODE ... BCLINK.CODE. Each old file goes and the new one takes its name;
+when a new one is missing, the old one stays. Rebuilt: Big_Disk.BLK (BIGGY 1.32:
+SYSTEM.SHELL, VERSION.TEXT), TCEXTRA (SHELL), TOOLS (MAN.TEXT), BASIC.BLK (INSTALL.TEXT, the
+manuals). Checked with UCSD-TinyC's new batchtest (both modes), redirtest, pexectest, quicktest
+and mantest, and UCSD-BASIC's runtests, chaintest and voltest under SYSTEM.C and
+SYSTEM.PASCAL (voltest now runs @BASIC:INSTALL after BUILD, then compiles and runs
+DEMO/HELLO with the installed compiler). Emulator: any (BC needs the Harvard layout).

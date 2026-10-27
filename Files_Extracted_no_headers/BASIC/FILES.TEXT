@@ -11,6 +11,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   LANGUAGE.TEXT                 50
   DESIGN.TEXT                   40
   ALL.TEXT                       4
+  INSTALL.TEXT                   4
   SRC/                         952  (sub-volume)
   SRC/BUILD.TEXT                 4
   SRC/BC.BAS                    16
