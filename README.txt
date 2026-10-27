@@ -2068,3 +2068,12 @@ the sources, the manuals). Checked with UCSD-BASIC's runtests, selfcompile (BASL
 programs identical to the host build), chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL,
 and the new smalltest (PI in Z80 mode and P-Code mode without the Harvard layout).
 Emulator: any.
+
+BC'S TABLES GROW BY 100 ENTRIES (BASIC)
+---------------------------------------------------------------------------
+BCGEN's tables (the symbols and the code tables) now grow by 100 entries when they are full,
+not to twice their size. BCLINK's tables still double: in steps of 100, linking BCGEN on the
+P-System ran out of memory. BASIC.BLK rebuilt (BCGEN.CODE, BCLINK.CODE, the sources, DESIGN.TEXT).
+Checked with UCSD-BASIC's runtests, selfcompile (all six identical), smalltest (PI in Z80 mode
+and without the Harvard layout), chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL.
+Emulator: any.
