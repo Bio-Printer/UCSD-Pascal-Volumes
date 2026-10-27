@@ -2130,3 +2130,14 @@ every text file back as PC text (CR LF, no header), NAME.BAS, NAME.C and NAME.H 
 BASIC.BLK rebuilt (LANGUAGE.TEXT and DESIGN.TEXT say so). Checked with UCSD-BASIC's new
 importtest (PI.BAS from Windows imported, compiled, run, exported back the same) and
 UCSD-TinyC's subvolxfertest. Emulator: 2.10 for the Import of NAME.BAS.
+
+BC'S ERROR MESSAGES: THE RIGHT LINE, AT MOST 10 (BASIC)
+---------------------------------------------------------------------------
+An error BC found at the end of a statement ("the end of the statement expected", "TO
+expected, not ...") was reported with the next line's number and text; it now names the
+line it is in. The 10th error ends the compile at once (it went on to 30, and the first ones
+scrolled off the screen). The end of a block is named in the messages: "END IF without its
+block" (it said "? without its block"). BASIC.BLK rebuilt (the six code files, the sources,
+DESIGN.TEXT). Checked with UCSD-BASIC's errtest (now eight sources full of mistakes, each
+line checked), runtests, selfcompile (all seven identical), smalltest, crtest, chaintest and
+voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
