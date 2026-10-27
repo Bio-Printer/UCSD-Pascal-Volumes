@@ -2046,3 +2046,25 @@ manuals). Checked with UCSD-TinyC's new batchtest (both modes), redirtest, pexec
 and mantest, and UCSD-BASIC's runtests, chaintest and voltest under SYSTEM.C and
 SYSTEM.PASCAL (voltest now runs @BASIC:INSTALL after BUILD, then compiles and runs
 DEMO/HELLO with the installed compiler). Emulator: any (BC needs the Harvard layout).
+
+BC OUTSIDE THE HARVARD LAYOUT (BASIC)
+---------------------------------------------------------------------------
+BC, the BASIC compiler, no longer needs the emulator's Harvard layout for programs the size of
+the demos: in Z80 mode and in P-Code mode without the Harvard layout it compiles, links and
+runs DEMO/PI (and HELLO, PRIMES, HANOI, MANDEL). The least memory left during PI's compile is
+1361 words in Z80 mode and 5276 without the Harvard layout. Compiling BC itself still needs the
+Harvard layout. What changed:
+  - The linker keeps only the procedures a program calls, not whole modules. Every program
+    gets smaller: PI's code file has 7K of the library's 13K, and BC's own programs are 5 to
+    6K smaller.
+  - The library's new segment RTSELDOM holds what a program does seldom: OPEN, sub-volumes,
+    CHAIN, reading the command line. BC's job-file code joins it.
+  - BCGEN's code generator is six segments, so that no call chain holds more than three.
+    The keyword names, used only in error messages, are a segment of their own.
+  - BCGEN's and BCLINK's tables start small and double when full.
+BC no longer checks for the Harvard layout; when a program is too large it says Run-time
+error 7 (or the emulator *STK OFLOW*). BASIC.BLK rebuilt (the five code files, LIB/BASLIB.OBJ,
+the sources, the manuals). Checked with UCSD-BASIC's runtests, selfcompile (BASLIB and the five
+programs identical to the host build), chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL,
+and the new smalltest (PI in Z80 mode and P-Code mode without the Harvard layout).
+Emulator: any.
