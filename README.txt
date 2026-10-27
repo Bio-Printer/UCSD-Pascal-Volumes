@@ -2119,3 +2119,14 @@ can be shown on one line, and CHR$(10) is a LF alone. BASIC.BLK rebuilt (LIB/BAS
 compiler's six code files, the sources, the manuals). Checked with UCSD-BASIC's new crtest
 (the console's bytes), runtests, errtest, selfcompile (all seven identical), smalltest,
 chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
+
+IMPORTING NAME.BAS INTO THE EMULATOR (BASIC; EMULATOR 2.10)
+---------------------------------------------------------------------------
+The emulator's Options > Import File copied a PC file NAME.BAS (a BASIC source) as a data
+file. The P-System reads NAME.BAS as a text file, whose first 1K is the editor's header, so
+the first 1K of the source was lost. UCSD-Pascal_Windows_Emulator 2.10 makes an imported
+NAME.BAS a text file, as it does NAME.TEXT, NAME.C and NAME.H, and its Export File writes
+every text file back as PC text (CR LF, no header), NAME.BAS, NAME.C and NAME.H included.
+BASIC.BLK rebuilt (LANGUAGE.TEXT and DESIGN.TEXT say so). Checked with UCSD-BASIC's new
+importtest (PI.BAS from Windows imported, compiled, run, exported back the same) and
+UCSD-TinyC's subvolxfertest. Emulator: 2.10 for the Import of NAME.BAS.

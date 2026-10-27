@@ -10,7 +10,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   BCERR.CODE                    42
   README.TEXT                   14
   LANGUAGE.TEXT                 52
-  DESIGN.TEXT                   50
+  DESIGN.TEXT                   52
   ALL.TEXT                       4
   INSTALL.TEXT                   4
   SRC/                        1060  (sub-volume)
