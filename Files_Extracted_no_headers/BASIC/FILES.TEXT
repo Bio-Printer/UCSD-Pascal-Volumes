@@ -4,8 +4,8 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
   BC.CODE                      144
   README.TEXT                   12
-  LANGUAGE.TEXT                 48
-  DESIGN.TEXT                   34
+  LANGUAGE.TEXT                 50
+  DESIGN.TEXT                   36
   ALL.TEXT                       4
   SRC/                         904  (sub-volume)
   SRC/BUILD.TEXT                 4
@@ -20,12 +20,13 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/BCLINK.BAS                32
   SRC/BCLIST.BAS                20
   SRC/BCPROCS.BAS                8
-  LIB/                         450  (sub-volume)
-  LIB/BASLIB.OBJ                52
+  LIB/                         477  (sub-volume)
+  LIB/BASLIB.OBJ                55
   LIB/LIBS.TEXT                  4
   LIB/RTARR.BAS                 10
+  LIB/RTCHAIN.BAS               10
   LIB/RTCOM.BAS                  8
-  LIB/RTCORE.BAS                26
+  LIB/RTCORE.BAS                28
   LIB/RTDATA.BAS                 6
   LIB/RTFILE.BAS                30
   LIB/RTINPUT.BAS               10
@@ -42,7 +43,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   DEMO/PRIMES.BAS                4
   DEMO/STATLIB.BAS               4
   DEMO/STATS.BAS                 4
-  TEST/                        914  (sub-volume)
+  TEST/                        918  (sub-volume)
   TEST/TESTS.TEXT                4
   TEST/ARITH.BAS                 4
   TEST/ARRAYS.BAS                4

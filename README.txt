@@ -2000,3 +2000,17 @@ vicrtest (both modes), vitest, vipostest, viswaptest and visubvoltest (both mode
 viscreentest, viaddrtest, viscrolltest, pexectest, quicktest, mantest and redirtest, and
 UCSD-BASIC's runtests, selfcompile and voltest (DEMO/PI.LST as the host's listing) under
 SYSTEM.C and SYSTEM.PASCAL.  Emulator: any (BC needs the Harvard layout).
+
+CHAIN IN BC'S BASIC (BASIC)
+---------------------------------------------------------------------------
+BC's BASIC has a CHAIN statement: CHAIN "[VOL:]PROGRAM [options]", or CHAIN A$ with the line in a
+string.  The program ends (its files closed) and PROGRAM runs in its place with the options as its
+COMMAND$; nothing of the first one stays in memory.  PROGRAM is found as X(ecute finds it (VOL:,
+the prefix volume, a path into sub-volumes, the shell's path after a CD).  It is Tiny-C's pexec
+protocol of BIGGY's GETCMD, without the way back: when the program chained to ends, the Command:
+prompt comes, or the shell with the last program's exit status when the shell started the first
+one.  It needs BIGGY's systems (SYSTEM.PASCAL 1.10 or later, SYSTEM.C).  BASIC.BLK rebuilt
+(BC.CODE, LIB/BASLIB.OBJ with the new module RTCHAIN, the sources, the manuals).  Checked with
+UCSD-BASIC's runtests (a new test: three programs chained, the errors), the new chaintest (from
+the shell, also in a sub-volume after a CD; under SYSTEM.C and SYSTEM.PASCAL), selfcompile and
+voltest under both systems.  Emulator: any (BC needs the Harvard layout).
