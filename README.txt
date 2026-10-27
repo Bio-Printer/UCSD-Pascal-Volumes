@@ -2091,3 +2091,20 @@ that, once. BC -M shows the sizes, the most used and how often a table grew. BAS
 (the five code files, the sources, DESIGN.TEXT). Checked with UCSD-BASIC's runtests, selfcompile
 (all six identical), smalltest (PI in Z80 mode and without the Harvard layout), chaintest and
 voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
+
+BCERR: BC'S ERROR MESSAGES IN A PROGRAM OF THEIR OWN (BASIC)
+---------------------------------------------------------------------------
+BC, the BASIC compiler, is now six programs: the new BCERR.CODE says a compile's errors. The
+first pass (BCLEX) and the code generator (BCGEN) keep each error as a number, with a name,
+a number or a token where the message needs one. When the compile step ends with errors,
+they write them to a temporary file and chain to BCERR. BCERR holds all 117 message texts
+and the keyword names, prints the errors exactly as before ("FILE line N: message" and the
+line, then "N error(s)"), and chains back to BC with the failure. The message texts no longer
+take memory while BCGEN works: BCGEN.CODE is 6K smaller, and compiling DEMO/PI in Z80 mode
+BCGEN now has 2183 words left (it had 1013). BCERR.CODE has to be on the volume with the
+other five; SRC/BUILD.TEXT and INSTALL.TEXT include it. BASIC.BLK rebuilt (the six code files,
+the sources with the new BCERR.BAS, the manuals). Checked with UCSD-BASIC's runtests, the new
+errtest (five sources full of mistakes give the same messages as before, on the host and on
+the P-System), selfcompile (BASLIB and the six programs identical to the host build),
+smalltest (PI in Z80 mode and without the Harvard layout), chaintest and voltest under
+SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
