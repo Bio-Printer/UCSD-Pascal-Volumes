@@ -2108,3 +2108,14 @@ errtest (five sources full of mistakes give the same messages as before, on the 
 the P-System), selfcompile (BASLIB and the six programs identical to the host build),
 smalltest (PI in Z80 mode and without the Harvard layout), chaintest and voltest under
 SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
+
+CHR$(13) ON THE CONSOLE (BASIC)
+---------------------------------------------------------------------------
+In BC's BASIC, PRINT n; CHR$(13); went down a line each time instead of going back to the
+start of the line: the library wrote the console with UNITWRITE's control word 0, and the
+console adds a line feed after every CR then. The library now sets the control word's
+CRLFBIT (8), and ends a PRINT line itself with CR and LF. CHR$(13) is a CR alone, so a count
+can be shown on one line, and CHR$(10) is a LF alone. BASIC.BLK rebuilt (LIB/BASLIB.OBJ, the
+compiler's six code files, the sources, the manuals). Checked with UCSD-BASIC's new crtest
+(the console's bytes), runtests, errtest, selfcompile (all seven identical), smalltest,
+chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
