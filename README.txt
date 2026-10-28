@@ -2165,3 +2165,13 @@ the earlier suffixes need ! and # swapped. BASIC.BLK rebuilt (the six code files
 LIB/BASLIB.OBJ, all sources, the manuals, the new TEST/SUFFIX). Checked with UCSD-BASIC's
 runtests (the new test suffix), selfcompile (all seven identical), errtest, smalltest,
 crtest, importtest, chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
+
+BITWISE & AND | (BASIC)
+---------------------------------------------------------------------------
+BC's BASIC has the bitwise operators & (and) and | (or) for INTEGER and BYTE values; & of two
+strings still joins them, and a SINGLE or DOUBLE operand is an error. They bind tighter than
+the comparisons: IF flags & 4 = 4 tests bit 2. &H, &O and &B start a number only when a digit
+of that base follows, so a&b is a AND b. BASIC.BLK rebuilt (the six code files, the sources,
+LANGUAGE.TEXT, the new TEST/BITWISE). Checked with UCSD-BASIC's runtests (the new test
+bitwise), errtest (a new case), selfcompile (all seven identical), smalltest, crtest,
+importtest, chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
