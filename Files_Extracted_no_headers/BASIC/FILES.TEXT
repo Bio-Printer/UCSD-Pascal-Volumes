@@ -9,11 +9,11 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   BCLINK.CODE                   43
   BCERR.CODE                    42
   README.TEXT                   14
-  LANGUAGE.TEXT                 52
+  LANGUAGE.TEXT                 54
   DESIGN.TEXT                   52
   ALL.TEXT                       4
   INSTALL.TEXT                   4
-  SRC/                        1068  (sub-volume)
+  SRC/                        1070  (sub-volume)
   SRC/BUILD.TEXT                 4
   SRC/BC.BAS                    14
   SRC/BCCOM.BAS                 12
@@ -24,7 +24,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/BCGEN.BAS                 76
   SRC/BCGENCOM.BAS               8
   SRC/BCKW.BAS                  10
-  SRC/BCLEX.BAS                 30
+  SRC/BCLEX.BAS                 32
   SRC/BCLINK.BAS                38
   SRC/BCLIST.BAS                20
   SRC/BCPROCS.BAS               10
@@ -53,7 +53,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   DEMO/PRIMES.BAS                4
   DEMO/STATLIB.BAS               4
   DEMO/STATS.BAS                 4
-  TEST/                        654  (sub-volume)
+  TEST/                        696  (sub-volume)
   TEST/TESTS.TEXT                4
   TEST/ARITH.BAS                 4
   TEST/ARRAYS.BAS                4
@@ -67,7 +67,8 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   TEST/RANDOM.BAS                4
   TEST/SEGS.BAS                  4
   TEST/STRINGS.BAS               4
-  TEST/EXPECT/                  94  (sub-volume)
+  TEST/SUFFIX.BAS                4
+  TEST/EXPECT/                  98  (sub-volume)
   TEST/EXPECT/ARITH.TEXT         4
   TEST/EXPECT/ARRAYS.TEXT        4
   TEST/EXPECT/CONTROL.TEXT       4
@@ -80,4 +81,5 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   TEST/EXPECT/RANDOM.TEXT        4
   TEST/EXPECT/SEGS.TEXT          4
   TEST/EXPECT/STRINGS.TEXT       4
+  TEST/EXPECT/SUFFIX.TEXT        4
   FILES.TEXT                     8

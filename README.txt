@@ -2153,3 +2153,15 @@ sequence each run.) BASIC.BLK rebuilt (LIB/BASLIB.OBJ, the compiler's six code f
 sources, LANGUAGE.TEXT, the new TEST/RANDOM). Checked with UCSD-BASIC's runtests (the new test
 random), selfcompile (all seven identical), errtest, smalltest, crtest, chaintest and voltest
 under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
+
+TYPE SUFFIXES: ! DOUBLE, # SINGLE, ~ BYTE (BASIC)
+---------------------------------------------------------------------------
+In BC's BASIC the type suffixes ! and # have traded meanings: # (or no suffix) is SINGLE and
+! is DOUBLE, for variables and for numbers (1.5! is a DOUBLE). This is not QuickBASIC's way
+round. The new suffix ~ declares a BYTE variable (b~ = 300 makes 44); DIM b AS BYTE and b~ are
+the same variable. Every BASIC source on the volume (the compiler, the library, the demos,
+the tests) is converted, and LANGUAGE.TEXT describes the new suffixes. Programs written for
+the earlier suffixes need ! and # swapped. BASIC.BLK rebuilt (the six code files,
+LIB/BASLIB.OBJ, all sources, the manuals, the new TEST/SUFFIX). Checked with UCSD-BASIC's
+runtests (the new test suffix), selfcompile (all seven identical), errtest, smalltest,
+crtest, importtest, chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
