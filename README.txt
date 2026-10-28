@@ -2206,3 +2206,17 @@ a program with exit status 1 also when BCDEBUG is not there. BASIC.BLK rebuilt (
 DEMO/AMAZING.BAS, DEMOS.TEXT, the manuals). Checked with UCSD-BASIC's runtests, selfcompile
 (all eight identical), errtest, smalltest, crtest, importtest, chaintest under SYSTEM.C and
 SYSTEM.PASCAL, voltest; AMAZING run with 6 8, 5,4, 4 3 and with its size typed. Emulator: any.
+
+BASIC PROGRAMS AND THE SHELL'S REDIRECTIONS: >FILE, >>FILE, <FILE, | (BASIC)
+---------------------------------------------------------------------------
+Tiny-C's shell leaves >NAME, >>NAME and <NAME on a program's command line for the program's
+library to do. BC's library did not, so AMAZING 10 10 >TMP.TEXT wrote to the screen, and
+AMAZING 15 15 | MORE made no #4:PIPE1.TEXT for MORE to read ("cannot open it"). Now a BASIC
+program takes them off COMMAND$ as a C program does: what it PRINTs to the console goes into
+the file (>> appends), INPUT and LINE INPUT read the < file's lines, and pipes work both ways
+(a BASIC program into MORE, GREP or WC, or another program's output into one). A run-time
+error's message still goes to the screen. BASIC: is now 4800 blocks: every program links the
+library's OPEN for it. BASIC.BLK rebuilt (LIB/BASLIB.OBJ, the seven code files, the manuals).
+Checked with UCSD-BASIC's runtests, selfcompile (all eight identical), errtest, smalltest,
+crtest, importtest, chaintest (the redirections and a pipe from the shell; SYSTEM.C and
+SYSTEM.PASCAL) and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.

@@ -2,16 +2,16 @@ BASIC: -- the BC BASIC compiler for the UCSD P-System
 
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
-  BC.CODE                       32
-  BCLEX.CODE                    44
-  BCGEN.CODE                   105
-  BCLIST.CODE                   40
-  BCLINK.CODE                   48
-  BCERR.CODE                    44
-  BCDEBUG.CODE                  28
+  BC.CODE                       34
+  BCLEX.CODE                    46
+  BCGEN.CODE                   106
+  BCLIST.CODE                   41
+  BCLINK.CODE                   50
+  BCERR.CODE                    46
+  BCDEBUG.CODE                  30
   README.TEXT                   16
-  LANGUAGE.TEXT                 56
-  DESIGN.TEXT                   60
+  LANGUAGE.TEXT                 58
+  DESIGN.TEXT                   62
   ALL.TEXT                       4
   INSTALL.TEXT                   4
   SRC/                        1312  (sub-volume)
@@ -32,21 +32,21 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/BCPROCS.BAS               10
   SRC/BCTOK.BAS                 12
   SRC/BCUTIL.BAS                20
-  LIB/                         649  (sub-volume)
-  LIB/BASLIB.OBJ                87
+  LIB/                         679  (sub-volume)
+  LIB/BASLIB.OBJ                91
   LIB/LIBS.TEXT                  4
   LIB/RTARR.BAS                 10
   LIB/RTCHAIN.BAS               10
-  LIB/RTCOM.BAS                  8
-  LIB/RTCORE.BAS                28
+  LIB/RTCOM.BAS                 10
+  LIB/RTCORE.BAS                32
   LIB/RTDATA.BAS                 6
-  LIB/RTFILE.BAS                30
+  LIB/RTFILE.BAS                32
   LIB/RTINPUT.BAS               10
   LIB/RTNUM.BAS                 10
   LIB/RTSTR.BAS                 12
   LIB/RTSUBV.BAS                22
   LIB/RTWHERE.BAS               12
-  DEMO/                        450  (sub-volume)
+  DEMO/                        568  (sub-volume)
   DEMO/DEMOS.TEXT                4
   DEMO/AMAZING.BAS              20
   DEMO/GUESS.BAS                 4
@@ -57,7 +57,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   DEMO/PRIMES.BAS                4
   DEMO/STATLIB.BAS               4
   DEMO/STATS.BAS                 4
-  TEST/                        950  (sub-volume)
+  TEST/                       1186  (sub-volume)
   TEST/TESTS.TEXT                4
   TEST/ARITH.BAS                 4
   TEST/ARRAYS.BAS                4
