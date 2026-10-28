@@ -53,7 +53,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   DEMO/PRIMES.BAS                4
   DEMO/STATLIB.BAS               4
   DEMO/STATS.BAS                 4
-  TEST/                        616  (sub-volume)
+  TEST/                        654  (sub-volume)
   TEST/TESTS.TEXT                4
   TEST/ARITH.BAS                 4
   TEST/ARRAYS.BAS                4
@@ -64,9 +64,10 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   TEST/FILES.BAS                 6
   TEST/INPUT.BAS                 4
   TEST/PROCS.BAS                 6
+  TEST/RANDOM.BAS                4
   TEST/SEGS.BAS                  4
   TEST/STRINGS.BAS               4
-  TEST/EXPECT/                  90  (sub-volume)
+  TEST/EXPECT/                  94  (sub-volume)
   TEST/EXPECT/ARITH.TEXT         4
   TEST/EXPECT/ARRAYS.TEXT        4
   TEST/EXPECT/CONTROL.TEXT       4
@@ -76,6 +77,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   TEST/EXPECT/FILES.TEXT         4
   TEST/EXPECT/INPUT.TEXT         4
   TEST/EXPECT/PROCS.TEXT         4
+  TEST/EXPECT/RANDOM.TEXT        4
   TEST/EXPECT/SEGS.TEXT          4
   TEST/EXPECT/STRINGS.TEXT       4
   FILES.TEXT                     8

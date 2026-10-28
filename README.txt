@@ -2141,3 +2141,15 @@ block" (it said "? without its block"). BASIC.BLK rebuilt (the six code files, t
 DESIGN.TEXT). Checked with UCSD-BASIC's errtest (now eight sources full of mistakes, each
 line checked), runtests, selfcompile (all seven identical), smalltest, crtest, chaintest and
 voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
+
+RANDOMIZE TIMER (BASIC)
+---------------------------------------------------------------------------
+In BC's BASIC, RANDOMIZE TIMER failed with a run-time error: RANDOMIZE converted its argument
+to an INTEGER, and TIMER (seconds since midnight, with a fraction) does not fit one after 9:06
+in the morning, or whenever it has a fraction. RANDOMIZE now takes any number; a small whole
+number gives the same sequence as before. DEMO/GUESS, which starts with RANDOMIZE TIMER, works.
+(With the emulator's Options > Host Clock off, TIMER is 0, and RANDOMIZE TIMER gives the same
+sequence each run.) BASIC.BLK rebuilt (LIB/BASLIB.OBJ, the compiler's six code files, the
+sources, LANGUAGE.TEXT, the new TEST/RANDOM). Checked with UCSD-BASIC's runtests (the new test
+random), selfcompile (all seven identical), errtest, smalltest, crtest, chaintest and voltest
+under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
