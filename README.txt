@@ -2194,3 +2194,15 @@ the sources, the manuals, the new TEST/RTERR ... RTERR4). Checked with UCSD-BASI
 (the four new tests, also in the Harvard layout and Z80 mode), selfcompile (all eight
 identical), errtest, smalltest, crtest, importtest, chaintest (with an error in a sub-volume)
 and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
+
+DEMO/AMAZING: A MAZE, ITS SIZE FROM THE COMMAND LINE (BASIC)
+---------------------------------------------------------------------------
+BASIC:/DEMO/AMAZING.BAS prints a random maze with one path through it, and the path. From
+Tiny-C's shell, AMAZING 13 10 (or 13,10) makes a maze 13 squares long and 10 wide; without a
+size, or with one out of range (1 to 49), it asks for it. DEMOS.TEXT compiles it with the
+other demos. Run from X(ecute it always asks. A maze filled before it had an exit through the
+bottom now gets one (its solution's walk ran off the maze before). A run-time error now ends
+a program with exit status 1 also when BCDEBUG is not there. BASIC.BLK rebuilt (LIB/BASLIB.OBJ,
+DEMO/AMAZING.BAS, DEMOS.TEXT, the manuals). Checked with UCSD-BASIC's runtests, selfcompile
+(all eight identical), errtest, smalltest, crtest, importtest, chaintest under SYSTEM.C and
+SYSTEM.PASCAL, voltest; AMAZING run with 6 8, 5,4, 4 3 and with its size typed. Emulator: any.

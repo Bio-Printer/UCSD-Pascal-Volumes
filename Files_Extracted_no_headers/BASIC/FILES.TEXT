@@ -46,8 +46,9 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   LIB/RTSTR.BAS                 12
   LIB/RTSUBV.BAS                22
   LIB/RTWHERE.BAS               12
-  DEMO/                        336  (sub-volume)
+  DEMO/                        450  (sub-volume)
   DEMO/DEMOS.TEXT                4
+  DEMO/AMAZING.BAS              20
   DEMO/GUESS.BAS                 4
   DEMO/HANOI.BAS                 4
   DEMO/HELLO.BAS                 4
