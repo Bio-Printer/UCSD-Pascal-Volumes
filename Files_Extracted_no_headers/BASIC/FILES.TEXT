@@ -2,36 +2,38 @@ BASIC: -- the BC BASIC compiler for the UCSD P-System
 
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
-  BC.CODE                       30
-  BCLEX.CODE                    42
-  BCGEN.CODE                   102
-  BCLIST.CODE                   38
-  BCLINK.CODE                   43
-  BCERR.CODE                    42
-  README.TEXT                   14
-  LANGUAGE.TEXT                 54
-  DESIGN.TEXT                   52
+  BC.CODE                       32
+  BCLEX.CODE                    44
+  BCGEN.CODE                   105
+  BCLIST.CODE                   40
+  BCLINK.CODE                   48
+  BCERR.CODE                    44
+  BCDEBUG.CODE                  28
+  README.TEXT                   16
+  LANGUAGE.TEXT                 56
+  DESIGN.TEXT                   60
   ALL.TEXT                       4
   INSTALL.TEXT                   4
-  SRC/                        1072  (sub-volume)
+  SRC/                        1312  (sub-volume)
   SRC/BUILD.TEXT                 4
-  SRC/BC.BAS                    14
+  SRC/BC.BAS                    16
   SRC/BCCOM.BAS                 12
+  SRC/BCDEBUG.BAS               16
   SRC/BCDECL.BAS                20
-  SRC/BCEMIT.BAS                28
+  SRC/BCEMIT.BAS                30
   SRC/BCERR.BAS                 18
   SRC/BCEXPR.BAS                72
   SRC/BCGEN.BAS                 76
   SRC/BCGENCOM.BAS               8
   SRC/BCKW.BAS                  10
-  SRC/BCLEX.BAS                 32
-  SRC/BCLINK.BAS                38
+  SRC/BCLEX.BAS                 34
+  SRC/BCLINK.BAS                46
   SRC/BCLIST.BAS                20
   SRC/BCPROCS.BAS               10
   SRC/BCTOK.BAS                 12
-  SRC/BCUTIL.BAS                18
-  LIB/                         479  (sub-volume)
-  LIB/BASLIB.OBJ                55
+  SRC/BCUTIL.BAS                20
+  LIB/                         649  (sub-volume)
+  LIB/BASLIB.OBJ                87
   LIB/LIBS.TEXT                  4
   LIB/RTARR.BAS                 10
   LIB/RTCHAIN.BAS               10
@@ -43,7 +45,8 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   LIB/RTNUM.BAS                 10
   LIB/RTSTR.BAS                 12
   LIB/RTSUBV.BAS                22
-  DEMO/                        314  (sub-volume)
+  LIB/RTWHERE.BAS               12
+  DEMO/                        336  (sub-volume)
   DEMO/DEMOS.TEXT                4
   DEMO/GUESS.BAS                 4
   DEMO/HANOI.BAS                 4
@@ -53,7 +56,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   DEMO/PRIMES.BAS                4
   DEMO/STATLIB.BAS               4
   DEMO/STATS.BAS                 4
-  TEST/                        734  (sub-volume)
+  TEST/                        950  (sub-volume)
   TEST/TESTS.TEXT                4
   TEST/ARITH.BAS                 4
   TEST/ARRAYS.BAS                4
@@ -66,10 +69,14 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   TEST/INPUT.BAS                 4
   TEST/PROCS.BAS                 6
   TEST/RANDOM.BAS                4
+  TEST/RTERR.BAS                 4
+  TEST/RTERR2.BAS                4
+  TEST/RTERR3.BAS                4
+  TEST/RTERR4.BAS                4
   TEST/SEGS.BAS                  4
   TEST/STRINGS.BAS               4
   TEST/SUFFIX.BAS                4
-  TEST/EXPECT/                 102  (sub-volume)
+  TEST/EXPECT/                 118  (sub-volume)
   TEST/EXPECT/ARITH.TEXT         4
   TEST/EXPECT/ARRAYS.TEXT        4
   TEST/EXPECT/BITWISE.TEXT       4
@@ -81,6 +88,10 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   TEST/EXPECT/INPUT.TEXT         4
   TEST/EXPECT/PROCS.TEXT         4
   TEST/EXPECT/RANDOM.TEXT        4
+  TEST/EXPECT/RTERR.TEXT         4
+  TEST/EXPECT/RTERR2.TEXT        4
+  TEST/EXPECT/RTERR3.TEXT        4
+  TEST/EXPECT/RTERR4.TEXT        4
   TEST/EXPECT/SEGS.TEXT          4
   TEST/EXPECT/STRINGS.TEXT       4
   TEST/EXPECT/SUFFIX.TEXT        4

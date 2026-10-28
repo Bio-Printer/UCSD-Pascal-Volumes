@@ -2175,3 +2175,22 @@ of that base follows, so a&b is a AND b. BASIC.BLK rebuilt (the six code files, 
 LANGUAGE.TEXT, the new TEST/BITWISE). Checked with UCSD-BASIC's runtests (the new test
 bitwise), errtest (a new case), selfcompile (all seven identical), smalltest, crtest,
 importtest, chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
+
+RUN-TIME ERRORS SAY THEIR LINE: BCDEBUG AND NAME.MAP (BASIC)
+---------------------------------------------------------------------------
+A run-time error of a program BC made now says where it was. Linked with -MAP (BC -MAP NAME),
+the program has a map, NAME.MAP, beside its code file: each segment's procedures by number
+(S#, P#) and where each line's code starts. After the error's message the program runs the
+new BASIC:BCDEBUG.CODE, which finds the program (in a sub-volume too), its map and its
+source, and says
+    Run-time error 9: Subscript out of range
+    RTERR.BAS line 8, in FILL (S# 1, P# 3, I# 73):
+    x(a) = a
+Without the map (or without BCDEBUG) each call's numbers are said, the innermost first:
+s=1,p=47,i=30 s=1,p=3,i=73 s=1,p=2,i=36. The code file is the same with or without -MAP.
+"Out of memory" is said the same way. BASIC: is now 4200 blocks (was 4000): BCDEBUG, its
+source and the larger object files. BASIC.BLK rebuilt (the seven code files, LIB/BASLIB.OBJ,
+the sources, the manuals, the new TEST/RTERR ... RTERR4). Checked with UCSD-BASIC's runtests
+(the four new tests, also in the Harvard layout and Z80 mode), selfcompile (all eight
+identical), errtest, smalltest, crtest, importtest, chaintest (with an error in a sub-volume)
+and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
