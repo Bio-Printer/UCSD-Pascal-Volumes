@@ -12,6 +12,11 @@ static void shift_cmd(char c)
 
         cnt = ABSLINE(dot);     // remember what line we are on
         c1 = get_one_char();    // get the type of thing to delete
+        if (c1 == 'g' && get_one_char() != 'g') {       // (gg: to the first line)
+                indicate_error(c1);
+                end_cmd_q();
+                return;
+        }
         find_range(&p, &q, c1);
         if (pg_over) {
                 status_line_bold("Too many lines for memory");
@@ -174,6 +179,8 @@ dc_i:
         case 'J':                       // J- join current and next lines together
                 dot_end();              // move to NL
                 if (dot < end - 1) {    // make sure not last char in text[]
+                        undo_mod(dot, dot + 1, 0);
+                        undo_lines(-1);
                         *dot++ = ' ';   // replace NL with space
                         (file_modified++, scr_gen++);
                         while (isblank(*dot)) { // delete leading WS
@@ -290,6 +297,8 @@ dc5:
                 c1 = 'y';
                 if (c != 'Y')
                         c1 = get_one_char();    // get the type of thing to delete
+                if (c1 == 'g' && get_one_char() != 'g')
+                        c1 = '?';       // (gg: to the first line; dg alone: not known)
                 // determine range, and whether it spans lines
                 ml = find_range(&p, &q, c1);
                 if (pg_over) {
@@ -312,7 +321,7 @@ dc5:
                 } else if (strchr("^0bBeEft%$ lh\b\177", c1)) {
                         // partial line copy text into a register and delete
                         dot = yank_delete(p, q, ml, yf);        // delete word
-                } else if (strchr("cdykjHL+-{}\r\n", c1)) {
+                } else if (strchr("cdykjHL+-{}gG\r\n", c1)) {
                         // whole line copy text into a register and delete
                         dot = yank_delete(p, q, ml, yf);        // delete lines
                         whole = 1;
@@ -366,6 +375,8 @@ dc5:
         case 'r':                       // r- replace the current char with user input
                 c1 = get_one_char();    // get the replacement char
                 if (*dot != '\n') {
+                        undo_mod(dot, dot, 0);
+                        undo_lines(c1 == '\n');
                         *dot = c1;
                         (file_modified++, scr_gen++);
                 }
@@ -404,6 +415,8 @@ dc5:
                 dot = move_to_col(dot, cmdcnt - 1);     // try to move to column
                 break;
         case '~':                       // ~- flip the case of letters   a-z -> A-Z
+                if (isalpha(*dot))
+                        undo_mod(dot, dot, 0);
                 if (islower(*dot)) {
                         *dot = toupper(*dot);
                         (file_modified++, scr_gen++);
@@ -538,7 +551,6 @@ again:
                 //case ']':     // ]-
                 //case '_':     // _-
                 //case '`':     // `-
-                //case 'u':     // u- FIXME- there is no undo
                 //case 'v':     // v-
         case 0x00:                      // nul- ignore
                 break;
@@ -670,6 +682,9 @@ repeat:
                 }
                 dot = string_insert(dot, p);    // insert the string
                 end_cmd_q();    // stop adding to q
+                break;
+        case 'u':                       // u- undo the last change (u again: redo it)
+                undo_cmd();
                 break;
         case 'U':                       // U- Undo; replace current line with original version
                 if (reg[Ureg] != 0) {
@@ -826,8 +841,11 @@ dc2:
         }
 
 dc1:
-        // if text[] just became empty, add back an empty line
-        if (end == text) {
+        // if text[] just became empty: a big file's next line (or its last)
+        // into the window, else add back an empty line
+        if (end == text && pg_f && TOTLINES() > 0) {
+                dot = find_line(pg_lb < TOTLINES() ? pg_lb + 1 : TOTLINES());
+        } else if (end == text) {
                 char_insert(text, '\n');        // start empty buf with dummy line
                 dot = text;
         }

@@ -2228,3 +2228,19 @@ columns a square, with the column numbers above it, and the order in which the s
 made (the numbers beside the maze) is no longer printed (the lines are left in the program as
 comments). BASIC.BLK rebuilt (DEMO/AMAZING.BAS, FILES.TEXT). The program compiles; no
 regression tests were run. Emulator: any.
+
+VI: dG AND dgg, u (UNDO), NO STK OFLOW ON A SAVE (TOOLS)
+---------------------------------------------------------------------------
+TOOLS:VI.CODE: dG deletes to the last line, dgg to the first, NdG and Ndgg to line N (and c,
+y, > and < with G and gg).  u undoes the last change -- a command, with what its insert typed
+-- and u again redoes it, as in classic vi (u did nothing before); a change larger than the
+memory left has no undo, and says so.  A save (ZZ, :w) after some editing could stop vi with
+*STK OFLOW* in the normal layout and Z80 mode: the OS's open and close of a file NEW a 2 KB
+directory when they have none, and the stack had not that much left.  Now vi lends the OS 2 KB
+of its window for the directory while it opens or closes a file (the window's text is parked in
+VI.SWAP meanwhile), keeps the open's stack free (yanks and undo records that would take it are
+refused with a message), and an open without the room is refused, not crashed.  TOOLS.BLK
+rebuilt (VI.CODE, SRC/VI, MAN.TEXT).  Checked with UCSD-TinyC's vitest (also the Harvard layout,
+Z80 mode, --build), viscreentest, vipagetest, vipostest, viswaptest, vicrtest, visubvoltest
+(both modes), viaddrtest, viscrolltest, mantest and quicktest; u against vim -C on Linux.
+Emulator: 2.04 or later (as before).
