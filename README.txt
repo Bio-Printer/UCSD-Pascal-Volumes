@@ -2220,3 +2220,11 @@ library's OPEN for it. BASIC.BLK rebuilt (LIB/BASLIB.OBJ, the seven code files, 
 Checked with UCSD-BASIC's runtests, selfcompile (all eight identical), errtest, smalltest,
 crtest, importtest, chaintest (the redirections and a pipe from the shell; SYSTEM.C and
 SYSTEM.PASCAL) and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
+
+DEMO/AMAZING UPDATED (BASIC)
+---------------------------------------------------------------------------
+BASIC:/DEMO/AMAZING.BAS is replaced by its author's new version: the solution is drawn four
+columns a square, with the column numbers above it, and the order in which the squares were
+made (the numbers beside the maze) is no longer printed (the lines are left in the program as
+comments). BASIC.BLK rebuilt (DEMO/AMAZING.BAS, FILES.TEXT). The program compiles; no
+regression tests were run. Emulator: any.
