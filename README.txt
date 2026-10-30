@@ -2304,3 +2304,17 @@ its least (3,499 before); BC's BCUTIL, BCTOK and BCDECL modules compile in Z80 m
 BCASM.CODE, SRC/BCGEN.BAS, BCEXPR.BAS, BCEMIT.BAS, BCASM.BAS, DESIGN.TEXT).  Checked with
 UCSD-BASIC's runtests, errtest, selfcompile (all nine identical), smalltest, chaintest and
 voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.
+
+BCLEX: CONSTANTS PUT IN AS NUMBERS; BASIC.BLK 6000 BLOCKS (BASIC)
+---------------------------------------------------------------------------
+BC's lexer now writes a module-level integer CONST's value where the module uses it, so the
+code generator makes no symbol for it (BC's own modules use 50 to 165 such constants: opcodes,
+tokens, keywords).  A use is the CONST's only if two independent hashes of the name and its
+base name's hash all match; not where a name is declared or assigned, nor after GOTO, GOSUB,
+RESTORE, RESUME or RETURN.  The code BC makes is the same.  BC's BCEMIT module now compiles
+itself in Z80 mode (with BCUTIL, BCTOK and BCDECL); BCEXPR and BCGEN still need more memory.
+BASIC.BLK is now 6000 blocks (4800 before): rebuilding the compiler with @BASIC:ALL had no room
+left for its eight new code files.  BASIC.BLK rebuilt (BCLEX.CODE, BCERR.CODE, SRC/BCLEX.BAS,
+BCKW.BAS, TEST/CONSTIN.BAS, DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest,
+selfcompile (all nine identical), smalltest, chaintest and voltest under SYSTEM.C and
+SYSTEM.PASCAL, crtest.  Emulator: any.

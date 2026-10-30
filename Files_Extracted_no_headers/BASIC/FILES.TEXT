@@ -3,7 +3,7 @@ BASIC: -- the BC BASIC compiler for the UCSD P-System
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
   BC.CODE                       35
-  BCLEX.CODE                    49
+  BCLEX.CODE                    51
   BCGEN.CODE                   103
   BCASM.CODE                    41
   BCLIST.CODE                   42
@@ -12,10 +12,10 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   BCDEBUG.CODE                  30
   README.TEXT                   16
   LANGUAGE.TEXT                 58
-  DESIGN.TEXT                   74
+  DESIGN.TEXT                   78
   ALL.TEXT                       4
   INSTALL.TEXT                   4
-  SRC/                        1388  (sub-volume)
+  SRC/                        1408  (sub-volume)
   SRC/BUILD.TEXT                 4
   SRC/BC.BAS                    18
   SRC/BCASM.BAS                 22
@@ -28,7 +28,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/BCGEN.BAS                 76
   SRC/BCGENCOM.BAS              10
   SRC/BCKW.BAS                  10
-  SRC/BCLEX.BAS                 42
+  SRC/BCLEX.BAS                 50
   SRC/BCLINK.BAS                46
   SRC/BCLIST.BAS                20
   SRC/BCPROCS.BAS               10
@@ -59,11 +59,12 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   DEMO/PRIMES.BAS                4
   DEMO/STATLIB.BAS               4
   DEMO/STATS.BAS                 4
-  TEST/                       1172  (sub-volume)
+  TEST/                       1230  (sub-volume)
   TEST/TESTS.TEXT                4
   TEST/ARITH.BAS                 4
   TEST/ARRAYS.BAS                4
   TEST/BITWISE.BAS               4
+  TEST/CONSTIN.BAS               4
   TEST/CONTROL.BAS               6
   TEST/DATA.BAS                  4
   TEST/DEEP.BAS                  6
@@ -79,10 +80,11 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   TEST/SEGS.BAS                  4
   TEST/STRINGS.BAS               4
   TEST/SUFFIX.BAS                4
-  TEST/EXPECT/                 118  (sub-volume)
+  TEST/EXPECT/                 122  (sub-volume)
   TEST/EXPECT/ARITH.TEXT         4
   TEST/EXPECT/ARRAYS.TEXT        4
   TEST/EXPECT/BITWISE.TEXT       4
+  TEST/EXPECT/CONSTIN.TEXT       4
   TEST/EXPECT/CONTROL.TEXT       4
   TEST/EXPECT/DATA.TEXT          4
   TEST/EXPECT/DEEP.TEXT          4
