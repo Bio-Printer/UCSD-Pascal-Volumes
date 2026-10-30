@@ -375,11 +375,14 @@ and OSCALL (FINIT, FOPEN, FCLOSE, FBLOCKIO).
   memory only then: OPEN and the file names it takes (RTFILE), the
   sub-volumes (RTSUBV), finding a code file for CHAIN (RTCHAIN's
   _CHLOOK), the command line at the start (_ARGS); BC's seldom parts too
-  (bcutil.bas, the exit code in bcemit.bas).  _ERRTEXT stays in the main one: an error for want of
-  memory still has its message.
-- A run-time error (_RTERR): its message; every file closed; the heap
-  given back (RELEASE to its start: memory for what follows, after "Out
-  of memory" too) and the string work area; then _RTWHERE (RTSELDOM)
+  (bcutil.bas, the exit code in bcemit.bas), and _RTINIT, KILL (_KILL)
+  and the run-time errors' texts (_ERRTEXT): _RTERR gives the heap back
+  before it says the message, so that an error for want of memory still
+  has room for RTSELDOM.
+- A run-time error (_RTERR): every file closed; the heap given back
+  (RELEASE to its start: memory for what follows, after "Out of memory"
+  too) and the string work area; its message (_ERRTEXT); then _RTWHERE
+  (RTSELDOM)
   follows the frames from
   _RTERR's own (its parameter's address less 12: the mark stack control
   word) out to the startup procedure's: for each, the caller's S# (the

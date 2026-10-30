@@ -2281,3 +2281,13 @@ compiling BC's BCEMIT module in Z80 mode it now has 1,141 words left at its leas
 before).  The code BC makes is the same.  BASIC.BLK rebuilt (BCLEX.CODE, SRC/BCLEX.BAS,
 DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest, selfcompile (all nine identical),
 smalltest, chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.
+
+LIBRARY: MORE IN RTSELDOM (BASIC)
+---------------------------------------------------------------------------
+The library's _RTINIT (the start), _KILL (KILL) and _ERRTEXT (the run-time errors' texts)
+are now in its seldom segment RTSELDOM; a run-time error gives the heap back before it says
+its message, so "Out of memory" still has room for it.  Every BASIC program's resident code
+is smaller: compiling PI in Z80 mode BCGEN has 3,499 words left at its least (3,062 before).
+BASIC.BLK rebuilt (the code files, LIB/RTCORE.BAS, LIB/RTFILE.BAS, BASLIB.OBJ, DESIGN.TEXT).
+Checked with UCSD-BASIC's runtests, errtest, selfcompile (all nine identical), smalltest,
+chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.

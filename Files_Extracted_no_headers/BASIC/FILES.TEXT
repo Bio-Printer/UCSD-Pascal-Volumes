@@ -3,9 +3,9 @@ BASIC: -- the BC BASIC compiler for the UCSD P-System
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
   BC.CODE                       35
-  BCLEX.CODE                    48
+  BCLEX.CODE                    49
   BCGEN.CODE                   102
-  BCASM.CODE                    42
+  BCASM.CODE                    41
   BCLIST.CODE                   42
   BCLINK.CODE                   50
   BCERR.CODE                    46
@@ -48,7 +48,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   LIB/RTSTR.BAS                 12
   LIB/RTSUBV.BAS                22
   LIB/RTWHERE.BAS               12
-  DEMO/                        566  (sub-volume)
+  DEMO/                        562  (sub-volume)
   DEMO/DEMOS.TEXT                4
   DEMO/AMAZING.BAS              20
   DEMO/GUESS.BAS                 4
@@ -59,7 +59,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   DEMO/PRIMES.BAS                4
   DEMO/STATLIB.BAS               4
   DEMO/STATS.BAS                 4
-  TEST/                       1186  (sub-volume)
+  TEST/                       1172  (sub-volume)
   TEST/TESTS.TEXT                4
   TEST/ARITH.BAS                 4
   TEST/ARRAYS.BAS                4
