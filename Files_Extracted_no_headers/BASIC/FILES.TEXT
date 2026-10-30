@@ -4,7 +4,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
   BC.CODE                       35
   BCLEX.CODE                    49
-  BCGEN.CODE                   102
+  BCGEN.CODE                   103
   BCASM.CODE                    41
   BCLIST.CODE                   42
   BCLINK.CODE                   50
@@ -12,7 +12,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   BCDEBUG.CODE                  30
   README.TEXT                   16
   LANGUAGE.TEXT                 58
-  DESIGN.TEXT                   72
+  DESIGN.TEXT                   74
   ALL.TEXT                       4
   INSTALL.TEXT                   4
   SRC/                        1388  (sub-volume)

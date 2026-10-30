@@ -2291,3 +2291,16 @@ is smaller: compiling PI in Z80 mode BCGEN has 3,499 words left at its least (3,
 BASIC.BLK rebuilt (the code files, LIB/RTCORE.BAS, LIB/RTFILE.BAS, BASLIB.OBJ, DESIGN.TEXT).
 Checked with UCSD-BASIC's runtests, errtest, selfcompile (all nine identical), smalltest,
 chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.
+
+BCGEN: SEGMENTS PLACED AGAIN (BASIC)
+---------------------------------------------------------------------------
+BCGEN's pass-3 segments were placed again from the call graph -- now counting the code in
+memory along every chain with the library's seldom segment (OPEN in pass 2), and how often
+each call is made compiling BC's own sources (a call into a segment not in memory reads it
+from the disk).  1,460 bytes less code in memory at the most and 29% fewer segment reads;
+BCASM now removes the token file.  Compiling PI in Z80 mode BCGEN has 4,203 words left at
+its least (3,499 before); BC's BCUTIL, BCTOK and BCDECL modules compile in Z80 mode with
+2,150 to 2,550 words left.  The code BC makes is the same.  BASIC.BLK rebuilt (BCGEN.CODE,
+BCASM.CODE, SRC/BCGEN.BAS, BCEXPR.BAS, BCEMIT.BAS, BCASM.BAS, DESIGN.TEXT).  Checked with
+UCSD-BASIC's runtests, errtest, selfcompile (all nine identical), smalltest, chaintest and
+voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.
