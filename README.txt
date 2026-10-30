@@ -2244,3 +2244,17 @@ rebuilt (VI.CODE, SRC/VI, MAN.TEXT).  Checked with UCSD-TinyC's vitest (also the
 Z80 mode, --build), viscreentest, vipagetest, vipostest, viswaptest, vicrtest, visubvoltest
 (both modes), viaddrtest, viscrolltest, mantest and quicktest; u against vim -C on Linux.
 Emulator: 2.04 or later (as before).
+
+BC'S TABLES LEAVE OUT WHAT A MODULE NEVER USES (BASIC)
+---------------------------------------------------------------------------
+Every module of BC includes BCCOM's and BCGENCOM's constants and BCPROCS's DECLAREs, most of
+which it never uses; BCGEN made a symbol for each.  Now BCLEX marks, at the end of the token
+file, each module-level CONST name and DECLARE whose name (with any suffix) appears nowhere
+else, and BCGEN makes no symbol for them; a DECLARE line's parameters and a procedure's use
+of a module-level name no longer count as names either.  The code is the same: every object
+of BC's sources, the library, the demos and the tests is byte for byte what it was.  Compiling
+BC's own modules in the Harvard layout leaves 1,800 (BCGEN) to 4,800 (BCEMIT) words more (a
+step towards BC compiling itself in Z80 mode, which still does not fit).  BASIC.BLK rebuilt
+(BCLEX.CODE, BCGEN.CODE, SRC/, DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest,
+selfcompile (all eight identical), smalltest, and voltest under SYSTEM.C and SYSTEM.PASCAL.
+Emulator: any.
