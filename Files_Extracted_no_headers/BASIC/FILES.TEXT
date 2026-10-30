@@ -3,7 +3,7 @@ BASIC: -- the BC BASIC compiler for the UCSD P-System
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
   BC.CODE                       35
-  BCLEX.CODE                    49
+  BCLEX.CODE                    48
   BCGEN.CODE                   102
   BCASM.CODE                    42
   BCLIST.CODE                   42

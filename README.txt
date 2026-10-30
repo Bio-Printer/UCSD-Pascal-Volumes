@@ -2273,3 +2273,11 @@ BCTOK, BCDECL); the larger ones still do not fit.  BASIC.BLK rebuilt (BCASM.CODE
 code files, SRC/ with BCASM.BAS, LIB/ with RTCHAIN.BAS and BASLIB.OBJ, the manuals).  Checked
 with UCSD-BASIC's runtests, errtest, selfcompile (all nine identical), smalltest, chaintest and
 voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.
+
+BCLEX: ONE NAME TABLE (BASIC)
+---------------------------------------------------------------------------
+BCLEX keeps one table of names (hashes) instead of two, and grows it 256 entries at a time:
+compiling BC's BCEMIT module in Z80 mode it now has 1,141 words left at its least (576
+before).  The code BC makes is the same.  BASIC.BLK rebuilt (BCLEX.CODE, SRC/BCLEX.BAS,
+DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest, selfcompile (all nine identical),
+smalltest, chaintest and voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.
