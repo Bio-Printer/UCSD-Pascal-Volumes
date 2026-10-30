@@ -2,41 +2,43 @@ BASIC: -- the BC BASIC compiler for the UCSD P-System
 
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
-  BC.CODE                       34
-  BCLEX.CODE                    48
-  BCGEN.CODE                   106
-  BCLIST.CODE                   41
+  BC.CODE                       35
+  BCLEX.CODE                    49
+  BCGEN.CODE                   102
+  BCASM.CODE                    42
+  BCLIST.CODE                   42
   BCLINK.CODE                   50
   BCERR.CODE                    46
   BCDEBUG.CODE                  30
   README.TEXT                   16
   LANGUAGE.TEXT                 58
-  DESIGN.TEXT                   64
+  DESIGN.TEXT                   72
   ALL.TEXT                       4
   INSTALL.TEXT                   4
-  SRC/                        1330  (sub-volume)
+  SRC/                        1388  (sub-volume)
   SRC/BUILD.TEXT                 4
-  SRC/BC.BAS                    16
+  SRC/BC.BAS                    18
+  SRC/BCASM.BAS                 22
   SRC/BCCOM.BAS                 12
   SRC/BCDEBUG.BAS               16
   SRC/BCDECL.BAS                20
-  SRC/BCEMIT.BAS                30
+  SRC/BCEMIT.BAS                24
   SRC/BCERR.BAS                 18
   SRC/BCEXPR.BAS                72
   SRC/BCGEN.BAS                 76
-  SRC/BCGENCOM.BAS               8
+  SRC/BCGENCOM.BAS              10
   SRC/BCKW.BAS                  10
-  SRC/BCLEX.BAS                 40
+  SRC/BCLEX.BAS                 42
   SRC/BCLINK.BAS                46
   SRC/BCLIST.BAS                20
   SRC/BCPROCS.BAS               10
   SRC/BCTOK.BAS                 12
   SRC/BCUTIL.BAS                20
-  LIB/                         679  (sub-volume)
-  LIB/BASLIB.OBJ                91
+  LIB/                         686  (sub-volume)
+  LIB/BASLIB.OBJ                92
   LIB/LIBS.TEXT                  4
   LIB/RTARR.BAS                 10
-  LIB/RTCHAIN.BAS               10
+  LIB/RTCHAIN.BAS               14
   LIB/RTCOM.BAS                 10
   LIB/RTCORE.BAS                32
   LIB/RTDATA.BAS                 6

@@ -2258,3 +2258,18 @@ step towards BC compiling itself in Z80 mode, which still does not fit).  BASIC.
 (BCLEX.CODE, BCGEN.CODE, SRC/, DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest,
 selfcompile (all eight identical), smalltest, and voltest under SYSTEM.C and SYSTEM.PASCAL.
 Emulator: any.
+
+BCASM, A FOURTH PASS: THE CODE OUT OF BCGEN; CHAIN WITHOUT A FILE OPENED (BASIC)
+---------------------------------------------------------------------------
+BC is now eight programs: BCGEN (pass 3) writes each procedure's code as records to the
+stream BCTEMP.ASM, and the new BCASM.CODE (pass 4) assembles them into the object file and the
+listing's records, byte for byte what BCGEN made in memory before; BCGEN no longer holds a
+procedure's code, labels, jumps, calls or lines.  BC's programs chain to each other without
+opening a file: the driver finds where each one starts on its volume and puts that into the job
+file, and the library's CHAIN (now a small segment of its own, RTCHAIN) runs it from there.
+BCLEX keeps its names as hashes.  So BC needs less memory: compiling PI in Z80 mode leaves BCGEN
+3,062 words (was 1,410), and in Z80 mode BC now compiles three of its own modules (BCUTIL,
+BCTOK, BCDECL); the larger ones still do not fit.  BASIC.BLK rebuilt (BCASM.CODE and the other
+code files, SRC/ with BCASM.BAS, LIB/ with RTCHAIN.BAS and BASLIB.OBJ, the manuals).  Checked
+with UCSD-BASIC's runtests, errtest, selfcompile (all nine identical), smalltest, chaintest and
+voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.
