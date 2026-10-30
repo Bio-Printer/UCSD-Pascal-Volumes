@@ -2318,3 +2318,16 @@ left for its eight new code files.  BASIC.BLK rebuilt (BCLEX.CODE, BCERR.CODE, S
 BCKW.BAS, TEST/CONSTIN.BAS, DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest,
 selfcompile (all nine identical), smalltest, chaintest and voltest under SYSTEM.C and
 SYSTEM.PASCAL, crtest.  Emulator: any.
+
+BCLEX: EVERY CONST IS THE LEXER'S (BASIC)
+---------------------------------------------------------------------------
+BC's lexer now reads every CONST statement itself and writes the constant's value wherever its
+name comes after (integer expressions of + - * \ MOD AND OR XOR NOT and parentheses; one real
+or string): the code generator no longer has CONSTs at all.  A CONST's name means only that
+constant in its module: declaring it again (a variable, parameter, procedure, label, another
+CONST), assigning it, using it after GOTO or GOSUB, or using it before its CONST is an error.
+The code BC makes is the same.  BC's BCEXPR module now compiles itself in Z80 mode as well
+(with BCUTIL, BCTOK, BCDECL and BCEMIT); only BCGEN does not yet.  BASIC.BLK rebuilt (the code
+files, SRC/, TEST/, LANGUAGE.TEXT, DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest,
+selfcompile (all nine identical), smalltest, chaintest and voltest under SYSTEM.C and
+SYSTEM.PASCAL, crtest.  Emulator: any.
