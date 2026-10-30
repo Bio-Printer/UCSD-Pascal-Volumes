@@ -2331,3 +2331,15 @@ The code BC makes is the same.  BC's BCEXPR module now compiles itself in Z80 mo
 files, SRC/, TEST/, LANGUAGE.TEXT, DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest,
 selfcompile (all nine identical), smalltest, chaintest and voltest under SYSTEM.C and
 SYSTEM.PASCAL, crtest.  Emulator: any.
+
+BCGEN: BCGEN.BAS AND BCEXPR.BAS SPLIT; EVERY MODULE COMPILES IN Z80 MODE (BASIC)
+---------------------------------------------------------------------------
+BC's two largest code-generator modules are each split in two by what their procedures use:
+bcgen.bas (the pass, procedures, blocks, labels) and the new bcstmt.bas (the statements),
+bcexpr.bas (parsing) and the new bcexgen.bas (an expression's code), with bcbuilt.bas (the
+built-in functions' codes) included by both.  The code BC makes is the same.  In Z80 mode BC
+now compiles every one of its 16 modules (1,000 to 3,850 words to spare); linking its programs
+in Z80 mode does not fit yet.  BASIC.BLK rebuilt (BCGEN.CODE, SRC/ with BCSTMT.BAS, BCEXGEN.BAS
+and BCBUILT.BAS, DESIGN.TEXT; BUILD compiles the two new modules).  Checked with UCSD-BASIC's
+runtests, errtest, selfcompile (all nine identical), smalltest, chaintest and voltest under
+SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.

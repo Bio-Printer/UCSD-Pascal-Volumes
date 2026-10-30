@@ -12,26 +12,29 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   BCDEBUG.CODE                  30
   README.TEXT                   16
   LANGUAGE.TEXT                 58
-  DESIGN.TEXT                   76
+  DESIGN.TEXT                   78
   ALL.TEXT                       4
   INSTALL.TEXT                   4
-  SRC/                        1412  (sub-volume)
-  SRC/BUILD.TEXT                 4
+  SRC/                        1446  (sub-volume)
+  SRC/BUILD.TEXT                 6
   SRC/BC.BAS                    18
   SRC/BCASM.BAS                 22
+  SRC/BCBUILT.BAS                4
   SRC/BCCOM.BAS                 12
   SRC/BCDEBUG.BAS               16
   SRC/BCDECL.BAS                20
   SRC/BCEMIT.BAS                24
   SRC/BCERR.BAS                 18
-  SRC/BCEXPR.BAS                70
-  SRC/BCGEN.BAS                 74
+  SRC/BCEXGEN.BAS               28
+  SRC/BCEXPR.BAS                44
+  SRC/BCGEN.BAS                 26
   SRC/BCGENCOM.BAS              10
   SRC/BCKW.BAS                  10
   SRC/BCLEX.BAS                 56
   SRC/BCLINK.BAS                46
   SRC/BCLIST.BAS                20
   SRC/BCPROCS.BAS               10
+  SRC/BCSTMT.BAS                52
   SRC/BCTOK.BAS                 12
   SRC/BCUTIL.BAS                20
   LIB/                         686  (sub-volume)
