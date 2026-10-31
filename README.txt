@@ -2343,3 +2343,16 @@ in Z80 mode does not fit yet.  BASIC.BLK rebuilt (BCGEN.CODE, SRC/ with BCSTMT.B
 and BCBUILT.BAS, DESIGN.TEXT; BUILD compiles the two new modules).  Checked with UCSD-BASIC's
 runtests, errtest, selfcompile (all nine identical), smalltest, chaintest and voltest under
 SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.
+
+BCLINK: BC BUILDS ITSELF IN Z80 MODE (BASIC)
+---------------------------------------------------------------------------
+BC's linker now keeps names as two hashes instead of strings, writes each procedure's
+references to a temporary file (:BCTEMP.LNK) instead of keeping them in memory, sizes its
+tables so BC's own programs never grow them, and keeps its once-only phases in segments of
+their own.  With that BC's eight programs link in Z80 mode (1,072 to 2,373 words to spare),
+and BC rebuilds itself completely in Z80 mode -- every module compiled, every program and
+the library linked, each byte for byte the host's.  The code files the linker makes are the
+same.  BASIC.BLK rebuilt (BCLINK.CODE and the other code files, SRC/BCLINK.BAS,
+SRC/BCUTIL.BAS, DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest, selfcompile (all
+nine identical; and in Z80 mode), smalltest, chaintest and voltest under SYSTEM.C and
+SYSTEM.PASCAL, crtest.  Emulator: any.
