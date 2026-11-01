@@ -2356,3 +2356,14 @@ same.  BASIC.BLK rebuilt (BCLINK.CODE and the other code files, SRC/BCLINK.BAS,
 SRC/BCUTIL.BAS, DESIGN.TEXT).  Checked with UCSD-BASIC's runtests, errtest, selfcompile (all
 nine identical; and in Z80 mode), smalltest, chaintest and voltest under SYSTEM.C and
 SYSTEM.PASCAL, crtest.  Emulator: any.
+
+BC'S OWN MAPS ON THE VOLUME; -MAP PER BATCH FILE (BASIC)
+---------------------------------------------------------------------------
+BASIC.BLK (now 8000 blocks) has the compiler's maps, BC.MAP ... BCDEBUG.MAP, beside its code
+files, so a run-time error inside BC itself says its source line (in Z80 mode too).
+BASIC:/SRC/BUILD links with -MAP and BASIC:INSTALL moves the new maps along with the new code
+files.  -MAP in a batch file now applies only to that file's links (and the batch files it
+names): before, it applied to the whole job, so @BASIC:ALL also mapped every demo and test, and
+the TEST sub-volume reached the 77 files a UCSD directory holds (Run-time error 53).  Checked
+with UCSD-BASIC's runtests, errtest, selfcompile (all nine identical), smalltest, chaintest and
+voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.

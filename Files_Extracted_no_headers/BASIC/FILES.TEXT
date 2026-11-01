@@ -10,8 +10,16 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   BCLINK.CODE                   55
   BCERR.CODE                    46
   BCDEBUG.CODE                  30
+  BC.MAP                        24
+  BCLEX.MAP                     45
+  BCGEN.MAP                    122
+  BCASM.MAP                     31
+  BCLIST.MAP                    28
+  BCLINK.MAP                    40
+  BCERR.MAP                     28
+  BCDEBUG.MAP                   16
   README.TEXT                   16
-  LANGUAGE.TEXT                 58
+  LANGUAGE.TEXT                 60
   DESIGN.TEXT                   80
   ALL.TEXT                       4
   INSTALL.TEXT                   4
@@ -103,4 +111,4 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   TEST/EXPECT/SEGS.TEXT          4
   TEST/EXPECT/STRINGS.TEXT       4
   TEST/EXPECT/SUFFIX.TEXT        4
-  FILES.TEXT                    10
+  FILES.TEXT                    12

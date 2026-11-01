@@ -1,5 +1,7 @@
 ' the compiler: its modules, linked into its 8 programs BASIC:BC2.CODE,
-' BCLEX2, BCGEN2, BCASM2, BCLIST2, BCLINK2, BCERR2, BCDEBUG2 (the first module of each its main one)
+' BCLEX2, BCGEN2, BCASM2, BCLIST2, BCLINK2, BCERR2, BCDEBUG2 (the first module of each its main one), each with its
+' map (-MAP, this file's links: a run-time error in BC says its line)
+-MAP
 -C BASIC:/SRC/BC
 -C BASIC:/SRC/BCUTIL
 -C BASIC:/SRC/BCLEX
