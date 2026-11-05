@@ -2367,3 +2367,27 @@ names): before, it applied to the whole job, so @BASIC:ALL also mapped every dem
 the TEST sub-volume reached the 77 files a UCSD directory holds (Run-time error 53).  Checked
 with UCSD-BASIC's runtests, errtest, selfcompile (all nine identical), smalltest, chaintest and
 voltest under SYSTEM.C and SYSTEM.PASCAL, crtest.  Emulator: any.
+
+BASIC2.BLK: B2, THE SECOND BASIC COMPILER (NEW DISK, VOLUME BASIC2:)
+---------------------------------------------------------------------------
+A new disk, volume BASIC2: (9000 blocks), from the Rewrite branch of
+https://github.com/Bio-Printer/UCSD-BASIC: B2, a rewrite of BC's architecture.  It compiles the
+same language (and #DEFINE, #UNDEF, #IFDEF, #IFNDEF, #ELSE, #ENDIF; B2 -D NAME,NAME defines
+names for the compiles after it) into the same code files, with the same run-time library,
+run-time error messages and batch files, but in many small passes, each a program of its own
+with all of memory for its tables: B2 (the driver), B2LEX (the characters, #INCLUDE, #IFDEF),
+B2CONST (the CONSTs, the header's counts), B2SYN (the statements' syntax), B2DECL, B2NAME (every
+name resolved: no later pass has a symbol table), B2EXPR, B2CTL (IF, FOR, DO, SELECT ...), B2STMT
+(PRINT, INPUT, OPEN ...), B2ASM (the object file), B2LIST, B2LINK, B2ERR, B2DEBUG.  Each pass
+reads the file the one before wrote and writes the next; its tables are as large as counts in
+that file's header say (nothing grows); -K keeps the files (NAME.W0 ... NAME.W7, each BASIC line
+in it above what it has become).  The volume is laid out as BASIC: is: B2.CODE ... B2DEBUG.CODE
+and their maps at the top, README.TEXT, LANGUAGE.TEXT, B2DESIGN.TEXT, DESIGN.TEXT, ALL.TEXT,
+INSTALL.TEXT; SRC/ B2's sources (@BASIC2:/SRC/BUILD rebuilds it as BASIC2:B22.CODE,
+B2LEX2.CODE ...), LIB/ the library compiled by B2 (a run-time error runs B2DEBUG, looked for on
+BASIC2:), DEMO/, TEST/.  The programs are named B2*, so BASIC: and BASIC2: can be mounted
+together.  Checked with UCSD-BASIC's runtests --b2 (22 of 22), b2self (B2 and its library rebuilt
+on the P-System: all 14 identical) and voltest2 (@BASIC2:ALL: every program, map and the
+library the host's; every demo and test compiled; STATS, PI and PROCS run; @BASIC2:INSTALL, and
+the new B2 compiles and runs DEMO/HELLO).  Emulator: the Harvard layout; Z80 mode is being
+worked on (B2's own modules compile there).
