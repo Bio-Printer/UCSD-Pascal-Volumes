@@ -2405,3 +2405,12 @@ QuickBASIC's format (# . , + - $$ ** **$ ^^^^, ! & \  \, _).  The library's new 
 LANGUAGE.TEXT says it all.  BASIC2.BLK rebuilt (the code files, SRC/, LIB/, TEST/ with LENGTHS and
 USING).  Checked with UCSD-BASIC's runtests --b2 (24 of 24), b2self, crossb2, errtest --b2 and
 voltest2.  Emulator: any.
+
+BASIC2: Z80 MODE WITH LENGTH STRINGS (BASIC2)
+---------------------------------------------------------------------------
+B2 with LENGTH strings and PRINT USING rebuilds itself in Z80 mode again: b2self in Z80 mode,
+BASLIB and all 15 programs identical.  The symbol tables' lengths are a sparse list (only what
+has a LENGTH), B2NAME opens its files before it loads its symbols, and the driver deletes the
+intermediate files.  The least free memory: 1,805 words compiling B2's largest modules, 954
+linking.  B2DESIGN.TEXT section 8 has the figures.  BASIC2.BLK rebuilt; checked with voltest2.
+Emulator: any.

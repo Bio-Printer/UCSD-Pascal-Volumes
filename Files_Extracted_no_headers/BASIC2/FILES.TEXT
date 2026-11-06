@@ -6,8 +6,8 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   B2LEX.CODE                    47
   B2CONST.CODE                  51
   B2SYN.CODE                    54
-  B2DECL.CODE                   47
-  B2NAME.CODE                   64
+  B2DECL.CODE                   48
+  B2NAME.CODE                   65
   B2EXPR.CODE                   73
   B2CTL.CODE                    52
   B2STMT.CODE                   52
@@ -21,8 +21,8 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   B2LEX.MAP                     21
   B2CONST.MAP                   26
   B2SYN.MAP                     38
-  B2DECL.MAP                    24
-  B2NAME.MAP                    40
+  B2DECL.MAP                    25
+  B2NAME.MAP                    41
   B2EXPR.MAP                    55
   B2CTL.MAP                     30
   B2STMT.MAP                    31
@@ -34,11 +34,11 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   B2DUMP.MAP                    16
   README.TEXT                    8
   LANGUAGE.TEXT                 64
-  B2DESIGN.TEXT                 26
+  B2DESIGN.TEXT                 28
   DESIGN.TEXT                   82
   ALL.TEXT                       4
   INSTALL.TEXT                   6
-  SRC/                        1780  (sub-volume)
+  SRC/                        1800  (sub-volume)
   SRC/BUILD.TEXT                 6
   SRC/B2.BAS                    18
   SRC/B2ASM.BAS                 30
@@ -57,14 +57,14 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/B2LEX.BAS                 30
   SRC/B2LINK.BAS                52
   SRC/B2LIST.BAS                20
-  SRC/B2NAME.BAS                40
+  SRC/B2NAME.BAS                42
   SRC/B2NODE.BAS                 4
   SRC/B2OPS.BAS                  4
-  SRC/B2PROCS.BAS                8
+  SRC/B2PROCS.BAS               10
   SRC/B2REC.BAS                 12
   SRC/B2STMT.BAS                28
   SRC/B2SYM.BAS                  4
-  SRC/B2SYMT.BAS                22
+  SRC/B2SYMT.BAS                26
   SRC/B2SYN.BAS                 48
   SRC/B2UTIL.BAS                22
   LIB/                         751  (sub-volume)
