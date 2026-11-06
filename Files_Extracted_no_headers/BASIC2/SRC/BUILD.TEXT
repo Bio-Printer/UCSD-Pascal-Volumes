@@ -1,6 +1,6 @@
 ' B2: its modules, linked into its 15 programs BASIC2:B22.CODE,
 ' B2LEX2, B2CONST2, B2SYN2, B2DECL2, B2NAME2, B2EXPR2, B2CTL2, B2STMT2, B2ASM2, B2LIST2, B2LINK2, B2ERR2, B2DEBUG2, B2DUMP2 (the first module of each its main one), each with its
-' map (-MAP, this file's links: a run-time error in B2 says its line)
+' map in BASIC2:/MAP (-MAP, this file's links: a run-time error in B2 says its line)
 -MAP
 -C BASIC2:/SRC/B2
 -C BASIC2:/SRC/B2UTIL

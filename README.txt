@@ -2414,3 +2414,17 @@ has a LENGTH), B2NAME opens its files before it loads its symbols, and the drive
 intermediate files.  The least free memory: 1,805 words compiling B2's largest modules, 954
 linking.  B2DESIGN.TEXT section 8 has the figures.  BASIC2.BLK rebuilt; checked with voltest2.
 Emulator: any.
+
+BASIC2: THE MAP SUB-VOLUME (BASIC2)
+---------------------------------------------------------------------------
+B2 -K's files (NAME.W0 ... NAME.W7, each pass's) and -MAP's NAME.MAP now go into the sub-volume
+BASIC2:/MAP (1600 blocks), not beside the program; without it, beside the source as before.
+Each names the source's path with its volume's name (WORK:/A/PROG.BAS, not #5: or the prefix):
+the W files in their header, the object file in a record of its own (left out of a library),
+the map in a MODULE line for each module with its source and object file.  B2DEBUG reads its
+map from BASIC2:/MAP and finds a source line by the map's paths; B2DUMP NAME.W5 finds the file
+there.  B2's own maps are in MAP/ too; INSTALL moves BUILD's there.  In the shell, TYPE
+BASIC2:/MAP/NAME.MAP shows a map; B2DUMP NAME.Wn writes NAME.Dn beside it (README.TEXT has a
+table of what each file holds).  The volume is 10000 blocks.  Checked with UCSD-BASIC's
+runtests --b2, errtest --b2, b2self, crossb2 and voltest2 (which runs B2 -K -MAP, B2DUMP and
+B2DEBUG there).  Emulator: any.

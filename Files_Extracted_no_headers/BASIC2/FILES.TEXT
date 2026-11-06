@@ -3,59 +3,60 @@ BASIC2: -- B2, the second BASIC compiler for the UCSD P-System
 Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
   B2.CODE                       37
-  B2LEX.CODE                    47
-  B2CONST.CODE                  51
-  B2SYN.CODE                    54
-  B2DECL.CODE                   48
-  B2NAME.CODE                   65
-  B2EXPR.CODE                   73
-  B2CTL.CODE                    52
-  B2STMT.CODE                   52
-  B2ASM.CODE                    48
+  B2LEX.CODE                    49
+  B2CONST.CODE                  52
+  B2SYN.CODE                    55
+  B2DECL.CODE                   49
+  B2NAME.CODE                   66
+  B2EXPR.CODE                   74
+  B2CTL.CODE                    53
+  B2STMT.CODE                   53
+  B2ASM.CODE                    49
   B2LIST.CODE                   43
-  B2LINK.CODE                   56
-  B2ERR.CODE                    48
-  B2DEBUG.CODE                  31
-  B2DUMP.CODE                   43
-  B2.MAP                        12
-  B2LEX.MAP                     21
-  B2CONST.MAP                   26
-  B2SYN.MAP                     38
-  B2DECL.MAP                    25
-  B2NAME.MAP                    41
-  B2EXPR.MAP                    55
-  B2CTL.MAP                     30
-  B2STMT.MAP                    31
-  B2ASM.MAP                     24
-  B2LIST.MAP                    16
-  B2LINK.MAP                    26
-  B2ERR.MAP                     15
-  B2DEBUG.MAP                   10
-  B2DUMP.MAP                    16
-  README.TEXT                    8
+  B2LINK.CODE                   58
+  B2ERR.CODE                    49
+  B2DEBUG.CODE                  32
+  B2DUMP.CODE                   44
+  MAP/                        1600  (sub-volume)
+  MAP/B2.MAP                    13
+  MAP/B2LEX.MAP                 23
+  MAP/B2CONST.MAP               26
+  MAP/B2SYN.MAP                 39
+  MAP/B2DECL.MAP                26
+  MAP/B2NAME.MAP                42
+  MAP/B2EXPR.MAP                56
+  MAP/B2CTL.MAP                 31
+  MAP/B2STMT.MAP                31
+  MAP/B2ASM.MAP                 25
+  MAP/B2LIST.MAP                16
+  MAP/B2LINK.MAP                28
+  MAP/B2ERR.MAP                 16
+  MAP/B2DEBUG.MAP               11
+  MAP/B2DUMP.MAP                17
+  README.TEXT                   12
   LANGUAGE.TEXT                 64
-  B2DESIGN.TEXT                 28
+  B2DESIGN.TEXT                 30
   DESIGN.TEXT                   82
   ALL.TEXT                       4
   INSTALL.TEXT                   6
-  SRC/                        1800  (sub-volume)
+  SRC/                        1840  (sub-volume)
   SRC/BUILD.TEXT                 6
-  SRC/B2.BAS                    18
+  SRC/B2.BAS                    20
   SRC/B2ASM.BAS                 30
   SRC/B2BUILT.BAS                4
   SRC/B2COM.BAS                 12
   SRC/B2CONST.BAS               42
   SRC/B2CTL.BAS                 26
-  SRC/B2DEBUG.BAS               16
+  SRC/B2DEBUG.BAS               20
   SRC/B2DECL.BAS                14
-  SRC/B2DUMP.BAS                14
+  SRC/B2DUMP.BAS                16
   SRC/B2ERR.BAS                 20
   SRC/B2EXGEN.BAS               32
   SRC/B2EXPR.BAS                56
-  SRC/B2IO.BAS                  24
+  SRC/B2IO.BAS                  26
   SRC/B2KW.BAS                  10
   SRC/B2LEX.BAS                 30
-  SRC/B2LINK.BAS                52
+  SRC/B2LINK.BAS                54
   SRC/B2LIST.BAS                20
   SRC/B2NAME.BAS                42
   SRC/B2NODE.BAS                 4
@@ -66,8 +67,8 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/B2SYM.BAS                  4
   SRC/B2SYMT.BAS                26
   SRC/B2SYN.BAS                 48
-  SRC/B2UTIL.BAS                22
-  LIB/                         751  (sub-volume)
+  SRC/B2UTIL.BAS                26
+  LIB/                         755  (sub-volume)
   LIB/BASLIB.OBJ                99
   LIB/LIBS.TEXT                  4
   LIB/RTARR.BAS                 10
