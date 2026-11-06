@@ -2450,3 +2450,14 @@ code files and BASLIB.OBJ are rebuilt with it (the library also has B2's LENGTH 
 PRINT USING support, which BC's programs do not use).  Checked with UCSD-BASIC's runtests,
 errtest, selfcompile (nine IDENTICAL), voltest and voltest --pascal, smalltest, chaintest and
 crtest.  Emulator: any.
+
+BASIC2: INSTALL AND DUMPALL IN SRC; DUMPS IN MAP/D0 ... D7 (BASIC2)
+---------------------------------------------------------------------------
+BASIC2:/SRC now holds three batch files beside each other: BUILD (B2 rebuilt from its sources),
+INSTALL (moved there from BASIC2:INSTALL: in Tiny-C's shell, @BASIC2:/SRC/INSTALL puts the
+rebuilt programs and their maps in place) and DUMPALL (in the shell, after B2 -K -MAP
+@BASIC2:/SRC/BUILD, @BASIC2:/SRC/DUMPALL runs B2DUMP on all 140 NAME.Wn files).  B2DUMP's
+dumps go into new sub-volumes BASIC2:/MAP/D0 ... D7 (1900 blocks each), an old one replaced:
+TYPE BASIC2:/MAP/D5/B2KW.D5 shows one.  The volume is 32000 blocks.  Checked: the -K build,
+DUMPALL and INSTALL on the P-System, and voltest2.  Emulator: any (2.12's Export All copies the
+dumps to a Windows folder as text).
