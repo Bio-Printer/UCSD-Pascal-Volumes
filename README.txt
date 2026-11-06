@@ -2439,3 +2439,14 @@ each; a whole build is 140 files, 7900 blocks, more than one sub-volume's 77 fil
 B2DUMP NAME.W5 finds the file there.  The volume is 21000 blocks.  Checked with UCSD-BASIC's
 runtests (BC and --b2), errtest, selfcompile, b2self, crossb2, voltest2, and B2 -K -MAP
 @SRC/BUILD on the P-System to its end.  Emulator: any.
+
+BASIC: THE RUN-TIME LIBRARY'S DISK-FULL FIX (BASIC)
+---------------------------------------------------------------------------
+BASIC.BLK rebuilt with the run-time library's fix: a program whose file filled its disk (or
+its sub-volume) ended silently with exit status 0 -- the library closed every file before its
+message, the full file failed again as it closed, and the error routine, entered twice, ended
+the program at once.  Now it says "Run-time error 61: Disk full" and the exit status is 1.  BC's
+code files and BASLIB.OBJ are rebuilt with it (the library also has B2's LENGTH strings and
+PRINT USING support, which BC's programs do not use).  Checked with UCSD-BASIC's runtests,
+errtest, selfcompile (nine IDENTICAL), voltest and voltest --pascal, smalltest, chaintest and
+crtest.  Emulator: any.
