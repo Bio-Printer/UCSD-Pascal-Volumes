@@ -2428,3 +2428,14 @@ BASIC2:/MAP/NAME.MAP shows a map; B2DUMP NAME.Wn writes NAME.Dn beside it (READM
 table of what each file holds).  The volume is 10000 blocks.  Checked with UCSD-BASIC's
 runtests --b2, errtest --b2, b2self, crossb2 and voltest2 (which runs B2 -K -MAP, B2DUMP and
 B2DEBUG there).  Emulator: any.
+
+BASIC2: -K FOR A WHOLE BUILD; DISK FULL REPORTED (BASIC2)
+---------------------------------------------------------------------------
+B2 -K -MAP @SRC/BUILD stopped at B2CONST without a word: BASIC2:/MAP was full, and the run-time
+library ended the program silently (the file that filled the disk failed again as the error
+closed the files; exit status 0).  Now a full disk says "Run-time error 61: Disk full" (exit
+status 1), and -K's files go into one sub-volume a pass, BASIC2:/MAP/W0 ... W7 (1500 blocks
+each; a whole build is 140 files, 7900 blocks, more than one sub-volume's 77 files hold).
+B2DUMP NAME.W5 finds the file there.  The volume is 21000 blocks.  Checked with UCSD-BASIC's
+runtests (BC and --b2), errtest, selfcompile, b2self, crossb2, voltest2, and B2 -K -MAP
+@SRC/BUILD on the P-System to its end.  Emulator: any.
