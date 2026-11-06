@@ -2461,3 +2461,11 @@ dumps go into new sub-volumes BASIC2:/MAP/D0 ... D7 (1900 blocks each), an old o
 TYPE BASIC2:/MAP/D5/B2KW.D5 shows one.  The volume is 32000 blocks.  Checked: the -K build,
 DUMPALL and INSTALL on the P-System, and voltest2.  Emulator: any (2.12's Export All copies the
 dumps to a Windows folder as text).
+
+BASIC2: B2DUMP'S DUMPS BESIDE THE SOURCE; -MAP FOR BASIC2:/MAP (BASIC2)
+---------------------------------------------------------------------------
+B2DUMP NAME.Wn now writes NAME.Dn beside the module's source (the path the W file records:
+BASIC2:/TEST/RTERR.W5's dump is BASIC2:/TEST/RTERR.D5; beside the W file when the source is not
+on line).  B2DUMP -MAP NAME.Wn puts it into BASIC2:/MAP/Dn as before; BASIC2:/SRC/DUMPALL uses
+-MAP for a whole build's 140 dumps.  Checked: the -K build, DUMPALL and INSTALL on the
+P-System, and voltest2 (both places).  Emulator: any.

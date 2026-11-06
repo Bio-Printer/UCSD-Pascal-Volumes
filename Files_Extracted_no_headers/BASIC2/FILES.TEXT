@@ -16,7 +16,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   B2LINK.CODE                   58
   B2ERR.CODE                    49
   B2DEBUG.CODE                  32
-  B2DUMP.CODE                   45
+  B2DUMP.CODE                   46
   MAP/                       25200  (sub-volume)
   MAP/B2.MAP                    13
   MAP/B2LEX.MAP                 23
@@ -47,14 +47,14 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   MAP/D5/                     1900  (sub-volume)
   MAP/D6/                     1900  (sub-volume)
   MAP/D7/                     1900  (sub-volume)
-  README.TEXT                   14
+  README.TEXT                   16
   LANGUAGE.TEXT                 64
   B2DESIGN.TEXT                 30
   DESIGN.TEXT                   82
   ALL.TEXT                       4
-  SRC/                        1864  (sub-volume)
+  SRC/                        1870  (sub-volume)
   SRC/INSTALL.TEXT               6
-  SRC/DUMPALL.TEXT              14
+  SRC/DUMPALL.TEXT              16
   SRC/BUILD.TEXT                 6
   SRC/B2.BAS                    20
   SRC/B2ASM.BAS                 30
@@ -64,7 +64,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/B2CTL.BAS                 26
   SRC/B2DEBUG.BAS               20
   SRC/B2DECL.BAS                14
-  SRC/B2DUMP.BAS                16
+  SRC/B2DUMP.BAS                18
   SRC/B2ERR.BAS                 20
   SRC/B2EXGEN.BAS               32
   SRC/B2EXPR.BAS                56
