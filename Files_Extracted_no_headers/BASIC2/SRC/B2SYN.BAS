@@ -527,8 +527,8 @@ SUB SInput (k)
     LOOP
 END SUB
 
-' PRINT [#n,] items: [RX XCHAN], then RX XANY e RXE, TSEMI, TCOMMA, RMARK
-' MTAB / MSPC RX TYINT e RXE
+' PRINT [#n,] [USING f$;] items: [RMARK MCHAN, RX XCHAN], [RMARK MUSING, RX
+' TYSTR f RXE], then RX XANY e RXE, TSEMI, TCOMMA, RMARK MTAB / MSPC RX TYINT e RXE
 SUB SPrint ()
     GetTok
     Stm KPRINT
@@ -537,9 +537,12 @@ SUB SPrint ()
         IF Tok = TCOMMA OR Tok = TSEMI THEN GetTok ELSE ErrNo 53   ' , expected
     END IF
     IF Tok = KUSING THEN
-        ErrNo 54   ' PRINT USING is not supported
-        SkipStmt
-        EXIT SUB
+        ' USING f$; items: RMARK MUSING, RX TYSTR f RXE
+        GetTok
+        WB RMARK
+        WB MUSING
+        SExpr TYSTR
+        IF Tok = TSEMI OR Tok = TCOMMA THEN GetTok ELSE ErrRec 1, TSEMI, Tok, ""   ' ; expected, not {t}
     END IF
     DO WHILE NOT AtEnd
         IF Tok = TSEMI OR Tok = TCOMMA THEN
@@ -667,7 +670,7 @@ END SUB
 
 ' DIM / REDIM [SHARED] [PRESERVE] items: TINT shared, TINT preserve, then
 ' each: TIDENT name, TINT n (-1: no ( ), RX TYINT bound RXE * n, [KAS
-' type keyword]
+' type keyword] [TIDENT LENGTH, TINT n]
 SUB SDim (k)
     DIM sh, pr, n
     GetTok
@@ -726,6 +729,15 @@ SUB SDim (k)
             GetTok
             PutRec
             GetTok
+        END IF
+        ' (a string's LENGTH n)
+        IF Tok = TIDENT THEN
+            IF TokS$ = "LENGTH" THEN
+                PutRec
+                GetTok
+                PutRec
+                GetTok
+            END IF
         END IF
         IF Tok <> TCOMMA THEN EXIT DO
         GetTok
@@ -960,10 +972,10 @@ SUB SEnd ()
     SELECT CASE Tok
     CASE KIF
         GetTok
-        IF PopBk(KIF, KEND) THEN Stm SENDIF
+        IF PopBk(KIF, TMEND + KIF) THEN Stm SENDIF
     CASE KSELECT
         GetTok
-        IF PopBk(KSELECT, KEND) THEN Stm SENDSEL
+        IF PopBk(KSELECT, TMEND + KSELECT) THEN Stm SENDSEL
     CASE KSUB, KFUNCTION
         ' (the procedure open is ended, whatever its kind)
         k = Tok
@@ -971,7 +983,7 @@ SUB SEnd ()
         p = FindBk(KSUB)
         IF FindBk(KFUNCTION) > p THEN p = FindBk(KFUNCTION)
         IF p = 0 THEN
-            ErrRec 82, 0, KEND, ""   ' {t} without its block
+            ErrRec 82, 0, TMEND + k, ""   ' {t} without its block
         ELSE
             DO WHILE NBk > p
                 BkMissing BkKind(NBk)

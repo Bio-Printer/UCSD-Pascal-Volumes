@@ -5,13 +5,13 @@ BASIC  (volume BASIC, 26 files)
     TEST/  (a sub-volume, 1230 blocks, 21 files)
         EXPECT/  (a sub-volume, 122 blocks, 19 files)
     105 files extracted, 88 text files decoded
-BASIC2  (volume BASIC2, 39 files)
-    SRC/  (a sub-volume, 1694 blocks, 27 files)
-    LIB/  (a sub-volume, 648 blocks, 13 files)
-    DEMO/  (a sub-volume, 560 blocks, 10 files)
-    TEST/  (a sub-volume, 1278 blocks, 22 files)
-        EXPECT/  (a sub-volume, 126 blocks, 20 files)
-    126 files extracted, 97 text files decoded
+BASIC2  (volume BASIC2, 41 files)
+    SRC/  (a sub-volume, 1780 blocks, 28 files)
+    LIB/  (a sub-volume, 751 blocks, 14 files)
+    DEMO/  (a sub-volume, 572 blocks, 10 files)
+    TEST/  (a sub-volume, 1470 blocks, 24 files)
+        EXPECT/  (a sub-volume, 134 blocks, 22 files)
+    134 files extracted, 103 text files decoded
 Big_Disk  (volume BIGGY, 37 files)
     ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
     37 files extracted, 6 text files decoded

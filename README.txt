@@ -2389,5 +2389,19 @@ BASIC2:), DEMO/, TEST/.  The programs are named B2*, so BASIC: and BASIC2: can b
 together.  Checked with UCSD-BASIC's runtests --b2 (22 of 22), b2self (B2 and its library rebuilt
 on the P-System: all 14 identical) and voltest2 (@BASIC2:ALL: every program, map and the
 library the host's; every demo and test compiled; STATS, PI and PROCS run; @BASIC2:INSTALL, and
-the new B2 compiles and runs DEMO/HELLO).  Emulator: the Harvard layout; Z80 mode is being
-worked on (B2's own modules compile there).
+the new B2 compiles and runs DEMO/HELLO).  Emulator: any -- B2 rebuilds itself completely in
+Z80 mode too (b2self: all identical; every pass with 3,700 words or more to spare).
+
+BASIC2: LENGTH STRINGS, PRINT USING, USING$ (BASIC2)
+---------------------------------------------------------------------------
+B2's language has two more things.  LENGTH: DIM name AS STRING LENGTH 20, line$ LENGTH 4096, an
+array DIM t(500) AS STRING LENGTH 8 (its strings held in the array itself, no block of their own:
+the memory it saves), and in SHARED, COMMON, STATIC and parameters (SUB s (t AS STRING LENGTH 3,
+v() AS STRING LENGTH 8)); a longer value assigned keeps its first n characters.  A string may now
+be up to 32000 characters long (a length byte 255 and a word after it): every string function,
+operator and statement takes strings of any length mixed; the long temporaries are on the heap,
+given back after their statement.  PRINT [#n,] USING format$; items and USING$(format$, items):
+QuickBASIC's format (# . , + - $$ ** **$ ^^^^, ! & \  \, _).  The library's new module RTUSING;
+LANGUAGE.TEXT says it all.  BASIC2.BLK rebuilt (the code files, SRC/, LIB/, TEST/ with LENGTHS and
+USING).  Checked with UCSD-BASIC's runtests --b2 (24 of 24), b2self, crossb2, errtest --b2 and
+voltest2.  Emulator: any.
