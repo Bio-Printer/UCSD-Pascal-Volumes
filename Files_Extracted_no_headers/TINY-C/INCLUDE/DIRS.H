@@ -62,6 +62,22 @@ int __svclose(FILE *f);                 /* the same, with a 2 KB directory of it
 #pragma segment MAIN
 int __svname(char *name);               /* (stdio) a path into a sub-volume, or a name on the shell's path */
 
+/* ftime.c, a code segment of its own (FTIME): files' dates and times of day.  An
+   entry's date is word 12 (a DATEREC; years 00-69 the 2000s, 70-99 the 1900s); its
+   time (the 1.16 systems, emulator 2.13): seconds since midnight + 1 (0: none), the
+   low 11 bits in word 2's bits 4..14, the high 6 in word 11's bits 10..15 --
+   DLASTBYTE is word 11's low 10 bits (ENTLASTBYTE) */
+#define ENTLASTBYTE(e) ((e)[11] & 1023)
+#pragma segment FTIME
+long entstamp(int *e);                  /* entry e's time of day (0: none) */
+void setentstamp(int *e, long s);
+int pcnow(int *date, long *stamp);      /* the PC's date and time; 0 when its clock is off */
+int today(void);                        /* the PC's date, else the boot disk's */
+unsigned long datesecs(int date, long stamp);   /* seconds since 1970-01-01 + 1 (0: no date) */
+unsigned long filetime(char *path);     /* a file's datesecs (1: undated); 0: no such file */
+int setfiletime(char *path, int date, long stamp);  /* 0: no such file, or not written */
+#pragma segment MAIN
+
 /* fileargs.c: a FILE argument as it is, or each file its wild cards match (*.C,
    #5:*.TEXT, A/*.H): fn(name) for each; the largest result, 1 none matched
    (said on stderr as "prog: ..."), 2 no memory; fn NULL: how many files arg names */

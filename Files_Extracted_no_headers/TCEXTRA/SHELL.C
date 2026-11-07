@@ -501,13 +501,18 @@ int issub(int u, int base, int *dir, int i)
         && blk[7] <= e[1] - e[0] && blk[8] >= 0 && blk[8] <= MAXDIR;
 }
 
-/* entry i: name, blocks, date, (ext: first block, bytes in the last block,) kind
+/* the time of day column: 1 in a DIR whose files have times (blank for one without),
+   0 none, -1 (WHEREIS) for each file that has one */
+int dirtime;
+
+/* entry i: name, blocks, date, (time,) (ext: first block, bytes in the last block,) kind
    (sub: "Sub-volume") */
 void fileline(int *dir, int i, int ext, int sub)
 {
     char name[16];
     int *e;
     int m;
+    long t;
     e = dir + 13 * i;
     direntname(dir, i, name);
     m = e[12] & 15;
@@ -516,8 +521,13 @@ void fileline(int *dir, int i, int ext, int sub)
         printf("         ");
     else
         printf("%2d-%s-%02d", (e[12] >> 4) & 31, months[m <= 12 ? m : 0], (e[12] >> 9) & 127);
+    t = entstamp(e) - 1;                /* the time of day (the 1.16 systems): -1 none */
+    if (dirtime > 0 && t < 0)
+        printf("         ");
+    else if (dirtime && t >= 0)
+        printf(" %02ld:%02ld:%02ld", t / 3600, t / 60 % 60, t % 60);
     if (ext)
-        printf("  %5d  %4d", e[0], e[11]);
+        printf("  %5d  %4d", e[0], ENTLASTBYTE(e));
     printf("  %s\n", sub ? "Sub-volume" : kinds[e[2] & 7]);
 }
 
@@ -587,8 +597,14 @@ void dir(char *arg)
     nf = dir[8];
     printf("%s (#%d)\n", vol, u);
     lines = 1;
+    dirtime = 0;                        /* a time column when a file shown has a time */
+    for (i = 1; i <= nf && !dirtime; i++) {
+        direntname(dir, i, name);
+        if ((!*pat || wildmatch(pat, name)) && entstamp(dir + 13 * i) != 0)
+            dirtime = 1;
+    }
     if (ext) {
-        printf("File            Blocks  Date       Start  Last  Kind\n");
+        printf("File            Blocks  Date     %s  Start  Last  Kind\n", dirtime ? " Time    " : "");
         lines++;
     }
     n = 0;                              /* the files to show, in turn */
@@ -644,6 +660,7 @@ int wherein(int u, int base, char *where, char *pat, int *dir, int *here, int *l
         if (*pat && !wildmatch(pat, sub))
             continue;
         printf("#%-2d %-8s ", u, where);
+        dirtime = -1;
         fileline(dir, i, 0, 0);
         ++*here;
         if (!more(lines))
@@ -1308,7 +1325,8 @@ int onpath(char *name)
    as if it were typed; an empty line, or one that starts with ', is a comment, and a line
    @OTHER runs OTHER's lines there (4 deep at most).  Each batch file's name (with its volume,
    or its path) and the lines of it done are in #4:SYSTEM.BATCH while a program runs: pexec
-   ends the shell.  A program that ends with an exit status other than 0 stops them all. */
+   ends the shell.  A program that ends with an exit status other than 0 stops them all -- but
+   for a line that starts with - (as MAKE's recipes may): its status is ignored. */
 
 #define BATCHFILE "#4:SYSTEM.BATCH"
 #define MAXBATCH 4
@@ -1316,6 +1334,7 @@ int onpath(char *name)
 char bname[MAXBATCH][80];
 int bline[MAXBATCH];
 int nbatch;
+int bignore;                            /* the batch line running started with -: its status does not stop them */
 
 void batch_save(void)
 {
@@ -1327,8 +1346,8 @@ void batch_save(void)
     f = fopen(BATCHFILE, "wb");
     if (!f)
         return;
-    for (i = 0; i < nbatch; i++)
-        fprintf(f, "%d %s\n", bline[i], bname[i]);
+    for (i = 0; i < nbatch; i++)        /* (the innermost's count negative: bignore) */
+        fprintf(f, "%d %s\n", bignore && i == nbatch - 1 ? -bline[i] : bline[i], bname[i]);
     fputc(0, f);
     fclose(f);
 }
@@ -1341,11 +1360,15 @@ void batch_load(void)
     char *p;
     int n;
     nbatch = 0;
+    bignore = 0;
     f = fopen(BATCHFILE, "rb");
     if (!f)
         return;
     while (nbatch < MAXBATCH && fgets(buf, sizeof buf, f) && buf[0] != 0) {
         bline[nbatch] = atoi(buf);
+        bignore = bline[nbatch] < 0;    /* (the last one's counts) */
+        if (bignore)
+            bline[nbatch] = -bline[nbatch];
         p = strchr(buf, ' ');
         if (!p)
             break;
@@ -1843,10 +1866,11 @@ int main(void)
         batch_load();
         if (pipe_load() <= 0)
             printf("[exit status %d]\n", pexec_status());
-        if (nbatch && pexec_status() != 0) {
+        if (nbatch && pexec_status() != 0 && !bignore) {
             printf("@: stopped: exit status %d\n", pexec_status());
             nbatch = 0;
         }
+        bignore = 0;
     }
     loadhist();
     for (;;) {
@@ -1859,10 +1883,12 @@ int main(void)
             printf("%s> %s\n", here, line);
             if (isbye(line))
                 return 0;
+            bignore = *line == '-';     /* -COMMAND: its exit status does not stop the batch */
             if (*line == '@')
                 batch_start(line + 1);
             else
-                runline(line);
+                runline(bignore ? line + 1 : line);
+            bignore = 0;
             continue;
         }
         where(line);

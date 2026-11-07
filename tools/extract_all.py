@@ -34,7 +34,7 @@ def live_entries(img):
     for i in range(1, n + 1):
         o = 1024 + 26 * i
         yield dict(first=w(img, o), last=w(img, o + 2), kind=w(img, o + 4) & 15,
-                   name=bytes(img[o + 7:o + 7 + img[o + 6]]).decode('latin1'), lastbyte=w(img, o + 22))
+                   name=bytes(img[o + 7:o + 7 + img[o + 6]]).decode('latin1'), lastbyte=w(img, o + 22) & 1023)   # (bits 10..15: the time, OS source 1.16)
 
 def decode_text(raw):
     """Strict decode; returns (bytes_with_crlf, anomalies)."""

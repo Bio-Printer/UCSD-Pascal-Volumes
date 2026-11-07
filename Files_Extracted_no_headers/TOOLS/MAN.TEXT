@@ -321,7 +321,8 @@ COMMANDS (upper or lower case)
     DIR [-E] [-S | -N] [VOL: | #n:][PATTERN]  files (* or = any characters,
                                ? any one); -E: first block, bytes in the last,
                                unused areas; -S by size (largest first), -N by
-                               name (else in the order of their blocks)
+                               name (else in the order of their blocks); the
+                               time of day when files have one (BIGGY 1.34)
     TYPE [VOL: | #n:]NAME      a text file on the console (wildcards: each one);
                                a data file of lines ending in CR (NAME.LST) too
     DELETE [VOL: | #n:]PAT     delete (with wildcards it lists them and asks, Y)
@@ -344,7 +345,8 @@ COMMANDS (upper or lower case)
                                if typed; empty lines and lines that start with
                                ' are comments; @OTHER in it runs OTHER there (4
                                deep); a program that ends with an exit status
-                               other than 0 stops it
+                               other than 0 stops it -- not on a line that
+                               starts with - (MAKE's recipes may)
     BYE                        back to the Command: prompt
 REDIRECTION AND PIPES
     COMMAND >FILE     what the command writes goes into FILE (.TEXT: a text file)
@@ -878,3 +880,103 @@ EXAMPLES
     CC A.C | TEE -a #5:LOG.TEXT
 SEE ALSO
     CAT, SHELL (redirection, pipes)
+
+%% MAKE
+NAME
+    MAKE - bring targets up to date from their prerequisites
+SYNOPSIS
+    MAKE [-f FILE] [-nqBsik] [NAME=VALUE ...] [TARGET ...]
+DESCRIPTION
+    Reads MAKEFILE.TEXT (or -f FILE) and makes each TARGET (or the first
+    one there), as make(1) does: a target is made when its file is not
+    there, when a prerequisite is newer (by the files' dates and times of
+    day, to the second), or when it is .PHONY.  Everything to be made is
+    decided first; a target to be made counts as newer than all, so what
+    depends on it is made too.  One program runs at a time here, so MAKE
+    does not run the recipes itself: it writes them into #4:MAKEn.TEXT and
+    the shell runs them after it ends, as a batch file (each shown as it
+    starts; one that fails stops them, unless it starts with -).  Run it
+    from the shell.  Files' times need the systems of OS source revision
+    1.16 (BIGGY 1.34) and emulator 2.13 with its PC date and time on; a
+    file without one is the start of its day.
+THE MAKEFILE
+    NAME = VALUE  := (expanded now)  += (added)  ?= (if not set)
+    TARGET ... : PREREQUISITE ... [; RECIPE]
+    <blank or tab>RECIPE       a shell command (# lines skipped)
+    %.OBJ : %.C                a pattern rule; .C.OBJ : the same
+    .PHONY : NAME ...          include FILE
+    ifeq (A,B) ifneq (A,B) ifdef NAME ifndef NAME else endif
+    # a comment -- but #5: is a unit;  \ at a line's end: it goes on
+    A rule's colon must be followed by a blank, ; or the end of the line:
+    TOOLS:VI.CODE : VI.OBJ is a target on TOOLS:.  Names compare without
+    regard to case.
+    $(NAME) ${NAME} $(NAME:.C=.OBJ); $@ the target, $< the first
+    prerequisite, $^ all, $? the newer ones, $* the stem; the functions
+    subst patsubst strip wildcard basename notdir dir suffix addprefix
+    addsuffix filter filter-out sort words firstword if.  comma and space
+    hold , and a blank; MAKE is MAKE, CC is CC.  Built in: %.OBJ from %.C
+    (CC -C $*) and %.CODE from %.C (CC $*).  A link of several objects:
+      PROG.CODE : A.OBJ B.OBJ
+              CC -L $(basename $@)=$(subst $(space),$(comma),$(basename $^))
+    A recipe's @ is taken off (the shell shows every line); a CD in one
+    stays for the lines after it; a line must fit the shell's 80
+    characters.
+OPTIONS
+    -f FILE    the makefile (FILE, or FILE.TEXT)
+    -n         the recipes shown, not run
+    -q         nothing run: exit status 0 when all is up to date, 1 if not
+    -B         every target made
+    -i         every recipe's errors ignored (as a - before each)
+    -s, -k     ignored
+    NAME=VALUE  a variable, over the makefile's
+EXAMPLES
+    MAKE                     MAKE -n             MAKE CLEAN
+    MAKE -f TOOLS.MK VI.CODE  MAKE CFLAGS=-Z      MAKE -q
+SEE ALSO
+    TOUCH, DATE, SHELL (batch files), CC
+
+%% TOUCH
+NAME
+    TOUCH - set files' dates and times of day (make missing ones)
+SYNOPSIS
+    TOUCH [-acm] [-d DATE | -t STAMP | -r FILE] FILE ...
+DESCRIPTION
+    Gives each FILE the date and time of day of now -- the PC's (emulator
+    2.13, PC date and time on) -- or the one given, as touch(1) does.  A
+    FILE that is not there is made, empty.  Without the clock: today's
+    date (the system's) and no time of day.  A FILE may have the wild
+    cards of DIR (* = ?) after VOL:, #n: or a path: every file that
+    matches.  Years 1970 to 2069.  DIR shows the time; MAKE uses it.
+OPTIONS
+    -c         a FILE that is not there is not made
+    -a, -m     ignored (a file has one date and time here)
+    -d DATE    YYYY-MM-DD, YYYY-MM-DDTHH:MM or YYYY-MM-DDTHH:MM:SS
+    -t STAMP   [[CC]YY]MMDDhhmm[.ss]
+    -r FILE    that file's date and time
+EXAMPLES
+    TOUCH A.C                TOUCH *.C
+    TOUCH -d 2026-11-07T12:00 B.OBJ        TOUCH -r A.C B.C
+SEE ALSO
+    MAKE, DATE, SHELL (DIR)
+
+%% DATE
+NAME
+    DATE - the date and time (or a file's)
+SYNOPSIS
+    DATE [-r FILE] [+FORMAT]
+DESCRIPTION
+    Writes the PC's date and time (emulator 2.13, PC date and time on), as
+    date(1) does in the C locale but without a time zone:
+      Sat Nov  7 12:34:56 2026
+    Without that clock: the date the system started with, and no time (a
+    FORMAT's time parts are --).  The date cannot be set here: it is the
+    PC's.  Two-digit years: 00-69 are 2000-2069, 70-99 are 1970-1999.
+OPTIONS
+    -r FILE    that file's date and time instead
+    +FORMAT    %Y %y %m %d %e %H %I %M %S %p %a %A %b %h %B %j %u %w %s
+               %D %F %T %R %n %t %%  (as date(1))
+EXAMPLES
+    DATE                     DATE +%F            DATE -r A.C
+    DATE +%Y%m%d >TODAY.TEXT
+SEE ALSO
+    TOUCH, MAKE, SHELL (DIR)

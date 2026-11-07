@@ -138,6 +138,13 @@ int __pxsum(unsigned char *s);
 #define KEY_WHEELUP 0x96
 #define KEY_WHEELDN 0x97
 
+/* TIME(hi, lo) -- __cspv(9, &hi, &lo) -- with both variables PX_TIME_STAMP: the
+   PC's time of day as a directory entry holds it (emulator 2.13), seconds since
+   midnight + 1: hi its low 11 bits, lo its high 6; both PX_TIME_DATE: hi today's
+   DATEREC.  0, 0 when the emulator's clock is off.  <dirs.h> pcnow() asks both. */
+#define PX_TIME_STAMP 25611
+#define PX_TIME_DATE  25612
+
 /* this run was started again by pexec, after the program it ran */
 #define pexec_returned() (SYSCOM->expansion[0] == PX_BACK)
 /* and that program's exit status: exit(n) or main's result (0 for a

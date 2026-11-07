@@ -443,12 +443,19 @@ int __svcloseat(FILE *f, struct svat *at)
     int *r;
     int *e;
     char *name;
-    int i, k, first, n, date;
+    int i, k, first, n, date, hi, lo;
     dir = at->dir;
     r = (int *)f->fib;
     name = (char *)(r + 7);
-    __cspv(5, SYSCOM->sysunit, dir, 0, 512, 2, 0);     /* today: the boot disk's date (THEDATE) */
-    date = __cspi(34) == 0 ? dir[10] : 0;
+    hi = lo = PX_TIME_DATE;                             /* today: the PC's (emulator 2.13), */
+    __cspv(9, &hi, &lo);
+    date = hi;
+    if (date == 0) {                                    /* else the boot disk's date (THEDATE) */
+        __cspv(5, SYSCOM->sysunit, dir, 0, 512, 2, 0);
+        date = __cspi(34) == 0 ? dir[10] : 0;
+    }
+    hi = lo = PX_TIME_STAMP;                            /* and the time of day (0: none) */
+    __cspv(9, &hi, &lo);
     __cspv(5, r[0], dir, 0, 2048, r[4] + 2, 0);        /* UNITREAD: the directory */
     if (__cspi(34) != 0)
         return 0;
@@ -481,7 +488,8 @@ int __svcloseat(FILE *f, struct svat *at)
         e = dir + 13 * i;
     }
     e[1] = first + r[3];
-    e[11] = 512;
+    e[2] = (e[2] & 15) | (hi & 2047) << 4;              /* the time: low 11 bits, */
+    e[11] = 512 | (lo & 63) << 10;                      /* high 6 (as the 1.16 systems) */
     e[12] = date;
     return dirwriteat(r[0], r[4], dir);
 }

@@ -28,8 +28,11 @@ TOOLS:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   TR.CODE                      29  tr: TR [-cdst] SET1 [SET2] characters changed or deleted
   CUT.CODE                     29  cut: CUT -b|-c|-f LIST [-d C] [-s] [FILE ...] parts of lines
   TEE.CODE                     24  tee: TEE [-ai] [FILE ...] the standard input to files as well
-  MAN.TEXT                     88  the manual pages MAN shows (one %% NAME entry a program: edit and add here)
-  SRC/                       2306  sub-volume: the tools' sources (a sub-volume each) and TOOLS.TEXT
+  MAKE.CODE                    45  make: MAKE [-f FILE] [-nqBi] [NAME=VALUE] [TARGET ...] targets up to date
+  TOUCH.CODE                   33  touch: TOUCH [-c] [-d DATE | -t STAMP | -r FILE] FILE ... date and time
+  DATE.CODE                    28  date: DATE [-r FILE] [+FORMAT] the date and time
+  MAN.TEXT                     98  the manual pages MAN shows (one %% NAME entry a program: edit and add here)
+  SRC/                       2553  sub-volume: the tools' sources (a sub-volume each) and TOOLS.TEXT
   SRC/README.TEXT               8  how to rebuild the tools
   SRC/TOOLS.TEXT                6  CC @TOOLS:/SRC/TOOLS: rebuilds every tool
   SRC/VI/                     531  sub-volume: vi's source
@@ -93,5 +96,11 @@ TOOLS:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   SRC/CUT/CUT.C                16  CUT -b LIST | -c LIST | -f LIST [-d C] [-sn] ...
   SRC/TEE/                     56  sub-volume: tee's source
   SRC/TEE/TEE.C                 8  TEE [-ai] [FILE ...]: the standard input to the ...
-  OBJ/                        830  sub-volume: empty: the objects TOOLS.TEXT makes (-O TOOLS:/OBJ)
-  FILES.TEXT                   18  this list
+  SRC/MAKE/                   123  sub-volume: make's source
+  SRC/MAKE/MAKE.C              62  MAKE [-f FILE] [-nqBsik] [NAME=VALUE ...] [TARGET ...] ...
+  SRC/TOUCH/                   63  sub-volume: touch's source
+  SRC/TOUCH/TOUCH.C            14  TOUCH [-acm] [-d DATE | -t STAMP | -r FILE] FILE  ...
+  SRC/DATE/                    61  sub-volume: date's source
+  SRC/DATE/DATE.C              12  DATE [-r FILE] [+FORMAT]: the date and time, as date(1) ...
+  OBJ/                        922  sub-volume: empty: the objects TOOLS.TEXT makes (-O TOOLS:/OBJ)
+  FILES.TEXT                   20  this list

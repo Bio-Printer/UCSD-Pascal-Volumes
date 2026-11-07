@@ -363,7 +363,7 @@ static int resize(char *cp, int want, char *cmd, int again)
        first; shrinking: the volume first -- neither is ever past the other) */
     if (want > cur) {
         e[1] = e[0] + want;
-        e[11] = 512;
+        e[11] = (e[11] & -1024) | 512;     /* (bits 10..15: its time) */
         if (!putdir(u, pb, pdir, cmd, "the"))
             return 3;
     }
@@ -372,7 +372,7 @@ static int resize(char *cp, int want, char *cmd, int again)
         return 3;
     if (want <= cur && e[1] != e[0] + want) {
         e[1] = e[0] + want;
-        e[11] = 512;
+        e[11] = (e[11] & -1024) | 512;     /* (bits 10..15: its time) */
         if (!putdir(u, pb, pdir, cmd, "the"))
             return 3;
     }

@@ -1,11 +1,17 @@
-BIGGY boot volume, revision 1.33  (07-Nov-26)
-  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.15 (MAXUNIT = 14:
+BIGGY boot volume, revision 1.34  (07-Nov-26)
+  SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.16 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, S runs SYSTEM.SHELL, X(ecute takes a
                  path into sub-volumes: VOL:A/B/NAME, \ as /); its
                  FGOTOXY is MYGOTOXY.TEXT's (132 x 45): no BINDER needed
                  1.29: a new NAME.BAS (a BASIC source) is a text
                  file, as NAME.TEXT is; SYSTEM.C as well
+                 1.34: a file gets the time of day it was written
+                 with its date (emulator 2.13, PC date and time on:
+                 TIME's answers), and the date follows the PC's past
+                 midnight; SYSTEM.C as well.  Do not boot an older
+                 BIGGY with disks written here: its SYSTEM.C takes a
+                 file with a time for a bad entry and removes it
   SYSTEM.C       the same OS written in C (UCSD-SYSTEM-C, SYS-C:): booted
                  unless a key is typed within 2 seconds (1.27)
   SYSTEM.MICRO   the interpreter, with the boot that asks for that key
@@ -50,6 +56,9 @@ BIGGY boot volume, revision 1.33  (07-Nov-26)
                  as commands); MOVE replaces a file of the new name
                  1.33: built with the library that takes NAME.TEXT[*]
                  (a size asked of the OS) for a text file (>FILE[*])
+                 1.34: DIR shows files' times of day; a batch line
+                 that starts with - does not stop it when it fails
+                 (MAKE's recipes); built with the library's ftime.c
   Tiny-C itself is on TINY-C: only: X(ecute TINY-C:CC (the compiler is
                  CC.CODE now, was TINYC.CODE); TINYC.CODE left BIGGY in
                  1.14, TCLIB.OBJ, TCMSGS.TEXT and the headers in 1.15

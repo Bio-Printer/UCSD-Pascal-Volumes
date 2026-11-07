@@ -132,6 +132,19 @@ CUT     CUT -b LIST | -c LIST | -f LIST [-d C] [-s] [--complement]
         [--output-delimiter=S] [FILE ...]  bytes, characters or fields of
         each line: CUT -c1-8, CUT -d: -f1,3, CUT -d\040 -f2.
 
+MAKE    MAKE [-f FILE] [-nqBi] [NAME=VALUE ...] [TARGET ...]  from the shell:
+        brings targets up to date (MAKEFILE.TEXT; rules, pattern rules %.OBJ :
+        %.C, variables, $@ $< $^ $? $*, functions; built in: %.OBJ from %.C by
+        CC -C, %.CODE from %.C by CC).  By the files' dates and times of day
+        (BIGGY 1.34's systems keep the time, emulator 2.13 gives it).  It
+        writes the recipes into #4:MAKEn.TEXT and the shell runs them after
+        it, as a batch file; one that fails stops them (not a -LINE).
+
+TOUCH   TOUCH [-c] [-d DATE | -t STAMP | -r FILE] FILE ...  each file's date
+DATE    and time of day now (or the one given), a file not there made; DATE
+        [-r FILE] [+FORMAT]  the date and time (or a file's): Sat Nov  7
+        12:34:56 2026.  DIR shows files' times.
+
 TEE     TEE [-ai] [FILE ...]  the standard input to the output and to each
         FILE: DIR | TEE #5:DIR.TEXT | GREP .C.  A new file takes the largest
         free area of its disk until it is closed: a FILE cannot be made on

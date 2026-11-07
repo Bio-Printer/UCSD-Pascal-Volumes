@@ -49,15 +49,15 @@ TCTESTS  (volume TCTESTS, 41 files)
 TCVERIF  (volume TCVERIF, 5 files)
     5 files extracted, 4 text files decoded
 TINY-C  (volume TINY-C, 9 files)
-    INCLUDE/  (a sub-volume, 171 blocks, 17 files)
-    LIB/  (a sub-volume, 212 blocks, 1 files)
-    SRC/  (a sub-volume, 1195 blocks, 3 files)
+    INCLUDE/  (a sub-volume, 176 blocks, 17 files)
+    LIB/  (a sub-volume, 218 blocks, 1 files)
+    SRC/  (a sub-volume, 1210 blocks, 3 files)
         CC/  (a sub-volume, 786 blocks, 19 files)
-        LIB/  (a sub-volume, 356 blocks, 21 files)
-    OBJ/  (a sub-volume, 692 blocks, 0 files)
-    64 files extracted, 62 text files decoded
-TOOLS  (volume TOOLS, 30 files)
-    SRC/  (a sub-volume, 2306 blocks, 27 files)
+        LIB/  (a sub-volume, 371 blocks, 22 files)
+    OBJ/  (a sub-volume, 700 blocks, 0 files)
+    65 files extracted, 63 text files decoded
+TOOLS  (volume TOOLS, 33 files)
+    SRC/  (a sub-volume, 2553 blocks, 30 files)
         VI/  (a sub-volume, 531 blocks, 10 files)
         GREP/  (a sub-volume, 76 blocks, 1 files)
         CAT/  (a sub-volume, 61 blocks, 1 files)
@@ -83,8 +83,11 @@ TOOLS  (volume TOOLS, 30 files)
         TR/  (a sub-volume, 66 blocks, 1 files)
         CUT/  (a sub-volume, 66 blocks, 1 files)
         TEE/  (a sub-volume, 56 blocks, 1 files)
-    OBJ/  (a sub-volume, 830 blocks, 0 files)
-    66 files extracted, 41 text files decoded
+        MAKE/  (a sub-volume, 123 blocks, 1 files)
+        TOUCH/  (a sub-volume, 63 blocks, 1 files)
+        DATE/  (a sub-volume, 61 blocks, 1 files)
+    OBJ/  (a sub-volume, 922 blocks, 0 files)
+    72 files extracted, 44 text files decoded
 U002A.5_Z80_SYS1  (volume U002A.5, 20 files)
     20 files extracted, 4 text files decoded
 U006.5_LSI-11_SYS1  (volume U006.5, 14 files)
@@ -129,6 +132,8 @@ U134.4_OS_SOURCE_v1.13  (volume U134.4, 15 files)
 U134.4_OS_SOURCE_v1.14  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
 U134.4_OS_SOURCE_v1.15  (volume U134.4, 15 files)
+    15 files extracted, 15 text files decoded
+U134.4_OS_SOURCE_v1.16  (volume U134.4, 15 files)
     15 files extracted, 15 text files decoded
 U134_4_OS_fixed  (volume U134.4, 14 files)
     14 files extracted, 14 text files decoded

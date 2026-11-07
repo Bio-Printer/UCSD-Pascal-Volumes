@@ -2497,3 +2497,34 @@ TCTESTS.BLK (programs relinked) and Big_Disk.BLK updated; extracted files, repor
 manifest regenerated.  Checked: UCSD-TinyC's texttest (144 checks against the host's
 coreutils, both modes), quicktest, runtests, selfcompile, greptest, pexectest, vitest and
 mantest.  Emulator: any.
+
+FILES' TIMES OF DAY; MAKE, TOUCH, DATE; BIGGY 1.34 (BIGGY, U134.4 v1.16, SYS-C, TINY-C, TOOLS, TCEXTRA, TCTESTS)
+---------------------------------------------------------------------------
+A file now gets the time of day it was written, to the second, as well as
+its date.  A directory entry has no field for it, but two have room:
+DFKIND's word uses only its low 4 bits and DLASTBYTE only its low 10.  The
+time -- seconds since midnight + 1, 0: none -- has its low 11 bits in DFKIND's
+bits 4..14 and its high 6 in DLASTBYTE's bits 10..15.
+U134.4_OS_SOURCE_v1.16.BLK (new): FCLOSE writes the time with the date
+(GLOBALS.TEXT: FILLER2 0..2047, the new DTIMEHI after DLASTBYTE; SYSTEM.B.TEXT)
+from TIME's answers of emulator 2.13 (PC date and time on); THEDATE follows
+the PC's date past midnight.  A new or changed file gets now, an unchanged
+one keeps its time, a Filer copy keeps its date but gets no time.
+Big_Disk.BLK, BIGGY 1.34: SYSTEM.PASCAL compiled from v1.16, SYSTEM.C (the
+same in C: SYS-C.BLK's sources), SYSTEM.SHELL (DIR shows files' times; a
+batch line that starts with - does not stop the batch when it fails).
+Do not boot an OLDER BIGGY (1.27 to 1.33: their SYSTEM.C) with disks written
+by 1.34: its check of a new disk removes entries with a time as bad ones.
+Two-digit years: 00-69 are 2000-2069, 70-99 are 1970-1999.
+TOOLS.BLK: MAKE (MAKEFILE.TEXT: rules, %-pattern rules, variables, $@ $< $^
+$? $*, functions; built-in rules for CC; it writes the recipes into
+#4:MAKEn.TEXT and the shell runs them after it), TOUCH (-c -d -t -r) and DATE
+(-r, +FORMAT), with MAN pages.  TINY-C.BLK: the library's FTIME.C (files'
+dates and times), DIRS.H, LIBS.TEXT (the join in two lines: CC reads 150
+characters of a batch line).  TCEXTRA.BLK, TCTESTS.BLK: relinked.
+tools/extract_all.py: DLASTBYTE's low 10 bits.  Checked: UCSD-TinyC's
+maketest (both systems, both modes), quicktest, runtests, selfcompile,
+texttest, pexectest, batchtest, redirtest, subvoltest, growtest,
+krunchtest, xsubvoltest, keytest, subvolxfertest, mantest, voltest, vitest;
+UCSD-SYSTEM-C's build.py, systest and filertest.  Emulator: 2.13 for the
+times of day (an older one: the files get no time).
