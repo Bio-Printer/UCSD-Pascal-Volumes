@@ -89,6 +89,8 @@ int __istext(char *name)
     int n;
     char *s;
     n = strlen(name);
+    if (n > 0 && name[n - 1] == ']' && (s = strrchr(name, '[')) != NULL)
+        n = s - name;                   /* NAME.TEXT[*], NAME.TEXT[20]: the size asked of the OS */
     if (n >= 2) {
         s = name + n - 2;
         if (s[0] == '.' && ((s[1] | 32) == 'c' || (s[1] | 32) == 'h'))

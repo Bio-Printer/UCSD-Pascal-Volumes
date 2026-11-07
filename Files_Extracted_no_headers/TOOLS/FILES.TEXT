@@ -2,26 +2,34 @@ TOOLS:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
 
   FILE                     BLOCKS  WHAT
 
-  README.TEXT                  20  what is on this volume
+  README.TEXT                  24  what is on this volume
   VI.CODE                      83  vi, the screen editor: VI NAME.C from the shell
   GREP.CODE                    33  grep: GREP [-i] [-n] PATTERN FILES from the shell
   CAT.CODE                     27  cat: CAT [-AbeEnstTuv] [FILE ...] from the shell
   HEXDUMP.CODE                 26  hexdump: HEXDUMP [-i] [FILE ...] from the shell
   OBJCOPY.CODE                 28  objcopy: OBJCOPY [-I ihex|hexdump] [INFILE [OUTFILE]]: a hex dump back into a file
   MORE.CODE                    29  more: MORE [-N] [-s] [-i] [+N] [FILE ...] a screen at a time
-  LESS.CODE                    37  less: LESS [-NSiF] [+N] [FILE ...] forwards and backwards
-  SED.CODE                     50  sed: SED [-nEsur] [-i[SUF]] [-e S] [-f F] [S] [FILE ...] a stream editor
-  DIFF.CODE                    36  diff: DIFF [-iwbBqs] [-u|-U N|-c|-C N] FILE1 FILE2
+  LESS.CODE                    38  less: LESS [-NSiF] [+N] [FILE ...] forwards and backwards
+  SED.CODE                     51  sed: SED [-nEsur] [-i[SUF]] [-e S] [-f F] [S] [FILE ...] a stream editor
+  DIFF.CODE                    37  diff: DIFF [-iwbBqs] [-u|-U N|-c|-C N] FILE1 FILE2
   WC.CODE                      29  wc: WC [-clmwL] [FILE ...] lines, words and bytes
-  LC.CODE                      27  lc: LC [-1xFsrSC] [VOL: | #n:][PATTERN ...] the file names in columns
+  LC.CODE                      28  lc: LC [-1xFsrSC] [VOL: | #n:][PATTERN ...] the file names in columns
   KRUNCH.CODE                  28  krunch: KRUNCH [-y] [-r] [VOL: | #n | PATH] the files moved down, the free blocks in one area
   GROW.CODE                    31  grow: GROW NAME +N | -N | N a sub-volume bigger (or smaller)
   SHRINK.CODE                  31  shrink: SHRINK NAME [-N | +N | N] a sub-volume smaller (no size: no free blocks left)
   PATCH.CODE                   39  patch: PATCH [-RsbClN] [-F N] [-pN] [-o OUT] [-i PATCHFILE] [FILE]
-  MAN.CODE                     26  man: MAN [-k WORD] [NAME ...] the manual pages (MAN.TEXT)
+  MAN.CODE                     27  man: MAN [-k WORD] [NAME ...] the manual pages (MAN.TEXT)
   BINDERC.CODE                 29  BINDERC [FILE]: the Binder (puts your GOTOXY into SYSTEM.PASCAL)
-  MAN.TEXT                     70  the manual pages MAN shows (one %% NAME entry a program: edit and add here)
-  SRC/                       1784  sub-volume: the tools' sources (a sub-volume each) and TOOLS.TEXT
+  ECHO.CODE                    18  echo: ECHO [-neE] [ARG ...] its arguments
+  HEAD.CODE                    28  head: HEAD [-n [-]N] [-c [-]N] [-qv] [FILE ...] the first lines
+  TAIL.CODE                    29  tail: TAIL [-n [+]N] [-c [+]N] [-qv] [FILE ...] the last lines
+  SORT.CODE                    36  sort: SORT [-bdfinrsuc] [-t C] [-k KEY] [-o F] [FILE ...] lines sorted
+  UNIQ.CODE                    27  uniq: UNIQ [-cdDiu] [-f N] [-s N] [-w N] [IN [OUT]] repeated lines once
+  TR.CODE                      29  tr: TR [-cdst] SET1 [SET2] characters changed or deleted
+  CUT.CODE                     29  cut: CUT -b|-c|-f LIST [-d C] [-s] [FILE ...] parts of lines
+  TEE.CODE                     24  tee: TEE [-ai] [FILE ...] the standard input to files as well
+  MAN.TEXT                     88  the manual pages MAN shows (one %% NAME entry a program: edit and add here)
+  SRC/                       2306  sub-volume: the tools' sources (a sub-volume each) and TOOLS.TEXT
   SRC/README.TEXT               8  how to rebuild the tools
   SRC/TOOLS.TEXT                6  CC @TOOLS:/SRC/TOOLS: rebuilds every tool
   SRC/VI/                     531  sub-volume: vi's source
@@ -69,5 +77,21 @@ TOOLS:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   SRC/MAN/MAN.C                14  MAN [-k WORD] [-l] [NAME ...]: the manual pages of the ...
   SRC/BINDERC/                 66  sub-volume: binderc's source
   SRC/BINDERC/BINDERC.C        16  BINDERC [FILE]: the Pascal System Binder, in Tiny-C
-  OBJ/                        716  sub-volume: empty: the objects TOOLS.TEXT makes (-O TOOLS:/OBJ)
-  FILES.TEXT                   14  this list
+  SRC/ECHO/                    56  sub-volume: echo's source
+  SRC/ECHO/ECHO.C               8  ECHO [-neE] [ARG ...]: the ARGs, one blank between ...
+  SRC/HEAD/                    61  sub-volume: head's source
+  SRC/HEAD/HEAD.C              12  HEAD [-n [-]N] [-c [-]N] [-N] [-qv] [FILE ...]: the ...
+  SRC/TAIL/                    63  sub-volume: tail's source
+  SRC/TAIL/TAIL.C              14  TAIL [-n [+]N] [-c [+]N] [-N] [+N] [-qv] [FILE ...] ...
+  SRC/SORT/                    93  sub-volume: sort's source
+  SRC/SORT/SORT.C              38  SORT [-bdfinrsuc] [-t C] [-k KEY ...] [-o FILE] [-S N] ...
+  SRC/UNIQ/                    61  sub-volume: uniq's source
+  SRC/UNIQ/UNIQ.C              12  UNIQ [-cdDiu] [-f N] [-s N] [-w N] [INPUT [OUTPUT]] ...
+  SRC/TR/                      66  sub-volume: tr's source
+  SRC/TR/TR.C                  16  TR [-cdst] SET1 [SET2]: the standard input to the ...
+  SRC/CUT/                     66  sub-volume: cut's source
+  SRC/CUT/CUT.C                16  CUT -b LIST | -c LIST | -f LIST [-d C] [-sn] ...
+  SRC/TEE/                     56  sub-volume: tee's source
+  SRC/TEE/TEE.C                 8  TEE [-ai] [FILE ...]: the standard input to the ...
+  OBJ/                        830  sub-volume: empty: the objects TOOLS.TEXT makes (-O TOOLS:/OBJ)
+  FILES.TEXT                   18  this list

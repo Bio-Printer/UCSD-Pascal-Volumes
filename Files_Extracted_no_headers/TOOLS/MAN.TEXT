@@ -655,3 +655,226 @@ EXAMPLES
     PATCH -p1 -i CHANGES.TEXT       (names like a/x.c from a host's diff -r)
 SEE ALSO
     DIFF, SED
+
+%% ECHO
+NAME
+    ECHO - write its arguments
+SYNOPSIS
+    ECHO [-neE] [ARG ...]
+DESCRIPTION
+    Writes the ARGs with one blank between them, then a new line, on the
+    standard output, as echo(1) does.  The shell splits the line at blanks
+    and takes no quotes: several blanks between two words become one, and
+    a blank that must stay is \040 (with -e).  A word of n, e and E only
+    after a - is an option; the first other word and all after it are
+    written.
+OPTIONS
+    -n   no new line at the end
+    -e   the backslash escapes stand for characters:  \\ \a \b \e \f \n \r
+         \t \v, \0NNN (octal, up to 3 digits), \xHH (hex), and \c: nothing
+         more is written, not even the new line
+    -E   they do not (the default)
+EXAMPLES
+    ECHO hello world >A.TEXT     ECHO -n more >>A.TEXT
+    ECHO -e one\ttwo             ECHO -e three\040\040blanks
+SEE ALSO
+    CAT, TEE, SHELL
+
+%% HEAD
+NAME
+    HEAD - the first lines (or bytes) of files
+SYNOPSIS
+    HEAD [-n [-]N] [-c [-]N] [-N] [-qv] [FILE ...]
+DESCRIPTION
+    Writes the first 10 lines of each FILE, as head(1) does.  With more
+    than one FILE each starts with a header ==> NAME <==, and an empty line
+    comes before every header but the first.  No FILE or a FILE of - is the
+    standard input.  A FILE may have the wild cards of DIR (* = ?) after
+    VOL:, #n: or a path; HEAD expands them.  .TEXT, .C, .H and .BAS files
+    are text files; others are the bytes they hold, whole 512-byte blocks.
+    "All but the last N" reads the input twice, which a file, <FILE and a
+    pipe allow, the console does not.  Exit status 1 when a FILE cannot be
+    opened or no file matches.
+OPTIONS
+    -n N    the first N lines          -N   the same
+    -n -N   every line but the last N
+    -c N    the first N bytes          -c -N   every byte but the last N
+    -q      no headers                 -v      a header for one FILE too
+    N may end in b (512), k or K (1024), kB (1000), M or MB.
+EXAMPLES
+    HEAD A.C                 HEAD -3 *.TEXT
+    HEAD -n -2 A.TEXT        DIR | HEAD -5
+SEE ALSO
+    TAIL, CAT, LESS
+
+%% TAIL
+NAME
+    TAIL - the last lines (or bytes) of files
+SYNOPSIS
+    TAIL [-n [+]N] [-c [+]N] [-N] [+N] [-qv] [FILE ...]
+DESCRIPTION
+    Writes the last 10 lines of each FILE, as tail(1) does, with headers
+    ==> NAME <== as HEAD.  No FILE or a FILE of - is the standard input.  A
+    FILE may have the wild cards of DIR (* = ?) after VOL:, #n: or a path.
+    The last lines are found by reading the input twice (no memory is
+    needed for them): from a file, <FILE or a pipe, not from the console;
+    +N reads once.  -f (follow a growing file) is not possible: one program
+    runs at a time.  Exit status 1 when a FILE cannot be opened or no file
+    matches.
+OPTIONS
+    -n N    the last N lines           -N   the same
+    -n +N   from line N on             +N   the same
+    -c N    the last N bytes           -c +N   from byte N on
+    -q      no headers                 -v      a header for one FILE too
+    N may end in b (512), k or K (1024), kB (1000), M or MB.
+EXAMPLES
+    TAIL A.C                 TAIL -n 3 *.TEXT
+    TAIL -n +100 A.TEXT      SORT A.TEXT | TAIL -1
+SEE ALSO
+    HEAD, CAT, LESS
+
+%% SORT
+NAME
+    SORT - sort the lines of files
+SYNOPSIS
+    SORT [-bdfinrsuc] [-t C] [-k KEY ...] [-o FILE] [-S N] [-T VOL] [FILE ...]
+DESCRIPTION
+    Writes the lines of all the FILEs, sorted, as sort(1) does in the C
+    locale: by the bytes' values (upper case before lower), lines with
+    equal keys in the order of their bytes (unless -s or -u).  No FILE or
+    a FILE of - is the standard input; wild cards (* = ?) as HEAD.  What
+    does not fit in memory is sorted a part at a time into temporary files
+    (SORTTMPn.TEXT on the prefix volume, or -T's) and merged, four at a
+    time; they are removed.  Exit status 2 on an error, 1 when -c finds a
+    line out of order.
+    The P-System gives a new file the largest free area of its disk until
+    it is closed: while the output goes into a new file (>FILE, a pipe's
+    #4:PIPE1.TEXT) the temporary files and -o FILE cannot be made on the
+    same disk.  -T VOL: and -o on another disk, or >FILE[*] (half the
+    area), leave room.
+OPTIONS
+    -b      leading blanks of a key do not count
+    -d      only blanks, letters and digits count
+    -f      lower case sorts as upper case
+    -i      only printable characters count
+    -n      by the number at the key's start: blanks, -, digits, . digits
+    -r      backwards
+    -s      stable: lines with equal keys keep their order
+    -u      of lines with equal keys only the first
+    -c      only check the order: the first line out of order is said
+    -t C    fields are separated by C (\t a tab, \040 a blank); without it
+            a field is its leading blanks and what follows them
+    -k KEY  F[.C][OPTS][,F[.C][OPTS]]: from field F (its character C) to
+            the end of the second field (its character C), or to the end of
+            the line; OPTS b d f i n r for this key only (a key without
+            them takes -b -d -f -i -n -r).  Several -k are compared in turn
+    -o FILE the result to FILE (it may be one of the inputs)
+    -S N    at most N bytes of memory for lines (N may end in b, k, M)
+    -T VOL  the temporary files on VOL: (#n, a path)
+EXAMPLES
+    SORT A.TEXT              SORT -u -f WORDS.TEXT
+    DIR | SORT -k2n          SORT -t: -k3,3n -k1 A.TEXT
+    SORT -o A.TEXT A.TEXT    SORT -T #9 BIG.TEXT >#5:SORTED.TEXT
+SEE ALSO
+    UNIQ, CUT, TR
+
+%% UNIQ
+NAME
+    UNIQ - write a run of the same line once
+SYNOPSIS
+    UNIQ [-cdDiu] [-f N] [-s N] [-w N] [INPUT [OUTPUT]]
+DESCRIPTION
+    Writes the lines of INPUT (or the standard input; - is it too) to
+    OUTPUT (or the standard output), each run of lines that are the same,
+    one after the other, once -- as uniq(1) does.  Only lines next to each
+    other are compared: SORT first to find every copy (SORT A | UNIQ -c).
+    OUTPUT cannot be on the disk of a >FILE being written (see SORT).
+OPTIONS
+    -c     each line with how many times it came, 7 wide, before it
+    -d     only lines that came more than once (once each)
+    -D     every line of each run of more than one
+    -u     only lines that came once
+    -i     upper and lower case are the same
+    -f N   the first N fields are not compared (blanks, then non-blanks)
+    -s N   then the first N characters are not compared either
+    -w N   at most N characters are compared
+EXAMPLES
+    SORT A.TEXT | UNIQ -c        UNIQ -d NAMES.TEXT
+    UNIQ -i A.TEXT B.TEXT        UNIQ -f 1 -c LOG.TEXT
+SEE ALSO
+    SORT, CUT
+
+%% TR
+NAME
+    TR - change or delete characters
+SYNOPSIS
+    TR [-cdst] SET1 [SET2]
+DESCRIPTION
+    Copies the standard input to the standard output, as tr(1) does: each
+    character of SET1 becomes the one at the same place in SET2 (SET2's
+    last one repeats when SET2 is shorter), or with -d is deleted.  A SET
+    holds characters, ranges (a-z), escapes (\n \t \r \f \v \a \b \\, \NNN
+    octal: \040 is a blank -- the shell takes no quotes), classes
+    ([:alpha:] [:digit:] [:alnum:] [:upper:] [:lower:] [:space:] [:blank:]
+    [:punct:] [:print:] [:graph:] [:cntrl:] [:xdigit:]), [c*N] (c N times)
+    and, in SET2, [c*] (c as often as SET1 needs).
+OPTIONS
+    -c   SET1 is every character that is not in it
+    -d   delete the characters of SET1
+    -s   a run of one character becomes one: of SET1, or with SET2 (also
+         with -d) of SET2, after the change
+    -t   SET1 is cut to SET2's length
+EXAMPLES
+    TR a-z A-Z <A.TEXT           TR -d \r <A.TEXT
+    TR -s \040 <A.TEXT           CAT A.C | TR -cs [:alnum:] \n
+SEE ALSO
+    SED, CUT
+
+%% CUT
+NAME
+    CUT - parts of each line: bytes, characters or fields
+SYNOPSIS
+    CUT -b LIST | -c LIST | -f LIST [-d C] [-sn] [--complement]
+        [--output-delimiter=S] [FILE ...]
+DESCRIPTION
+    Writes the parts of each line that LIST says, as cut(1) does, in the
+    order of the line, each once.  LIST is numbers from 1 and ranges with
+    commas between: 3, 2-5, 4- (to the end), -3 (from the start).  No FILE
+    or a FILE of - is the standard input; wild cards (* = ?) as HEAD.
+OPTIONS
+    -b LIST   these bytes          -c LIST   these characters (the same)
+    -f LIST   these fields: what is between the delimiters; a line
+              without one is written whole (unless -s)
+    -d C      the fields' delimiter, a tab when not given; an escape is
+              all right: \t, \040 (a blank), \\
+    -s        (-f) not the lines without a delimiter
+    -n        ignored
+    --complement            all but what LIST says
+    --output-delimiter=S    S between the fields (or byte ranges)
+EXAMPLES
+    CUT -c1-8 A.TEXT             DIR | CUT -c1-15
+    CUT -d: -f1,3 A.TEXT         CUT -d\040 -f2 A.TEXT
+SEE ALSO
+    SORT, TR, SED
+
+%% TEE
+NAME
+    TEE - copy the standard input to files as well
+SYNOPSIS
+    TEE [-ai] [FILE ...]
+DESCRIPTION
+    Copies the standard input to the standard output and to each FILE (at
+    most 6), as tee(1) does: a pipe's text kept on the way.  .TEXT, .C, .H
+    and .BAS files are text files.  A FILE cannot be on a disk where a new
+    file is being written at the same time: the output's >FILE, or the
+    pipe's #4:PIPE1.TEXT when TEE's output goes on through a pipe -- the
+    P-System gives that one the largest free area until it is closed.  Put
+    the FILE on another disk (a prefix that is not #4 does it).
+OPTIONS
+    -a   add to the end of each FILE (made when it is not there)
+    -i   ignored
+EXAMPLES
+    DIR | TEE #5:DIR.TEXT | GREP .C
+    CC A.C | TEE -a #5:LOG.TEXT
+SEE ALSO
+    CAT, SHELL (redirection, pipes)

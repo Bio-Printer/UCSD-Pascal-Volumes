@@ -21,9 +21,9 @@ TCEXTRA:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   SIEVE.C                       4  Sieve of Eratosthenes: primes below 2000
   SIEVE.CODE                   13    (ready to run)
   CMPCODE.C                     6  compare two code files byte by byte (Tiny-C Verify)
-  CMPCODE.CODE                 22    (ready to run)
+  CMPCODE.CODE                 23    (ready to run)
   ARGS.C                        6  main(argc, argv): does what its arguments say (run it ...
-  ARGS.CODE                    23    (ready to run)
+  ARGS.CODE                    24    (ready to run)
   MEMFREE.C                     4  prints the memory free to it (stack to heap) and exits ...
   MEMFREE.CODE                 13    (ready to run)
   MEMMARK.C                     6  the least free memory of another program

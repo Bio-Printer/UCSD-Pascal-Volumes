@@ -37,6 +37,9 @@ WC.C    wc (lines, words, bytes).
 
 LC.C    lc (the file names of a disk in columns).
 
+ECHO.C, HEAD.C, TAIL.C, SORT.C, UNIQ.C, TR.C, CUT.C, TEE.C  the text tools
+        (as coreutils' echo, head, tail, sort, uniq, tr, cut, tee).
+
 KRUNCH.C  krunch (the files of a disk moved down, the free blocks in one area).
 
 GROW.C, SHRINK.C  grow, shrink (a sub-volume's size: the library's svresize).

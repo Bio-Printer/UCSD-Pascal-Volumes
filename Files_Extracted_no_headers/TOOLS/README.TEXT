@@ -106,6 +106,38 @@ LC      LC [-1xFsrSC] [VOL: | #n: | PATH][PATTERN ...]  from the shell: the
         across), -F marks CODE files, -s shows the sizes; one name to a line
         when the output goes to a file or a pipe.
 
+ECHO    ECHO [-neE] [ARG ...]  its arguments and a new line (-n: none; -e:
+        \t \n \040 ... are characters).  ECHO hello >A.TEXT.
+
+HEAD    HEAD [-n [-]N] [-c [-]N] [-qv] [FILE ...], TAIL [-n [+]N] [-c [+]N]
+TAIL    [-qv] [FILE ...]  the first or last 10 (N) lines or N bytes of each
+        file, headers ==> NAME <== for several; wild cards (HEAD -3 *.C);
+        DIR | TAIL -2.  All but the last N, and the last N, read the input
+        twice (a file or a pipe, not the console); TAIL -f is not possible.
+
+SORT    SORT [-bdfinrsuc] [-t C] [-k KEY ...] [-o FILE] [-S N] [-T VOL]
+        [FILE ...]  the lines sorted, as sort(1) in the C locale: keys
+        (-k2,2n -k1), -t fields, -u, -o (may be an input).  What does not
+        fit in memory goes through temporary files (SORTTMPn.TEXT on the
+        prefix volume or -T VOL), merged four at a time.
+
+UNIQ    UNIQ [-cdDiu] [-f N] [-s N] [-w N] [INPUT [OUTPUT]]  a run of the
+        same line once (-c with counts): SORT A.TEXT | UNIQ -c.
+
+TR      TR [-cdst] SET1 [SET2]  the standard input with characters changed
+        (TR a-z A-Z) or deleted (-d), runs squeezed (-s); ranges, classes
+        ([:alpha:] ...), \NNN (\040 a blank), [c*N].
+
+CUT     CUT -b LIST | -c LIST | -f LIST [-d C] [-s] [--complement]
+        [--output-delimiter=S] [FILE ...]  bytes, characters or fields of
+        each line: CUT -c1-8, CUT -d: -f1,3, CUT -d\040 -f2.
+
+TEE     TEE [-ai] [FILE ...]  the standard input to the output and to each
+        FILE: DIR | TEE #5:DIR.TEXT | GREP .C.  A new file takes the largest
+        free area of its disk until it is closed: a FILE cannot be made on
+        the disk of a >FILE or pipe file being written (#4 for pipes), nor
+        SORT's temporary files or -o FILE.
+
 KRUNCH  KRUNCH [-y] [-r] [VOL: | #n | PATH]  from the shell: moves the files
         of a disk (or of a sub-volume: KRUNCH #5:/A) down so that its unused
         blocks become one area at its end (the Filer's K(runch); asks first

@@ -62,4 +62,9 @@ int __svclose(FILE *f);                 /* the same, with a 2 KB directory of it
 #pragma segment MAIN
 int __svname(char *name);               /* (stdio) a path into a sub-volume, or a name on the shell's path */
 
+/* fileargs.c: a FILE argument as it is, or each file its wild cards match (*.C,
+   #5:*.TEXT, A/*.H): fn(name) for each; the largest result, 1 none matched
+   (said on stderr as "prog: ..."), 2 no memory; fn NULL: how many files arg names */
+int forfiles(char *prog, char *arg, int (*fn)(char *name));
+
 #endif

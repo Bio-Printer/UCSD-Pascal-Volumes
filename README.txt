@@ -2469,3 +2469,31 @@ BASIC2:/TEST/RTERR.W5's dump is BASIC2:/TEST/RTERR.D5; beside the W file when th
 on line).  B2DUMP -MAP NAME.Wn puts it into BASIC2:/MAP/Dn as before; BASIC2:/SRC/DUMPALL uses
 -MAP for a whole build's 140 dumps.  Checked: the -K build, DUMPALL and INSTALL on the
 P-System, and voltest2 (both places).  Emulator: any.
+
+TOOLS: ECHO, HEAD, TAIL, SORT, UNIQ, TR, CUT, TEE; BIGGY 1.33 (TOOLS, TINY-C, TCEXTRA, TCTESTS, BIGGY)
+---------------------------------------------------------------------------
+Eight text tools on TOOLS: (sources in TOOLS:/SRC/NAME, a page each in MAN), as coreutils'
+do it in the C locale:
+    ECHO [-neE] ARG ...                 its arguments (-e: \t \n \040 ... are characters)
+    HEAD / TAIL [-n N] [-c N] [-qv] F   the first / last lines or bytes (HEAD -n -N: all but
+                                        the last N; TAIL -n +N: from line N on)
+    SORT [-bdfinrsuc] [-t C] [-k KEY] [-o F] [-S N] [-T VOL] F ...
+                                        lines sorted: keys, fields, numbers, -u, -o; what does
+                                        not fit in memory goes through temporary files
+    UNIQ [-cdDiu] [-f N] [-s N] [-w N] [IN [OUT]]   a run of the same line once
+    TR [-cdst] SET1 [SET2]              characters changed, deleted, squeezed
+    CUT -b | -c | -f LIST [-d C] [-s]   parts of lines
+    TEE [-a] F ...                      the standard input to files as well
+FILE names take the wild cards of DIR (SORT *.TEXT, HEAD -3 #5:*.C, CUT -c1-8 A/*.H): the C
+library's new forfiles() (TINY-C:/SRC/LIB/FILEARGS.C).  TOOLS.BLK is 5000 blocks now.
+A new file gets the largest free area of its disk until it is closed, so TEE's files,
+SORT's -o and temporary files and UNIQ's OUTPUT cannot be on the disk where >FILE, or the
+shell's pipe file on #4, is being written: the tools say so (another disk works; SORT -T
+VOL for its temporary files; >FILE[*] leaves room, and the library now takes
+NAME.TEXT[*] for a text file).
+BIGGY 1.33: SYSTEM.SHELL built with that library (VERSION.TEXT revision 1.33).
+TOOLS.BLK, TINY-C.BLK (the library, FILEARGS.C, DIRS.H, STDIO.C), TCEXTRA.BLK and
+TCTESTS.BLK (programs relinked) and Big_Disk.BLK updated; extracted files, report and
+manifest regenerated.  Checked: UCSD-TinyC's texttest (144 checks against the host's
+coreutils, both modes), quicktest, runtests, selfcompile, greptest, pexectest, vitest and
+mantest.  Emulator: any.
