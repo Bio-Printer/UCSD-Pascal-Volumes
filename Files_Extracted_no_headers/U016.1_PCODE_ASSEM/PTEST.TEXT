@@ -1,0 +1,199 @@
+; PTEST -- PASM's instructions at work: each line printed is checked against its
+; expected text by tools/pasmtest.py
+        .PROGRAM PTEST
+        .EQU    CR, 13
+        .GLOBAL COUNT, TABLE:10, CH
+
+; PUTC: the character C on the console
+        .PROC   PUTC
+        .PARAM  C
+        SLDC    1
+        LLA     C
+        SLDC    0
+        SLDC    1
+        SLDC    0
+        SLDC    0
+        CSP     UWRITE
+        RNP     0
+        .END
+
+; WRITES: the string at S (length byte first)
+        .PROC   WRITES
+        .PARAM  S
+        .VAR    I, N
+        LDL     S
+        SLDC    0
+        LDB
+        STL     N
+        SLDC    1
+        STL     I
+LOOP:   LDL     I
+        LDL     N
+        LEQI
+        FJP     DONE
+        LDL     S
+        LDL     I
+        LDB
+        CGP     PUTC
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+DONE:   RNP     0
+        .END
+
+; NL: a new line
+        .PROC   NL
+        LIT     CR
+        CGP     PUTC
+        LIT     10
+        CGP     PUTC
+        RNP     0
+        .END
+
+; WRITEI: the integer N (0..32767 and negatives), in decimal
+        .PROC   WRITEI
+        .PARAM  N
+        LDL     N
+        SLDC    0
+        LESI
+        FJP     POS
+        LIT     '-'
+        CGP     PUTC
+        LDL     N
+        NGI
+        STL     N
+POS:    LDL     N
+        SLDC    10
+        GEQI
+        FJP     ONE
+        LDL     N
+        SLDC    10
+        DVI
+        CGP     WRITEI
+ONE:    LDL     N
+        SLDC    10
+        MODI
+        LIT     '0'
+        ADI
+        CGP     PUTC
+        RNP     0
+        .END
+
+; FACT: N! (a function: its result in the parameter's word)
+        .PROC   FACT
+        .PARAM  N
+        LDL     N
+        SLDC    1
+        LEQI
+        FJP     REC
+        SLDC    1
+        STL     N
+        UJP     OUT
+REC:    LDL     N
+        LDL     N
+        SLDC    1
+        SBI
+        CGP     FACT
+        MPI
+        STL     N
+OUT:    RNP     1
+        .END
+
+; NAME: the case table: 1..3 a word, else '?'
+        .PROC   NAME
+        .PARAM  K
+        LDL     K
+        XJP     1, 3, OTHER, ONE, TWO, THREE
+ONE:    LSA     'one'
+        UJP     SAY
+TWO:    LSA     'two'
+        UJP     SAY
+THREE:  LSA     'three'
+        UJP     SAY
+OTHER:  LSA     '?'
+SAY:    CGP     WRITES
+        RNP     0
+        .END
+
+; FAR: a forward jump over more than 127 bytes, and a long backward one
+        .PROC   FAR
+        .VAR    I
+        SLDC    0
+        STL     I
+        UJP     SKIP
+        LDC     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+        LDC     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+        LDC     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+        LDC     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+SKIP:   LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        LDL     I
+        SLDC    3
+        LESI
+        FJP     FIN
+        UJP     SKIP
+FIN:    LDL     I
+        CGP     WRITEI
+        RNP     0
+        .END
+
+        .MAIN
+        LSA     'PTEST'
+        CGP     WRITES
+        CGP     NL
+        SLDC    5
+        CGP     FACT            ; 120
+        CGP     WRITEI
+        CGP     NL
+        LIT     -1234
+        CGP     WRITEI
+        CGP     NL
+        SLDC    2
+        CGP     NAME
+        SLDC    7
+        CGP     NAME
+        CGP     NL
+        CGP     FAR
+        CGP     NL
+        SLDC    100
+        CXP     SUM             ; 5050
+        CGP     WRITEI
+        CGP     NL
+        LDC     $1234, $5678
+        SRO     TABLE+1
+        SRO     TABLE
+        LDO     TABLE
+        CGP     WRITEI
+        CGP     NL
+        RBP     0
+        .END
+
+        .SEGMENT OTHER
+; SUM: 1 + ... + N, in a segment of its own (CXP)
+        .PROC   SUM
+        .PARAM  N
+        .VAR    S
+        SLDC    0
+        STL     S
+AGAIN:  LDL     N
+        SLDC    0
+        NEQI                    ; (FJP tests bit 0: true is odd)
+        FJP     DONE
+        LDL     S
+        LDL     N
+        ADI
+        STL     S
+        LDL     N
+        SLDC    1
+        SBI
+        STL     N
+        UJP     AGAIN
+DONE:   LDL     S
+        STL     N
+        RNP     1
+        .END
+

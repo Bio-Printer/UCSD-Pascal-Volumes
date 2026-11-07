@@ -2577,3 +2577,30 @@ maketest (both systems, both modes), voltest, alltest, shellalltest,
 batchtest, redirtest, pexectest, mantest; UCSD-BASIC's voltest (both
 systems) and voltest2; UCSD-Pascal-compiler-written-in-C's psysbuild.
 Emulator: 2.14 for MOUNT (the rest: 2.13).
+
+PASM, THE P-CODE ASSEMBLER: U016.1_PCODE_ASSEM (new; TOOLS, MASTER)
+---------------------------------------------------------------------------
+U016.1_PCODE_ASSEM.BLK (new system disk, volume U016.1:): PASM, an
+assembler for II.0 P-code, written in its own language.
+  PASM.CODE      PASM NAME [CODE] from the shell (X(ecute U016.1:PASM asks
+                 for NAME): NAME.TEXT into NAME.CODE (CODE.CODE; CODE. with
+                 a dot: that name exactly); two passes, errors as FILE LINE:
+                 what, and then no code file
+  PASMDOC.TEXT   the language: .PROGRAM, .SEGMENT, .MAIN, .PROC, .PARAM,
+                 .VAR, .GLOBAL, .EQU, .EXIT, .INCLUDE; every II.0 mnemonic
+                 (short and long jumps, XJP case tables, CSP and CXP by
+                 name); calls and functions; the code file's layout
+  PASM.TEXT, PASMIO.TEXT, PASMLEX.TEXT, PASMGEN.TEXT   its source (about
+                 4,500 lines of P-code)
+  HELLO, PTEST   examples (.TEXT and .CODE): PTEST has procedures,
+                 functions, recursion, globals, LDC, XJP and a second
+                 segment called by CXP
+  MAKEFILE.TEXT  MAKE -f U016.1:MAKEFILE: PASM rebuilt by itself, then the
+                 examples
+PASM.CODE is the code file of UCSD-TinyC's host assembler (tools/pasm.py,
+which bootstraps it); PASM on the P-System makes the same bytes, of itself
+too.  MASTER.BLK: MAKE -f MASTER:MAKEFILE mounts U016.1_PCODE_ASSEM on #12
+and runs its makefile (the PASM part).  TOOLS.BLK: MAKE -f takes a makefile
+on a volume whose name has a dot (U016.1:MAKEFILE: .TEXT added).
+Checked: UCSD-TinyC's pasmtest (both modes), maketest (both systems, both
+modes), quicktest, mastertest.  Emulator: any (2.14 for MASTER's MOUNT).

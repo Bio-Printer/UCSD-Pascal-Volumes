@@ -1,0 +1,17 @@
+# MAKEFILE -- PASM rebuilt by itself, and the examples: MAKE -f U016.1:MAKEFILE
+# (MAKE is on TOOLS:).  PASM's .INCLUDE files are on the prefix volume: CD U016.1:.
+V = U016.1:
+
+all : $(V)PASM.CODE $(V)HELLO.CODE $(V)PTEST.CODE
+
+$(V)PASM.CODE : $(V)PASM.TEXT $(V)PASMIO.TEXT $(V)PASMLEX.TEXT $(V)PASMGEN.TEXT
+        CD $(V)
+        $(V)PASM PASM
+$(V)HELLO.CODE : $(V)HELLO.TEXT $(V)PASM.CODE
+        CD $(V)
+        $(V)PASM HELLO
+$(V)PTEST.CODE : $(V)PTEST.TEXT $(V)PASM.CODE
+        CD $(V)
+        $(V)PASM PTEST
+
+.PHONY : all

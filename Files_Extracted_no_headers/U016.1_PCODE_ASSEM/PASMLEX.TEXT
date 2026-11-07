@@ -1,0 +1,863 @@
+; PASMLEX -- PASM's tokens, names and expressions
+
+; ---- characters
+
+; UPPER(C, R): C in capitals
+        .PROC   UPPER
+        .PARAM  C, R
+        LDL     C
+        STL     R
+        LDL     C
+        LIT     'a'
+        GEQI
+        LDL     C
+        LIT     'z'
+        LEQI
+        LAND
+        FJP     DONE
+        LDL     C
+        SLDC    32
+        SBI
+        STL     R
+DONE:   RNP     1
+        .END
+
+; ISLETTER(C, R): R 1 if C is a letter
+        .PROC   ISLETTER
+        .PARAM  C, R
+        LDL     C
+        SLDC    0
+        CGP     UPPER
+        STL     C
+        LDL     C
+        LIT     'A'
+        GEQI
+        LDL     C
+        LIT     'Z'
+        LEQI
+        LAND
+        STL     R
+        RNP     1
+        .END
+
+; ISDIGIT(C, R): R 1 if C is a digit
+        .PROC   ISDIGIT
+        .PARAM  C, R
+        LDL     C
+        LIT     '0'
+        GEQI
+        LDL     C
+        LIT     '9'
+        LEQI
+        LAND
+        STL     R
+        RNP     1
+        .END
+
+; HEXVAL(C, R): R the value of the hex digit C, -1 if it is not one
+        .PROC   HEXVAL
+        .PARAM  C, R
+        LDL     C
+        SLDC    0
+        CGP     ISDIGIT
+        FJP     LETTER
+        LDL     C
+        LIT     '0'
+        SBI
+        STL     R
+        RNP     1
+LETTER: LDL     C
+        SLDC    0
+        CGP     UPPER
+        STL     C
+        LDL     C
+        LIT     'A'
+        GEQI
+        LDL     C
+        LIT     'F'
+        LEQI
+        LAND
+        FJP     NOT
+        LDL     C
+        LIT     'A'
+        SBI
+        SLDC    10
+        ADI
+        STL     R
+        RNP     1
+NOT:    SLDC    1
+        NGI
+        STL     R
+        RNP     1
+        .END
+
+; CHAT(I, R): R the line's character at I; 0 past its end or at a ; (a comment)
+        .PROC   CHAT
+        .PARAM  I, R
+        SLDC    0
+        STL     R
+        LDL     I
+        LDO     LLEN
+        LESI
+        FJP     DONE
+        LAO     LINE
+        LDL     I
+        LDB
+        STL     R
+        LDL     R
+        LIT     ';'
+        EQUI
+        FJP     DONE
+        SLDC    0
+        STL     R
+DONE:   RNP     1
+        .END
+
+; SKIPBL: LPOS past blanks and tabs
+        .PROC   SKIPBL
+        .VAR    C
+LOOP:   LDO     LPOS
+        SLDC    0
+        CGP     CHAT
+        STL     C
+        LDL     C
+        LIT     ' '
+        EQUI
+        LDL     C
+        SLDC    9
+        EQUI
+        LOR
+        FJP     DONE
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        UJP     LOOP
+DONE:   RNP     0
+        .END
+
+; ---- tokens: NEXTTOK reads the next one into TKIND (TEND, TID, TNUMBER, TSTRING,
+; TPUNCT, TDIR), TNUM (a number's value, a punctuation's character), TNAME (a name or
+; directive: 8 characters, in capitals, blanks after it), TSTR (a string: its length,
+; then its characters); TSTART where it starts
+
+        .PROC   NEXTTOK
+        .VAR    C, I, V, D
+        CGP     SKIPBL
+        LDO     LPOS
+        SRO     TSTART
+        LDO     LPOS
+        SLDC    0
+        CGP     CHAT
+        STL     C
+        LDL     C
+        SLDC    0
+        NEQI
+        FJP     ATEND
+        LDL     C
+        LIT     ''''
+        EQUI
+        FJP     NOTSTR
+        CGP     STRTOK
+        RNP     0
+NOTSTR: LDL     C
+        SLDC    0
+        CGP     ISLETTER
+        FJP     NOTID
+        LIT     TID
+        SRO     TKIND
+        CGP     NAMETOK
+        RNP     0
+NOTID:  LDL     C
+        LIT     '.'
+        EQUI
+        FJP     NOTDIR
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SLDC    0
+        CGP     CHAT
+        SLDC    0
+        CGP     ISLETTER
+        FJP     NOTDIR
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        LIT     TDIR
+        SRO     TKIND
+        CGP     NAMETOK
+        RNP     0
+NOTDIR: LDL     C
+        SLDC    0
+        CGP     ISDIGIT
+        FJP     NOTDEC
+        SLDC    0
+        STL     V
+DEC:    LDO     LPOS
+        SLDC    0
+        CGP     CHAT
+        STL     C
+        LDL     C
+        SLDC    0
+        CGP     ISDIGIT
+        FJP     NUMBER
+        LDL     V
+        SLDC    10
+        MPI
+        LDL     C
+        LIT     '0'
+        SBI
+        ADI
+        STL     V
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        UJP     DEC
+NOTDEC: LDL     C
+        LIT     '$'
+        EQUI
+        FJP     NOTHEX
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        SLDC    0
+        STL     V
+        SLDC    0
+        STL     I
+HEX:    LDO     LPOS
+        SLDC    0
+        CGP     CHAT
+        SLDC    0
+        CGP     HEXVAL
+        STL     D
+        LDL     D
+        SLDC    0
+        GEQI
+        FJP     HEXEND
+        LDL     V
+        LDCI    16
+        MPI
+        LDL     D
+        ADI
+        STL     V
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        UJP     HEX
+HEXEND: LDL     I
+        SLDC    0
+        GRTI
+        FJP     NODIG
+        UJP     NUMBER
+NODIG:  LSA     '$ without hex digits'
+        CGP     ERRS
+NUMBER: LIT     TNUMBER
+        SRO     TKIND
+        LDL     V
+        SRO     TNUM
+        RNP     0
+NOTHEX: LDL     C               ; , : + - !
+        LIT     ','
+        EQUI
+        LDL     C
+        LIT     ':'
+        EQUI
+        LOR
+        LDL     C
+        LIT     '+'
+        EQUI
+        LOR
+        LDL     C
+        LIT     '-'
+        EQUI
+        LOR
+        LDL     C
+        LIT     '!'
+        EQUI
+        LOR
+        FJP     BAD
+        LIT     TPUNCT
+        SRO     TKIND
+        LDL     C
+        SRO     TNUM
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        RNP     0
+BAD:    LSA     'a character that means nothing here'
+        CGP     ERRS
+ATEND:  LIT     TEND
+        SRO     TKIND
+        RNP     0
+        .END
+
+; NAMETOK: a name at LPOS into TNAME (its first 8 characters, in capitals; the rest of
+; it read past)
+        .PROC   NAMETOK
+        .VAR    I, C
+        SLDC    0
+        STL     I
+CLEAR:  LDL     I
+        SLDC    8
+        LESI
+        FJP     READ
+        LAO     TNAME
+        LDL     I
+        LIT     ' '
+        STB
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     CLEAR
+READ:   SLDC    0
+        STL     I
+LOOP:   LDO     LPOS
+        SLDC    0
+        CGP     CHAT
+        STL     C
+        LDL     C
+        SLDC    0
+        CGP     ISLETTER
+        LDL     C
+        SLDC    0
+        CGP     ISDIGIT
+        LOR
+        LDL     C
+        LIT     '_'
+        EQUI
+        LOR
+        FJP     DONE
+        LDL     I
+        SLDC    8
+        LESI
+        FJP     SKIP
+        LAO     TNAME
+        LDL     I
+        LDL     C
+        SLDC    0
+        CGP     UPPER
+        STB
+SKIP:   LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        UJP     LOOP
+DONE:   RNP     0
+        .END
+
+; STRTOK: a string at LPOS ('...', '' for a ') into TSTR
+        .PROC   STRTOK
+        .VAR    N, C
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        SLDC    0
+        STL     N
+LOOP:   LDO     LPOS
+        LDO     LLEN
+        LESI
+        FJP     NOEND
+        LAO     LINE
+        LDO     LPOS
+        LDB
+        STL     C
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        LDL     C
+        LIT     ''''
+        EQUI
+        FJP     ADD
+        LDO     LPOS
+        LDO     LLEN
+        LESI
+        FJP     DONE
+        LAO     LINE
+        LDO     LPOS
+        LDB
+        LIT     ''''
+        EQUI
+        FJP     DONE
+        LDO     LPOS            ; '' : one '
+        SLDC    1
+        ADI
+        SRO     LPOS
+ADD:    LDL     N
+        LDCI    255
+        LESI
+        FJP     LONG
+        LDL     N
+        SLDC    1
+        ADI
+        STL     N
+        LAO     TSTR
+        LDL     N
+        LDL     C
+        STB
+        UJP     LOOP
+LONG:   LSA     'a string longer than 255'
+        CGP     ERRS
+NOEND:  LSA     'a string without its end'
+        CGP     ERRS
+DONE:   LAO     TSTR
+        SLDC    0
+        LDL     N
+        STB
+        LIT     TSTRING
+        SRO     TKIND
+        RNP     0
+        .END
+
+; ISP(C, R): R 1 if the token is the punctuation C (and then it is read past)
+        .PROC   ISP
+        .PARAM  C, R
+        SLDC    0
+        STL     R
+        LDO     TKIND
+        LIT     TPUNCT
+        EQUI
+        LDO     TNUM
+        LDL     C
+        EQUI
+        LAND
+        FJP     NO
+        CGP     NEXTTOK
+        SLDC    1
+        STL     R
+NO:     RNP     1
+        .END
+
+; NEED(C): the punctuation C, else an error
+        .PROC   NEED
+        .PARAM  C
+        LDL     C
+        SLDC    0
+        CGP     ISP
+        FJP     BAD
+        RNP     0
+BAD:    LDL     C
+        LIT     ','
+        EQUI
+        FJP     COLON
+        LSA     ', expected'
+        CGP     ERRS
+COLON:  LSA     ': expected'
+        CGP     ERRS
+        RNP     0
+        .END
+
+; ENDLINE: nothing more on the line, else an error
+        .PROC   ENDLINE
+        LDO     TKIND
+        LIT     TEND
+        EQUI
+        FJP     MORE
+        RNP     0
+MORE:   LSA     'more on the line than this needs'
+        CGP     ERRS
+        RNP     0
+        .END
+
+; ISNAME(S, R): R 1 if TNAME is the name in the string S (its characters, blanks after)
+        .PROC   ISNAME
+        .PARAM  S, R
+        .VAR    I, C
+        SLDC    0
+        STL     R
+        SLDC    0
+        STL     I
+LOOP:   LDL     I
+        SLDC    8
+        LESI
+        FJP     YES
+        LIT     ' '
+        STL     C
+        LDL     I
+        LDL     S
+        SLDC    0
+        LDB
+        LESI
+        FJP     CMP
+        LDL     S
+        LDL     I
+        SLDC    1
+        ADI
+        LDB
+        STL     C
+CMP:    LAO     TNAME
+        LDL     I
+        LDB
+        LDL     C
+        NEQI
+        FJP     NEXT
+        RNP     1
+NEXT:   LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+YES:    SLDC    1
+        STL     R
+        RNP     1
+        .END
+
+; ---- names: GSYM and LSYM entries are 7 words: the name (8 bytes), its kind, its value
+; and a size (a procedure's: its segment)
+
+; SAMENAME(A, R): R 1 if the 8-byte name at A is TNAME
+        .PROC   SAMENAME
+        .PARAM  A, R
+        SLDC    0
+        STL     R
+        LDL     A
+        IND     0
+        LDO     TNAME
+        EQUI
+        FJP     NO
+        LDL     A
+        IND     1
+        LDO     TNAME+1
+        EQUI
+        LDL     A
+        IND     2
+        LDO     TNAME+2
+        EQUI
+        LAND
+        LDL     A
+        IND     3
+        LDO     TNAME+3
+        EQUI
+        LAND
+        STL     R
+NO:     RNP     1
+        .END
+
+; FINDG(R): R the global entry's address of the name TNAME, 0 if there is none
+        .PROC   FINDG
+        .PARAM  R
+        .VAR    I
+        SLDC    0
+        STL     I
+LOOP:   LDL     I
+        LDO     NGSYM
+        LESI
+        FJP     NONE
+        LAO     GSYM
+        LDL     I
+        IXA     ESIZE
+        SLDC    0
+        CGP     SAMENAME
+        FJP     NEXT
+        LAO     GSYM
+        LDL     I
+        IXA     ESIZE
+        STL     R
+        RNP     1
+NEXT:   LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+NONE:   SLDC    0
+        STL     R
+        RNP     1
+        .END
+
+; FINDL(LAB, R): R the procedure's entry of TNAME, a label (LAB 1) or a parameter or local
+; (LAB 0); 0 if none
+        .PROC   FINDL
+        .PARAM  LAB, R
+        .VAR    I, E
+        SLDC    0
+        STL     I
+LOOP:   LDL     I
+        LDO     NLSYM
+        LESI
+        FJP     NONE
+        LAO     LSYM
+        LDL     I
+        IXA     ESIZE
+        STL     E
+        LDL     E
+        IND     4
+        LIT     KLABEL
+        EQUI
+        LDL     LAB
+        EQUI
+        FJP     NEXT
+        LDL     E
+        SLDC    0
+        CGP     SAMENAME
+        FJP     NEXT
+        LDL     E
+        STL     R
+        RNP     1
+NEXT:   LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+NONE:   SLDC    0
+        STL     R
+        RNP     1
+        .END
+
+; SETENTRY(E, K, V, X): the entry at E: TNAME, kind K, value V, size X
+        .PROC   SETENTRY
+        .PARAM  E, K, V, X
+        LDL     E
+        LDO     TNAME
+        STO
+        LDL     E
+        INC     1
+        LDO     TNAME+1
+        STO
+        LDL     E
+        INC     2
+        LDO     TNAME+2
+        STO
+        LDL     E
+        INC     3
+        LDO     TNAME+3
+        STO
+        LDL     E
+        INC     4
+        LDL     K
+        STO
+        LDL     E
+        INC     5
+        LDL     V
+        STO
+        LDL     E
+        INC     6
+        LDL     X
+        STO
+        RNP     0
+        .END
+
+; ADDL(K, V, X, R): R a new entry of the procedure's for TNAME
+        .PROC   ADDL
+        .PARAM  K, V, X, R
+        LDO     NLSYM
+        LIT     MAXL
+        LESI
+        FJP     FULL
+        LAO     LSYM
+        LDO     NLSYM
+        IXA     ESIZE
+        STL     R
+        LDO     NLSYM
+        SLDC    1
+        ADI
+        SRO     NLSYM
+        LDL     R
+        LDL     K
+        LDL     V
+        LDL     X
+        CGP     SETENTRY
+        RNP     1
+FULL:   LSA     'too many names in a procedure'
+        CGP     ERRS
+        RNP     1
+        .END
+
+; DEFGLOB(K, V, X): the global name TNAME defined: kind K, value V, size X (the second pass:
+; defined again, as the first did)
+        .PROC   DEFGLOB
+        .PARAM  K, V, X
+        .VAR    E
+        SLDC    0
+        CGP     FINDG
+        STL     E
+        LDL     E
+        SLDC    0
+        NEQI
+        FJP     NEW
+        LDO     PASS
+        SLDC    1
+        EQUI
+        FJP     AGAIN
+        LSA     'defined twice'
+        CGP     ERRN
+AGAIN:  LDL     E
+        LDL     K
+        LDL     V
+        LDL     X
+        CGP     SETENTRY
+        RNP     0
+NEW:    LDO     NGSYM
+        LIT     MAXG
+        LESI
+        FJP     FULL
+        LAO     GSYM
+        LDO     NGSYM
+        IXA     ESIZE
+        LDL     K
+        LDL     V
+        LDL     X
+        CGP     SETENTRY
+        LDO     NGSYM
+        SLDC    1
+        ADI
+        SRO     NGSYM
+        RNP     0
+FULL:   LSA     'too many names'
+        CGP     ERRS
+        RNP     0
+        .END
+
+; LOOKUP(R): R the value of the name TNAME -- a parameter or local (once their places
+; are known), else a global name's; FOUND 0 if there is none (the second pass: an error)
+        .PROC   LOOKUP
+        .PARAM  R
+        .VAR    E
+        SLDC    1
+        SRO     FOUND
+        LDO     INPROC
+        LDO     FROZEN
+        LAND
+        FJP     GLOBAL
+        SLDC    0
+        SLDC    0
+        CGP     FINDL
+        STL     E
+        LDL     E
+        SLDC    0
+        NEQI
+        FJP     GLOBAL
+        LDL     E
+        IND     5
+        STL     R
+        RNP     1
+GLOBAL: SLDC    0
+        CGP     FINDG
+        STL     E
+        LDL     E
+        SLDC    0
+        NEQI
+        FJP     NONE
+        LDL     E
+        IND     5
+        STL     R
+        RNP     1
+NONE:   LDO     PASS
+        SLDC    2
+        EQUI
+        FJP     LATER
+        LSA     'not defined'
+        CGP     ERRN
+LATER:  SLDC    0
+        SRO     FOUND
+        SLDC    0
+        STL     R
+        RNP     1
+        .END
+
+; ---- expressions: [-] term {+|- term}; a term a number, a character ('C') or a name.
+; EXPR(NEED, R): R its value; a name not known yet: XUNK 1, R 0 -- an error if NEED
+
+        .PROC   EXPR
+        .PARAM  NEED, R
+        .VAR    NEG, TOTAL, UNK, V
+        SLDC    0
+        STL     TOTAL
+        SLDC    0
+        STL     UNK
+        LIT     '-'
+        SLDC    0
+        CGP     ISP
+        STL     NEG
+TERM:   LDO     TKIND
+        LIT     TNUMBER
+        EQUI
+        FJP     NOTNUM
+        LDO     TNUM
+        STL     V
+        UJP     GOT
+NOTNUM: LDO     TKIND
+        LIT     TSTRING
+        EQUI
+        LAO     TSTR
+        SLDC    0
+        LDB
+        SLDC    1
+        EQUI
+        LAND
+        FJP     NOTCH
+        LAO     TSTR
+        SLDC    1
+        LDB
+        STL     V
+        UJP     GOT
+NOTCH:  LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     BAD
+        SLDC    0
+        CGP     LOOKUP
+        STL     V
+        LDO     FOUND
+        FJP     UNKNOWN
+        UJP     GOT
+UNKNOWN: SLDC   1
+        STL     UNK
+GOT:    CGP     NEXTTOK
+        LDL     NEG
+        FJP     PLUS
+        LDL     TOTAL
+        LDL     V
+        SBI
+        STL     TOTAL
+        UJP     MORE
+PLUS:   LDL     TOTAL
+        LDL     V
+        ADI
+        STL     TOTAL
+MORE:   LIT     '+'
+        SLDC    0
+        CGP     ISP
+        FJP     MINUS
+        SLDC    0
+        STL     NEG
+        UJP     TERM
+MINUS:  LIT     '-'
+        SLDC    0
+        CGP     ISP
+        FJP     DONE
+        SLDC    1
+        STL     NEG
+        UJP     TERM
+DONE:   LDL     UNK
+        SRO     XUNK
+        LDL     UNK
+        FJP     KNOWN
+        LDL     NEED
+        FJP     ZERO
+        LSA     'a name not defined before it is used'
+        CGP     ERRS
+ZERO:   SLDC    0
+        STL     R
+        RNP     1
+KNOWN:  LDL     TOTAL
+        STL     R
+        RNP     1
+BAD:    LSA     'a number or a name expected'
+        CGP     ERRS
+        RNP     1
+        .END

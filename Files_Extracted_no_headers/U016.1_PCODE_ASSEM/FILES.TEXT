@@ -1,0 +1,16 @@
+U016.1:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
+
+  FILE                     BLOCKS  WHAT
+
+  PASMDOC.TEXT                 14  PASM's language: start here
+  PASM.CODE                    22  PASM, the P-code assembler
+  PASM.TEXT                    12  PASM's source: the assembler: its tables, MAIN
+  PASMIO.TEXT                  38  PASM's source: the console, the files, the shell's command line
+  PASMLEX.TEXT                 28  PASM's source: lines, tokens, names, expressions
+  PASMGEN.TEXT                 68  PASM's source: instructions, directives, procedures, segments, the code file
+  HELLO.TEXT                    4  an example: the least program
+  HELLO.CODE                    2  HELLO.TEXT assembled
+  PTEST.TEXT                   10  an example: procedures, functions, globals, LDC, XJP, a second segment
+  PTEST.CODE                    4  PTEST.TEXT assembled
+  MAKEFILE.TEXT                 4  MAKE -f U016.1:MAKEFILE: PASM rebuilt by itself, the examples
+  FILES.TEXT                    6  this list

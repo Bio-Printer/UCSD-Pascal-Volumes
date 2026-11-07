@@ -1,0 +1,39 @@
+; HELLO -- the smallest PASM program: a line on the console
+        .PROGRAM HELLO
+
+; WRITES: the string at S (its length byte, then the characters) on the console
+        .PROC   WRITES
+        .PARAM  S
+        SLDC    1               ; unit 1, the console
+        LDL     S               ; the buffer
+        SLDC    1               ; from byte 1 (after the length)
+        LDL     S
+        SLDC    0
+        LDB                     ; the length
+        SLDC    0               ; block 0
+        SLDC    0               ; mode 0
+        CSP     UWRITE
+        RNP     0
+        .END
+
+; NEWLINE: CR LF on the console
+        .PROC   NEWLINE
+        .VAR    C
+        LDCI    $0A0D           ; CR, then LF (a word's low byte first)
+        STL     C
+        SLDC    1
+        LLA     C
+        SLDC    0
+        SLDC    2
+        SLDC    0
+        SLDC    0
+        CSP     UWRITE
+        RNP     0
+        .END
+
+        .MAIN
+        LSA     'Hello from P-code!'
+        CGP     WRITES
+        CGP     NEWLINE
+        RBP     0
+        .END

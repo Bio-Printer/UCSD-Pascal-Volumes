@@ -1,0 +1,2133 @@
+; PASMGEN -- PASM's instructions, directives, procedures and segments
+
+        .GLOBAL OPC, OPF, ENDING
+
+; ---- the procedure's code
+
+; OB(B): the byte B at the end of the procedure's code
+        .PROC   OB
+        .PARAM  B
+        LDO     CLEN
+        LIT     MAXCODE
+        LESI
+        FJP     FULL
+        LDL     B
+        CGP     PUTB
+        RNP     0
+FULL:   LSA     'procedure too long'
+        CGP     ERRS
+        RNP     0
+        .END
+
+; PUTB(B): B at the end of CODE (its tables too: no limit but CODE's size)
+        .PROC   PUTB
+        .PARAM  B
+        LAO     CODE
+        LDO     CLEN
+        LDL     B
+        STB
+        LDO     CLEN
+        SLDC    1
+        ADI
+        SRO     CLEN
+        RNP     0
+        .END
+
+; PUTW(W): the word W at the end of CODE, its low byte first
+        .PROC   PUTW
+        .PARAM  W
+        LDL     W
+        LDCI    255
+        LAND
+        CGP     PUTB
+        LDL     W
+        SLDC    0
+        CGP     HIBYTE
+        CGP     PUTB
+        RNP     0
+        .END
+
+; BIG(V, F): V as a big operand: one byte below 128 (unless F), else two
+        .PROC   BIG
+        .PARAM  V, F
+        LDL     V
+        SLDC    0
+        LESI
+        FJP     OK
+        LSA     'out of range (0..32767)'
+        CGP     ERRS
+OK:     LDL     V
+        LIT     128
+        LESI
+        LDL     F
+        LNOT
+        LAND
+        FJP     TWO
+        LDL     V
+        CGP     OB
+        RNP     0
+TWO:    LDL     V
+        LDCI    256
+        DVI
+        LIT     128
+        LOR
+        CGP     OB
+        LDL     V
+        LDCI    255
+        LAND
+        CGP     OB
+        RNP     0
+        .END
+
+; BYTE(V): V as a byte operand (0..255)
+        .PROC   BYTE
+        .PARAM  V
+        LDL     V
+        SLDC    0
+        LESI
+        LDL     V
+        LDCI    255
+        GRTI
+        LOR
+        FJP     OK
+        LSA     'out of range (0..255)'
+        CGP     ERRS
+OK:     LDL     V
+        CGP     OB
+        RNP     0
+        .END
+
+; WORD(V): V as a word operand, its low byte first
+        .PROC   WORD
+        .PARAM  V
+        LDL     V
+        LDCI    255
+        LAND
+        CGP     OB
+        LDL     V
+        SLDC    0
+        CGP     HIBYTE
+        CGP     OB
+        RNP     0
+        .END
+
+; ALIGN: a 0 when the code's length is odd (a word operand follows)
+        .PROC   ALIGN
+        LDO     CLEN
+        SLDC    1
+        LAND
+        FJP     EVEN
+        SLDC    0
+        CGP     OB
+EVEN:   RNP     0
+        .END
+
+; SETB(P, V): CODE's byte P := V
+        .PROC   SETB
+        .PARAM  P, V
+        LAO     CODE
+        LDL     P
+        LDL     V
+        STB
+        RNP     0
+        .END
+
+; COPYNAME(D, S): the 8-byte name at S to D
+        .PROC   COPYNAME
+        .PARAM  D, S
+        LDL     D
+        LDL     S
+        MOV     4
+        RNP     0
+        .END
+
+; SETTNAME(S): TNAME := the string S, blanks after it
+        .PROC   SETTNAME
+        .PARAM  S
+        .VAR    I
+        SLDC    0
+        STL     I
+LOOP:   LDL     I
+        SLDC    8
+        LESI
+        FJP     DONE
+        LAO     TNAME
+        LDL     I
+        LIT     ' '
+        STB
+        LDL     I
+        LDL     S
+        SLDC    0
+        LDB
+        LESI
+        FJP     NEXT
+        LAO     TNAME
+        LDL     I
+        LDL     S
+        LDL     I
+        SLDC    1
+        ADI
+        LDB
+        STB
+NEXT:   LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+DONE:   RNP     0
+        .END
+
+; LABREF(K): a reference to the label TNAME: K 0 a jump's byte, 1 a case table's word;
+; fixed at .END
+        .PROC   LABREF
+        .PARAM  K
+        .VAR    E
+        SLDC    1
+        SLDC    0
+        CGP     FINDL
+        STL     E
+        LDL     E
+        SLDC    0
+        EQUI
+        FJP     HAVE
+        LIT     KLABEL
+        SLDC    1
+        NGI
+        SLDC    0
+        SLDC    0
+        CGP     ADDL
+        STL     E
+HAVE:   LDO     NFIX
+        LIT     MAXFIX
+        LESI
+        FJP     FULL
+        LAO     FIXP
+        LDO     NFIX
+        IXA     1
+        LDO     CLEN
+        STO
+        LAO     FIXL
+        LDO     NFIX
+        IXA     1
+        LDL     E
+        STO
+        LAO     FIXK
+        LDO     NFIX
+        IXA     1
+        LDL     K
+        STO
+        LDO     NFIX
+        SLDC    1
+        ADI
+        SRO     NFIX
+        SLDC    0
+        CGP     OB
+        LDL     K
+        FJP     DONE
+        SLDC    0
+        CGP     OB
+DONE:   RNP     0
+FULL:   LSA     'too many jumps in a procedure'
+        CGP     ERRS
+        RNP     0
+        .END
+
+; ---- tables
+
+; TABFIND(S, W, NC, R): R the entry of the string S (entries of W characters) whose first
+; NC characters are TNAME (and the rest of TNAME blank); -1 if none
+        .PROC   TABFIND
+        .PARAM  S, W, NC, R
+        .VAR    K, N, I
+        SLDC    1
+        NGI
+        STL     R
+        LDL     NC
+        STL     I
+TAIL:   LDL     I
+        SLDC    8
+        LESI
+        FJP     SCAN
+        LAO     TNAME
+        LDL     I
+        LDB
+        LIT     ' '
+        NEQI
+        FJP     TAIL1
+        RNP     1
+TAIL1:  LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     TAIL
+SCAN:   LDL     S
+        SLDC    0
+        LDB
+        LDL     W
+        DVI
+        STL     N
+        SLDC    0
+        STL     K
+ENTRY:  LDL     K
+        LDL     N
+        LESI
+        FJP     NONE
+        SLDC    0
+        STL     I
+CHAR:   LDL     I
+        LDL     NC
+        LESI
+        FJP     FOUND
+        LDL     S
+        LDL     K
+        LDL     W
+        MPI
+        LDL     I
+        ADI
+        SLDC    1
+        ADI
+        LDB
+        LAO     TNAME
+        LDL     I
+        LDB
+        NEQI
+        FJP     CHAR1
+        UJP     NEXT
+CHAR1:  LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     CHAR
+FOUND:  LDL     K
+        STL     R
+        RNP     1
+NEXT:   LDL     K
+        SLDC    1
+        ADI
+        STL     K
+        UJP     ENTRY
+NONE:   RNP     1
+        .END
+
+; OPTAB(S, R): R 1 if TNAME is a mnemonic of the table S (7 characters an entry: the name,
+; the opcode in hex, the operands' form); then OPC and OPF
+        .PROC   OPTAB
+        .PARAM  S, R
+        .VAR    K, A
+        SLDC    0
+        STL     R
+        LDL     S
+        SLDC    7
+        SLDC    4
+        SLDC    0
+        CGP     TABFIND
+        STL     K
+        LDL     K
+        SLDC    0
+        GEQI
+        FJP     NO
+        LDL     K
+        SLDC    7
+        MPI
+        SLDC    1
+        ADI
+        STL     A               ; the entry's first character
+        LDL     S
+        LDL     A
+        SLDC    4
+        ADI
+        LDB
+        SLDC    0
+        CGP     HEXVAL
+        LDCI    16
+        MPI
+        LDL     S
+        LDL     A
+        SLDC    5
+        ADI
+        LDB
+        SLDC    0
+        CGP     HEXVAL
+        ADI
+        SRO     OPC
+        LDL     S
+        LDL     A
+        SLDC    6
+        ADI
+        LDB
+        SRO     OPF
+        SLDC    1
+        STL     R
+NO:     RNP     1
+        .END
+
+; FINDOP(R): R 1 if TNAME is a mnemonic (OPC its opcode, OPF its operands' form:
+; - none, U byte, B big, D db and big, S jump, W word, T compare's type, A string,
+; C words, X case table, P two bytes, E CXP, Q byte and big, 0 1 2 3 the short loads, L LIT)
+        .PROC   FINDOP
+        .PARAM  R
+        LSA     'ABI 80-ABR 81-ADI 82-ADR 83-LAND84-DIF 85-DVI 86-DVR 87-CHK 88-FLO 89-FLT 8A-INN 8B-INT 8C-LOR 8D-'
+        SLDC    0
+        CGP     OPTAB
+        FJP     T2
+        SLDC    1
+        STL     R
+        RNP     1
+T2:     LSA     'MODI8E-MPI 8F-MPR 90-NGI 91-NGR 92-LNOT93-SRS 94-SBI 95-SBR 96-SGS 97-SQI 98-SQR 99-STO 9A-IXS 9B-'
+        SLDC    0
+        CGP     OPTAB
+        FJP     T3
+        SLDC    1
+        STL     R
+        RNP     1
+T3:     LSA     'UNI 9C-S2P 9D-CSP 9EULDCN9F-ADJ A0UFJP A1SINC A2BIND A3BIXA A4BLAO A5BLSA A6ALAE A7QMOV A8BLDO A9B'
+        SLDC    0
+        CGP     OPTAB
+        FJP     T4
+        SLDC    1
+        STL     R
+        RNP     1
+T4:     LSA     'SAS AAUSRO ABBXJP ACXRNP ADUCIP AEUEQU AFTGEQ B0TGRT B1TLDA B2DLDC B3CLEQ B4TLES B5TLOD B6DNEQ B7T'
+        SLDC    0
+        CGP     OPTAB
+        FJP     T5
+        SLDC    1
+        STL     R
+        RNP     1
+T5:     LSA     'STR B8DUJP B9SLDP BA-STP BB-LDM BCUSTM BDULDB BE-STB BF-IXP C0PRBP C1UCBP C2UEQUIC3-GEQIC4-GRTIC5-'
+        SLDC    0
+        CGP     OPTAB
+        FJP     T6
+        SLDC    1
+        STL     R
+        RNP     1
+T6:     LSA     'LLA C6BLDCIC7WLEQIC8-LESIC9-LDL CABNEQICB-STL CCBCXP CDECLP CEUCGP CFULPA D0ASTE D1QEFJ D3SNFJ D4S'
+        SLDC    0
+        CGP     OPTAB
+        FJP     T7
+        SLDC    1
+        STL     R
+        RNP     1
+T7:     LSA     'BPT D5BXIT D6-NOP D7-SLDC000SLDLD71SLDOE72SINDF83LIT 00L'
+        SLDC    0
+        CGP     OPTAB
+        STL     R
+        RNP     1
+        .END
+
+; ---- the procedure's names
+
+; FREEZE: the parameters' and locals' places, once they are all declared: the last
+; parameter at 1, the one before it after it ..., then the locals in their order
+        .PROC   FREEZE
+        .VAR    OFF, I, E
+        LDO     INPROC
+        LDO     FROZEN
+        LNOT
+        LAND
+        FJP     DONE
+        SLDC    1
+        SRO     FROZEN
+        SLDC    1
+        STL     OFF
+        LDO     NLSYM
+        SLDC    1
+        SBI
+        STL     I
+PARAMS: LDL     I
+        SLDC    0
+        GEQI
+        FJP     PDONE
+        LAO     LSYM
+        LDL     I
+        IXA     ESIZE
+        STL     E
+        LDL     E
+        IND     4
+        LIT     KPARAM
+        EQUI
+        FJP     PNEXT
+        LDL     E
+        INC     5
+        LDL     OFF
+        STO
+        LDL     OFF
+        LDL     E
+        IND     6
+        ADI
+        STL     OFF
+PNEXT:  LDL     I
+        SLDC    1
+        SBI
+        STL     I
+        UJP     PARAMS
+PDONE:  LDL     OFF
+        SLDC    1
+        SBI
+        SRO     PWORDS
+        SLDC    0
+        STL     I
+VARS:   LDL     I
+        LDO     NLSYM
+        LESI
+        FJP     VDONE
+        LAO     LSYM
+        LDL     I
+        IXA     ESIZE
+        STL     E
+        LDL     E
+        IND     4
+        LIT     KVAR
+        EQUI
+        FJP     VNEXT
+        LDL     E
+        INC     5
+        LDL     OFF
+        STO
+        LDL     OFF
+        LDL     E
+        IND     6
+        ADI
+        STL     OFF
+VNEXT:  LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     VARS
+VDONE:  LDL     OFF
+        SLDC    1
+        SBI
+        LDO     PWORDS
+        SBI
+        SRO     VWORDS
+DONE:   RNP     0
+        .END
+
+; DEFLABEL: the label TNAME is here
+        .PROC   DEFLABEL
+        .VAR    E
+        LDO     INPROC
+        FJP     OUTSIDE
+        CGP     FREEZE
+        SLDC    1
+        SLDC    0
+        CGP     FINDL
+        STL     E
+        LDL     E
+        SLDC    0
+        EQUI
+        FJP     OLD
+        LIT     KLABEL
+        LDO     CLEN
+        SLDC    0
+        SLDC    0
+        CGP     ADDL
+        STL     E
+        RNP     0
+OLD:    LDL     E
+        IND     5
+        SLDC    0
+        GEQI
+        FJP     SET
+        LSA     'label defined twice'
+        CGP     ERRN
+SET:    LDL     E
+        INC     5
+        LDO     CLEN
+        STO
+        RNP     0
+OUTSIDE: LSA    'a label outside a procedure'
+        CGP     ERRS
+        RNP     0
+        .END
+
+; ---- procedures
+
+; STARTPROC(M, LEX): a procedure begins: M 1 .MAIN, else .PROC TNAME
+        .PROC   STARTPROC
+        .PARAM  M, LEX
+        .VAR    NUM
+        LDO     INPROC
+        FJP     NOTIN
+        LSA     '.END of the procedure before it missing'
+        CGP     ERRS
+NOTIN:  LDO     SEGOPEN
+        FJP     NOPROG
+        LDL     M
+        FJP     PROC
+        LDO     SEGNUM
+        SLDC    1
+        NEQI
+        FJP     SEG1
+        LSA     '.MAIN in segment 1 only'
+        CGP     ERRS
+SEG1:   LDO     HADMAIN
+        FJP     FIRST
+        LSA     '.MAIN twice'
+        CGP     ERRS
+FIRST:  SLDC    1
+        SRO     HADMAIN
+        SLDC    1
+        STL     NUM
+        UJP     BEGIN
+PROC:   LDO     NSPROC
+        LDCI    255
+        GEQI
+        FJP     ROOM
+        LSA     'more than 255 procedures in a segment'
+        CGP     ERRS
+ROOM:   LDO     NEXTPROC
+        SLDC    1
+        ADI
+        SRO     NEXTPROC
+        LDO     NEXTPROC
+        STL     NUM
+        LIT     KPROC
+        LDL     NUM
+        LDO     SEGNUM
+        CGP     DEFGLOB
+BEGIN:  SLDC    1
+        SRO     INPROC
+        LDL     NUM
+        SRO     PNUM
+        LDL     LEX
+        SRO     PLEX
+        LDL     M
+        SRO     PMAIN
+        SLDC    0
+        SRO     CLEN
+        SLDC    0
+        SRO     NFIX
+        SLDC    0
+        SRO     NLSYM
+        SLDC    0
+        SRO     FROZEN
+        SLDC    1
+        NGI
+        SRO     LASTRET
+        SLDC    1
+        NGI
+        SRO     EXITPOS
+        LDL     M
+        FJP     DONE
+        LSA     'INPUT'                 ; .MAIN's parameters
+        CGP     SETTNAME
+        LIT     KPARAM
+        SLDC    0
+        SLDC    1
+        SLDC    0
+        CGP     ADDL
+        STL     NUM
+        LSA     'OUTPUT'
+        CGP     SETTNAME
+        LIT     KPARAM
+        SLDC    0
+        SLDC    1
+        SLDC    0
+        CGP     ADDL
+        STL     NUM
+DONE:   RNP     0
+NOPROG: LSA     '.PROGRAM first'
+        CGP     ERRS
+        RNP     0
+        .END
+
+; LONGIX(T, R): R the index of T among the long jumps' targets (a new one added)
+        .PROC   LONGIX
+        .PARAM  T, R
+        SLDC    0
+        STL     R
+LOOP:   LDL     R
+        LDO     NLONG
+        LESI
+        FJP     ADD
+        LAO     LONGS
+        LDL     R
+        IXA     1
+        IND     0
+        LDL     T
+        EQUI
+        FJP     NEXT
+        RNP     1
+NEXT:   LDL     R
+        SLDC    1
+        ADI
+        STL     R
+        UJP     LOOP
+ADD:    LDO     NLONG
+        LIT     MAXLONG
+        LESI
+        FJP     FULL
+        LAO     LONGS
+        LDO     NLONG
+        IXA     1
+        LDL     T
+        STO
+        LDO     NLONG
+        SLDC    1
+        ADI
+        SRO     NLONG
+        RNP     1
+FULL:   LSA     'more than 60 long jumps in a procedure'
+        CGP     ERRS
+        RNP     1
+        .END
+
+; ENDPROC: .END -- the jumps fixed, the jump table and the attributes added (DATASZ, PARMSZ,
+; EXITIC, ENTERIC, the number, the lex level: JTAB at the number), the procedure into the
+; segment (the second pass: into the code file)
+        .PROC   ENDPROC
+        .VAR    I, E, X, T, P, OFF, BASE, JTAB, K
+        CGP     FREEZE
+        SLDC    0               ; every label defined?
+        STL     I
+LABS:   LDL     I
+        LDO     NLSYM
+        LESI
+        FJP     LDONE
+        LAO     LSYM
+        LDL     I
+        IXA     ESIZE
+        STL     E
+        LDL     E
+        IND     4
+        LIT     KLABEL
+        EQUI
+        LDL     E
+        IND     5
+        SLDC    0
+        LESI
+        LAND
+        FJP     LNEXT
+        LAO     TNAME
+        LDL     E
+        CGP     COPYNAME
+        LSA     'label not defined'
+        CGP     ERRNC
+LNEXT:  LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LABS
+LDONE:  LDO     EXITPOS
+        STL     X
+        LDL     X
+        SLDC    0
+        LESI
+        FJP     HAVEX
+        LDO     LASTRET
+        STL     X
+        LDL     X
+        SLDC    0
+        LESI
+        FJP     HAVEX
+        LSA     'no RNP or RBP (or .EXIT) in the procedure'
+        CGP     ERRSC
+HAVEX:  SLDC    0               ; the jumps: short, or long through the jump table
+        SRO     NLONG
+        SLDC    0
+        STL     I
+JUMPS:  LDL     I
+        LDO     NFIX
+        LESI
+        FJP     JDONE
+        LAO     FIXK
+        LDL     I
+        IXA     1
+        IND     0
+        SLDC    0
+        EQUI
+        FJP     JNEXT
+        LAO     FIXL
+        LDL     I
+        IXA     1
+        IND     0
+        IND     5
+        STL     T
+        LAO     FIXP
+        LDL     I
+        IXA     1
+        IND     0
+        STL     P
+        LDL     T
+        LDL     P
+        SLDC    1
+        ADI
+        SBI
+        STL     OFF
+        LDL     OFF
+        SLDC    0
+        GEQI
+        LDL     OFF
+        LIT     127
+        LEQI
+        LAND
+        FJP     LONG
+        LDL     P
+        LDL     OFF
+        CGP     SETB
+        UJP     JNEXT
+LONG:   LDL     T
+        SLDC    0
+        CGP     LONGIX
+        STL     K
+        LDL     P
+        LDCI    246
+        LDL     K
+        SLDC    2
+        MPI
+        SBI
+        CGP     SETB
+JNEXT:  LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     JUMPS
+JDONE:  LDO     CLEN
+        SLDC    1
+        LAND
+        FJP     EVEN
+        SLDC    0
+        CGP     PUTB
+EVEN:   LDO     CLEN
+        STL     BASE
+        LDL     BASE
+        LDO     NLONG
+        SLDC    2
+        MPI
+        ADI
+        SLDC    8
+        ADI
+        STL     JTAB
+        LDO     NLONG           ; the jump table: entry K at JTAB-10-2K
+        SLDC    1
+        SBI
+        STL     K
+TABLE:  LDL     K
+        SLDC    0
+        GEQI
+        FJP     ATTRS
+        LDL     JTAB
+        SLDC    10
+        SBI
+        LDL     K
+        SLDC    2
+        MPI
+        SBI
+        LAO     LONGS
+        LDL     K
+        IXA     1
+        IND     0
+        SBI
+        CGP     PUTW
+        LDL     K
+        SLDC    1
+        SBI
+        STL     K
+        UJP     TABLE
+ATTRS:  LDO     PMAIN
+        FJP     LOCALS
+        LDO     GWORDS
+        UJP     DATASZ
+LOCALS: LDO     VWORDS
+DATASZ: SLDC    2
+        MPI
+        CGP     PUTW
+        LDO     PWORDS
+        SLDC    2
+        MPI
+        CGP     PUTW
+        LDL     JTAB
+        SLDC    4
+        SBI
+        LDL     X
+        SBI
+        CGP     PUTW            ; EXITIC
+        LDL     JTAB
+        SLDC    2
+        SBI
+        CGP     PUTW            ; ENTERIC
+        LDO     PNUM
+        CGP     PUTB
+        LDO     PLEX
+        LDCI    255
+        LAND
+        CGP     PUTB
+        SLDC    0               ; the case tables' words: self-relative
+        STL     I
+CASES:  LDL     I
+        LDO     NFIX
+        LESI
+        FJP     CDONE
+        LAO     FIXK
+        LDL     I
+        IXA     1
+        IND     0
+        SLDC    1
+        EQUI
+        FJP     CNEXT
+        LAO     FIXP
+        LDL     I
+        IXA     1
+        IND     0
+        STL     P
+        LDL     P
+        LAO     FIXL
+        LDL     I
+        IXA     1
+        IND     0
+        IND     5
+        SBI
+        STL     T
+        LDL     P
+        LDL     T
+        LDCI    255
+        LAND
+        CGP     SETB
+        LDL     P
+        SLDC    1
+        ADI
+        LDL     T
+        SLDC    0
+        CGP     HIBYTE
+        CGP     SETB
+CNEXT:  LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     CASES
+CDONE:  LAO     SPJT            ; its JTAB in the segment
+        LDO     PNUM
+        IXA     1
+        LDO     SEGLEN
+        LDL     JTAB
+        ADI
+        STO
+        LDO     NSPROC
+        SLDC    1
+        ADI
+        SRO     NSPROC
+        LDO     SEGLEN
+        LDO     CLEN
+        ADI
+        SRO     SEGLEN
+        LDO     PASS
+        SLDC    2
+        EQUI
+        FJP     DONE
+        SLDC    0
+        STL     I
+WRITE:  LDL     I
+        LDO     CLEN
+        LESI
+        FJP     DONE
+        LAO     CODE
+        LDL     I
+        LDB
+        CGP     OUTB
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     WRITE
+DONE:   SLDC    0
+        SRO     INPROC
+        RNP     0
+        .END
+
+; ---- segments
+
+; STARTSEG(A, NUM): segment NUM (-1: the next after 7 and the others) named the name at A
+        .PROC   STARTSEG
+        .PARAM  A, NUM
+        .VAR    I, U
+        CGP     ENDSEG
+        LDL     NUM
+        SLDC    0
+        LESI
+        FJP     GIVEN
+        SLDC    7
+        STL     NUM
+        SLDC    0
+        STL     I
+NEXT:   LDL     I
+        LDO     NUSED
+        LESI
+        FJP     GIVEN
+        LAO     USED
+        LDL     I
+        IXA     1
+        IND     0
+        STL     U
+        LDL     U
+        SLDC    7
+        GEQI
+        LDL     U
+        SLDC    1
+        ADI
+        LDL     NUM
+        GRTI
+        LAND
+        FJP     NEXT1
+        LDL     U
+        SLDC    1
+        ADI
+        STL     NUM
+NEXT1:  LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     NEXT
+GIVEN:  LDL     NUM
+        SLDC    1
+        LESI
+        LDL     NUM
+        SLDC    15
+        GRTI
+        LOR
+        FJP     INUSE
+        UJP     BAD
+INUSE:  SLDC    0
+        STL     I
+CHECK:  LDL     I
+        LDO     NUSED
+        LESI
+        FJP     OK
+        LAO     USED
+        LDL     I
+        IXA     1
+        IND     0
+        LDL     NUM
+        EQUI
+        FJP     CHECK1
+        UJP     BAD
+CHECK1: LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     CHECK
+BAD:    LSA     'segment number taken or out of range'
+        CGP     ERRS
+OK:     LAO     USED
+        LDO     NUSED
+        IXA     1
+        LDL     NUM
+        STO
+        LDO     NUSED
+        SLDC    1
+        ADI
+        SRO     NUSED
+        SLDC    1
+        SRO     SEGOPEN
+        LDL     NUM
+        SRO     SEGNUM
+        LAO     SEGNAME
+        LDL     A
+        CGP     COPYNAME
+        LDL     NUM
+        SLDC    1
+        NEQI
+        FJP     PROCS
+        LAO     TNAME
+        LDL     A
+        CGP     COPYNAME
+        LIT     KSEG
+        LDL     NUM
+        SLDC    0
+        CGP     DEFGLOB
+PROCS:  SLDC    0
+        SRO     NSPROC
+        SLDC    0
+        SRO     SEGLEN
+        LDL     NUM
+        SLDC    1
+        EQUI
+        SRO     NEXTPROC
+        LDO     OTOT
+        SRO     SEGSTART
+        RNP     0
+        .END
+
+; ENDSEG: the segment ends: its procedure dictionary (pointers to each procedure's JTAB,
+; the last first; the segment's number and its procedures' count); the first pass keeps
+; its length, the second writes it
+        .PROC   ENDSEG
+        .VAR    N, J, LEN
+        LDO     SEGOPEN
+        FJP     DONE
+        LDO     INPROC
+        FJP     NOTIN
+        LSA     '.END of the last procedure missing'
+        CGP     ERRS
+NOTIN:  LDO     SEGNUM
+        SLDC    1
+        EQUI
+        LDO     HADMAIN
+        LNOT
+        LAND
+        FJP     HAVEM
+        LSA     'no .MAIN'
+        CGP     ERRS
+HAVEM:  LDO     NSPROC
+        STL     N
+        LDO     SEGLEN
+        LDL     N
+        SLDC    2
+        MPI
+        ADI
+        SLDC    2
+        ADI
+        STL     LEN
+        LDO     PASS
+        SLDC    1
+        EQUI
+        FJP     WRITE
+        LAO     SEGNO
+        LDO     NSEGS
+        IXA     1
+        LDO     SEGNUM
+        STO
+        LAO     SEGNM
+        LDO     NSEGS
+        IXA     4
+        LAO     SEGNAME
+        CGP     COPYNAME
+        LAO     SEGLN
+        LDO     NSEGS
+        IXA     1
+        LDL     LEN
+        STO
+        LDO     NSEGS
+        SLDC    1
+        ADI
+        SRO     NSEGS
+        UJP     CLOSED
+WRITE:  LDL     N
+        STL     J
+DICT:   LDL     J
+        SLDC    1
+        GEQI
+        FJP     TAIL
+        LDO     SEGLEN          ; this word's place, less the procedure's JTAB
+        LDL     N
+        LDL     J
+        SBI
+        SLDC    2
+        MPI
+        ADI
+        LAO     SPJT
+        LDL     J
+        IXA     1
+        IND     0
+        SBI
+        CGP     OUTW
+        LDL     J
+        SLDC    1
+        SBI
+        STL     J
+        UJP     DICT
+TAIL:   LDO     SEGNUM
+        CGP     OUTB
+        LDL     N
+        CGP     OUTB
+        LDO     OTOT
+        LDO     SEGSTART
+        SBI
+        LDL     LEN
+        NEQI
+        FJP     PAD
+        LSA     'internal: a segment''s length changed between the passes'
+        CGP     ERRS
+PAD:    CGP     PADBLOCK
+CLOSED: SLDC    0
+        SRO     SEGOPEN
+DONE:   RNP     0
+        .END
+
+; BLOCK0: the code file's block 0: each segment's first block and length, its name
+        .PROC   BLOCK0
+        .VAR    I, BLK, NUM, LEN
+        SLDC    0
+        STL     I
+CLEAR:  LDL     I
+        LDCI    256
+        LESI
+        FJP     SEGS
+        LAO     OBUF
+        LDL     I
+        IXA     1
+        SLDC    0
+        STO
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     CLEAR
+SEGS:   SLDC    1
+        STL     BLK
+        SLDC    0
+        STL     I
+LOOP:   LDL     I
+        LDO     NSEGS
+        LESI
+        FJP     DONE
+        LAO     SEGNO
+        LDL     I
+        IXA     1
+        IND     0
+        STL     NUM
+        LAO     SEGLN
+        LDL     I
+        IXA     1
+        IND     0
+        STL     LEN
+        LAO     OBUF
+        LDL     NUM
+        IXA     2
+        LDL     BLK
+        STO
+        LAO     OBUF
+        LDL     NUM
+        IXA     2
+        INC     1
+        LDL     LEN
+        STO
+        LAO     OBUF
+        LDL     NUM
+        IXA     4
+        INC     32
+        LAO     SEGNM
+        LDL     I
+        IXA     4
+        CGP     COPYNAME
+        LDL     BLK
+        LDL     LEN
+        LDCI    512
+        DVI
+        ADI
+        LDL     LEN
+        LDCI    512
+        MODI
+        SLDC    0
+        NEQI
+        ADI
+        STL     BLK
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+DONE:   CGP     FLUSH
+        LDCI    512
+        SRO     OTOT
+        RNP     0
+        .END
+
+; ---- the directives
+
+; NAMELIST(K): .PARAM, .VAR (K: KPARAM, KVAR) or .GLOBAL (KGLOB): NAME[:WORDS], ...
+        .PROC   NAMELIST
+        .PARAM  K
+        .VAR    W, E
+LOOP:   LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     NONAME
+        LAO     PNAME
+        LAO     TNAME
+        CGP     COPYNAME
+        CGP     NEXTTOK
+        SLDC    1
+        STL     W
+        LIT     ':'
+        SLDC    0
+        CGP     ISP
+        FJP     NAMED
+        SLDC    1
+        SLDC    0
+        CGP     EXPR
+        STL     W
+        LDL     W
+        SLDC    1
+        LESI
+        FJP     NAMED
+        LSA     'a size of at least 1'
+        CGP     ERRS
+NAMED:  LAO     TNAME
+        LAO     PNAME
+        CGP     COPYNAME
+        LDL     K
+        LIT     KGLOB
+        EQUI
+        FJP     LOCAL
+        LIT     KGLOB
+        LDO     GNEXT
+        LDL     W
+        CGP     DEFGLOB
+        LDO     GNEXT
+        LDL     W
+        ADI
+        SRO     GNEXT
+        UJP     MORE
+LOCAL:  SLDC    0
+        SLDC    0
+        CGP     FINDL
+        SLDC    0
+        NEQI
+        FJP     NEW
+        LSA     'declared twice'
+        CGP     ERRN
+NEW:    LDL     K
+        SLDC    0
+        LDL     W
+        SLDC    0
+        CGP     ADDL
+        STL     E
+MORE:   LIT     ','
+        SLDC    0
+        CGP     ISP
+        FJP     DONE
+        UJP     LOOP
+DONE:   CGP     ENDLINE
+        RNP     0
+NONAME: LSA     'a name expected'
+        CGP     ERRS
+        RNP     0
+        .END
+
+; DIRECTIVE: the directive TNAME (the token after it read)
+        .PROC   DIRECTIVE
+        .VAR    D, V
+        LSA     'PROGRAM SEGMENT MAIN    PROC    END     PARAM   VAR     GLOBAL  EQU     EXIT    INCLUDE '
+        SLDC    8
+        SLDC    8
+        SLDC    0
+        CGP     TABFIND
+        STL     D
+        LDL     D
+        SLDC    0
+        LESI
+        FJP     KNOWN
+        LSA     'no such directive'
+        CGP     ERRN
+KNOWN:  CGP     NEXTTOK
+        LDL     D
+        XJP     0, 10, DONE, PROGRAM, SEGMENT, MAIN, PROC, END, PARAM, VAR, GLOBAL, EQU, EXIT, INCLUDE
+PROGRAM: LDO    TKIND
+        LIT     TID
+        EQUI
+        LDO     PROGSET
+        LNOT
+        LAND
+        FJP     PROGBAD
+        LAO     PNAME
+        LAO     TNAME
+        CGP     COPYNAME
+        CGP     NEXTTOK
+        CGP     ENDLINE
+        SLDC    1
+        SRO     PROGSET
+        LAO     PNAME
+        SLDC    1
+        CGP     STARTSEG
+        RNP     0
+PROGBAD: LSA    '.PROGRAM NAME, once'
+        CGP     ERRS
+SEGMENT: LDO    TKIND
+        LIT     TID
+        EQUI
+        FJP     SEGBAD
+        LAO     PNAME
+        LAO     TNAME
+        CGP     COPYNAME
+        CGP     NEXTTOK
+        SLDC    1
+        NGI
+        STL     V
+        LDO     TKIND
+        LIT     TEND
+        NEQI
+        FJP     SEGEND
+        SLDC    1
+        SLDC    0
+        CGP     EXPR
+        STL     V
+SEGEND: CGP     ENDLINE
+        LDO     SEGOPEN
+        FJP     NOPROG
+        LAO     PNAME
+        LDL     V
+        CGP     STARTSEG
+        RNP     0
+SEGBAD: LSA     '.SEGMENT NAME [NUMBER]'
+        CGP     ERRS
+NOPROG: LSA     '.PROGRAM first'
+        CGP     ERRS
+MAIN:   CGP     ENDLINE
+        SLDC    1
+        SLDC    0
+        CGP     STARTPROC
+        RNP     0
+PROC:   LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     PROCBAD
+        LAO     PNAME
+        LAO     TNAME
+        CGP     COPYNAME
+        CGP     NEXTTOK
+        SLDC    1
+        STL     V
+        LDO     TKIND
+        LIT     TEND
+        NEQI
+        FJP     PROCEND
+        SLDC    1
+        SLDC    0
+        CGP     EXPR
+        STL     V
+PROCEND: CGP    ENDLINE
+        LAO     TNAME
+        LAO     PNAME
+        CGP     COPYNAME
+        SLDC    0
+        LDL     V
+        CGP     STARTPROC
+        RNP     0
+PROCBAD: LSA    '.PROC NAME [LEX]'
+        CGP     ERRS
+END:    CGP     ENDLINE
+        LDO     INPROC
+        FJP     NOPROC
+        CGP     ENDPROC
+        RNP     0
+NOPROC: LSA     '.END without .PROC'
+        CGP     ERRS
+PARAM:  LIT     KPARAM
+        UJP     PV
+VAR:    LDO     PMAIN
+        FJP     VAROK
+        LSA     '.VAR in .MAIN: .GLOBAL'
+        CGP     ERRS
+VAROK:  LIT     KVAR
+PV:     STL     V
+        LDO     INPROC
+        LDO     FROZEN
+        LNOT
+        LAND
+        FJP     PVBAD
+        LDL     V
+        CGP     NAMELIST
+        RNP     0
+PVBAD:  LSA     '.PARAM, .VAR: at a procedure''s start, before its code'
+        CGP     ERRS
+GLOBAL: LDO     INPROC
+        FJP     GLOBOK
+        LSA     '.GLOBAL outside procedures'
+        CGP     ERRS
+GLOBOK: LIT     KGLOB
+        CGP     NAMELIST
+        RNP     0
+EQU:    LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     EQUBAD
+        LAO     PNAME
+        LAO     TNAME
+        CGP     COPYNAME
+        CGP     NEXTTOK
+        LIT     ','
+        CGP     NEED
+        SLDC    1
+        SLDC    0
+        CGP     EXPR
+        STL     V
+        CGP     ENDLINE
+        LAO     TNAME
+        LAO     PNAME
+        CGP     COPYNAME
+        LIT     KEQU
+        LDL     V
+        SLDC    0
+        CGP     DEFGLOB
+        RNP     0
+EQUBAD: LSA     '.EQU NAME, VALUE'
+        CGP     ERRS
+EXIT:   CGP     ENDLINE
+        LDO     INPROC
+        FJP     EXITBAD
+        CGP     FREEZE
+        LDO     CLEN
+        SRO     EXITPOS
+        RNP     0
+EXITBAD: LSA    '.EXIT outside a procedure'
+        CGP     ERRS
+INCLUDE: LDO    TKIND
+        LIT     TID
+        EQUI
+        FJP     INCBAD
+        LAO     PNAME
+        LAO     TNAME
+        CGP     COPYNAME
+        CGP     NEXTTOK
+        CGP     ENDLINE
+        LAO     TNAME
+        LAO     PNAME
+        CGP     COPYNAME
+        CGP     INCLUDE
+        RNP     0
+INCBAD: LSA     '.INCLUDE NAME'
+        CGP     ERRS
+DONE:   RNP     0
+        .END
+
+;
+; CSPTAB(S, R): R the number of the standard procedure TNAME in the table S (8 characters
+; an entry: the name, its number in 2 digits); -1 if not there
+        .PROC   CSPTAB
+        .PARAM  S, R
+        .VAR    I
+        SLDC    1
+        NGI
+        STL     R
+        LDL     S
+        SLDC    8
+        SLDC    6
+        SLDC    0
+        CGP     TABFIND
+        STL     I
+        LDL     I
+        SLDC    0
+        GEQI
+        FJP     NO
+        LDL     S
+        LDL     I
+        SLDC    8
+        MPI
+        SLDC    7
+        ADI
+        LDB
+        LIT     '0'
+        SBI
+        SLDC    10
+        MPI
+        LDL     S
+        LDL     I
+        SLDC    8
+        MPI
+        SLDC    8
+        ADI
+        LDB
+        LIT     '0'
+        SBI
+        ADI
+        STL     R
+NO:     RNP     1
+        .END
+
+; CSPNUM(R): R the number of the standard procedure TNAME (CSP's names); -1 if none
+        .PROC   CSPNUM
+        .PARAM  R
+        LSA     'IOC   00NEW   01MVL   02MVR   03EXIT  04UREAD 05UWRITE06IDS   07TRS   08TIM   09FLC   10SCN   11GSEG  21RSEG  22TNC   23RND   24'
+        SLDC    0
+        CGP     CSPTAB
+        STL     R
+        LDL     R
+        SLDC    0
+        LESI
+        FJP     DONE
+        LSA     'SIN   25COS   26LOG   27ATAN  28LN    29EXP   30SQT   31MRK   32RLS   33IOR   34UBUSY 35POT   36UWAIT 37UCLEAR38HLT   39MEMA  40'
+        SLDC    0
+        CGP     CSPTAB
+        STL     R
+DONE:   RNP     1
+        .END
+
+; ---- the instructions
+
+; INSTR: the instruction TNAME (OPC, OPF) and its operands
+        .PROC   INSTR
+        .VAR    F, V, LO, HI, N, I, E, SAVE, FIXED
+        CGP     FREEZE
+        CGP     NEXTTOK
+        LDO     PASS
+        SLDC    2
+        EQUI
+        STL     FIXED
+        LSA     '-UBDSWTACXPEQ0123L'
+        STL     E
+        SLDC    0
+        STL     F
+FMT:    LDL     E
+        LDL     F
+        SLDC    1
+        ADI
+        LDB
+        LDO     OPF
+        NEQI
+        FJP     GOTF
+        LDL     F
+        SLDC    1
+        ADI
+        STL     F
+        UJP     FMT
+GOTF:   LDL     F
+        XJP     0, 17, OUT, NONE, U, B, D, S, W, T, A, C, X, P, E, Q, K0, K1, K2, K3, L
+NONE:   LDO     OPC
+        CGP     OB
+        UJP     OUT
+U:      LDO     OPC
+        CGP     OB
+        LDO     OPC
+        LDCI    $9E
+        EQUI
+        LDO     TKIND
+        LIT     TID
+        EQUI
+        LAND
+        FJP     UVAL
+        SLDC    0
+        CGP     CSPNUM
+        STL     I
+        LDL     I
+        SLDC    0
+        GEQI
+        FJP     UVAL
+        LDL     I
+        CGP     OB
+        CGP     NEXTTOK
+        UJP     URET
+UVAL:   LDL     FIXED
+        SLDC    0
+        CGP     EXPR
+        CGP     BYTE
+URET:   LDO     OPC
+        LDCI    $AD
+        EQUI
+        LDO     OPC
+        LDCI    $C1
+        EQUI
+        LOR
+        FJP     OUT
+        LDO     CLEN
+        SLDC    2
+        SBI
+        SRO     LASTRET
+        UJP     OUT
+B:      LDO     OPC
+        CGP     OB
+        LIT     '!'
+        SLDC    0
+        CGP     ISP
+        STL     F
+        SLDC    1
+        SLDC    0
+        CGP     EXPR
+        LDL     F
+        CGP     BIG
+        UJP     OUT
+D:
+Q:      LDO     OPC
+        CGP     OB
+        LDL     FIXED
+        SLDC    0
+        CGP     EXPR
+        CGP     BYTE
+        LIT     ','
+        CGP     NEED
+        LIT     '!'
+        SLDC    0
+        CGP     ISP
+        STL     F
+        SLDC    1
+        SLDC    0
+        CGP     EXPR
+        LDL     F
+        CGP     BIG
+        UJP     OUT
+S:      LDO     OPC
+        CGP     OB
+        LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     NOLAB
+        SLDC    0
+        CGP     LABREF
+        CGP     NEXTTOK
+        UJP     OUT
+NOLAB:  LSA     'a label expected'
+        CGP     ERRS
+W:      LDO     OPC
+        CGP     OB
+        LDL     FIXED
+        SLDC    0
+        CGP     EXPR
+        CGP     WORD
+        UJP     OUT
+T:      LDO     OPC
+        CGP     OB
+        LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     TBAD
+        LSA     'REALSTR BOOLSET BYTEWORD'
+        SLDC    4
+        SLDC    4
+        SLDC    0
+        CGP     TABFIND
+        STL     I
+        LDL     I
+        SLDC    0
+        GEQI
+        FJP     TBAD
+        LDL     I
+        SLDC    2
+        MPI
+        SLDC    2
+        ADI
+        CGP     OB
+        CGP     NEXTTOK
+        LDL     I
+        SLDC    4
+        GEQI
+        FJP     OUT
+        LIT     ','
+        CGP     NEED
+        LIT     '!'
+        SLDC    0
+        CGP     ISP
+        STL     F
+        SLDC    1
+        SLDC    0
+        CGP     EXPR
+        LDL     F
+        CGP     BIG
+        UJP     OUT
+TBAD:   LSA     'REAL, STR, BOOL, SET, BYTE or WORD expected'
+        CGP     ERRS
+A:      LDO     TKIND
+        LIT     TSTRING
+        EQUI
+        FJP     ABAD
+        LDO     OPC
+        CGP     OB
+        LAO     TSTR
+        SLDC    0
+        LDB
+        STL     N
+        LDL     N
+        CGP     OB
+        SLDC    1
+        STL     I
+ACHAR:  LDL     I
+        LDL     N
+        LEQI
+        FJP     ADONE
+        LAO     TSTR
+        LDL     I
+        LDB
+        CGP     OB
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     ACHAR
+ADONE:  CGP     NEXTTOK
+        UJP     OUT
+ABAD:   LSA     'a string expected'
+        CGP     ERRS
+C:      SLDC    0
+        STL     N
+CWORD:  LDL     N
+        LDCI    255
+        LESI
+        FJP     CBAD
+        LAO     WTMP
+        LDL     N
+        IXA     1
+        LDL     FIXED
+        SLDC    0
+        CGP     EXPR
+        STO
+        LDL     N
+        SLDC    1
+        ADI
+        STL     N
+        LIT     ','
+        SLDC    0
+        CGP     ISP
+        FJP     CEMIT
+        UJP     CWORD
+CBAD:   LSA     'more than 255 words'
+        CGP     ERRS
+CEMIT:  LDO     OPC
+        CGP     OB
+        LDL     N
+        CGP     OB
+        CGP     ALIGN
+        SLDC    0
+        STL     I
+CPUT:   LDL     I
+        LDL     N
+        LESI
+        FJP     OUT
+        LAO     WTMP
+        LDL     I
+        IXA     1
+        IND     0
+        CGP     WORD
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     CPUT
+X:      SLDC    1
+        SLDC    0
+        CGP     EXPR
+        STL     LO
+        LIT     ','
+        CGP     NEED
+        SLDC    1
+        SLDC    0
+        CGP     EXPR
+        STL     HI
+        LIT     ','
+        CGP     NEED
+        LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     XELSE
+        LDO     OPC
+        CGP     OB
+        CGP     ALIGN
+        LDL     LO
+        CGP     WORD
+        LDL     HI
+        CGP     WORD
+        LDCI    $B9
+        CGP     OB
+        SLDC    0
+        CGP     LABREF
+        CGP     NEXTTOK
+        SLDC    0
+        STL     N
+XLAB:   LIT     ','
+        SLDC    0
+        CGP     ISP
+        FJP     XCOUNT
+        LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     NOLAB
+        SLDC    1
+        CGP     LABREF
+        CGP     NEXTTOK
+        LDL     N
+        SLDC    1
+        ADI
+        STL     N
+        UJP     XLAB
+XCOUNT: LDL     N
+        LDL     HI
+        LDL     LO
+        SBI
+        SLDC    1
+        ADI
+        EQUI
+        LDL     HI
+        LDL     LO
+        GEQI
+        LAND
+        FJP     XBAD
+        UJP     OUT
+XBAD:   LSA     'XJP LO, HI needs HI - LO + 1 labels'
+        CGP     ERRS
+XELSE:  LSA     'the else label expected'
+        CGP     ERRS
+P:      LDO     OPC
+        CGP     OB
+        LDL     FIXED
+        SLDC    0
+        CGP     EXPR
+        CGP     BYTE
+        LIT     ','
+        CGP     NEED
+        LDL     FIXED
+        SLDC    0
+        CGP     EXPR
+        CGP     BYTE
+        UJP     OUT
+E:      LDO     OPC
+        CGP     OB
+        LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     EPAIR
+        SLDC    0
+        CGP     FINDG
+        STL     E
+        LDL     E
+        SLDC    0
+        NEQI
+        FJP     EFIRST
+        LDL     E
+        IND     4
+        LIT     KPROC
+        EQUI
+        FJP     EFIRST
+        LDL     E
+        IND     6
+        CGP     BYTE
+        LDL     E
+        IND     5
+        CGP     BYTE
+        CGP     NEXTTOK
+        UJP     OUT
+EFIRST: LDO     PASS            ; a procedure defined later (the first pass): its place
+        SLDC    1
+        EQUI
+        FJP     EPAIR
+        LDO     TSTART
+        STL     SAVE
+        CGP     NEXTTOK
+        LDO     TKIND
+        LIT     TEND
+        EQUI
+        FJP     EBACK
+        SLDC    0
+        CGP     OB
+        SLDC    0
+        CGP     OB
+        UJP     OUT
+EBACK:  LDL     SAVE
+        SRO     LPOS
+        CGP     NEXTTOK
+EPAIR:  LDL     FIXED
+        SLDC    0
+        CGP     EXPR
+        CGP     BYTE
+        LIT     ','
+        CGP     NEED
+        LDL     FIXED
+        SLDC    0
+        CGP     EXPR
+        CGP     BYTE
+        UJP     OUT
+K0:     SLDC    0
+        LIT     127
+        UJP     KRANGE
+K1:
+K2:     SLDC    1
+        SLDC    16
+        UJP     KRANGE
+K3:     SLDC    0
+        SLDC    7
+KRANGE: STL     HI
+        STL     LO
+        LDL     FIXED
+        SLDC    0
+        CGP     EXPR
+        STL     V
+        LDO     XUNK
+        FJP     KCHECK
+        LDL     LO
+        STL     V
+KCHECK: LDL     V
+        LDL     LO
+        LESI
+        LDL     V
+        LDL     HI
+        GRTI
+        LOR
+        FJP     KOK
+        LSA     'out of range'
+        CGP     ERRS
+KOK:    LDO     OPC
+        LDL     V
+        ADI
+        CGP     OB
+        UJP     OUT
+L:      SLDC    1
+        SLDC    0
+        CGP     EXPR
+        STL     V
+        LDL     V
+        SLDC    0
+        GEQI
+        LDL     V
+        LIT     127
+        LEQI
+        LAND
+        FJP     LWORD
+        LDL     V
+        CGP     OB
+        UJP     OUT
+LWORD:  LDCI    $C7
+        CGP     OB
+        LDL     V
+        CGP     WORD
+OUT:    CGP     ENDLINE
+        RNP     0
+        .END
+
+; ---- lines and passes
+
+; DOLINE: the line in LINE assembled (ENDING: the end of a pass instead); an error EXITs it
+        .PROC   DOLINE
+        .VAR    SAVE
+        LDO     ENDING
+        FJP     LINE
+        LDO     PROGSET
+        FJP     NOPROG
+        CGP     ENDSEG
+        RNP     0
+NOPROG: LSA     'no .PROGRAM'
+        CGP     ERRS
+LINE:   LDO     LLONG
+        FJP     SHORT
+        LSA     'a line longer than 255 characters'
+        CGP     ERRS
+SHORT:  SLDC    0
+        SRO     LPOS
+        CGP     NEXTTOK
+        LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     WHAT
+        LDO     LPOS
+        STL     SAVE
+        CGP     SKIPBL
+        LDO     LPOS
+        SLDC    0
+        CGP     CHAT
+        LIT     ':'
+        EQUI
+        FJP     NOLABEL
+        LDO     LPOS
+        SLDC    1
+        ADI
+        SRO     LPOS
+        CGP     DEFLABEL
+        CGP     NEXTTOK
+        UJP     WHAT
+NOLABEL: LDL    SAVE
+        SRO     LPOS
+WHAT:   LDO     TKIND
+        LIT     TEND
+        EQUI
+        FJP     NOTEMPTY
+        RNP     0
+NOTEMPTY: LDO   TKIND
+        LIT     TDIR
+        EQUI
+        FJP     NOTDIR
+        CGP     DIRECTIVE
+        RNP     0
+NOTDIR: LDO     TKIND
+        LIT     TID
+        EQUI
+        FJP     NOTOP
+        SLDC    0
+        CGP     FINDOP
+        FJP     NOTOP
+        LDO     INPROC
+        FJP     OUTSIDE
+        CGP     INSTR
+        RNP     0
+OUTSIDE: LSA    'an instruction outside a procedure'
+        CGP     ERRS
+NOTOP:  LSA     'not an instruction'
+        CGP     ERRN
+        RNP     0
+        .END
+
+; ONEPASS: a pass over the source (and the files it includes)
+        .PROC   ONEPASS
+        SLDC    0
+        SRO     PROGSET
+        SLDC    0
+        SRO     SEGOPEN
+        SLDC    0
+        SRO     INPROC
+        SLDC    0
+        SRO     HADMAIN
+        SLDC    3
+        SRO     GNEXT
+        SLDC    0
+        SRO     NUSED
+        SLDC    0
+        SRO     ENDING
+        LDO     PASS
+        SLDC    1
+        EQUI
+        FJP     SECOND
+        SLDC    0
+        SRO     NSEGS
+        UJP     READ
+SECOND: CGP     BLOCK0
+READ:   CGP     OPENSRC
+LOOP:   SLDC    0
+        CGP     GETLINE
+        FJP     EOF
+        LDO     LINENO
+        SLDC    1
+        ADI
+        SRO     LINENO
+        CGP     DOLINE
+        UJP     LOOP
+EOF:    LDO     INCLUDING
+        FJP     ENDED
+        CGP     ENDINC
+        UJP     LOOP
+ENDED:  LAO     FIBS
+        CGP     CLOSEIN
+        SLDC    1
+        SRO     ENDING
+        CGP     DOLINE
+        SLDC    0
+        SRO     ENDING
+        RNP     0
+        .END
+
+; SUMMARY: what was made
+        .PROC   SUMMARY
+        .VAR    I
+        LAO     CODENAME
+        CGP     PUTS
+        CGP     NL
+        SLDC    0
+        STL     I
+LOOP:   LDL     I
+        LDO     NSEGS
+        LESI
+        FJP     DONE
+        LSA     '  segment '
+        CGP     PUTS
+        LAO     SEGNO
+        LDL     I
+        IXA     1
+        IND     0
+        CGP     PUTN
+        LIT     ' '
+        CGP     PUTC
+        LAO     SEGNM
+        LDL     I
+        IXA     4
+        CGP     PUTNAME
+        LIT     ' '
+        CGP     PUTC
+        LAO     SEGLN
+        LDL     I
+        IXA     1
+        IND     0
+        CGP     PUTN
+        LSA     ' bytes'
+        CGP     PUTS
+        CGP     NL
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+DONE:   RNP     0
+        .END

@@ -1410,7 +1410,7 @@ void usage(void)
 int main(int argc, char **argv)
 {
     int i, j, ngoals;
-    char *a;
+    char *a, *p, *q;
     char *eq;
     char *goals[20];
     char bfile[24];
@@ -1456,7 +1456,10 @@ int main(int argc, char **argv)
     /* the built-in rules (a makefile's own come first) */
     if (mfname) {
         strcpy(mf, mfname);
-        if (!strchr(mf, '.') && ftime(mf) == 0 && strlen(mf) < 70)
+        for (q = p = mf; *q; q++)       /* (its name after the volume: U016.1:MAKEFILE) */
+            if (*q == ':' || *q == '/')
+                p = q + 1;
+        if (!strchr(p, '.') && ftime(mf) == 0 && strlen(mf) < 70)
             strcat(mf, ".TEXT");
         readmake(mf, 1);
     } else if (ftime("MAKEFILE.TEXT"))

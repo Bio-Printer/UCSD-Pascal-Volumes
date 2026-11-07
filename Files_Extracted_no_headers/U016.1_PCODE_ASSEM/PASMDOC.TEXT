@@ -1,0 +1,147 @@
+PASMDOC -- PASM, the P-code assembler for UCSD Pascal II.0          U016.1:
+
+PASM turns a text file of P-code instructions into a code file the system
+runs: X(ecute it, or name it to the shell.  It is written in its own
+language (PASM.TEXT and the files it includes), and it assembles itself.
+
+    PASM NAME [CODE]     from the shell: NAME.TEXT (NAME if it ends in .TEXT)
+                         into CODE.CODE -- NAME.CODE when CODE is not given;
+                         CODE. (a dot at its end): that name exactly
+    X(ecute U016.1:PASM  it asks for NAME
+
+Two passes over the source: errors are reported as FILE LINE: what, and
+then there is no code file (exit status 1).  When all is well it lists the
+segments it made.  MAKE -f U016.1:MAKEFILE rebuilds PASM with itself, and
+the examples (HELLO, PTEST).
+
+
+LINES
+
+    [LABEL:]  [MNEMONIC operands | .DIRECTIVE operands]   [; comment]
+
+Upper and lower case are the same.  Names are letters, digits and _ (a
+letter first), significant to 8 characters.  A line is at most 255
+characters.  Blank lines and comments are ignored.
+
+Operands are expressions: terms joined by + and -, a - before the first
+allowed.  A term is a decimal number, $ and hex digits, 'C' (a character's
+code), or a name: a constant (.EQU), a parameter or local (its offset), a
+global (its offset), a procedure (its number), a segment (its number).
+A name must be defined before it is used, except a label (jumps, XJP) and
+a procedure or a segment named where the operand's size is fixed (a byte,
+a word, a CGP's or CXP's number).  A string is in quotes, a quote inside
+it doubled: 'it''s'.
+
+
+DIRECTIVES
+
+    .PROGRAM NAME         the program; segment 1 is NAME.  First.
+    .SEGMENT NAME [N]     the procedures after it are in segment N (1..15;
+                          not given: 7, then 8 ... after the highest so far).
+                          A program's code file holds them all; CXP calls
+                          them.
+    .MAIN ... .END        the program's body: segment 1's procedure 1, lex
+                          level 0.  Its parameters are INPUT and OUTPUT
+                          (offsets 2 and 1), its data the globals.  It ends
+                          with RBP 0.
+    .PROC NAME [LEX] ... .END   a procedure: its number is its place in its
+                          segment (segment 1: 2, 3 ... after .MAIN); lex
+                          level LEX (1 when not given).
+    .PARAM A[:W], ...     the procedure's parameters, in the order a caller
+                          pushes them: the last at offset 1, the one before
+                          it after that.  :W -- it takes W words.
+    .VAR A[:W], ...       its locals, after the parameters.
+    .GLOBAL A[:W], ...    the program's globals (outside procedures): from
+                          offset 3 of .MAIN's data (LDO, SRO, LAO).
+    .EQU NAME, VALUE      a constant.
+    .EXIT                 the procedure's exit point is here (EXIT(P) goes
+                          there); else its last RNP or RBP.
+    .INCLUDE NAME         NAME.TEXT's lines here (in the main file only; a
+                          NAME without a volume: on the prefix volume).
+
+.PARAM and .VAR come before the procedure's first instruction or label.
+.GLOBAL names are known everywhere after them; a procedure's names and
+labels only in it.
+
+
+INSTRUCTIONS
+
+The mnemonics are II.0's, as the P-machine's book names them.  Operands:
+
+    none   ABI ABR ADI ADR LAND DIF DVI DVR CHK FLO FLT INN INT LOR MODI MPI
+           MPR NGI NGR LNOT SRS SBI SBR SGS SQI SQR STO IXS UNI S2P LDCN LDP
+           STP LDB STB EQUI GEQI GRTI LEQI LESI NEQI XIT NOP
+    byte   ADJ SAS RNP CIP LDM STM RBP CBP CLP CGP, CSP (a number or a name:
+           IOC NEW MVL MVR EXIT UREAD UWRITE IDS TRS TIM FLC SCN GSEG RSEG
+           TNC RND SIN COS LOG ATAN LN EXP SQT MRK RLS IOR UBUSY POT UWAIT
+           UCLEAR HLT MEMA)
+    big    INC IND IXA LAO MOV LDO SRO LLA LDL STL BPT: 0..127 one byte,
+           else two; !V two bytes always
+    db,big LDA LOD STR: lex levels up, then the offset
+    byte,big  LAE STE: a segment, then an offset
+    word   LDCI
+    jump   FJP UJP EFJ NFJ: a label (the assembler makes a jump that does
+           not reach 127 bytes forward a long one, through the procedure's
+           jump table)
+    type   EQU GEQ GRT LEQ LES NEQ: REAL STR BOOL SET, or BYTE,N or WORD,N
+    string LSA LPA: 'TEXT'
+    words  LDC W1, W2 ...: pushed in that order
+    case   XJP LO, HI, ELSE, L(LO), ... L(HI): the value on the stack picks
+           the label; outside LO..HI: ELSE
+    2 bytes  IXP
+    call   CXP SEG, PROC, or CXP NAME (a procedure of a .SEGMENT)
+    short  SLDC 0..127, SLDL 1..16, SLDO 1..16, SIND 0..7
+    LIT V  (not an instruction) SLDC V for 0..127, else LDCI V
+
+FJP jumps when the top is false: bit 0 of the word, so compare (EQUI ...)
+or NEQI 0 first when a value is not 0 or 1.
+
+
+CALLS AND FUNCTIONS
+
+A caller pushes the arguments in order, then CGP N (a procedure of the same
+segment), CXP SEG, PROC (another segment's), CLP N (lex level one deeper),
+CBP N (the program's level).  The callee returns with RNP W: W words of
+result left on the caller's stack.  A function's result is its offset 1:
+give it a last parameter R, push 0 for it, set R and RNP 1:
+
+    .PROC  TWICE           ; TWICE(N, R): R = N + N
+    .PARAM N, R
+    LDL    N
+    LDL    N
+    ADI
+    STL    R
+    RNP    1
+    .END
+    ...
+    LIT    21
+    SLDC   0               ; R
+    CGP    TWICE           ; 42 on the stack
+
+The system's procedures (segment 0) are CXP 0, N: FINIT 3, FOPEN 5,
+FCLOSE 6, FBLOCKIO 28 ... (PASMIO.TEXT uses them).  LOD 2, 1 is SYSCOM.
+
+
+THE CODE FILE
+
+Block 0: each segment's first block and length, its name.  Then the
+segments, each from a block of its own: its procedures, then its
+dictionary (each procedure's JTAB, the last first; the segment's number
+and its procedures' count).  A procedure: its code, its long jumps' table,
+then DATASZ, PARMSZ, EXITIC, ENTERIC, its number and lex level (JTAB at the
+number).  The host's assembler (UCSD-TinyC's tools/pasm.py) makes the same
+bytes.
+
+
+EXAMPLES
+
+    HELLO.TEXT    the least program: a string on the console
+    PTEST.TEXT    procedures, functions, recursion, globals, LDC, XJP, a
+                  second segment (CXP)
+    PASM.TEXT     the assembler itself: PASMIO (the console, the files, the
+                  shell's command line), PASMLEX (lines, tokens, names,
+                  expressions), PASMGEN (instructions, directives,
+                  procedures, segments, the code file)
+
+    PASM HELLO
+    HELLO

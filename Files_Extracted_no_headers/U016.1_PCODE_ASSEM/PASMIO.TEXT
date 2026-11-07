@@ -1,0 +1,1100 @@
+; PASMIO -- PASM's console, its files and its command line
+
+; ---- the console
+
+; PUTC(C): the character C on the console
+        .PROC   PUTC
+        .PARAM  C
+        SLDC    1
+        LLA     C
+        SLDC    0
+        SLDC    1
+        SLDC    0
+        SLDC    0
+        CSP     UWRITE
+        RNP     0
+        .END
+
+; PUTS(S): the string at S (its length byte, then its characters)
+        .PROC   PUTS
+        .PARAM  S
+        SLDC    1
+        LDL     S
+        SLDC    1
+        LDL     S
+        SLDC    0
+        LDB
+        SLDC    0
+        SLDC    0
+        CSP     UWRITE
+        RNP     0
+        .END
+
+; NL: a new line
+        .PROC   NL
+        SLDC    13
+        CGP     PUTC
+        SLDC    10
+        CGP     PUTC
+        RNP     0
+        .END
+
+; PUTN(N): N in decimal
+        .PROC   PUTN
+        .PARAM  N
+        LDL     N
+        SLDC    0
+        LESI
+        FJP     POS
+        LIT     '-'
+        CGP     PUTC
+        LDL     N
+        NGI
+        STL     N
+POS:    LDL     N
+        SLDC    9
+        GRTI
+        FJP     LAST
+        LDL     N
+        SLDC    10
+        DVI
+        CGP     PUTN
+LAST:   LDL     N
+        SLDC    10
+        MODI
+        LIT     '0'
+        ADI
+        CGP     PUTC
+        RNP     0
+        .END
+
+; PUTNAME(A): the name at A (8 characters; a blank ends it)
+        .PROC   PUTNAME
+        .PARAM  A
+        .VAR    I, C
+        SLDC    0
+        STL     I
+LOOP:   LDL     I
+        SLDC    8
+        LESI
+        FJP     DONE
+        LDL     A
+        LDL     I
+        LDB
+        STL     C
+        LDL     C
+        LIT     ' '
+        EQUI
+        FJP     PUT
+        UJP     DONE
+PUT:    LDL     C
+        CGP     PUTC
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+DONE:   RNP     0
+        .END
+
+; STATUS(N): the exit status the shell sees (SYSCOM^.EXPANSION[5], word 23)
+        .PROC   STATUS
+        .PARAM  N
+        LOD     2, 1                    ; SYSCOM
+        INC     23
+        LDL     N
+        STO
+        RNP     0
+        .END
+
+; ---- errors
+
+; WHERE: "FILE LINE: " of the line being read
+        .PROC   WHERE
+        LDO     FILEP
+        CGP     PUTS
+        LIT     ' '
+        CGP     PUTC
+        LDO     LINENO
+        CGP     PUTN
+        LSA     ': '
+        CGP     PUTS
+        RNP     0
+        .END
+
+; FATAL(S): S, and the end (status 1)
+        .PROC   FATAL
+        .PARAM  S
+        LSA     'PASM: '
+        CGP     PUTS
+        LDL     S
+        CGP     FATAL1
+        RNP     0
+        .END
+
+; FATAL1(S): the rest of FATAL
+        .PROC   FATAL1
+        .PARAM  S
+        LDL     S
+        CGP     PUTS
+        CGP     NL
+        SLDC    1
+        CGP     STATUS
+        SLDC    1                       ; EXIT(PASM): segment 1, procedure 1
+        SLDC    1
+        CSP     EXIT
+        RNP     0
+        .END
+
+; FATALN(N, S): the string N, S after it, and the end (status 1)
+        .PROC   FATALN
+        .PARAM  N, S
+        LSA     'PASM: '
+        CGP     PUTS
+        LDL     N
+        CGP     PUTS
+        LDL     S
+        CGP     FATAL1
+        RNP     0
+        .END
+
+; COUNTERR: one more error; at 50 the end
+        .PROC   COUNTERR
+        LDO     NERR
+        SLDC    1
+        ADI
+        SRO     NERR
+        LDO     NERR
+        SLDC    50
+        GEQI
+        FJP     OK
+        LSA     'too many errors'
+        CGP     FATAL
+OK:     RNP     0
+        .END
+
+; ERRSC(S): the error S about the line being read, counted; the line goes on
+        .PROC   ERRSC
+        .PARAM  S
+        CGP     WHERE
+        LDL     S
+        CGP     PUTS
+        CGP     NL
+        CGP     COUNTERR
+        RNP     0
+        .END
+
+; ERRNC(S): the error S after the current token's name, counted; the line goes on
+        .PROC   ERRNC
+        .PARAM  S
+        CGP     WHERE
+        LAO     TNAME
+        CGP     PUTNAME
+        LSA     ': '
+        CGP     PUTS
+        LDL     S
+        CGP     PUTS
+        CGP     NL
+        CGP     COUNTERR
+        RNP     0
+        .END
+
+; ERRS(S): the error S about the line being read; the rest of the line is not looked at
+; (EXIT(DOLINE): DOLINE returns at once, and the next line is read)
+        .PROC   ERRS
+        .PARAM  S
+        LDL     S
+        CGP     ERRSC
+        SLDC    1
+        SLDC    DOLINE
+        CSP     EXIT
+        RNP     0
+        .END
+
+; ERRN(S): ERRS, the current token's name before it
+        .PROC   ERRN
+        .PARAM  S
+        LDL     S
+        CGP     ERRNC
+        SLDC    1
+        SLDC    DOLINE
+        CSP     EXIT
+        RNP     0
+        .END
+
+; ---- the source: UCSD text files (a 1 KB header, then 1 KB pages of lines ending in CR,
+; DLE and a count for leading blanks, NULs after a page's last line)
+
+; OPENIN(F, T, R): FIB F opened on the file titled T (an old one); R: 1 if it is
+        .PROC   OPENIN
+        .PARAM  F, T, R
+        LDL     F
+        SLDC    0
+        SLDC    1
+        NGI
+        CXP     0, FINIT                ; FINIT(F, NIL, untyped)
+        LDL     F
+        LDL     T
+        SLDC    1
+        SLDC    0
+        CXP     0, FOPEN                ; FOPEN(F, T, old)
+        CSP     IOR
+        SLDC    0
+        EQUI
+        STL     R
+        RNP     1
+        .END
+
+; NEXTCH(R): R the next byte of the file being read, -1 at its end
+        .PROC   NEXTCH
+        .PARAM  R
+        .VAR    N
+TOP:    LDO     IPOS
+        LDO     ILEN
+        LESI
+        FJP     FILL
+        LDO     INBUF
+        LDO     IPOS
+        LDB
+        STL     R
+        LDO     IPOS
+        SLDC    1
+        ADI
+        SRO     IPOS
+        RNP     1
+FILL:   LDO     INFIB                   ; two more blocks: FBLOCKIO(F, buf, 0, 2, block, read)
+        LDO     INBUF
+        SLDC    0
+        SLDC    2
+        LDO     IBLK
+        SLDC    1
+        SLDC    0
+        SLDC    0
+        CXP     0, FBLOCKIO
+        STL     N
+        CSP     IOR
+        SLDC    0
+        NEQI
+        FJP     GOT
+        SLDC    0
+        STL     N
+GOT:    LDL     N
+        SLDC    0
+        GRTI
+        FJP     EOF
+        LDO     IBLK
+        LDL     N
+        ADI
+        SRO     IBLK
+        LDL     N
+        LDCI    512
+        MPI
+        SRO     ILEN
+        SLDC    0
+        SRO     IPOS
+        UJP     TOP
+EOF:    SLDC    1
+        NGI
+        STL     R
+        RNP     1
+        .END
+
+; ADDC(C): C at the end of LINE (255 characters at most)
+        .PROC   ADDC
+        .PARAM  C
+        LDO     LLEN
+        LDCI    255
+        LESI
+        FJP     FULL
+        LAO     LINE
+        LDO     LLEN
+        LDL     C
+        STB
+        LDO     LLEN
+        SLDC    1
+        ADI
+        SRO     LLEN
+        RNP     0
+FULL:   SLDC    1
+        SRO     LLONG
+        RNP     0
+        .END
+
+; GETLINE(R): R 1 with the next line in LINE (LLEN characters), 0 at the file's end
+        .PROC   GETLINE
+        .PARAM  R
+        .VAR    C, K
+        SLDC    0
+        SRO     LLEN
+        SLDC    0
+        SRO     LLONG
+NEXT:   SLDC    0
+        CGP     NEXTCH
+        STL     C
+        LDL     C
+        SLDC    0
+        LESI
+        FJP     NOTEND
+        LDO     LLEN                    ; the end: a last line without its CR counts
+        SLDC    0
+        GRTI
+        STL     R
+        RNP     1
+NOTEND: LDL     C
+        SLDC    13
+        EQUI
+        FJP     NOTCR
+        SLDC    1
+        STL     R
+        RNP     1
+NOTCR:  LDL     C
+        SLDC    0
+        EQUI
+        FJP     NOTNUL
+        UJP     NEXT                    ; (a page's padding)
+NOTNUL: LDL     C
+        SLDC    16
+        EQUI
+        FJP     PLAIN
+        SLDC    0                       ; DLE: the next byte - 32 blanks
+        CGP     NEXTCH
+        SLDC    32
+        SBI
+        STL     K
+BLANKS: LDL     K
+        SLDC    0
+        GRTI
+        FJP     NEXT
+        LIT     ' '
+        CGP     ADDC
+        LDL     K
+        SLDC    1
+        SBI
+        STL     K
+        UJP     BLANKS
+PLAIN:  LDL     C
+        CGP     ADDC
+        UJP     NEXT
+        .END
+
+; OPENSRC: the source opened for a pass, at its first page
+        .PROC   OPENSRC
+        LAO     FIBS
+        LAO     SRCNAME
+        SLDC    0
+        CGP     OPENIN
+        FJP     NONE
+        LAO     FIBS
+        SRO     INFIB
+        LAO     PAGES
+        SRO     INBUF
+        SLDC    0
+        SRO     IPOS
+        SLDC    0
+        SRO     ILEN
+        SLDC    2                       ; (blocks 0 and 1: the editor's header)
+        SRO     IBLK
+        SLDC    0
+        SRO     LINENO
+        LAO     SRCNAME
+        SRO     FILEP
+        SLDC    0
+        SRO     INCLUDING
+        RNP     0
+NONE:   LAO     SRCNAME
+        LSA     ': no such file'
+        CGP     FATALN
+        RNP     0
+        .END
+
+; CLOSEIN(F): FIB F closed (a file that was read)
+        .PROC   CLOSEIN
+        .PARAM  F
+        LDL     F
+        SLDC    0
+        CXP     0, FCLOSE
+        RNP     0
+        .END
+
+; TITLE(D, S, N, X): the string D made of the N characters at S and the string X after
+; them (a file's title: NAME + .TEXT)
+        .PROC   TITLE
+        .PARAM  D, S, N, X
+        .VAR    I, K
+        SLDC    0
+        STL     I
+COPY:   LDL     I
+        LDL     N
+        LESI
+        FJP     SUFFIX
+        LDL     D
+        LDL     I
+        SLDC    1
+        ADI
+        LDL     S
+        LDL     I
+        LDB
+        STB
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     COPY
+SUFFIX: SLDC    1
+        STL     K
+MORE:   LDL     K
+        LDL     X
+        SLDC    0
+        LDB
+        LEQI
+        FJP     DONE
+        LDL     D
+        LDL     I
+        SLDC    1
+        ADI
+        LDL     X
+        LDL     K
+        LDB
+        STB
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        LDL     K
+        SLDC    1
+        ADI
+        STL     K
+        UJP     MORE
+DONE:   LDL     D
+        SLDC    0
+        LDL     I
+        STB
+        RNP     0
+        .END
+
+; INCLUDE: .INCLUDE NAME: NAME.TEXT read now, the source after it
+        .PROC   INCLUDE
+        .VAR    N
+        LDO     INCLUDING
+        FJP     FIRST
+        LSA     '.INCLUDE in an included file'
+        CGP     ERRS
+FIRST:  SLDC    8                       ; the name: its characters before a blank
+        STL     N
+TRIM:   LDL     N
+        SLDC    0
+        GRTI
+        FJP     NAMED
+        LAO     TNAME
+        LDL     N
+        SLDC    1
+        SBI
+        LDB
+        LIT     ' '
+        EQUI
+        FJP     NAMED
+        LDL     N
+        SLDC    1
+        SBI
+        STL     N
+        UJP     TRIM
+NAMED:  LAO     INCNAME
+        LAO     TNAME
+        LDL     N
+        LSA     '.TEXT'
+        CGP     TITLE
+        LAO     FIBS
+        INC     FIBW
+        LAO     INCNAME
+        SLDC    0
+        CGP     OPENIN
+        FJP     NOFILE
+        LDO     IPOS                    ; the source's place, kept
+        SRO     SPOS
+        LDO     ILEN
+        SRO     SLEN
+        LDO     IBLK
+        SRO     SBLK
+        LDO     LINENO
+        SRO     SLINE
+        LAO     FIBS
+        INC     FIBW
+        SRO     INFIB
+        LAO     PAGES
+        INC     512
+        SRO     INBUF
+        SLDC    0
+        SRO     IPOS
+        SLDC    0
+        SRO     ILEN
+        SLDC    2
+        SRO     IBLK
+        SLDC    0
+        SRO     LINENO
+        LAO     INCNAME
+        SRO     FILEP
+        SLDC    1
+        SRO     INCLUDING
+        RNP     0
+NOFILE: LSA     'no such file'
+        CGP     ERRN
+        RNP     0
+        .END
+
+; ENDINC: the end of an included file: the source again, where it was
+        .PROC   ENDINC
+        LDO     INFIB
+        CGP     CLOSEIN
+        LAO     FIBS
+        SRO     INFIB
+        LAO     PAGES
+        SRO     INBUF
+        LDO     SPOS
+        SRO     IPOS
+        LDO     SLEN
+        SRO     ILEN
+        LDO     SBLK
+        SRO     IBLK
+        LDO     SLINE
+        SRO     LINENO
+        LAO     SRCNAME
+        SRO     FILEP
+        SLDC    0
+        SRO     INCLUDING
+        RNP     0
+        .END
+
+; ---- the code file
+
+; OPENCODE: the code file opened (a new one)
+        .PROC   OPENCODE
+        LAO     FIBS
+        INC     100
+        SLDC    0
+        SLDC    1
+        NGI
+        CXP     0, FINIT
+        LAO     FIBS
+        INC     100
+        LAO     CODENAME
+        SLDC    0
+        SLDC    0
+        CXP     0, FOPEN
+        CSP     IOR
+        SLDC    0
+        EQUI
+        FJP     NONE
+        SLDC    0
+        SRO     OPOS
+        SLDC    0
+        SRO     OBLK
+        SLDC    0
+        SRO     OTOT
+        RNP     0
+NONE:   LAO     CODENAME
+        CGP     PUTS
+        LSA     ': cannot write it'
+        CGP     FATAL
+        RNP     0
+        .END
+
+; FLUSH: OBUF written as the next block of the code file
+        .PROC   FLUSH
+        .VAR    N
+        LAO     FIBS
+        INC     100
+        LAO     OBUF
+        SLDC    0
+        SLDC    1
+        LDO     OBLK
+        SLDC    0
+        SLDC    0
+        SLDC    0
+        CXP     0, FBLOCKIO
+        STL     N
+        CSP     IOR
+        SLDC    0
+        EQUI
+        LDL     N
+        SLDC    1
+        EQUI
+        LAND
+        FJP     BAD
+        LDO     OBLK
+        SLDC    1
+        ADI
+        SRO     OBLK
+        SLDC    0
+        SRO     OPOS
+        RNP     0
+BAD:    LAO     CODENAME
+        CGP     PUTS
+        LSA     ': a disk error, or no room'
+        CGP     FATAL
+        RNP     0
+        .END
+
+; OUTB(B): the byte B into the code file
+        .PROC   OUTB
+        .PARAM  B
+        LAO     OBUF
+        LDO     OPOS
+        LDL     B
+        STB
+        LDO     OPOS
+        SLDC    1
+        ADI
+        SRO     OPOS
+        LDO     OTOT
+        SLDC    1
+        ADI
+        SRO     OTOT
+        LDO     OPOS
+        LDCI    512
+        EQUI
+        FJP     NOT
+        CGP     FLUSH
+NOT:    RNP     0
+        .END
+
+; OUTW(W): the word W into the code file (its low byte first)
+        .PROC   OUTW
+        .PARAM  W
+        LDL     W
+        LDCI    255
+        LAND
+        CGP     OUTB
+        LDL     W
+        SLDC    0
+        CGP     HIBYTE
+        CGP     OUTB
+        RNP     0
+        .END
+
+; HIBYTE(W, R): R W's high byte (W unsigned)
+        .PROC   HIBYTE
+        .PARAM  W, R
+        LDL     W
+        SLDC    0
+        LESI
+        FJP     POS
+        LDL     W                       ; (W - 32768) div 256 + 128
+        LDCI    $7FFF
+        LAND
+        LDCI    256
+        DVI
+        LDCI    128
+        ADI
+        STL     R
+        RNP     1
+POS:    LDL     W
+        LDCI    256
+        DVI
+        STL     R
+        RNP     1
+        .END
+
+; PADBLOCK: zeros to the end of the block
+        .PROC   PADBLOCK
+TOP:    LDO     OPOS
+        SLDC    0
+        NEQI
+        FJP     DONE
+        SLDC    0
+        CGP     OUTB
+        UJP     TOP
+DONE:   RNP     0
+        .END
+
+; CLOSECODE(M): the code file closed: M 1 LOCK (kept), 2 PURGE
+        .PROC   CLOSECODE
+        .PARAM  M
+        LAO     FIBS
+        INC     100
+        LDL     M
+        CXP     0, FCLOSE
+        RNP     0
+        .END
+
+; ---- the command line
+
+; ARGS: SRCNAME and CODENAME from the shell's command line (the OS's prompt line, PL,
+; valid when SYSCOM^.EXPANSION[0] is PXCHILD, [6] PXARGS and [7] its checksum), or asked
+        .PROC   ARGS
+        .VAR    PL, N, I, S, A, NA, B, NB
+        LDA     2, 70                   ; PL: STRING[80], OS word 70
+        STL     PL
+        LDL     PL
+        SLDC    0
+        LDB
+        STL     N
+        LDL     N
+        SLDC    0
+        CGP     PLSUM
+        STL     S
+        LOD     2, 1
+        IND     18
+        LDCI    PXCHILD
+        EQUI
+        LOD     2, 1
+        IND     24
+        LDCI    PXARGS
+        EQUI
+        LAND
+        LOD     2, 1
+        IND     25
+        LDL     S
+        EQUI
+        LAND
+        LDL     N
+        LIT     80
+        LEQI
+        LAND
+        FJP     ASK
+        LOD     2, 1                    ; (used: a later program does not take it)
+        INC     24
+        SLDC    0
+        STO
+        SLDC    1                       ; the arguments: before the shell's path (PX_PATHSEP, 30)
+        STL     I
+CUT:    LDL     I
+        LDL     N
+        LEQI
+        FJP     WORDS
+        LDL     PL
+        LDL     I
+        LDB
+        SLDC    30
+        EQUI
+        FJP     CUT1
+        LDL     I
+        SLDC    1
+        SBI
+        STL     N
+        UJP     WORDS
+CUT1:   LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     CUT
+WORDS:  LDL     PL                      ; the first word: after the program's name
+        SLDC    1
+        LDL     N
+        SLDC    0
+        CGP     WORDAT
+        STL     I                       ; (where the name ends)
+        LDL     PL
+        LDL     I
+        LDL     N
+        SLDC    0
+        CGP     WORDAT
+        STL     A                       ; NAME's end
+        LDL     A
+        SLDC    0
+        CGP     WSTART
+        STL     I
+        UJP     HAVE
+ASK:    LSA     'PASM -- the P-code assembler.  Assemble what file? '
+        CGP     PUTS
+        CGP     READLINE
+        LAO     LINE
+        SLDC    1
+        SBI
+        STL     PL                      ; (LINE as if a string: its characters from 1)
+        LDO     LLEN
+        STL     N
+        SLDC    0                       ; ("" when nothing was typed)
+        STL     I
+        LDL     PL
+        SLDC    0
+        LDL     N
+        SLDC    0
+        CGP     WORDAT
+        STL     A
+        LDL     A
+        SLDC    0
+        CGP     WSTART
+        STL     I
+HAVE:   LDL     A                       ; NAME: from I to A
+        LDL     I
+        SBI
+        STL     NA
+        LDL     NA
+        SLDC    0
+        GRTI
+        FJP     USAGE
+        LDL     PL                      ; CODE: the next word
+        LDL     A
+        LDL     N
+        SLDC    0
+        CGP     WORDAT
+        STL     B
+        LDL     B
+        SLDC    0
+        CGP     WSTART
+        STL     NB
+        LDL     B
+        LDL     NB
+        SBI
+        STL     B                       ; (its length)
+        LDL     PL                      ; SRCNAME: NAME, or NAME.TEXT
+        LDL     I
+        ADI
+        LDL     NA
+        SLDC    0
+        CGP     ENDSTEXT
+        FJP     ADDTEXT
+        LAO     SRCNAME
+        LDL     PL
+        LDL     I
+        ADI
+        LDL     NA
+        LSA     ''
+        CGP     TITLE
+        LDL     NA                      ; (the name without .TEXT, for the code file)
+        SLDC    5
+        SBI
+        STL     NA
+        UJP     CODEN
+ADDTEXT: LAO    SRCNAME
+        LDL     PL
+        LDL     I
+        ADI
+        LDL     NA
+        LSA     '.TEXT'
+        CGP     TITLE
+CODEN:  LDL     B
+        SLDC    0
+        GRTI
+        FJP     FROMSRC
+        LDL     PL                      ; CODE. : that name exactly; else CODE.CODE
+        LDL     NB
+        ADI
+        LDL     B
+        SLDC    1
+        SBI
+        LDB
+        LIT     '.'
+        EQUI
+        FJP     ADDCODE
+        LAO     CODENAME
+        LDL     PL
+        LDL     NB
+        ADI
+        LDL     B
+        SLDC    1
+        SBI
+        LSA     ''
+        CGP     TITLE
+        RNP     0
+ADDCODE: LAO    CODENAME
+        LDL     PL
+        LDL     NB
+        ADI
+        LDL     B
+        LSA     '.CODE'
+        CGP     TITLE
+        RNP     0
+FROMSRC: LAO    CODENAME
+        LDL     PL
+        LDL     I
+        ADI
+        LDL     NA
+        LSA     '.CODE'
+        CGP     TITLE
+        RNP     0
+USAGE:  LSA     'use: PASM NAME [CODE]'
+        CGP     FATAL
+        RNP     0
+        .END
+
+; PLSUM(N, R): R the checksum the shell gives the prompt line (its N characters):
+; sum := N; sum := sum * 3 + each; then sum xor $5A5A
+        .PROC   PLSUM
+        .PARAM  N, R
+        .VAR    S, I
+        LDL     N
+        STL     S
+        SLDC    1
+        STL     I
+LOOP:   LDL     I
+        LDL     N
+        LEQI
+        FJP     DONE
+        LDL     S
+        SLDC    3
+        MPI
+        LDA     2, 70
+        LDL     I
+        LDB
+        ADI
+        STL     S
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+DONE:   LDL     S                       ; S xor $5A5A = (S or $5A5A) and not (S and $5A5A)
+        LDCI    $5A5A
+        LOR
+        LDL     S
+        LDCI    $5A5A
+        LAND
+        LNOT
+        LAND
+        STL     R
+        RNP     1
+        .END
+
+; WORDAT(S, I, N, R): in the string at S (characters 1..N), R where the word that starts
+; at I or after it (past blanks) ends -- the place after its last character; WSTART then
+; says where it starts
+        .GLOBAL WBEGIN
+        .PROC   WORDAT
+        .PARAM  S, I, N, R
+SKIP:   LDL     I
+        LDL     N
+        LEQI
+        FJP     NONE
+        LDL     S
+        LDL     I
+        LDB
+        LIT     ' '
+        EQUI
+        FJP     START
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     SKIP
+START:  LDL     I
+        SRO     WBEGIN
+LOOP:   LDL     I
+        LDL     N
+        LEQI
+        FJP     ENDW
+        LDL     S
+        LDL     I
+        LDB
+        LIT     ' '
+        NEQI
+        FJP     ENDW
+        LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+ENDW:   LDL     I
+        STL     R
+        RNP     1
+NONE:   LDL     I
+        SRO     WBEGIN
+        LDL     I
+        STL     R
+        RNP     1
+        .END
+
+; WSTART(X, R): R where the word WORDAT found starts
+        .PROC   WSTART
+        .PARAM  X, R
+        LDO     WBEGIN
+        STL     R
+        RNP     1
+        .END
+
+; ENDSTEXT(S, N, R): R 1 if the N characters at S end in .TEXT (in capitals or not)
+        .PROC   ENDSTEXT
+        .PARAM  S, N, R
+        .VAR    I, C
+        SLDC    0
+        STL     R
+        LDL     N
+        SLDC    5
+        LESI
+        FJP     LOOK
+        RNP     1
+LOOK:   SLDC    0
+        STL     I
+LOOP:   LDL     I
+        SLDC    5
+        LESI
+        FJP     YES
+        LDL     S
+        LDL     N
+        SLDC    5
+        SBI
+        LDL     I
+        ADI
+        LDB
+        CGP     UPPER
+        STL     C
+        LSA     '.TEXT'
+        LDL     I
+        SLDC    1
+        ADI
+        LDB
+        LDL     C
+        NEQI
+        FJP     NEXT
+        RNP     1
+NEXT:   LDL     I
+        SLDC    1
+        ADI
+        STL     I
+        UJP     LOOP
+YES:    SLDC    1
+        STL     R
+        RNP     1
+        .END
+
+; READLINE: a line typed on the console into LINE (LLEN): RETURN ends it, BS deletes
+        .PROC   READLINE
+        .VAR    C
+        SLDC    0
+        SRO     LLEN
+LOOP:   SLDC    2                       ; one key, not echoed: UNITREAD(2, C, 0, 1)
+        LLA     C
+        SLDC    0
+        SLDC    1
+        SLDC    0
+        SLDC    0
+        CSP     UREAD
+        LDL     C
+        LDCI    255
+        LAND
+        STL     C
+        LDL     C
+        SLDC    13
+        EQUI
+        FJP     NOTCR
+        CGP     NL
+        RNP     0
+NOTCR:  LDL     C
+        SLDC    8
+        EQUI
+        FJP     NOTBS
+        LDO     LLEN
+        SLDC    0
+        GRTI
+        FJP     LOOP
+        LDO     LLEN
+        SLDC    1
+        SBI
+        SRO     LLEN
+        SLDC    8
+        CGP     PUTC
+        LIT     ' '
+        CGP     PUTC
+        SLDC    8
+        CGP     PUTC
+        UJP     LOOP
+NOTBS:  LDL     C
+        LIT     ' '
+        GEQI
+        FJP     LOOP
+        LDL     C
+        CGP     PUTC
+        LDL     C
+        CGP     ADDC
+        UJP     LOOP
+        .END

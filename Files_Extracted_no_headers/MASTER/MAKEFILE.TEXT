@@ -2,8 +2,8 @@
 # part the MAKE of its own makefile, its volume mounted first (MOUNT: emulator 2.14).
 # From the shell, with BIGGY on #4, TINY-C on #5, MASTER on #9, TOOLS on #11 and the
 # other images in the same folder on the PC: MAKE -f MASTER:MAKEFILE, or ... BASIC for
-# one part (TINYC DEMOS TESTS SYSC PASCALC BASIC BASIC2 ORIG).  MASTER:README.TEXT.
-all : TINYC DEMOS TESTS SYSC PASCALC BASIC BASIC2 ORIG
+# one part (TINYC DEMOS TESTS SYSC PASCALC BASIC BASIC2 PASM ORIG).  MASTER:README.TEXT.
+all : TINYC DEMOS TESTS SYSC PASCALC BASIC BASIC2 PASM ORIG
 
 # Tiny-C: the compiler, its library, the tools
 TINYC :
@@ -31,9 +31,13 @@ BASIC :
 BASIC2 :
         MOUNT #13 BASIC2
         $(MAKE) -f BASIC2:MAKEFILE
+# PASM, the P-code assembler, rebuilt by itself (U016.1)
+PASM :
+        MOUNT #12 U016.1_PCODE_ASSEM
+        $(MAKE) -f U016.1:MAKEFILE
 # the original programs (PC on PASCALC:)
 ORIG :
         MOUNT #12 PASCAL-C
         $(MAKE) -f MASTER:/ORIG/MAKEFILE
 
-.PHONY : all TINYC DEMOS TESTS SYSC PASCALC BASIC BASIC2 ORIG
+.PHONY : all TINYC DEMOS TESTS SYSC PASCALC BASIC BASIC2 PASM ORIG

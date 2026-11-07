@@ -2,7 +2,7 @@ MASTER                                                volume MASTER:
 
 One makefile that rebuilds everything: what is new -- Tiny-C (the compiler,
 its library, its tools), the demos and tests, the operating system in C, the
-Pascal compiler in C, BC and B2 -- and the original UCSD Pascal II.0 programs
+Pascal compiler in C, BC and B2, PASM (the P-code assembler) -- and the original UCSD Pascal II.0 programs
 from their source disks.  From the shell (S at the Command: prompt):
 
     MAKE -f MASTER:MAKEFILE              everything (what changed)
@@ -14,8 +14,8 @@ image), P-Code mode with Options > Harvard Mode on (BC and B2 rebuilding
 themselves need its memory), and every image in one folder on the PC, as UCSD-Pascal-Volumes'
 BLK_format has them: BIGGY (Big_Disk.BLK) on #4, TINY-C on #5, MASTER on #9,
 TOOLS on #11 (MAKE, MOUNT).  It mounts the others itself, by their names, from
-the folder of the image on the unit: #12 TCEXTRA, TCTESTS, SYS-C, PASCAL-C in
-turn, #13 BASIC, BASIC2 and SOURCE, #10 each source disk; for the operating
+the folder of the image on the unit: #12 TCEXTRA, TCTESTS, SYS-C, PASCAL-C,
+U016.1_PCODE_ASSEM (PASM: it rebuilds itself) in turn, #13 BASIC, BASIC2 and SOURCE, #10 each source disk; for the operating
 system's sources (their $I name #5:) U134.4_OS_SOURCE_v1.16 on #5, then TINY-C
 again, and the prefix on it.  (If it stops there, MOUNT #5 TINY-C.)
 

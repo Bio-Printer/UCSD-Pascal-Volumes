@@ -103,6 +103,8 @@ U012.1_SYS_2  (volume U012.1, 13 files)
     13 files extracted, 1 text files decoded
 U014.1_ASSEM  (volume U014.1, 6 files)
     6 files extracted, 0 text files decoded
+U016.1_PCODE_ASSEM  (volume U016.1, 12 files)
+    12 files extracted, 9 text files decoded
 U120_Z80_P-CODE_SOURCE  (volume U120, 16 files)
     ! BOOT.TEXT: line 137: unusual byte(s) ['0xff'] kept as-is
     ! STP.TEXT: line 623: unusual byte(s) ['0x11'] kept as-is

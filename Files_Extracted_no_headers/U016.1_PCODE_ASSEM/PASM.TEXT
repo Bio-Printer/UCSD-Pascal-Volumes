@@ -1,0 +1,127 @@
+; PASM -- the P-code assembler for UCSD Pascal II.0, written in its own language
+;
+;   PASM NAME [CODE]      from the shell: NAME.TEXT (NAME if it ends in .TEXT) assembled
+;                         into CODE.CODE (NAME.CODE; CODE. with a dot: that name exactly)
+;   X(ecute PASM          asks for NAME
+;
+; Two passes over the source: the first learns the procedures' numbers, the segments
+; and their lengths; the second writes the code file -- block 0 (the segment
+; dictionary), then each segment's procedures and its procedure dictionary.  A
+; procedure is assembled into CODE, then its jumps are fixed (short, or long through
+; its jump table) and its attributes added (PASMGEN).  PASMDOC.TEXT is the language.
+; The files: PASMIO (the console, the files, the command line), PASMLEX (lines,
+; tokens, names, expressions), PASMGEN (instructions, directives, procedures and
+; segments), this one (the tables, MAIN).
+        .PROGRAM PASM
+
+; the kinds of names (GSYM, LSYM: a name 4 words, its kind, value, size)
+        .EQU    KEQU, 1
+        .EQU    KGLOB, 2
+        .EQU    KPROC, 3
+        .EQU    KSEG, 4
+        .EQU    KPARAM, 5
+        .EQU    KVAR, 6
+        .EQU    KLABEL, 7
+; the kinds of tokens
+        .EQU    TEND, 0
+        .EQU    TID, 1
+        .EQU    TNUMBER, 2
+        .EQU    TSTRING, 3
+        .EQU    TPUNCT, 4
+        .EQU    TDIR, 5
+; the limits
+        .EQU    MAXG, 300               ; global names
+        .EQU    MAXL, 250               ; a procedure's names and labels
+        .EQU    MAXCODE, 4000           ; a procedure's bytes
+        .EQU    MAXFIX, 500             ; a procedure's jumps and case entries
+        .EQU    MAXLONG, 60             ; a procedure's long jumps
+        .EQU    ESIZE, 7                ; words a name's entry takes
+        .EQU    FIBW, 50                ; words a file's FIB takes
+; the system's procedures (segment 0) and the shell's handshake
+        .EQU    FINIT, 3
+        .EQU    FOPEN, 5
+        .EQU    FCLOSE, 6
+        .EQU    FBLOCKIO, 28
+        .EQU    PXCHILD, 25602
+        .EQU    PXARGS, 25604
+
+; the files: the source being read (its FIB and page buffer, where in them), the
+; source's while an included file is read, the code file being written
+        .GLOBAL FIBS:150                ; 0: the source, 1: an included file, 2: the code file
+        .GLOBAL PAGES:1024              ; 0: the source's 1 KB, 1: the included file's
+        .GLOBAL INFIB, INBUF, IPOS, ILEN, IBLK, LINENO, FILEP
+        .GLOBAL SPOS, SLEN, SBLK, SLINE     ; the source's while an included file is read
+        .GLOBAL INCLUDING
+        .GLOBAL SRCNAME:41, INCNAME:41, CODENAME:41     ; titles (strings)
+        .GLOBAL OBUF:256, OPOS, OBLK, OTOT  ; the code file: a block, where in it, bytes
+; the line, the token
+        .GLOBAL LINE:128, LLEN, LPOS, TSTART, LLONG      ; LLONG: the line had more than 255
+        .GLOBAL TKIND, TNUM, TNAME:4, TSTR:128
+; the names
+        .GLOBAL GSYM:2100, NGSYM        ; global: constants, globals, procedures, segments
+        .GLOBAL LSYM:1750, NLSYM        ; the procedure's: parameters, locals, labels
+        .GLOBAL FOUND, XUNK             ; LOOKUP found the name; EXPR met one not yet known
+; the procedure being assembled
+        .GLOBAL CODE:2000, CLEN
+        .GLOBAL FIXP:500, FIXL:500, FIXK:500, NFIX
+        .GLOBAL LONGS:60, NLONG
+        .GLOBAL INPROC, PNUM, PLEX, PMAIN, FROZEN, PWORDS, VWORDS, LASTRET, EXITPOS
+        .GLOBAL PNAME:4
+        .GLOBAL WTMP:255                ; LDC's words
+; the segments
+        .GLOBAL PASS, PROGSET, SEGOPEN, SEGNUM, SEGNAME:4, NEXTPROC, HADMAIN, SEGLEN, NSPROC
+        .GLOBAL SPJT:256                ; each procedure's JTAB in the segment
+        .GLOBAL SEGSTART
+        .GLOBAL NSEGS, SEGNO:16, SEGNM:64, SEGLN:16     ; the first pass's
+        .GLOBAL NUSED, USED:16
+        .GLOBAL GNEXT, GWORDS, NERR
+
+        .INCLUDE PASMIO
+        .INCLUDE PASMLEX
+        .INCLUDE PASMGEN
+
+; MAIN: the command line, the two passes, the code file
+        .MAIN
+        CGP     ARGS                    ; SRCNAME, CODENAME
+        SLDC    0
+        SRO     NERR
+        SLDC    0
+        SRO     NGSYM
+        SLDC    0
+        SRO     GWORDS
+        SLDC    1
+        SRO     PASS
+        CGP     ONEPASS
+        LDO     NERR
+        SLDC    0
+        EQUI
+        FJP     FAILED
+        LDO     GNEXT                   ; the globals' words: .MAIN's data
+        SLDC    3
+        SBI
+        SRO     GWORDS
+        CGP     OPENCODE
+        SLDC    2
+        SRO     PASS
+        CGP     ONEPASS
+        LDO     NERR
+        SLDC    0
+        EQUI
+        FJP     PURGE
+        SLDC    1                       ; LOCK: the code file is kept
+        CGP     CLOSECODE
+        CGP     SUMMARY
+        SLDC    0
+        CGP     STATUS
+        UJP     DONE
+PURGE:  SLDC    2                       ; PURGE: no code file
+        CGP     CLOSECODE
+FAILED: LDO     NERR
+        CGP     PUTN
+        LSA     ' error(s): no code file'
+        CGP     PUTS
+        CGP     NL
+        SLDC    1
+        CGP     STATUS
+DONE:   RBP     0
+        .END
