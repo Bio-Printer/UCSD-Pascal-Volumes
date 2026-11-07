@@ -1,0 +1,16 @@
+# MAKEFILE -- every program on TCTESTS: from the shell, MAKE -f TCTESTS:MAKEFILE (or CD TCTESTS:
+# and MAKE; TINY-C: on line): each program whose source changed compiled and linked
+# (-Z; it leaves a NAME.OBJ too).  MAKE -B ... all of them; MAKE -f TCTESTS:MAKEFILE
+# TCTESTS:CONTROL.CODE one.
+V = TCTESTS:
+
+all : $(V)CONTROL.CODE $(V)DOUBLES.CODE $(V)ELSEIF.CODE $(V)FASTIO.CODE \
+        $(V)FCOMPARE.CODE $(V)FILEIO.CODE $(V)FLOATS.CODE $(V)FUNCPTR.CODE \
+        $(V)FUNCSEG.CODE $(V)LONGS.CODE $(V)MACROS.CODE $(V)PRINTF.CODE \
+        $(V)SETJMP.CODE $(V)STATICS.CODE $(V)STRCONST.CODE $(V)STRINGS.CODE \
+        $(V)STRUCTS.CODE $(V)SYSCOM.CODE $(V)TEXTPAGE.CODE
+
+$(V)%.CODE : $(V)%.C
+        $(CC) -Z $(V)$*
+
+.PHONY : all

@@ -1,0 +1,14 @@
+# MAKEFILE -- every program on TCEXTRA: from the shell, MAKE -f TCEXTRA:MAKEFILE (or CD TCEXTRA:
+# and MAKE; TINY-C: on line): each program whose source changed compiled and linked
+# (-Z; it leaves a NAME.OBJ too).  MAKE -B ... all of them; MAKE -f TCEXTRA:MAKEFILE
+# TCEXTRA:BOXES.CODE one.
+V = TCEXTRA:
+
+all : $(V)BOXES.CODE $(V)CALC.CODE $(V)DEMO.CODE $(V)GUESS.CODE \
+        $(V)HANOI.CODE $(V)PI.CODE $(V)QUEENS.CODE $(V)SIEVE.CODE $(V)CMPCODE.CODE \
+        $(V)ARGS.CODE $(V)MEMFREE.CODE $(V)MEMMARK.CODE $(V)SHELL.CODE
+
+$(V)%.CODE : $(V)%.C
+        $(CC) -Z $(V)$*
+
+.PHONY : all

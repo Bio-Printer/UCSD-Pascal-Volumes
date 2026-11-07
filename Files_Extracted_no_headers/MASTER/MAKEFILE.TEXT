@@ -1,0 +1,39 @@
+# MAKEFILE -- everything: what is new and the original UCSD Pascal II.0 programs, each
+# part the MAKE of its own makefile, its volume mounted first (MOUNT: emulator 2.14).
+# From the shell, with BIGGY on #4, TINY-C on #5, MASTER on #9, TOOLS on #11 and the
+# other images in the same folder on the PC: MAKE -f MASTER:MAKEFILE, or ... BASIC for
+# one part (TINYC DEMOS TESTS SYSC PASCALC BASIC BASIC2 ORIG).  MASTER:README.TEXT.
+all : TINYC DEMOS TESTS SYSC PASCALC BASIC BASIC2 ORIG
+
+# Tiny-C: the compiler, its library, the tools
+TINYC :
+        $(MAKE) -f TINY-C:/SRC/CC/MAKEFILE
+        $(MAKE) -f TINY-C:/SRC/LIB/MAKEFILE
+        $(MAKE) -f TOOLS:/SRC/MAKEFILE
+DEMOS :
+        MOUNT #12 TCEXTRA
+        $(MAKE) -f TCEXTRA:MAKEFILE
+TESTS :
+        MOUNT #12 TCTESTS
+        $(MAKE) -f TCTESTS:MAKEFILE
+# the operating system in C
+SYSC :
+        MOUNT #12 SYS-C
+        $(MAKE) -f SYS-C:MAKEFILE
+# the Pascal compiler in C
+PASCALC :
+        MOUNT #12 PASCAL-C
+        $(MAKE) -f PASCALC:/SRC/MAKEFILE
+# BC and B2, the BASIC compilers
+BASIC :
+        MOUNT #13 BASIC
+        $(MAKE) -f BASIC:MAKEFILE
+BASIC2 :
+        MOUNT #13 BASIC2
+        $(MAKE) -f BASIC2:MAKEFILE
+# the original programs (PC on PASCALC:)
+ORIG :
+        MOUNT #12 PASCAL-C
+        $(MAKE) -f MASTER:/ORIG/MAKEFILE
+
+.PHONY : all TINYC DEMOS TESTS SYSC PASCALC BASIC BASIC2 ORIG

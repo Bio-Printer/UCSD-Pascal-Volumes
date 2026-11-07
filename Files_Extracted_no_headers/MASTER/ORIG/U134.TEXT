@@ -1,0 +1,20 @@
+# MAKEFILE -- the operating system and the Filer, from U134.4_OS_SOURCE_v1.16
+# on #5:: run by MASTER:/ORIG/MAKEFILE after it mounts that disk (MAKE -f
+# MASTER:/ORIG/U134 alone: mount it first).  Each program is compiled by PC (PASCALC:)
+# when its source or a file it includes is newer than its code file in MASTER:/ORIG/CODE.
+S = #5:
+C = MASTER:/ORIG/CODE/
+
+all : $(C)SYSTEM.PASCAL $(C)SYSTEM.FILER
+
+$(C)SYSTEM.PASCAL : $(S)SYSTEM.TEXT $(S)GLOBALS.TEXT $(S)SYSSEGS.A.TEXT \
+        $(S)SYSSEGS.B.TEXT $(S)SYSTEM.A.TEXT $(S)SYSTEM.B.TEXT $(S)SYSTEM.C.TEXT
+        CD $(S)
+        PC SYSTEM $(C)SYSTEM.PASCAL.
+$(C)SYSTEM.FILER : $(S)II.0.FILER.TEXT $(S)GLOBALS.TEXT $(S)FILER.VARS.TEXT \
+        $(S)FILER.A.TEXT $(S)FILER.B.TEXT $(S)FILER.C.TEXT $(S)FILER.D.TEXT \
+        $(S)FILER.E.TEXT
+        CD $(S)
+        PC II.0.FILER $(C)SYSTEM.FILER.
+
+.PHONY : all

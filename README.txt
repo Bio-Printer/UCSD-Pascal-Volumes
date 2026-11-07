@@ -2528,3 +2528,52 @@ texttest, pexectest, batchtest, redirtest, subvoltest, growtest,
 krunchtest, xsubvoltest, keytest, subvolxfertest, mantest, voltest, vitest;
 UCSD-SYSTEM-C's build.py, systest and filertest.  Emulator: 2.13 for the
 times of day (an older one: the files get no time).
+
+MAKEFILES IN PLACE OF THE BATCH FILES; MOUNT; MASTER: (BIGGY 1.35, TINY-C, TOOLS, TCEXTRA, TCTESTS, SYS-C, PASCAL-C, BASIC, BASIC2, MASTER, SOURCE)
+---------------------------------------------------------------------------
+Every volume is now rebuilt with MAKE (TOOLS:) and makefiles, not CC's or
+BC's batch files: each makefile compiles a module only when its source or a
+file it includes is newer than its object (the files' times of day, BIGGY
+1.34), and links what changed; MAKE -B ... does all of it.
+  TINY-C.BLK   MAKEFILE.TEXT (everything: the MAKE of the ones below, SYS-C's
+               and PASCALC's), SRC/CC/MAKEFILE.TEXT (TINY-C:CC2.CODE),
+               SRC/LIB/MAKEFILE.TEXT (TINY-C:/LIB/TCLIB2.OBJ) -- in place of
+               ALL.TEXT, BUILD.TEXT and LIBS.TEXT
+  TOOLS.BLK    SRC/MAKEFILE.TEXT (every tool; in place of SRC/TOOLS.TEXT);
+               MAKE: a recipe line longer than the shell lets a program have
+               runs as CC @#4:MAKEnRk (BC, B2 too: a command file it writes);
+               MOUNT (new, emulator 2.14): MOUNT #n IMAGE gives a unit
+               another disk image, by its name, from the folder of the one
+               there (CSP 140); MOUNT alone lists the units and their images
+  TCEXTRA.BLK, TCTESTS.BLK   MAKEFILE.TEXT (in place of DEMOS.TEXT, TESTS.TEXT)
+  SYS-C.BLK    MAKEFILE.TEXT (in place of BUILD.TEXT)
+  PASCAL-C.BLK SRC/MAKEFILE.TEXT (in place of SRC/BUILD.TEXT); PC.CODE: a
+               code file named with a dot at its end is that name exactly
+               (PC COMPILER SYSTEM.COMPILER.)
+  BASIC.BLK, BASIC2.BLK   MAKEFILE.TEXT at the top and in SRC, LIB, DEMO and
+               TEST (in place of ALL, INSTALL, BUILD, LIBS, DEMOS, TESTS and
+               DUMPALL.TEXT); MAKE -f BASIC:MAKEFILE INSTALL, MAKE -f
+               BASIC2:/SRC/MAKEFILE DUMPALL
+  Big_Disk.BLK BIGGY 1.35: SYSTEM.SHELL stops a batch file at a line whose
+               program cannot be run (no such program, a line too long)
+MASTER.BLK (new, volume MASTER:): MAKE -f MASTER:MAKEFILE rebuilds
+everything, the original programs too.  With BIGGY on #4, TINY-C on #5,
+MASTER on #9, TOOLS on #11 and the other images in the same folder (this
+BLK_format), it runs each part's makefile after mounting its volume, then
+MASTER:/ORIG/MAKEFILE: each source disk mounted on #10 in turn (the OS's on
+#5, its $I names #5:; TINY-C again after it), and that disk's makefile in
+MASTER:/ORIG compiles its programs with PC (the Pascal compiler in C) into
+MASTER:/ORIG/CODE: SYSTEM.COMPILER (U132.A v1.08), SYSTEM.LINKER (U132B.2),
+L2 (U128 v1.06), SYSTEM.EDITOR (U126), BASIC.COMPILER and BASICIO (U130.1),
+PASCALIO (U136.3), COPYDUPDIR, DISASM.II, EDITTORT11, LIBMAP, MARKDUPDIR,
+RT11TOEDIT, SETUP (U138.3), ASMZ80 (U123.1), ASM11 (U124.1), SYSTEM.PASCAL
+and SYSTEM.FILER (U134.4 v1.16).  SOURCE.BLK (new): an empty volume SOURCE:,
+onto which the screen editor's sources are copied (its $I names SOURCE:).
+Not made: the interpreters (U120, assembly).  Needs emulator 2.14 and P-Code
+mode with Harvard Mode on (BC's and B2's own builds).
+Checked: UCSD-TinyC's origtest (every original program the host's PC's code
+file), mastertest (everything, then nothing to be done), quicktest,
+maketest (both systems, both modes), voltest, alltest, shellalltest,
+batchtest, redirtest, pexectest, mantest; UCSD-BASIC's voltest (both
+systems) and voltest2; UCSD-Pascal-compiler-written-in-C's psysbuild.
+Emulator: 2.14 for MOUNT (the rest: 2.13).

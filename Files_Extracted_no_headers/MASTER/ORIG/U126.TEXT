@@ -1,0 +1,18 @@
+# MAKEFILE -- the screen editor, from U126_EDITOR_SOURCE
+# on #10:: run by MASTER:/ORIG/MAKEFILE after it mounts that disk (MAKE -f
+# MASTER:/ORIG/U126 alone: mount it first).  Each program is compiled by PC (PASCALC:)
+# when its source or a file it includes is newer than its code file in MASTER:/ORIG/CODE.
+S = #10:
+C = MASTER:/ORIG/CODE/
+
+all : $(C)SYSTEM.EDITOR
+
+$(C)SYSTEM.EDITOR : $(S)EDITOR.TEXT $(S)HEAD.TEXT $(S)INIT.TEXT $(S)OUT.TEXT \
+        $(S)COPYFILE.TEXT $(S)ENVIRON.TEXT $(S)PUTSYNTAX.TEXT $(S)COMMAND.TEXT \
+        $(S)INSERTIT.TEXT $(S)MOVEIT.TEXT $(S)FIND.TEXT $(S)USER.TEXT $(S)MISC.TEXT \
+        $(S)UTIL.TEXT
+        COPY $(S)*.TEXT SOURCE:
+        CD SOURCE:
+        PC EDITOR $(C)SYSTEM.EDITOR.
+
+.PHONY : all

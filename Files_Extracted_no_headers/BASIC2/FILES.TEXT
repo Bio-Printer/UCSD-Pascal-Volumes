@@ -51,11 +51,9 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   LANGUAGE.TEXT                 64
   B2DESIGN.TEXT                 30
   DESIGN.TEXT                   82
-  ALL.TEXT                       4
+  MAKEFILE.TEXT                  4
   SRC/                        1870  (sub-volume)
-  SRC/INSTALL.TEXT               6
-  SRC/DUMPALL.TEXT              16
-  SRC/BUILD.TEXT                 6
+  SRC/MAKEFILE.TEXT             28
   SRC/B2.BAS                    20
   SRC/B2ASM.BAS                 30
   SRC/B2BUILT.BAS                4
@@ -83,9 +81,9 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/B2SYMT.BAS                26
   SRC/B2SYN.BAS                 48
   SRC/B2UTIL.BAS                26
-  LIB/                         755  (sub-volume)
+  LIB/                         757  (sub-volume)
   LIB/BASLIB.OBJ                99
-  LIB/LIBS.TEXT                  4
+  LIB/MAKEFILE.TEXT              6
   LIB/RTARR.BAS                 10
   LIB/RTCHAIN.BAS               14
   LIB/RTCOM.BAS                 10
@@ -99,7 +97,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   LIB/RTUSING.BAS               18
   LIB/RTWHERE.BAS               12
   DEMO/                        574  (sub-volume)
-  DEMO/DEMOS.TEXT                4
+  DEMO/MAKEFILE.TEXT             4
   DEMO/AMAZING.BAS              20
   DEMO/GUESS.BAS                 4
   DEMO/HANOI.BAS                 4
@@ -110,7 +108,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   DEMO/STATLIB.BAS               4
   DEMO/STATS.BAS                 4
   TEST/                       1472  (sub-volume)
-  TEST/TESTS.TEXT                4
+  TEST/MAKEFILE.TEXT             4
   TEST/ARITH.BAS                 4
   TEST/ARRAYS.BAS                4
   TEST/BITWISE.BAS               4

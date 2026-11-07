@@ -1,0 +1,18 @@
+# MAKEFILE -- the Pascal compiler, from U132.A_PASCAL_COMPILER_SOURCE_v1.08
+# on #10:: run by MASTER:/ORIG/MAKEFILE after it mounts that disk (MAKE -f
+# MASTER:/ORIG/U132A alone: mount it first).  Each program is compiled by PC (PASCALC:)
+# when its source or a file it includes is newer than its code file in MASTER:/ORIG/CODE.
+S = #10:
+C = MASTER:/ORIG/CODE/
+
+all : $(C)SYSTEM.COMPILER
+
+$(C)SYSTEM.COMPILER : $(S)COMPILER.TEXT $(S)COMPGLBLS.TEXT $(S)COMPINIT.TEXT \
+        $(S)DECPART.A.TEXT $(S)DECPART.B.TEXT $(S)DECPART.C.TEXT \
+        $(S)BODYPART.A.TEXT $(S)BODYPART.B.TEXT $(S)BODYPART.C.TEXT \
+        $(S)BODYPART.D.TEXT $(S)BODYPART.E.TEXT $(S)UNITPART.TEXT $(S)PROCS.A.TEXT \
+        $(S)PROCS.B.TEXT $(S)BLOCK.TEXT
+        CD $(S)
+        PC COMPILER $(C)SYSTEM.COMPILER.
+
+.PHONY : all

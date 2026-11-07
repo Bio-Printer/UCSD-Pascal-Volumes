@@ -3,7 +3,7 @@ TCEXTRA:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   FILE                     BLOCKS  WHAT
 
   README.TEXT                  14  what is on this volume
-  DEMOS.TEXT                    4  X TINY-C:CC, @DEMOS: rebuilds every program here
+  MAKEFILE.TEXT                 4  MAKE -f TCEXTRA:MAKEFILE: rebuilds the programs here whose sources changed
   BOXES.C                       4  conio.h: clear the screen, draw boxes with gotoxy ...
   BOXES.CODE                    7    (ready to run)
   CALC.C                        6  a calculator: recursive descent over + - * / % ( ) ...

@@ -1,0 +1,27 @@
+# MAKEFILE -- the run-time library, rebuilt: from the shell, MAKE -f BASIC2:/LIB/MAKEFILE.
+# Compiles each module whose source or #INCLUDEs changed (NAME.OBJ beside it) and joins
+# them into BASIC2:/LIB/BASLIB2.OBJ, the same as BASLIB.OBJ.  MAKE -B ... all again.
+B2 = B2
+L = BASIC2:/LIB/
+FLAGS =
+
+$(L)BASLIB2.OBJ : $(L)RTCORE.OBJ $(L)RTFILE.OBJ $(L)RTSTR.OBJ $(L)RTNUM.OBJ \
+        $(L)RTARR.OBJ $(L)RTINPUT.OBJ $(L)RTDATA.OBJ $(L)RTSUBV.OBJ $(L)RTCHAIN.OBJ \
+        $(L)RTWHERE.OBJ $(L)RTUSING.OBJ
+        $(B2) -J BASIC2:/LIB/BASLIB2=$(L)RTCORE,$(L)RTFILE,$(L)RTSTR,$(L)RTNUM,$(L)RTARR,$(L)RTINPUT,$(L)RTDATA,$(L)RTSUBV,$(L)RTCHAIN,$(L)RTWHERE,$(L)RTUSING
+
+$(L)%.OBJ : $(L)%.BAS
+        $(B2) $(FLAGS) -C $(L)$*
+
+# each module's #INCLUDEs: it is compiled again when one of them changes
+$(L)RTCORE.OBJ : $(L)RTCOM.BAS
+$(L)RTFILE.OBJ : $(L)RTCOM.BAS
+$(L)RTSTR.OBJ : $(L)RTCOM.BAS
+$(L)RTNUM.OBJ : $(L)RTCOM.BAS
+$(L)RTARR.OBJ : $(L)RTCOM.BAS
+$(L)RTINPUT.OBJ : $(L)RTCOM.BAS
+$(L)RTDATA.OBJ : $(L)RTCOM.BAS
+$(L)RTSUBV.OBJ : $(L)RTCOM.BAS
+$(L)RTCHAIN.OBJ : $(L)RTCOM.BAS
+$(L)RTWHERE.OBJ : $(L)RTCOM.BAS
+$(L)RTUSING.OBJ : $(L)RTCOM.BAS

@@ -1,0 +1,15 @@
+# MAKEFILE -- the Z80 assembler, from U123.1_Z80_ASSEM_SOURCE
+# on #10:: run by MASTER:/ORIG/MAKEFILE after it mounts that disk (MAKE -f
+# MASTER:/ORIG/U123 alone: mount it first).  Each program is compiled by PC (PASCALC:)
+# when its source or a file it includes is newer than its code file in MASTER:/ORIG/CODE.
+S = #10:
+C = MASTER:/ORIG/CODE/
+
+all : $(C)ASMZ80.CODE
+
+$(C)ASMZ80.CODE : $(S)ASMZ80.TEXT $(S)ASM1.TEXT $(S)ASM2.TEXT $(S)ASM3.TEXT \
+        $(S)EXTRA.Z80.TEXT $(S)ASM4.TEXT $(S)ASM5.TEXT $(S)ASM6.TEXT
+        CD $(S)
+        PC ASMZ80 $(C)ASMZ80.CODE.
+
+.PHONY : all

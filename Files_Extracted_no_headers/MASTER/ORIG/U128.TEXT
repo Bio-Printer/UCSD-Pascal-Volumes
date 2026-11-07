@@ -1,0 +1,14 @@
+# MAKEFILE -- L2, the line editor (YALOE in it), from U128_L2_YALOE_SOURCE_v1.06
+# on #10:: run by MASTER:/ORIG/MAKEFILE after it mounts that disk (MAKE -f
+# MASTER:/ORIG/U128 alone: mount it first).  Each program is compiled by PC (PASCALC:)
+# when its source or a file it includes is newer than its code file in MASTER:/ORIG/CODE.
+S = #10:
+C = MASTER:/ORIG/CODE/
+
+all : $(C)L2.CODE
+
+$(C)L2.CODE : $(S)L2.TEXT
+        CD $(S)
+        PC L2 $(C)L2.CODE.
+
+.PHONY : all

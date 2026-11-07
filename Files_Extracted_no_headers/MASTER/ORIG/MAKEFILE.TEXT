@@ -1,0 +1,53 @@
+# MAKEFILE -- the original UCSD Pascal II.0 programs, from their source disks: each
+# disk mounted (MOUNT: emulator 2.14), then the MAKE of its makefile here, which
+# compiles each program with PC (PASCALC: on #12) into MASTER:/ORIG/CODE.  From the
+# shell: MAKE -f MASTER:/ORIG/MAKEFILE, or ... U132A for one disk's.  The images are
+# looked for beside the one on the unit (UCSD-Pascal-Volumes' BLK_format).
+
+all : U132A U132B U128 U126 U130 U136 U138 U123 U124 U134
+
+# U132A: the Pascal compiler
+U132A :
+        MOUNT #10 U132.A_PASCAL_COMPILER_SOURCE_v1.08
+        $(MAKE) -f MASTER:/ORIG/U132A
+# U132B: the linker
+U132B :
+        MOUNT #10 U132B.2_PASCAL_LINKER_SOURCE
+        $(MAKE) -f MASTER:/ORIG/U132B
+# U128: L2, the line editor (YALOE in it)
+U128 :
+        MOUNT #10 U128_L2_YALOE_SOURCE_v1.06
+        $(MAKE) -f MASTER:/ORIG/U128
+# U126: the screen editor
+U126 :
+        MOUNT #13 SOURCE
+        MOUNT #10 U126_EDITOR_SOURCE
+        $(MAKE) -f MASTER:/ORIG/U126
+# U130: the BASIC compiler
+U130 :
+        MOUNT #10 U130.1_BASIC_SOURCE
+        $(MAKE) -f MASTER:/ORIG/U130
+# U136: PASCALIO (long integers)
+U136 :
+        MOUNT #10 U136.3_LONG_INTEGER_SOURCE
+        $(MAKE) -f MASTER:/ORIG/U136
+# U138: the utilities
+U138 :
+        MOUNT #10 U138.3_UTILITY_SOURCE
+        $(MAKE) -f MASTER:/ORIG/U138
+# U123: the Z80 assembler
+U123 :
+        MOUNT #10 U123.1_Z80_ASSEM_SOURCE
+        $(MAKE) -f MASTER:/ORIG/U123
+# U124: the LSI-11 assembler
+U124 :
+        MOUNT #10 U124.1_LSI-11_ASSEM_SOURCE
+        $(MAKE) -f MASTER:/ORIG/U124
+# U134: the operating system and the Filer
+U134 :
+        MOUNT #5 U134.4_OS_SOURCE_v1.16
+        $(MAKE) -f MASTER:/ORIG/U134
+        MOUNT #5 TINY-C
+        CD TINY-C:
+
+.PHONY : all U132A U132B U128 U126 U130 U136 U138 U123 U124 U134

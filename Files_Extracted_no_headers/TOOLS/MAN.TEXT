@@ -919,8 +919,14 @@ THE MAKEFILE
       PROG.CODE : A.OBJ B.OBJ
               CC -L $(basename $@)=$(subst $(space),$(comma),$(basename $^))
     A recipe's @ is taken off (the shell shows every line); a CD in one
-    stays for the lines after it; a line must fit the shell's 80
-    characters.
+    stays for the lines after it.  The shell gives a program 80
+    characters with its path: a recipe line longer than that leaves (64
+    at least), PROG ARGS with PROG one of $(ATFILE) (CC BC B2: programs
+    that read @FILE), runs as PROG @#4:MAKEnRk with ARGS in
+    #4:MAKEnRk.TEXT, a command a line (options and the word after them:
+    -O DIR, -Z -C NAME, -L OUT=A,B): the batch files of CC, BC and B2.
+    The volumes are built so: MAKE -f TINY-C:MAKEFILE (everything),
+    MAKE -f TOOLS:/SRC/MAKEFILE (every tool) ...
 OPTIONS
     -f FILE    the makefile (FILE, or FILE.TEXT)
     -n         the recipes shown, not run
@@ -958,6 +964,29 @@ EXAMPLES
     TOUCH -d 2026-11-07T12:00 B.OBJ        TOUCH -r A.C B.C
 SEE ALSO
     MAKE, DATE, SHELL (DIR)
+
+%% MOUNT
+NAME
+    MOUNT - give a disk unit another disk image
+SYNOPSIS
+    MOUNT [#n IMAGE | -u #n]
+DESCRIPTION
+    Without arguments: every disk unit, its volume and the image file
+    on the PC it is.  MOUNT #n IMAGE gives unit n the image IMAGE (or
+    IMAGE.BLK) from the folder of the image unit n has now (else the
+    boot disk's), as the emulator's File > Open Unit does; the old
+    image's file keeps what was written to it.  -u #n takes unit n's
+    image off.  Units 5 and 9 to 14 (not 4, the boot disk).  An IMAGE
+    has letters, digits, . _ and - only.  The new volume is read at
+    once, so its name finds it.  Needs emulator 2.14 (CSP 140, 141).
+    In a makefile: MOUNT in one recipe, then $(MAKE) -f a makefile
+    that names the files on that volume (MAKE decides before it runs
+    anything).  Status 0; 1 no such image, 2 a bad unit, 3 a bad name.
+EXAMPLES
+    MOUNT                    MOUNT #10 U132.A_PASCAL_COMPILER_SOURCE
+    MOUNT -u #10             MOUNT 12 TOOLS.BLK
+SEE ALSO
+    MAKE, SHELL (VOLUMES)
 
 %% DATE
 NAME

@@ -1,0 +1,17 @@
+# MAKEFILE -- the BASIC compiler, from U130.1_BASIC_SOURCE
+# on #10:: run by MASTER:/ORIG/MAKEFILE after it mounts that disk (MAKE -f
+# MASTER:/ORIG/U130 alone: mount it first).  Each program is compiled by PC (PASCALC:)
+# when its source or a file it includes is newer than its code file in MASTER:/ORIG/CODE.
+S = #10:
+C = MASTER:/ORIG/CODE/
+
+all : $(C)BASIC.COMPILER $(C)BASICIO.CODE
+
+$(C)BASIC.COMPILER : $(S)BASIC.TEXT
+        CD $(S)
+        PC BASIC $(C)BASIC.COMPILER.
+$(C)BASICIO.CODE : $(S)BASICIO.TEXT $(S)GLOBALS.TEXT
+        CD $(S)
+        PC BASICIO $(C)BASICIO.CODE.
+
+.PHONY : all

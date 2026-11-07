@@ -1,0 +1,80 @@
+# MAKEFILE -- the C library: from the shell, MAKE -f TINY-C:/SRC/LIB/MAKEFILE
+# (MAKE.CODE is on TOOLS:).  Compiles each module whose source or headers changed
+# (-Z; its NAME.OBJ into TINY-C:/OBJ), then joins them into TINY-C:/LIB/TCLIB2.OBJ,
+# identical to TINY-C:/LIB/TCLIB.OBJ (CMPCODE says so) -- in parts
+# (TINY-C:/OBJ/TCLIBPn) where one -J would be longer than the 150 characters a line
+# of CC's batch file holds.  MAKE -B ... compiles them all again.
+S = TINY-C:/SRC/LIB/
+O = TINY-C:/OBJ/
+I = TINY-C:/INCLUDE/
+
+TINY-C:/LIB/TCLIB2.OBJ : $(O)TCLIBP1.OBJ $(O)STRTOLD.OBJ $(O)SUBVOL.OBJ \
+        $(O)TCRT.OBJ
+        $(CC) -O $(O) -J TINY-C:/LIB/TCLIB2=$(O)TCLIBP1,STRTOLD,SUBVOL,TCRT
+$(O)TCLIBP1.OBJ : $(O)ASSERT.OBJ $(O)CONIO.OBJ $(O)CTYPE.OBJ $(O)DIRS.OBJ \
+        $(O)FILEARGS.OBJ $(O)FLTFMT.OBJ $(O)FTIME.OBJ $(O)IO.OBJ $(O)MATH.OBJ \
+        $(O)MEMSCAN.OBJ $(O)PEXEC.OBJ $(O)REDIRECT.OBJ $(O)SETJMP.OBJ $(O)STDIO.OBJ \
+        $(O)STDIOBLK.OBJ $(O)STDLIB.OBJ $(O)STRING.OBJ
+        $(CC) -O $(O) -J $(O)TCLIBP1=ASSERT,CONIO,CTYPE,DIRS,FILEARGS,FLTFMT,FTIME,IO,MATH,MEMSCAN,PEXEC,REDIRECT,SETJMP,STDIO,STDIOBLK,STDLIB,STRING
+
+$(O)%.OBJ : $(S)%.C
+        $(CC) -O $(O) -Z -C $<
+
+# each module's headers: it is compiled again when one of them changes
+$(O)ASSERT.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H
+$(O)CONIO.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H
+$(O)CTYPE.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H
+$(O)DIRS.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H $(I)PSYS.H $(I)DIRS.H
+$(O)FILEARGS.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H $(I)PSYS.H $(I)DIRS.H
+$(O)FLTFMT.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H
+$(O)FTIME.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H $(I)PSYS.H $(I)DIRS.H
+$(O)IO.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H $(I)FCNTL.H
+$(O)MATH.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H
+$(O)MEMSCAN.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H $(I)PSYS.H
+$(O)PEXEC.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H $(I)PSYS.H $(I)DIRS.H
+$(O)REDIRECT.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H
+$(O)SETJMP.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H $(I)PSYS.H
+$(O)STDIO.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H $(I)DIRS.H
+$(O)STDIOBLK.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H
+$(O)STDLIB.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H $(I)PSYS.H
+$(O)STRING.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H
+$(O)STRTOLD.OBJ : $(I)STDLIB.H $(I)STDDEF.H
+$(O)SUBVOL.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H $(I)PSYS.H $(I)DIRS.H
+$(O)TCRT.OBJ : $(S)LIBINT.H $(I)STDDEF.H $(I)STDARG.H $(I)STDIO.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)CTYPE.H $(I)MATH.H $(I)CONIO.H $(I)IO.H \
+        $(I)FCNTL.H

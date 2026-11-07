@@ -1335,6 +1335,8 @@ char bname[MAXBATCH][80];
 int bline[MAXBATCH];
 int nbatch;
 int bignore;                            /* the batch line running started with -: its status does not stop them */
+int runfail;                            /* the line's program could not be run (no such program, too long):
+                                           in a batch file that stops it, as a failed program does */
 
 void batch_save(void)
 {
@@ -1477,6 +1479,7 @@ void run(char *name, char *args)
         n = search(name);
         if (n == 0) {
             printf("%s: no such program\n", name);
+            runfail = 1;
             return;
         }
         k = 1;
@@ -1497,6 +1500,7 @@ void run(char *name, char *args)
     }
     if (strlen(cmd) + strlen(args) + 1 > 129) {
         printf("command line too long (80 characters at most)\n");
+        runfail = 1;
         return;
     }
     if (*args) {
@@ -1504,6 +1508,7 @@ void run(char *name, char *args)
         strcat(cmd, args);
     }
     batch_save();                       /* (pexec ends the shell: the batch files' places) */
+    runfail = 1;                        /* (pexec comes back only when it could not run it) */
     switch (pexec(cmd)) {
     case -1: printf("%s: no such program\n", name); break;
     case -2: printf("%s: not linked\n", name); break;
@@ -1834,11 +1839,13 @@ void runline(char *line)
             strcpy(out, i % 2 == 0 ? PIPE1 : PIPE2);
         if (strlen(cmd) + strlen(in) + strlen(out) + 5 > LINEMAX) {
             printf("command line too long (80 characters at most)\n");
+            runfail = 1;
             return;
         }
         joinstage(pend[i], cmd, in, out, app);
         if (strlen(pend[i]) > 80 && !isbuiltin(cmd)) {
             printf("command line too long (80 characters at most)\n");
+            runfail = 1;
             return;
         }
     }
@@ -1884,10 +1891,15 @@ int main(void)
             if (isbye(line))
                 return 0;
             bignore = *line == '-';     /* -COMMAND: its exit status does not stop the batch */
+            runfail = 0;
             if (*line == '@')
                 batch_start(line + 1);
             else
                 runline(bignore ? line + 1 : line);
+            if (runfail && !bignore && nbatch) {
+                printf("@: stopped: it could not be run\n");
+                nbatch = 0;
+            }
             bignore = 0;
             continue;
         }

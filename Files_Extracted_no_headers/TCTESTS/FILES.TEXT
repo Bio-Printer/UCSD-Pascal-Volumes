@@ -3,7 +3,7 @@ TCTESTS:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   FILE                     BLOCKS  WHAT
 
   README.TEXT                   4  what is on this volume
-  TESTS.TEXT                    4  X TINY-C:CC, @TESTS: rebuilds every program here
+  MAKEFILE.TEXT                 4  MAKE -f TCTESTS:MAKEFILE: rebuilds the programs here whose sources changed
   CONTROL.C                     4  switch, goto, do/while, break/continue, ?:, comma ...
   CONTROL.CODE                 13    (ready to run)
   DOUBLES.C                    10  doubles (8 bytes: IEEE binary64, CSP 100..; P-Code mode ...

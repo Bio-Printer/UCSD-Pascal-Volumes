@@ -1,0 +1,18 @@
+# MAKEFILE -- everything: the compiler, the library, every tool, the operating
+# system in C and the Pascal compiler in C, each with its own makefile (TOOLS:,
+# SYS-C: and PASCALC: on line too).  From the shell: MAKE -f TINY-C:MAKEFILE, or
+# MAKE -f TINY-C:MAKEFILE TOOLS for one of them (CC LIB TOOLS SYSC PASCALC).
+all : CC LIB TOOLS SYSC PASCALC
+
+CC :
+        $(MAKE) -f TINY-C:/SRC/CC/MAKEFILE
+LIB :
+        $(MAKE) -f TINY-C:/SRC/LIB/MAKEFILE
+TOOLS :
+        $(MAKE) -f TOOLS:/SRC/MAKEFILE
+SYSC :
+        $(MAKE) -f SYS-C:MAKEFILE
+PASCALC :
+        $(MAKE) -f PASCALC:/SRC/MAKEFILE
+
+.PHONY : all CC LIB TOOLS SYSC PASCALC

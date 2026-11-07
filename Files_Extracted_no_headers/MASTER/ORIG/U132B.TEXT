@@ -1,0 +1,15 @@
+# MAKEFILE -- the linker, from U132B.2_PASCAL_LINKER_SOURCE
+# on #10:: run by MASTER:/ORIG/MAKEFILE after it mounts that disk (MAKE -f
+# MASTER:/ORIG/U132B alone: mount it first).  Each program is compiled by PC (PASCALC:)
+# when its source or a file it includes is newer than its code file in MASTER:/ORIG/CODE.
+S = #10:
+C = MASTER:/ORIG/CODE/
+
+all : $(C)SYSTEM.LINKER
+
+$(C)SYSTEM.LINKER : $(S)LINK.TEXT $(S)LINK0.TEXT $(S)LINK1.TEXT \
+        $(S)LINK2.TEXT $(S)LINK3A.TEXT $(S)LINK3B.TEXT
+        CD $(S)
+        PC LINK $(C)SYSTEM.LINKER.
+
+.PHONY : all

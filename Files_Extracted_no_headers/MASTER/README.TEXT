@@ -1,0 +1,44 @@
+MASTER                                                volume MASTER:
+
+One makefile that rebuilds everything: what is new -- Tiny-C (the compiler,
+its library, its tools), the demos and tests, the operating system in C, the
+Pascal compiler in C, BC and B2 -- and the original UCSD Pascal II.0 programs
+from their source disks.  From the shell (S at the Command: prompt):
+
+    MAKE -f MASTER:MAKEFILE              everything (what changed)
+    MAKE -f MASTER:MAKEFILE ORIG         the original programs only
+    MAKE -f MASTER:/ORIG/MAKEFILE U132A  one source disk's (as named below)
+
+It needs emulator 2.14 or later (MOUNT: a program gives a unit another disk
+image), P-Code mode with Options > Harvard Mode on (BC and B2 rebuilding
+themselves need its memory), and every image in one folder on the PC, as UCSD-Pascal-Volumes'
+BLK_format has them: BIGGY (Big_Disk.BLK) on #4, TINY-C on #5, MASTER on #9,
+TOOLS on #11 (MAKE, MOUNT).  It mounts the others itself, by their names, from
+the folder of the image on the unit: #12 TCEXTRA, TCTESTS, SYS-C, PASCAL-C in
+turn, #13 BASIC, BASIC2 and SOURCE, #10 each source disk; for the operating
+system's sources (their $I name #5:) U134.4_OS_SOURCE_v1.16 on #5, then TINY-C
+again, and the prefix on it.  (If it stops there, MOUNT #5 TINY-C.)
+
+THE ORIGINAL PROGRAMS are compiled with PC, the Pascal compiler in C
+(PASCALC:), which makes the same code files as SYSTEM.COMPILER, into
+MASTER:/ORIG/CODE:
+    U132A  SYSTEM.COMPILER                     the Pascal compiler
+    U132B  SYSTEM.LINKER                       the linker
+    U128   L2.CODE                             L2, the line editor (YALOE in it)
+    U126   SYSTEM.EDITOR                       the screen editor
+    U130   BASIC.COMPILER, BASICIO.CODE        the BASIC compiler
+    U136   PASCALIO.CODE                       PASCALIO (long integers)
+    U138   COPYDUPDIR.CODE, DISASM.II.CODE, EDITTORT11.CODE, LIBMAP.CODE, MARKDUPDIR.CODE, RT11TOEDIT.CODE, SETUP.CODE the utilities
+    U123   ASMZ80.CODE                         the Z80 assembler
+    U124   ASM11.CODE                          the LSI-11 assembler
+    U134   SYSTEM.PASCAL, SYSTEM.FILER         the operating system and the Filer
+
+Each is compiled again when its source or a file it includes ($I) is newer
+than its code file (MAKE -B: all of them).  The screen editor's $I names the
+volume SOURCE:: its sources are copied onto SOURCE: (SOURCE.BLK, empty) first.
+Not made here: the P-code interpreters and BIOSes (assembly: U120), which the
+assembler and the linker make by answering their questions.
+
+MASTER:/ORIG/MAKEFILE.TEXT mounts each disk and runs its makefile
+(MASTER:/ORIG/U132A.TEXT ...: a makefile cannot look at the files of a disk not
+yet on line -- MAKE decides everything before the shell runs a recipe).

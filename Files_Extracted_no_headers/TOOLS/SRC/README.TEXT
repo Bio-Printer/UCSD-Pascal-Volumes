@@ -3,18 +3,22 @@ TOOL SOURCES                                TOOLS:/SRC
 The sources of the tools on TOOLS:, a sub-volume each: SRC/VI holds vi's
 modules, SRC/GREP GREP.C, and so on.
 
-REBUILDING THEM:  from the shell, CC @TOOLS:/SRC/TOOLS (or X(ecute
-TINY-C:CC, answer @TOOLS:/SRC/TOOLS).  TOOLS.TEXT compiles every tool's
-modules (VI/VIMAIN: found beside TOOLS.TEXT; -O TOOLS:/OBJ puts each
-NAME.OBJ into TOOLS:/OBJ) and links the tool straight onto TOOLS:
-(TOOLS:NAME.CODE, replacing the one there).
+REBUILDING THEM:  from the shell, MAKE -f TOOLS:/SRC/MAKEFILE (TINY-C: on
+line).  MAKEFILE.TEXT compiles each module whose source, or a header it
+includes, is newer than its object (-Z; -O TOOLS:/OBJ puts each NAME.OBJ
+into TOOLS:/OBJ) and links each tool whose objects changed straight onto
+TOOLS: (TOOLS:NAME.CODE, replacing the one there).  TOOLS:/OBJ is empty
+on a new volume, so the first MAKE builds them all; MAKE -B -f
+TOOLS:/SRC/MAKEFILE does every time; MAKE -f TOOLS:/SRC/MAKEFILE
+TOOLS:VI.CODE makes one.
 
-EVERYTHING AT ONCE:  CC @TINY-C:ALL: the compiler (TINY-C:CC2.CODE),
-the library (TINY-C:/LIB/TCLIB2.OBJ), then TOOLS; a batch file can name
-other batch files (@NAME).
+EVERYTHING AT ONCE:  MAKE -f TINY-C:MAKEFILE: the compiler
+(TINY-C:CC2.CODE), the library (TINY-C:/LIB/TCLIB2.OBJ), then TOOLS ...,
+each the MAKE of its own makefile.
 
-A NEW TOOL: MKDIR TOOLS:/SRC/NAME, its sources there, its lines in
-TOOLS.TEXT (-Z -C NAME/NAME, -L TOOLS:NAME=NAME/NAME) and a page in
+A NEW TOOL: MKDIR TOOLS:/SRC/NAME, its sources there, its rules in
+MAKEFILE.TEXT (as GREP's: TOOLS:NAME.CODE from $(O)NAME.OBJ, $(O)NAME.OBJ
+from $(S)NAME/NAME.C), its name in all's list, and a page in
 TOOLS:MAN.TEXT.
 
 VI      vi: the BusyBox "tiny vi" (GPL v2 or later, see VI.H), edited
@@ -22,8 +26,8 @@ VI      vi: the BusyBox "tiny vi" (GPL v2 or later, see VI.H), edited
         main loop), VISCREEN.C (the screen), VITEXT.C (moving, changing
         text), VICOLON.C (the : commands), VICMD.C (the vi commands),
         VIPAGE.C and VIPAGE.H (the window into big files), VIUCSD.C (the
-        P-System: keys, screen, files).  @TOOLS compiles each (-Z -C) and
-        links them (-L VI=...), in P-Code or Z80 mode.
+        P-System: keys, screen, files).  The makefile compiles each
+        (-Z -C) and links them (-L VI=...), in P-Code or Z80 mode.
 
 GREP.C  grep (a regular expression, wildcards, every disk).
 
@@ -43,6 +47,8 @@ ECHO.C, HEAD.C, TAIL.C, SORT.C, UNIQ.C, TR.C, CUT.C, TEE.C  the text tools
 MAKE.C  make (rules, variables, the recipes run by the shell after it).
 
 TOUCH.C, DATE.C  touch, date (files' dates and times of day).
+
+MOUNT.C mount (a unit gets another disk image, by name: emulator 2.14).
 
 KRUNCH.C  krunch (the files of a disk moved down, the free blocks in one area).
 

@@ -5,8 +5,9 @@ TCEXTRA:): each exercises a part of the language or the library and
 prints what it computed.  Every program is here as source (NAME.C) and
 ready to run (NAME.CODE): X(ecute TCTESTS:NAME.
 
-REBUILDING THEM ALL:  set the prefix to TCTESTS:, X(ecute TINY-C:CC,
-answer  @TESTS.  TESTS.TEXT compiles and links every program here (each
-leaves a NAME.OBJ as well; remove those with the Filer if you like).
+REBUILDING THEM:  from the shell, MAKE -f TCTESTS:MAKEFILE (TINY-C: and
+TOOLS: on line) compiles and links each program here whose source is
+newer than its code file (each leaves a NAME.OBJ as well); MAKE -B -f
+TCTESTS:MAKEFILE all of them.
 
 FILES.TEXT lists every file on this volume.

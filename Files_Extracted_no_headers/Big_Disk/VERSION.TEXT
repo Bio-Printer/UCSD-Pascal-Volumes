@@ -1,4 +1,4 @@
-BIGGY boot volume, revision 1.34  (07-Nov-26)
+BIGGY boot volume, revision 1.35  (07-Nov-26)
   SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.16 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
                  Tiny-C's pexec, S runs SYSTEM.SHELL, X(ecute takes a
@@ -59,6 +59,8 @@ BIGGY boot volume, revision 1.34  (07-Nov-26)
                  1.34: DIR shows files' times of day; a batch line
                  that starts with - does not stop it when it fails
                  (MAKE's recipes); built with the library's ftime.c
+                 1.35: a batch line whose program cannot be run (no
+                 such program, a line too long) stops the batch file
   Tiny-C itself is on TINY-C: only: X(ecute TINY-C:CC (the compiler is
                  CC.CODE now, was TINYC.CODE); TINYC.CODE left BIGGY in
                  1.14, TCLIB.OBJ, TCMSGS.TEXT and the headers in 1.15

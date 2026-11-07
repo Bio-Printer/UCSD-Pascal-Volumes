@@ -3,7 +3,7 @@ SYS-C:  the operating system in C (SYSTEM.C) and the boot that chooses it
   FILE            BLOCKS  WHAT
 
   README.TEXT          8  what is on SYS-C:, how to build and install it
-  BUILD.TEXT           4  CC @SYS-C:BUILD makes SYS-C:SYSTEM.C (TINY-C:ALL runs it too)
+  MAKEFILE.TEXT        4  MAKE -f SYS-C:MAKEFILE makes SYS-C:SYSTEM.C (TINY-C:MAKEFILE runs it too)
   SYSC.C              16  the operating system: the procedures' numbers, the segments
   GLOBALS.H           24  its types and global variables, word for word as the Pascal one's
   SEG0.C              78  segment 0: EXECERROR .. COMMAND, the outer block

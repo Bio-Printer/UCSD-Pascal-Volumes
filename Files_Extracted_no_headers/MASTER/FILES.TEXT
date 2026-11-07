@@ -1,0 +1,20 @@
+MASTER:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
+
+  FILE                     BLOCKS  WHAT
+
+  README.TEXT                   8  what MASTER: does, and what it needs
+  MAKEFILE.TEXT                 6  MAKE -f MASTER:MAKEFILE: everything, new and original
+  ORIG/                      1706  sub-volume: the original programs: their makefiles, and CODE/ for what they make
+  ORIG/MAKEFILE.TEXT            6  MAKE -f MASTER:/ORIG/MAKEFILE: each source disk mounted, its makefile run
+  ORIG/U132A.TEXT               4  U132A: the Pascal compiler
+  ORIG/U132B.TEXT               4  U132B: the linker
+  ORIG/U128.TEXT                4  U128: L2, the line editor (YALOE in it)
+  ORIG/U126.TEXT                4  U126: the screen editor
+  ORIG/U130.TEXT                4  U130: the BASIC compiler
+  ORIG/U136.TEXT                4  U136: PASCALIO (long integers)
+  ORIG/U138.TEXT                6  U138: the utilities
+  ORIG/U123.TEXT                4  U123: the Z80 assembler
+  ORIG/U124.TEXT                4  U124: the LSI-11 assembler
+  ORIG/U134.TEXT                4  U134: the operating system and the Filer
+  ORIG/CODE/                 1600  sub-volume: empty: the code files the makefiles make
+  FILES.TEXT                    6  this list

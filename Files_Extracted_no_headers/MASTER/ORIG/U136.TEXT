@@ -1,0 +1,14 @@
+# MAKEFILE -- PASCALIO (long integers), from U136.3_LONG_INTEGER_SOURCE
+# on #10:: run by MASTER:/ORIG/MAKEFILE after it mounts that disk (MAKE -f
+# MASTER:/ORIG/U136 alone: mount it first).  Each program is compiled by PC (PASCALC:)
+# when its source or a file it includes is newer than its code file in MASTER:/ORIG/CODE.
+S = #10:
+C = MASTER:/ORIG/CODE/
+
+all : $(C)PASCALIO.CODE
+
+$(C)PASCALIO.CODE : $(S)PASCALIO.TEXT $(S)GLOBALS.TEXT
+        CD $(S)
+        PC PASCALIO $(C)PASCALIO.CODE.
+
+.PHONY : all

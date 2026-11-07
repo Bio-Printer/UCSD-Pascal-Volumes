@@ -1,0 +1,18 @@
+# MAKEFILE -- the demos: from the shell, MAKE -f BASIC:/DEMO/MAKEFILE.  Compiles and links
+# each program whose source is newer than its code file (BASIC:/DEMO/NAME.CODE; it leaves a
+# NAME.OBJ too).  MAKE -B ... all of them again.
+BC = BC
+D = BASIC:/DEMO/
+FLAGS =
+
+all : $(D)HELLO.CODE $(D)PRIMES.CODE $(D)HANOI.CODE $(D)MANDEL.CODE \
+        $(D)PI.CODE $(D)GUESS.CODE $(D)AMAZING.CODE $(D)STATS.CODE
+
+$(D)STATS.CODE : $(D)STATS.OBJ $(D)STATLIB.OBJ
+        $(BC) -L $(D)STATS=$(D)STATS,$(D)STATLIB
+$(D)%.OBJ : $(D)%.BAS
+        $(BC) $(FLAGS) -C $(D)$*
+$(D)%.CODE : $(D)%.BAS
+        $(BC) $(FLAGS) $(D)$*
+
+.PHONY : all

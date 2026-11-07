@@ -1,0 +1,44 @@
+# MAKEFILE -- the Tiny-C compiler: from the shell, MAKE -f TINY-C:/SRC/CC/MAKEFILE
+# (MAKE.CODE is on TOOLS:).  Compiles each module whose source or headers changed
+# (its NAME.OBJ into TINY-C:/OBJ), then links them into TINY-C:CC2.CODE, identical to
+# TINY-C:CC.CODE apart from its name (CMPCODE).  MAKE -B ... compiles them all again.
+S = TINY-C:/SRC/CC/
+O = TINY-C:/OBJ/
+I = TINY-C:/INCLUDE/
+MODS = MAIN UTIL TYPES PP LEX PSYM EXPR DECL STMT COMPILE IR GEN GENX LINK
+
+TINY-C:CC2.CODE : $(addprefix $(O),$(addsuffix .OBJ,$(MODS)))
+        $(CC) -O $(O) -L TINY-C:CC2=$(subst $(space),$(comma),$(MODS))
+
+$(O)%.OBJ : $(S)%.C
+        $(CC) -O $(O) -C $<
+
+# each module's headers: it is compiled again when one of them changes
+$(O)MAIN.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H $(I)PSYS.H
+$(O)UTIL.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H
+$(O)TYPES.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H
+$(O)PP.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H
+$(O)LEX.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H
+$(O)PSYM.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H $(S)PARSE.H
+$(O)EXPR.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H $(S)PARSE.H
+$(O)DECL.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H $(S)PARSE.H
+$(O)STMT.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H $(S)PARSE.H
+$(O)COMPILE.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H \
+        $(I)STDLIB.H $(I)STRING.H $(I)DIRS.H $(S)PARSE.H
+$(O)IR.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H
+$(O)GEN.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H $(S)GEN.H
+$(O)GENX.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H $(S)GEN.H
+$(O)LINK.OBJ : $(S)TC.H $(I)STDIO.H $(I)STDDEF.H $(I)STDARG.H $(I)STDLIB.H \
+        $(I)STRING.H $(I)DIRS.H

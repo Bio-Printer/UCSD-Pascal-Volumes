@@ -1,0 +1,19 @@
+# MAKEFILE -- everything: the compiler, the library, the demos, the tests, each the MAKE
+# of its own makefile.  From the shell: MAKE -f BASIC:MAKEFILE (Tiny-C's MAKE, on TOOLS:),
+# or MAKE -f BASIC:MAKEFILE SRC (LIB, DEMO, TEST) for one.  Then MAKE -f BASIC:MAKEFILE
+# INSTALL puts the rebuilt compiler (BASIC:BC2.CODE ...) in the old one's place.
+
+all : SRC LIB DEMO TEST
+
+SRC :
+        $(MAKE) -f BASIC:/SRC/MAKEFILE
+LIB :
+        $(MAKE) -f BASIC:/LIB/MAKEFILE
+DEMO :
+        $(MAKE) -f BASIC:/DEMO/MAKEFILE
+TEST :
+        $(MAKE) -f BASIC:/TEST/MAKEFILE
+INSTALL :
+        $(MAKE) -f BASIC:/SRC/MAKEFILE INSTALL
+
+.PHONY : all SRC LIB DEMO TEST INSTALL

@@ -1,0 +1,18 @@
+# MAKEFILE -- the tests (what each prints is in
+# BASIC:/TEST/EXPECT/NAME.TEXT): from the shell, MAKE -f BASIC:/TEST/MAKEFILE.  Compiles and links
+# each program whose source is newer than its code file (BASIC:/TEST/NAME.CODE; it leaves a
+# NAME.OBJ too).  MAKE -B ... all of them again.
+BC = BC
+D = BASIC:/TEST/
+FLAGS =
+
+all : $(D)ARITH.CODE $(D)ARRAYS.CODE $(D)BITWISE.CODE $(D)CONSTIN.CODE \
+        $(D)CONTROL.CODE $(D)DATA.CODE $(D)DEEP.CODE $(D)DOUBLES.CODE \
+        $(D)FILES.CODE $(D)IFDEF.CODE $(D)INPUT.CODE $(D)PROCS.CODE $(D)RANDOM.CODE \
+        $(D)RTERR.CODE $(D)RTERR2.CODE $(D)RTERR3.CODE $(D)RTERR4.CODE \
+        $(D)SEGS.CODE $(D)STRINGS.CODE $(D)SUFFIX.CODE
+
+$(D)%.CODE : $(D)%.BAS
+        $(BC) $(FLAGS) $(D)$*
+
+.PHONY : all

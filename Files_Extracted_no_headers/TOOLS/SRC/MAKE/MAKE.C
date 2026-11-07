@@ -32,7 +32,12 @@
    (@): each shown as it starts; one that ends with an exit status other than 0 stops
    them -- unless it starts with - (or -i).  A line starting @ is not shown in make(1):
    here the @ is taken off (the shell shows every line).  A CD in a recipe stays for the
-   lines after it.  MAKE must be run from the shell (S).
+   lines after it.  The shell gives a program 80 characters with its path (a blank and
+   VOL:/A/B): a recipe line longer than that leaves (64 at least), PROG ARGS where PROG is
+   one of $(ATFILE) -- CC BC B2, programs that read @FILE -- is run as PROG @#4:MAKEnRk,
+   with ARGS in #4:MAKEnRk.TEXT, a command a line (each run of options and the word after
+   them: -O DIR, -Z -C NAME, -L OUT=A,B,...), as CC, BC and B2 read their batch files (a
+   line of one is at most 150 characters for CC).  MAKE must be run from the shell (S).
    Options: -n the recipes shown, not run; -q nothing run, exit status 0 when all is up
    to date, 1 when not; -B every target made; -i errors ignored; -s, -k ignored.
    Exit status 2 on an error (no rule for a file that is not there ...). */
@@ -45,6 +50,7 @@
 #include <dirs.h>
 
 #define LINEMAX 1100
+#define STEMMAX 96                      /* a stem's characters, at most (and a name made from one) */
 #define BATCHFILE "#4:SYSTEM.BATCH"
 #define NEWEST 0xFFFFFFFFUL             /* a target to be made: newer than anything */
 
@@ -92,7 +98,9 @@ struct prule *lastprule;
 char *defgoal;
 int optn, optq, optB, opti;
 int status;
-FILE *out;                              /* the batch file being written (or NULL: -n, -q) */
+FILE *out;                              /* not NULL: the recipes go into the batch file (not -n, -q) */
+void emit(char *p);
+unsigned long ftime(char *name);
 int nmade;                              /* recipe lines written */
 char *mfname;
 
@@ -102,12 +110,50 @@ void die(char *msg, char *arg)
     exit(2);
 }
 
+unsigned leastfree = 65535;              /* -M: the least MEMAVAIL seen (words) */
+int optM;
+
 void *xmalloc(unsigned n)
 {
     void *p;
+    unsigned m;
+    m = (unsigned)__cspi(40);
+    if (m < leastfree)
+        leastfree = m;
     p = malloc(n);
     if (!p)
         die("no memory", "");
+    return p;
+}
+
+/* what is kept to the end (targets, prerequisites, recipes, variables): from blocks of
+   POOL bytes, so that a small one does not take a large freed buffer whole (the library's
+   malloc gives the smallest free block that is big enough, not split) */
+#define POOL 512
+char *poolp;
+unsigned poolleft;
+
+void *keepmem(unsigned n)
+{
+    char *p;
+    n = (n + 1) & ~1;
+    if (n > POOL / 4)
+        return xmalloc(n);
+    if (n > poolleft) {
+        poolp = (char *)xmalloc(POOL);
+        poolleft = POOL;
+    }
+    p = poolp;
+    poolp = poolp + n;
+    poolleft = poolleft - n;
+    return p;
+}
+
+char *keepstr(char *s)
+{
+    char *p;
+    p = (char *)keepmem(strlen(s) + 1);
+    strcpy(p, s);
     return p;
 }
 
@@ -201,7 +247,7 @@ int pmatch(char *pat, char *name, char *stem)
     n = strlen(name);
     if (n < pre + post)
         return 0;
-    if (!nsame(pat, name, pre) || !same(pc + 1, name + n - post))
+    if (!nsame(pat, name, pre) || !same(pc + 1, name + n - post) || n - pre - post >= STEMMAX)
         return 0;
     if (stem) {
         memcpy(stem, name + pre, n - pre - post);
@@ -242,13 +288,12 @@ void setvar(char *name, char *value, int simple, int cmdline)
     if (v && v->cmdline && !cmdline)
         return;
     if (!v) {
-        v = (struct var *)xmalloc(sizeof(struct var));
-        v->name = xstrdup(name);
+        v = (struct var *)keepmem(sizeof(struct var));
+        v->name = keepstr(name);
         v->next = vars;
         vars = v;
-    } else
-        free(v->value);
-    v->value = xstrdup(value);
+    }
+    v->value = keepstr(value);          /* (an old value stays in the pool) */
     v->simple = simple;
     v->cmdline = cmdline;
 }
@@ -386,7 +431,7 @@ int function(char *name, char *rest, struct buf *b)
         while (nextword(&s, w))
             if (strpbrk(w, "*?="))
                 forfiles("make", w, addfile);
-            else if (filetime(w))
+            else if (ftime(w))
                 addword(&r, w);
         break;
     case 4: case 5: case 6: case 7:     /* basename notdir dir suffix */
@@ -624,9 +669,9 @@ struct target *findtarget(char *name, int make)
             return t;
     if (!make)
         return NULL;
-    t = (struct target *)xmalloc(sizeof(struct target));
+    t = (struct target *)keepmem(sizeof(struct target));
     memset(t, 0, sizeof(struct target));
-    t->name = xstrdup(name);
+    t->name = keepstr(name);
     if (lasttarget)
         lasttarget->next = t;
     else
@@ -643,8 +688,8 @@ void adddeps(struct dep **list, char *words)
     for (end = list; *end; end = &(*end)->next)
         ;
     while (nextword(&words, w)) {
-        d = (struct dep *)xmalloc(sizeof(struct dep));
-        d->name = xstrdup(w);
+        d = (struct dep *)keepmem(sizeof(struct dep));
+        d->name = strchr(w, '%') ? keepstr(w) : findtarget(w, 1)->name;  /* (one copy of a name) */
         d->next = NULL;
         *end = d;
         end = &d->next;
@@ -657,8 +702,8 @@ void addcmd(struct cmd **list, char *text)
     struct cmd **end;
     for (end = list; *end; end = &(*end)->next)
         ;
-    c = (struct cmd *)xmalloc(sizeof(struct cmd));
-    c->text = xstrdup(text);
+    c = (struct cmd *)keepmem(sizeof(struct cmd));
+    c->text = keepstr(text);
     c->next = NULL;
     *end = c;
 }
@@ -688,8 +733,8 @@ int suffixrule(char *name, char *from, char *to)
 struct prule *addprule(char *tpat, char *deps)
 {
     struct prule *r;
-    r = (struct prule *)xmalloc(sizeof(struct prule));
-    r->tpat = xstrdup(tpat);
+    r = (struct prule *)keepmem(sizeof(struct prule));
+    r->tpat = keepstr(tpat);
     r->deps = NULL;
     r->cmds = NULL;
     r->next = NULL;
@@ -892,13 +937,16 @@ void readmake(char *name, int must)
             while (n > 0 && (line[n - 1] == '\n' || line[n - 1] == '\r'))
                 line[--n] = 0;
             if (n > 0 && line[n - 1] == '\\') {
-                line[n - 1] = ' ';
-                badd(&l, line);
+                line[--n] = 0;          /* (the blanks around a \ and the next line's first: one blank) */
+                while (n > 0 && (line[n - 1] == ' ' || line[n - 1] == '\t'))
+                    line[--n] = 0;
+                badd(&l, l.n ? trim(line) : line);
+                baddc(&l, ' ');
                 if (!fgets(line, LINEMAX, f))
                     break;
                 continue;
             }
-            badd(&l, line);
+            badd(&l, l.n ? trim(line) : line);
             break;
         }
         s = l.s;
@@ -1011,9 +1059,21 @@ void readmake(char *name, int must)
 
 /* ---- making ---- */
 
+/* a file's time (datesecs; 1 undated, 0 no such file), as filetime but with a directory
+   buffer of its own: filetime's malloc(2048), freed, would be taken whole by the next
+   small malloc (the library's malloc does not split a block), and the next filetime would
+   find no memory */
+int dirbuf[1024];
+
 unsigned long ftime(char *name)
 {
-    return filetime(name);
+    char leaf[16];
+    int u, b, i;
+    unsigned long t;
+    if (!pathdir(name, dirbuf, &u, &b, leaf) || !leaf[0] || (i = findname(dirbuf, leaf)) == 0)
+        return 0;
+    t = datesecs(dirbuf[13 * i + 12], entstamp(dirbuf + 13 * i));
+    return t ? t : 1;
 }
 
 unsigned long make(char *name, char *needer);
@@ -1024,7 +1084,7 @@ struct prule *implicit(char *name, char *stem, int lvl)
     struct prule *r;
     struct dep *d;
     struct buf b;
-    char sub[256];
+    char sub[STEMMAX];
     int ok;
     if (lvl > 3)
         return NULL;
@@ -1081,13 +1141,9 @@ void schedule(struct target *t, struct cmd *cmds, char *stem, struct dep *deps, 
         while (*p == '@' || *p == '+')
             p = trim(p + 1);
         if (*p) {
-            if (strlen(p) > 79)
-                fprintf(stderr, "make: a command longer than the shell's 80 characters: %s\n", p);
-            if (out) {
-                if (opti && *p != '-')
-                    fputc('-', out);
-                fprintf(out, "%s\n", p);
-            } else if (optn)
+            if (out)
+                emit(p);
+            else if (optn)
                 printf("%s\n", p);
             nmade++;
         }
@@ -1096,6 +1152,142 @@ void schedule(struct target *t, struct cmd *cmds, char *stem, struct dep *deps, 
     at = NULL;
     free(all.s);
     free(newer.s);
+}
+
+/* ---- the lines the shell runs: kept, written when all is decided ---- */
+
+struct cmd *olines;                     /* the batch file's lines */
+struct cmd *olast;
+struct cmd *rfiles;                     /* the command files: their names and texts, in turn */
+struct cmd *rlast;
+int nresp;
+int bdepth;                             /* this make's batch file: #4:MAKEn.TEXT */
+
+void keep(struct cmd **first, struct cmd **last, char *text)
+{
+    struct cmd *c;
+    c = (struct cmd *)keepmem(sizeof(struct cmd));
+    c->text = text;
+    c->next = NULL;
+    if (*last)
+        (*last)->next = c;
+    else
+        *first = c;
+    *last = c;
+}
+
+/* the longest command line a program gets from the shell: 80 characters with the shell's
+   path (a blank and VOL:/A/B, which pexec adds; 15 for it at least: a CD in a recipe may
+   change it) */
+int linemax(void)
+{
+    int n;
+    n = strlen(__svpath);
+    return 80 - 1 - (n > 15 ? n : 15);
+}
+
+/* the program (its name: n characters at p) reads @FILE: its name, without a volume or path,
+   is in $(ATFILE) (CC BC B2) */
+int atfile(char *p, int n)
+{
+    struct var *v;
+    char *w;
+    char *e;
+    int k;
+    for (k = n; k > 0 && p[k - 1] != ':' && p[k - 1] != '/'; k--)
+        ;
+    p = p + k;
+    n = n - k;
+    v = findvar("ATFILE");
+    if (!v)
+        return 0;
+    for (w = v->value; *w; w = e) {
+        while (*w == ' ')
+            w++;
+        for (e = w; *e && *e != ' '; e++)
+            ;
+        if (e - w == n && nsame(w, p, n))
+            return 1;
+    }
+    return 0;
+}
+
+/* a recipe line for the batch file.  One longer than the shell takes (linemax), PROG ARGS
+   where PROG reads @FILE (atfile), becomes PROG @#4:MAKEnRk with ARGS in #4:MAKEnRk.TEXT, a
+   command a line: each run of options and the word after them (-O DIR, -Z -C NAME,
+   -L OUT=A,B, -MAP -L ...), as CC, BC and B2 read their batch files */
+void emit(char *p)
+{
+    struct buf b;
+    struct buf f;
+    char *s;
+    char *w;
+    char name[24];
+    int ign;
+    binit(&b);
+    ign = *p == '-' || opti;
+    if (ign)
+        baddc(&b, '-');
+    if (*p == '-')
+        p = trim(p + 1);
+    s = p;
+    while (*s && *s != ' ' && *s != '\t')
+        s++;
+    if ((int)strlen(p) + ign <= linemax() || !atfile(p, s - p)) {
+        badd(&b, p);
+        keep(&olines, &olast, b.s);
+        return;
+    }
+    baddn(&b, p, s - p);
+    sprintf(name, "#4:MAKE%dR%d", bdepth, ++nresp);
+    badd(&b, " @");
+    badd(&b, name);
+    keep(&olines, &olast, b.s);
+    binit(&f);
+    badd(&f, name);
+    badd(&f, ".TEXT\n");               /* the file's name, then its lines */
+    for (;;) {
+        while (*s == ' ' || *s == '\t')
+            s++;
+        if (!*s)
+            break;
+        w = s;
+        while (*s && *s != ' ' && *s != '\t')
+            s++;
+        if (f.s[f.n - 1] != '\n')
+            baddc(&f, ' ');
+        baddn(&f, w, s - w);
+        if (*w != '-')
+            baddc(&f, '\n');
+    }
+    if (f.s[f.n - 1] != '\n')
+        baddc(&f, '\n');
+    keep(&rfiles, &rlast, f.s);
+}
+
+/* the command files, then the batch file (one new file at a time: the P-System gives
+   a new file the largest free area of its disk, so no second one is made there before
+   the first is closed); 1 if they are all written */
+int writeall(char *bfile)
+{
+    struct cmd *c;
+    FILE *f;
+    char *nl;
+    for (c = rfiles; c; c = c->next) {
+        nl = strchr(c->text, '\n');
+        *nl = 0;
+        f = fopen(c->text, "w");
+        if (!f || fputs(nl + 1, f) < 0 || fclose(f) != 0) {
+            fprintf(stderr, "make: cannot write %s\n", c->text);
+            return 0;
+        }
+    }
+    f = fopen(bfile, "w");
+    if (!f)
+        return 0;
+    for (c = olines; c; c = c->next)
+        fprintf(f, "%s\n", c->text);
+    return fclose(f) == 0;
 }
 
 /* make name (needer: what needs it); its time after: NEWEST when it is to be made */
@@ -1108,7 +1300,7 @@ unsigned long make(char *name, char *needer)
     struct dep **end;
     struct cmd *cmds;
     struct buf b;
-    char stem[256];
+    char stem[STEMMAX];
     unsigned long tt, dt;
     int remake;
     t = findtarget(name, 1);
@@ -1129,8 +1321,9 @@ unsigned long make(char *name, char *needer)
         for (d = r->deps; d; d = d->next) {
             binit(&b);
             psubst(d->name, stem, &b);
-            *end = (struct dep *)xmalloc(sizeof(struct dep));
-            (*end)->name = b.s;
+            *end = (struct dep *)keepmem(sizeof(struct dep));
+            (*end)->name = keepstr(b.s);
+            free(b.s);
             (*end)->next = NULL;
             end = &(*end)->next;
         }
@@ -1226,10 +1419,12 @@ int main(int argc, char **argv)
     unsigned long r;
     ngoals = 0;
     mfname = NULL;
+    leastfree = (unsigned)__cspi(40);
     setvar("MAKE", "MAKE", 1, 0);
     setvar("comma", ",", 1, 0);
     setvar("space", " ", 1, 0);
     setvar("CC", "CC", 1, 0);
+    setvar("ATFILE", "CC BC B2", 1, 0);
     for (i = 1; i < argc; i++) {
         a = argv[i];
         if (a[0] == '-' && a[1]) {
@@ -1245,6 +1440,7 @@ int main(int argc, char **argv)
                 case 'q': optq = 1; break;
                 case 'B': optB = 1; break;
                 case 'i': opti = 1; break;
+                case 'M': optM = 1; break;
                 case 's': case 'k': case 'r': case 'R': break;
                 default:
                     fprintf(stderr, "make: invalid option -- '%c'\n", a[j]);
@@ -1260,15 +1456,17 @@ int main(int argc, char **argv)
     /* the built-in rules (a makefile's own come first) */
     if (mfname) {
         strcpy(mf, mfname);
-        if (!strchr(mf, '.') && filetime(mf) == 0 && strlen(mf) < 70)
+        if (!strchr(mf, '.') && ftime(mf) == 0 && strlen(mf) < 70)
             strcat(mf, ".TEXT");
         readmake(mf, 1);
-    } else if (filetime("MAKEFILE.TEXT"))
+    } else if (ftime("MAKEFILE.TEXT"))
         readmake("MAKEFILE.TEXT", 1);
-    else if (filetime("MAKEFILE"))
+    else if (ftime("MAKEFILE"))
         readmake("MAKEFILE", 1);
     else if (ngoals == 0)
         die("*** No targets specified and no makefile found.  Stop.", "");
+    if (optM)
+        fprintf(stderr, "make: makefile read, %u bytes free\n", (unsigned)__cspi(40) * 2);
     rule("", "", NULL);
     addcmd(&addprule("%.OBJ", "%.C")->cmds, "$(CC) -C $*");
     addcmd(&addprule("%.CODE", "%.C")->cmds, "$(CC) $*");
@@ -1283,10 +1481,9 @@ int main(int argc, char **argv)
             fprintf(stderr, "make: run MAKE from the shell (S): the shell runs the recipes after it\n");
             return 2;
         }
-        sprintf(bfile, "#4:MAKE%d.TEXT", batchdepth());
-        out = fopen(bfile, "w");
-        if (!out)
-            die("cannot write ", bfile);
+        bdepth = batchdepth();
+        sprintf(bfile, "#4:MAKE%d.TEXT", bdepth);
+        out = stdout;                   /* (the lines are kept: writeall) */
     }
     for (i = 0; i < ngoals; i++) {
         j = nmade;
@@ -1299,15 +1496,14 @@ int main(int argc, char **argv)
                 printf("make: Nothing to be done for '%s'.\n", goals[i]);
         }
     }
+    if (optM)
+        fprintf(stderr, "make: least free memory %u bytes (%u now)\n", leastfree * 2, (unsigned)__cspi(40) * 2);
     if (optq)
         return nmade ? 1 : 0;
-    if (out) {
-        if (fclose(out) != 0)
+    if (out && nmade) {
+        if (!writeall(bfile))
             die("cannot write ", bfile);
-        if (nmade)
-            pushbatch(bfile);
-        else
-            remove(bfile);
+        pushbatch(bfile);
     }
     return 0;
 }

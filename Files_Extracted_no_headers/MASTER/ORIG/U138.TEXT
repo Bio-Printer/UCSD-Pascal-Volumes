@@ -1,0 +1,34 @@
+# MAKEFILE -- the utilities, from U138.3_UTILITY_SOURCE
+# on #10:: run by MASTER:/ORIG/MAKEFILE after it mounts that disk (MAKE -f
+# MASTER:/ORIG/U138 alone: mount it first).  Each program is compiled by PC (PASCALC:)
+# when its source or a file it includes is newer than its code file in MASTER:/ORIG/CODE.
+S = #10:
+C = MASTER:/ORIG/CODE/
+
+all : $(C)COPYDUPDIR.CODE $(C)DISASM.II.CODE $(C)EDITTORT11.CODE \
+        $(C)LIBMAP.CODE $(C)MARKDUPDIR.CODE $(C)RT11TOEDIT.CODE $(C)SETUP.CODE
+
+$(C)COPYDUPDIR.CODE : $(S)COPYDUPDIR.TEXT
+        CD $(S)
+        PC COPYDUPDIR $(C)COPYDUPDIR.CODE.
+$(C)DISASM.II.CODE : $(S)DISASM.II.TEXT $(S)DASM1.II0.TEXT \
+        $(S)DASM2.II0.TEXT
+        CD $(S)
+        PC DISASM.II $(C)DISASM.II.CODE.
+$(C)EDITTORT11.CODE : $(S)EDITTORT11.TEXT
+        CD $(S)
+        PC EDITTORT11 $(C)EDITTORT11.CODE.
+$(C)LIBMAP.CODE : $(S)LIBMAP.TEXT
+        CD $(S)
+        PC LIBMAP $(C)LIBMAP.CODE.
+$(C)MARKDUPDIR.CODE : $(S)MARKDUPDIR.TEXT
+        CD $(S)
+        PC MARKDUPDIR $(C)MARKDUPDIR.CODE.
+$(C)RT11TOEDIT.CODE : $(S)RT11TOEDIT.TEXT
+        CD $(S)
+        PC RT11TOEDIT $(C)RT11TOEDIT.CODE.
+$(C)SETUP.CODE : $(S)SETUP.TEXT
+        CD $(S)
+        PC SETUP $(C)SETUP.CODE.
+
+.PHONY : all

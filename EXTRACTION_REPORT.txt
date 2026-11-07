@@ -1,10 +1,10 @@
-BASIC  (volume BASIC, 26 files)
-    SRC/  (a sub-volume, 1474 blocks, 21 files)
-    LIB/  (a sub-volume, 801 blocks, 14 files)
+BASIC  (volume BASIC, 25 files)
+    SRC/  (a sub-volume, 1478 blocks, 21 files)
+    LIB/  (a sub-volume, 803 blocks, 14 files)
     DEMO/  (a sub-volume, 570 blocks, 10 files)
     TEST/  (a sub-volume, 1298 blocks, 22 files)
         EXPECT/  (a sub-volume, 126 blocks, 20 files)
-    108 files extracted, 91 text files decoded
+    107 files extracted, 90 text files decoded
 BASIC2  (volume BASIC2, 26 files)
     MAP/  (a sub-volume, 25200 blocks, 29 files)
         W0/  (a sub-volume, 1500 blocks, 0 files)
@@ -21,23 +21,29 @@ BASIC2  (volume BASIC2, 26 files)
         D5/  (a sub-volume, 1900 blocks, 0 files)
         D6/  (a sub-volume, 1900 blocks, 0 files)
         D7/  (a sub-volume, 1900 blocks, 0 files)
-    SRC/  (a sub-volume, 1870 blocks, 30 files)
-    LIB/  (a sub-volume, 755 blocks, 14 files)
+    SRC/  (a sub-volume, 1870 blocks, 28 files)
+    LIB/  (a sub-volume, 757 blocks, 14 files)
     DEMO/  (a sub-volume, 574 blocks, 10 files)
     TEST/  (a sub-volume, 1472 blocks, 24 files)
         EXPECT/  (a sub-volume, 134 blocks, 22 files)
-    135 files extracted, 104 text files decoded
+    133 files extracted, 102 text files decoded
 Big_Disk  (volume BIGGY, 37 files)
     ! duplicate live directory entry 'SYSTEM.LIST' (blocks 5465-10000) saved as 'SYSTEM (dup2).LIST'
     37 files extracted, 6 text files decoded
 Empty_Big_Disk  (volume EMPTY, 0 files)
     0 files extracted, 0 text files decoded
+MASTER  (volume MASTER, 4 files)
+    ORIG/  (a sub-volume, 1706 blocks, 12 files)
+        CODE/  (a sub-volume, 1600 blocks, 0 files)
+    14 files extracted, 14 text files decoded
 PASCAL-C  (volume PASCALC, 7 files)
-    SRC/  (a sub-volume, 641 blocks, 18 files)
+    SRC/  (a sub-volume, 648 blocks, 18 files)
     OBJ/  (a sub-volume, 250 blocks, 0 files)
     DEMOS/  (a sub-volume, 56 blocks, 1 files)
     TESTS/  (a sub-volume, 63 blocks, 2 files)
     24 files extracted, 23 text files decoded
+SOURCE  (volume SOURCE, 0 files)
+    0 files extracted, 0 text files decoded
 SYS-C  (volume SYS-C, 10 files)
     10 files extracted, 8 text files decoded
 TCEXPCT  (volume TCEXPCT, 29 files)
@@ -51,13 +57,13 @@ TCVERIF  (volume TCVERIF, 5 files)
 TINY-C  (volume TINY-C, 9 files)
     INCLUDE/  (a sub-volume, 176 blocks, 17 files)
     LIB/  (a sub-volume, 218 blocks, 1 files)
-    SRC/  (a sub-volume, 1210 blocks, 3 files)
-        CC/  (a sub-volume, 786 blocks, 19 files)
-        LIB/  (a sub-volume, 371 blocks, 22 files)
+    SRC/  (a sub-volume, 1225 blocks, 3 files)
+        CC/  (a sub-volume, 791 blocks, 19 files)
+        LIB/  (a sub-volume, 381 blocks, 22 files)
     OBJ/  (a sub-volume, 700 blocks, 0 files)
     65 files extracted, 63 text files decoded
-TOOLS  (volume TOOLS, 33 files)
-    SRC/  (a sub-volume, 2553 blocks, 30 files)
+TOOLS  (volume TOOLS, 34 files)
+    SRC/  (a sub-volume, 2646 blocks, 31 files)
         VI/  (a sub-volume, 531 blocks, 10 files)
         GREP/  (a sub-volume, 76 blocks, 1 files)
         CAT/  (a sub-volume, 61 blocks, 1 files)
@@ -83,11 +89,12 @@ TOOLS  (volume TOOLS, 33 files)
         TR/  (a sub-volume, 66 blocks, 1 files)
         CUT/  (a sub-volume, 66 blocks, 1 files)
         TEE/  (a sub-volume, 56 blocks, 1 files)
-        MAKE/  (a sub-volume, 123 blocks, 1 files)
+        MAKE/  (a sub-volume, 138 blocks, 1 files)
         TOUCH/  (a sub-volume, 63 blocks, 1 files)
         DATE/  (a sub-volume, 61 blocks, 1 files)
-    OBJ/  (a sub-volume, 922 blocks, 0 files)
-    72 files extracted, 44 text files decoded
+        MOUNT/  (a sub-volume, 58 blocks, 1 files)
+    OBJ/  (a sub-volume, 936 blocks, 0 files)
+    74 files extracted, 45 text files decoded
 U002A.5_Z80_SYS1  (volume U002A.5, 20 files)
     20 files extracted, 4 text files decoded
 U006.5_LSI-11_SYS1  (volume U006.5, 14 files)

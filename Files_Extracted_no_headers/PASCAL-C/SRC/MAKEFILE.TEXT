@@ -1,0 +1,46 @@
+# MAKEFILE -- the Pascal compiler in C: from the shell, MAKE -f PASCALC:/SRC/MAKEFILE
+# (TINY-C: and TOOLS: on line; MAKE -f TINY-C:MAKEFILE runs it too).  Compiles each
+# module whose source or headers changed (its NAME.OBJ into PASCALC:/OBJ), then links
+# them into PASCALC:PC.CODE, the same as the one it replaces.  MAKE -B ... compiles
+# them all again.
+S = PASCALC:/SRC/
+O = PASCALC:/OBJ/
+I = TINY-C:/INCLUDE/
+MODS = GLOBALS BUILTIN SETS HEAP PROCS COMPINIT DECPART BODYPART DOUBLE \
+        UNITPART BLOCK RARE PCIO_PSYS PC_PSYS
+
+PASCALC:PC.CODE : $(addprefix $(O),$(addsuffix .OBJ,$(MODS)))
+        $(CC) -O $(O) -L PASCALC:PC=$(subst $(space),$(comma),$(MODS))
+
+$(O)%.OBJ : $(S)%.C
+        $(CC) -O $(O) -C $<
+
+# each module's headers: it is compiled again when one of them changes
+$(O)GLOBALS.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H
+$(O)BUILTIN.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H
+$(O)SETS.OBJ : $(I)STDARG.H $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H \
+        $(I)STDIO.H $(I)SETJMP.H
+$(O)HEAP.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H $(I)STDLIB.H
+$(O)PROCS.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H $(S)PCIO.H
+$(O)COMPINIT.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H $(S)PCIO.H
+$(O)DECPART.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H $(S)PCIO.H
+$(O)BODYPART.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H $(S)PCIO.H $(S)GEN.H
+$(O)DOUBLE.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H $(S)GEN.H
+$(O)UNITPART.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H $(S)PCIO.H
+$(O)BLOCK.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H $(S)PCIO.H
+$(O)RARE.OBJ : $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H $(I)STDIO.H \
+        $(I)STDARG.H $(I)SETJMP.H $(S)PCIO.H $(I)STDLIB.H
+$(O)PCIO_PSYS.OBJ : $(S)PCIO.H $(S)COMPGLBL.H $(I)STDDEF.H $(I)STRING.H \
+        $(I)STDIO.H $(I)STDARG.H $(I)SETJMP.H $(I)DIRS.H
+$(O)PC_PSYS.OBJ : $(I)PSYS.H $(S)PCIO.H $(S)COMPGLBL.H $(I)STDDEF.H \
+        $(I)STRING.H $(I)STDIO.H $(I)STDARG.H $(I)SETJMP.H $(I)DIRS.H
