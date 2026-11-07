@@ -2627,3 +2627,13 @@ changes where TINY-C: and BASIC: are on line:
 Checked: UCSD-TinyC's findtest, ccsubvoltest, selfcompile, quicktest;
 UCSD-BASIC's runtests, selfcompile (IDENTICAL nine times), errtest and
 voltest (MAKE, MAKE again, INSTALL).  Emulator: 2.17.
+
+BC -O DIR (BASIC.BLK)
+---------------------------------------------------------------------------
+BASIC.BLK: BC with -O DIR (UCSD-BASIC Rewrite da045c3): the compiles after
+it put their objects into DIR (VOL: or a sub-volume VOL:/A/), not beside
+their sources, as Tiny-C's CC -O.  The RP2040 port's TOOLS: rebuilds every
+compiler one program at a time with all objects in TOOLS:/OBJ.  BC.CODE
+and the other programs (BCUTIL's StepNames), README.TEXT, SRC/BC.BAS and
+SRC/BCUTIL.BAS changed.  Checked: UCSD-BASIC's runtests, selfcompile
+(IDENTICAL nine times), errtest, voltest.  Emulator: 2.17.

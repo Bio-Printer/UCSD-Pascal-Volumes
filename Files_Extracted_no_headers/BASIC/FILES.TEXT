@@ -4,8 +4,8 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
 
   BC.CODE                       37
   BCLEX.CODE                    58
-  BCGEN.CODE                   103
-  BCASM.CODE                    42
+  BCGEN.CODE                   104
+  BCASM.CODE                    43
   BCLIST.CODE                   43
   BCLINK.CODE                   56
   BCERR.CODE                    48
@@ -16,15 +16,15 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   BCASM.MAP                     32
   BCLIST.MAP                    29
   BCLINK.MAP                    41
-  BCERR.MAP                     29
+  BCERR.MAP                     30
   BCDEBUG.MAP                   17
   README.TEXT                   16
   LANGUAGE.TEXT                 66
   DESIGN.TEXT                   82
   MAKEFILE.TEXT                  4
-  SRC/                        1482  (sub-volume)
+  SRC/                        1488  (sub-volume)
   SRC/MAKEFILE.TEXT             10
-  SRC/BC.BAS                    18
+  SRC/BC.BAS                    20
   SRC/BCASM.BAS                 22
   SRC/BCBUILT.BAS                4
   SRC/BCCOM.BAS                 12

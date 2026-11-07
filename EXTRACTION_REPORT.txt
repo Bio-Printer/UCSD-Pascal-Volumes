@@ -1,5 +1,5 @@
 BASIC  (volume BASIC, 25 files)
-    SRC/  (a sub-volume, 1482 blocks, 21 files)
+    SRC/  (a sub-volume, 1488 blocks, 21 files)
     LIB/  (a sub-volume, 803 blocks, 14 files)
     DEMO/  (a sub-volume, 570 blocks, 10 files)
     TEST/  (a sub-volume, 1298 blocks, 22 files)
