@@ -193,6 +193,7 @@ static int linkall(char **objs, int n, char *out)
 
 #ifdef __TINYC__
 #define LIBPATH "TINY-C:/LIB/TCLIB.OBJ"   /* (when it is not on the prefix or boot volume) */
+#define LIBPATH2 "TOOLS:/USR/LIB/C/TCLIB.OBJ"   /* (the RP2040's: every compiler on TOOLS:) */
 static int exists(char *name);
 
 #pragma segment LINK
@@ -628,6 +629,8 @@ int main(int argc, char **argv)
         strcpy(lib, "*TCLIB.OBJ");
     if (!exists(lib))
         strcpy(lib, LIBPATH);
+    if (!exists(lib))
+        strcpy(lib, LIBPATH2);
     if (!exists(lib))
         lib[0] = 0;
     if (argc > 1) {

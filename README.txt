@@ -2604,3 +2604,26 @@ and runs its makefile (the PASM part).  TOOLS.BLK: MAKE -f takes a makefile
 on a volume whose name has a dot (U016.1:MAKEFILE: .TEXT added).
 Checked: UCSD-TinyC's pasmtest (both modes), maketest (both systems, both
 modes), quicktest, mastertest.  Emulator: any (2.14 for MASTER's MOUNT).
+
+THE COMPILERS ON THE RP2040'S TOOLS: (TINY-C, BASIC)
+---------------------------------------------------------------------------
+The RP2040 port (UCSD-Pascal-on-RP2040) cannot swap volumes in and out as
+the emulator's units can, so it keeps every compiler, its libraries,
+headers and sources on its one TOOLS: volume (tools/mktools.py there):
+the programs at the top, BC's later passes in TOOLS:/BIN, the libraries
+in TOOLS:/USR/LIB/C and /BASIC, the headers in TOOLS:/USR/INCLUDE/C.  The
+compilers now look there too, after their own volumes, so nothing
+changes where TINY-C: and BASIC: are on line:
+  TINY-C.BLK   CC.CODE (UCSD-TinyC ee80342): <x.h> in TOOLS:/USR/INCLUDE/C
+               after TINY-C:/INCLUDE, TCLIB.OBJ in TOOLS:/USR/LIB/C after
+               TINY-C:/LIB, TCMSGS.TEXT on TOOLS: after TINY-C:; SRC/CC's
+               MAIN.C, PP.C and UTIL.C with it
+  BASIC.BLK    BC and its programs, BASLIB.OBJ (UCSD-BASIC Rewrite a2cfc7e):
+               BC finds its programs in a sub-volume BIN of its disk too,
+               BCLINK BASLIB.OBJ in TOOLS:/USR/LIB/BASIC after BASIC:/LIB,
+               a run-time error BCDEBUG in TOOLS:/BIN after BASIC:; SRC/BC.BAS,
+               SRC/BCLINK.BAS, LIB/RTWHERE.BAS with them; the documents as
+               the Rewrite branch has them now
+Checked: UCSD-TinyC's findtest, ccsubvoltest, selfcompile, quicktest;
+UCSD-BASIC's runtests, selfcompile (IDENTICAL nine times), errtest and
+voltest (MAKE, MAKE again, INSTALL).  Emulator: 2.17.

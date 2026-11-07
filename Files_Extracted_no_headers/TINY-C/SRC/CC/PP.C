@@ -141,6 +141,20 @@ static char *skiplit(char *s)
 
 #ifdef __TINYC__
 #define INCDIR "TINY-C:/INCLUDE/"     /* where <x.h> is (placeopen) */
+#define INCDIR2 "TOOLS:/USR/INCLUDE/C/" /* ... or there: the RP2040's one TOOLS: volume (incplace) */
+#endif
+
+#ifdef __TINYC__
+/* x.h in the headers' directory: TINY-C:/INCLUDE, else TOOLS:/USR/INCLUDE/C (the RP2040
+   port has every compiler on its TOOLS: volume, and no TINY-C:) */
+static FILE *incplace(char *u, char *path, int *unit)
+{
+    FILE *fp;
+    fp = placeopen(INCDIR, u, path, unit, "r");
+    if (!fp)
+        fp = placeopen(INCDIR2, u, path, unit, "r");
+    return fp;
+}
 #endif
 
 /* *unit: the disk unit it was found on (P-System; 0 not known); *many:
@@ -153,7 +167,8 @@ static FILE *openinc(char *name, int sys, int *unit, int *many)
 #ifdef __TINYC__
     /* P-System: file names are upper case; "x.h" is X.H (or X.H.TEXT).
        A name with its own volume or path (VOL:, #n:, *, A/X.H) is opened
-       there and only there.  Without one: <x.h> in TINY-C:/INCLUDE first;
+       there and only there.  Without one: <x.h> in TINY-C:/INCLUDE (or
+       TOOLS:/USR/INCLUDE/C: incplace) first;
        then in the sub-volume of the file that names it (when that is in
        one), else findfile looks (the shell's path, then every disk: see
        it); "x.h" last in TINY-C:/INCLUDE.  A UCSD file name has at most 15
@@ -178,7 +193,7 @@ static FILE *openinc(char *name, int sys, int *unit, int *many)
     fp = 0;
     if (name[i] || (!vol && i > 15))
         return 0;                   /* cannot be a file name */
-    if (!vol && sys && (fp = placeopen(INCDIR, u, path, unit, "r")) != 0) {
+    if (!vol && sys && (fp = incplace(u, path, unit)) != 0) {
         strcpy(openedpath, path);
         return fp;
     }
@@ -232,7 +247,7 @@ static FILE *openinc(char *name, int sys, int *unit, int *many)
             return fp;
         }
         if (n == 0)
-            fp = placeopen(INCDIR, u, path, unit, "r");      /* ("x.h": a header there) */
+            fp = incplace(u, path, unit);      /* ("x.h": a header there) */
     }
     strcpy(openedpath, path);
     p = 0;

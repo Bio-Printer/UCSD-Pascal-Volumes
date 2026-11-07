@@ -26,15 +26,15 @@ TINY-C:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   INCLUDE/TCRT.H                6  runtime helpers the compiler calls (reference only)
   LIB/                        218  sub-volume: the C library
   LIB/TCLIB.OBJ                86  the C library (built with -Z), linked into every program
-  SRC/                       1225  sub-volume: the sources of the compiler and the library, and how to rebuild them
+  SRC/                       1230  sub-volume: the sources of the compiler and the library, and how to rebuild them
   SRC/README.TEXT               6  how to rebuild Tiny-C and the tools
-  SRC/CC/                     791  sub-volume: the compiler: its modules and MAKEFILE.TEXT
+  SRC/CC/                     796  sub-volume: the compiler: its modules and MAKEFILE.TEXT
   SRC/CC/MAKEFILE.TEXT          8  MAKE -f TINY-C:/SRC/CC/MAKEFILE: rebuilds the compiler -> TINY-C:CC2.CODE
   SRC/CC/OBJFORMAT.TEXT        26  the .OBJ file format: what CC writes, how the linker reads it
-  SRC/CC/MAIN.C                44  the driver: commands, @FILE, the passes
+  SRC/CC/MAIN.C                46  the driver: commands, @FILE, the passes
   SRC/CC/UTIL.C                18  messages, output helpers, memory pools
   SRC/CC/TYPES.C                6  type predicates
-  SRC/CC/PP.C                  78  pass 1: the preprocessor
+  SRC/CC/PP.C                  80  pass 1: the preprocessor
   SRC/CC/LEX.C                 38  pass 2: the tokenizer
   SRC/CC/PSYM.C                20  parser: types and symbols
   SRC/CC/EXPR.C                64  parser: expressions
@@ -71,5 +71,5 @@ TINY-C:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   SRC/LIB/SUBVOL.C             32  svcanon, dirfree, dirkrunch, svresize: KRUNCH, GROW, SHRINK (<dirs.h>)
   SRC/LIB/TCRT.C               18  runtime helpers: C division, shifts, unsigned, longs
   SRC/LIB/LIBINT.H              6  the library modules' shared declarations
-  OBJ/                        700  sub-volume: empty: the objects the makefiles of SRC/CC and SRC/LIB make
+  OBJ/                        702  sub-volume: empty: the objects the makefiles of SRC/CC and SRC/LIB make
   FILES.TEXT                   14  this list

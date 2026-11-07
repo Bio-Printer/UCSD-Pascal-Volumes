@@ -85,7 +85,7 @@ void saynw(unsigned n, int w)
 }
 
 /* Message texts live in a file (tcmsgs.txt; on the P-System TCMSGS.TEXT
-   on the default volume, the boot volume or TINY-C:): line n is message n.  Keeping them
+   on the default volume, the boot volume, TINY-C: or TOOLS:): line n is message n.  Keeping them
    out of the code saves memory in every pass. */
 #pragma segment CINIT
 static void message(int n)
@@ -103,6 +103,8 @@ static void message(int n)
             fp = fopen("*TCMSGS.TEXT", "r");
         if (!fp)
             fp = fopen("TINY-C:TCMSGS.TEXT", "r");
+        if (!fp)
+            fp = fopen("TOOLS:TCMSGS.TEXT", "r");   /* (the RP2040's TOOLS:) */
     }
 #else
     dir = getenv("TINYC_INCLUDE");
