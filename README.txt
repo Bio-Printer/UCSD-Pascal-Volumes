@@ -2637,3 +2637,11 @@ compiler one program at a time with all objects in TOOLS:/OBJ.  BC.CODE
 and the other programs (BCUTIL's StepNames), README.TEXT, SRC/BC.BAS and
 SRC/BCUTIL.BAS changed.  Checked: UCSD-BASIC's runtests, selfcompile
 (IDENTICAL nine times), errtest, voltest.  Emulator: 2.17.
+
+CC DELETES ITS PREPROCESSED SOURCE EARLY (TINY-C.BLK)
+---------------------------------------------------------------------------
+TINY-C.BLK: CC.CODE (UCSD-TinyC 8ee6479) deletes TCTEMP.TEXT, the
+preprocessed source, once it is compiled, before code generation (which
+reads only TCTEMP.IR): its room goes to the object.  On the RP2040 port's
+4 MB part, PC's BODYPART.C did not fit otherwise.  SRC/CC/MAIN.C with it.
+Checked: UCSD-TinyC's selfcompile, quicktest, findtest, fulltest.

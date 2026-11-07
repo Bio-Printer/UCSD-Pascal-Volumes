@@ -125,6 +125,7 @@ static int compileone(char *src, char *tmpi, char *tmpr, char *obj)
     if (!compile(tmpi, tmpr, mod) || !compileend())
         return 0;
     passend();
+    remove(tmpi);                       /* (read no more: its room for the object -- a small disk) */
     say("Generating code ");
     passbegin(1900);
     ok = gencode(tmpr, obj);
