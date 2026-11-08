@@ -2645,3 +2645,16 @@ preprocessed source, once it is compiled, before code generation (which
 reads only TCTEMP.IR): its room goes to the object.  On the RP2040 port's
 4 MB part, PC's BODYPART.C did not fit otherwise.  SRC/CC/MAIN.C with it.
 Checked: UCSD-TinyC's selfcompile, quicktest, findtest, fulltest.
+
+GPIO PINS AND KBHIT IN TINY-C'S LIBRARY (TINY-C.BLK)
+---------------------------------------------------------------------------
+TINY-C.BLK (UCSD-TinyC 4c051f4): INCLUDE/PINS.H and the library module
+pins.c -- the RP2040's GPIO pins through the ucsd-pico firmware (UCSD-
+Pascal-on-RP2040 0.3.4), as MMBasic's SETPIN and PIN(): setpin(pin, cfg,
+option) with OFF AIN DIN DOUT and PULLUP PULLDOWN, pin(pin), pinwrite(pin,
+value), and timer() and pause(ms).  kbhit() (conio.c) now sees keys on the
+native engine, which answers UNITBUSY "not busy" always: it asks for the
+engine's key count (PX_KEYS_AHEAD) and exit() puts the key mode back.
+LIB/TCLIB.OBJ, CC.CODE (built with the new library), INCLUDE/PSYS.H, the
+library's sources and makefile changed.  Checked: UCSD-TinyC's runtests in
+both modes, selfcompile, quicktest.  Emulator: 2.17.

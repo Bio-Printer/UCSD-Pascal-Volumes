@@ -1,7 +1,7 @@
 TINY-C SOURCES                              TINY-C:/SRC
 
 The sources of the Tiny-C compiler (CC/: 14 modules, TC.H, PARSE.H,
-GEN.H) and of its library (LIB/: 20 modules, LIBINT.H), and the makefiles
+GEN.H) and of its library (LIB/: 21 modules, LIBINT.H), and the makefiles
 that rebuild them; the tools' sources are in TOOLS:/SRC.  MAKE is on
 TOOLS: (MAN MAKE): it compiles a module when its source or one of the
 headers it includes is newer than its object (files have their times of

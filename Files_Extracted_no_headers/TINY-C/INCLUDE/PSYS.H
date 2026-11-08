@@ -123,8 +123,8 @@ int __pxsum(unsigned char *s);
 #define PX_KEYS_SCROLL 25607
 #define PX_SCROLL_OK   25608
 /* PX_KEYS_AHEAD: the same, and the number of keys waiting (typed ahead, not
-   yet read), up to 255, in SYSCOM->expansion[2] (emulator 2.04; kbhit() cannot
-   see them: UNITBUSY is always false).  The emulator answers PX_AHEAD_OK; an
+   yet read), up to 255, in SYSCOM->expansion[2] (emulator 2.04; UNITBUSY is
+   always false there, so conio.h's kbhit() uses this).  The emulator answers PX_AHEAD_OK; an
    older one leaves it, then store PX_KEYS_SCROLL. */
 #define PX_KEYS_AHEAD  25609
 #define PX_AHEAD_OK    25610

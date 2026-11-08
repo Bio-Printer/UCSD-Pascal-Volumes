@@ -287,8 +287,16 @@ void __heaprestore(void)
     __freelist = __savedfree;
 }
 
+extern int __kbahead;                   /* conio.c: kbhit() asked for the key count */
+
 void exit(int status)
 {
+    int e;
+    if (__kbahead) {                    /* the keys as other programs want them (not a pexec's [1]) */
+        e = SYSCOM->expansion[1];
+        if (e == PX_KEYS_AHEAD || e == PX_AHEAD_OK)
+            SYSCOM->expansion[1] = 0;
+    }
     SYSCOM->expansion[5] = status;      /* pexec_status() */
     __stdio_exit();
     __exitprog();
