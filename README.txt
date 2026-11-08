@@ -2658,3 +2658,16 @@ engine's key count (PX_KEYS_AHEAD) and exit() puts the key mode back.
 LIB/TCLIB.OBJ, CC.CODE (built with the new library), INCLUDE/PSYS.H, the
 library's sources and makefile changed.  Checked: UCSD-TinyC's runtests in
 both modes, selfcompile, quicktest.  Emulator: 2.17.
+
+SETPIN AND PIN() IN BC (BASIC.BLK)
+---------------------------------------------------------------------------
+BASIC.BLK (UCSD-BASIC Rewrite 26a4a9b): BC has the RP2040's GPIO pins as
+MMBasic has them -- SETPIN pin, cfg [, option] with OFF AIN DIN DOUT and
+PULLUP PULLDOWN (words only in SETPIN, not reserved), PIN(pin) and
+PIN(pin) = value -- through the ucsd-pico firmware (UCSD-Pascal-on-RP2040
+0.3.6; elsewhere run-time error 71).  INKEY$ now sees keys on the native
+engine (the engine's key count, as Tiny-C's kbhit()).  The eight programs,
+their maps, LIB/BASLIB.OBJ and its sources (RTINPUT, RTCORE), the
+compiler's sources (BCSTMT, BCEXPR, BCEXGEN, BCBUILT) and LANGUAGE.TEXT
+(section 11, errors 70 and 71) changed.  Checked: UCSD-BASIC's runtests,
+selfcompile (IDENTICAL nine times), errtest, voltest.  Emulator: 2.17.
