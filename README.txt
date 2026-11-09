@@ -2685,3 +2685,18 @@ flash address); MAN.TEXT's SHELL and MOUNT pages; the other tools rebuilt
 with the current library (<pins.h>, kbhit).  Checked: UCSD-TinyC's
 quicktest, pexectest and redirtest (BIGGY 1.36), MOUNT and VOLS in the
 emulator's engine and the RP2040 simulator.  Emulator: 2.18.
+
+AN HC-SR04 DISTANCE SENSOR: DISTANCE IN BC, distance() IN TINY-C
+---------------------------------------------------------------------------
+The ucsd-pico firmware (UCSD-Pascal-on-RP2040 0.3.9) times an HC-SR04
+ultrasonic sensor's echo: CSP 9 (TIME) with 25616 and TRIG + ECHO * 256
+answers the echo's microseconds (58 a centimetre), or status 5: no echo.
+BASIC.BLK (UCSD-BASIC Rewrite 2ddd098): BC's DISTANCE(trig, echo), a
+SINGLE in centimetres or -1; the eight programs, their maps, LIB/BASLIB.OBJ
+(RTINPUT's _DIST), the compiler's sources (BCEXPR: the built-in names'
+table in three parts, BCEXGEN, BCBUILT) and LANGUAGE.TEXT (section 11)
+changed.  TINY-C.BLK (UCSD-TinyC c9019a2): <pins.h>'s distance() and
+PIN_NOECHO, LIB/TCLIB.OBJ and the library's sources.  Checked: UCSD-BASIC's
+runtests, selfcompile (IDENTICAL nine times), errtest, voltest; UCSD-TinyC's
+quicktest and runtests; the HCSR04 demos in C, BASIC and Pascal on the
+RP2040 simulator.  Emulator: 2.18.

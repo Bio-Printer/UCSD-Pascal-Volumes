@@ -32,12 +32,20 @@
 #define PIN_BADCFG      3       /* no such cfg or option, or AIN on GP2..GP25 */
 #define PIN_NOTSET      4       /* pin() of an OFF pin, pinwrite() of a pin not DOUT */
 #define PIN_NOFIRMWARE  5       /* not the ucsd-pico firmware: no pins here */
+#define PIN_NOECHO      6       /* distance(): no echo -- nothing in range, or no sensor there */
 
 int setpin(int pin, int cfg, int option);       /* PIN_OK or an error */
 int pin(int pin);                               /* the pin's value; -1: an error (pinerr) */
 int pinwrite(int pin, int value);               /* a DOUT pin's level (0, or 1 for any other) */
 extern int pinerr;                              /* the last call's PIN_OK or error */
 char *pinerror(int err);                        /* the error's text */
+
+/* an HC-SR04 ultrasonic sensor's distance in centimetres (MMBasic's DISTANCE): a 10 us pulse
+   on trig, then the echo pin's high time, measured by the firmware (58 us a centimetre; 2 cm to
+   about 400 cm); -1.0 on an error (pinerr: PIN_NOECHO when nothing came back).  The pins become
+   DOUT and DIN.  The sensor wants 60 ms between measurements.  Its ECHO is 5 V: through a
+   divider (1k / 2k) to the RP2040's 3.3 V pin, or a 3.3 V sensor (HC-SR04P) */
+float distance(int trig, int echo);
 
 long timer(void);                               /* milliseconds since the start (ucsd-pico;
                                                    elsewhere the P-System's clock, 1/60 s) */

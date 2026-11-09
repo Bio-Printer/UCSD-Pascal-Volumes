@@ -6,7 +6,7 @@ TINY-C:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   TCMSGS.TEXT                   8  the compiler's messages (line n = message n)
   README.TEXT                  16  how to use Tiny-C, and what is where
   MAKEFILE.TEXT                 4  MAKE -f TINY-C:MAKEFILE: rebuilds the compiler, the library, every tool, SYS-C:SYSTEM.C, PASCALC:PC.CODE
-  INCLUDE/                    186  sub-volume: the headers (#include <stdio.h> finds them here)
+  INCLUDE/                    188  sub-volume: the headers (#include <stdio.h> finds them here)
   INCLUDE/ASSERT.H              4  assert()
   INCLUDE/CONIO.H               4  console: getch, putch, cputs, kbhit, gotoxy, clrscr
   INCLUDE/CTYPE.H               4  isdigit, isalpha, toupper, ...
@@ -16,7 +16,7 @@ TINY-C:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   INCLUDE/IO.H                  4  open, read, write, lseek, close, unlink
   INCLUDE/LIMITS.H              4  INT_MAX, LONG_MAX, ... (16-bit int, 32-bit long)
   INCLUDE/MATH.H                4  sqrt, sin, cos, atan, exp, log, pow, fabs, ...
-  INCLUDE/PINS.H                8  the RP2040's GPIO pins (ucsd-pico firmware): setpin, pin, pinwrite, timer, pause
+  INCLUDE/PINS.H               10  the RP2040's GPIO pins (ucsd-pico firmware): setpin, pin, pinwrite, timer, pause
   INCLUDE/PSYS.H               20  SYSCOM: the P-System's SYSCOM record (SYSCOM->memtop, ...)
   INCLUDE/SETJMP.H              4  setjmp, longjmp: back to an earlier point, out of any calls
   INCLUDE/STDARG.H              4  va_list, va_start, va_arg, va_end

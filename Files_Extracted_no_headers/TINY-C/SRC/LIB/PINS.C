@@ -1,4 +1,5 @@
-/* pins.c -- Tiny-C library: <pins.h>, the RP2040's GPIO pins through the ucsd-pico firmware.
+/* pins.c -- Tiny-C library: <pins.h>, the RP2040's GPIO pins through the ucsd-pico firmware
+   (and an HC-SR04's distance: TIME with 25616 and trig | echo << 8 answers its echo in us).
    The firmware answers CSP 9 TIME called with its first variable 25614 and its second a
    request word, op << 14 | option << 12 | arg << 8 | pin, with the first variable the status
    and the second the value (UCSD-Pascal-on-RP2040 port/Gpio.h).  Whether the firmware is
@@ -68,8 +69,29 @@ char *pinerror(int err)
     case PIN_BADCFG:     return "no such configuration (AIN: GP26..GP29 only)";
     case PIN_NOTSET:     return "the pin is not set for that (SETPIN)";
     case PIN_NOFIRMWARE: return "no GPIO pins here (not the ucsd-pico firmware)";
+    case PIN_NOECHO:     return "no echo: nothing in range, or no sensor on those pins";
     }
     return "unknown pin error";
+}
+
+float distance(int trig, int echo)
+{
+    unsigned hi, lo;
+    if (!pinfw()) {
+        pinerr = PIN_NOFIRMWARE;
+        return -1.0;
+    }
+    if (trig < 0 || trig > 255 || echo < 0 || echo > 255) {
+        pinerr = PIN_NOPIN;
+        return -1.0;
+    }
+    hi = 25616;                         /* the firmware: the echo's microseconds */
+    lo = (echo << 8) | trig;
+    __cspv(9, &hi, &lo);
+    pinerr = hi == 5 ? PIN_NOECHO : hi;
+    if (pinerr)
+        return -1.0;
+    return (int)lo / 58.0;
 }
 
 long timer(void)

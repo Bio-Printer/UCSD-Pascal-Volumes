@@ -13,16 +13,16 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   BC.MAP                        25
   BCLEX.MAP                     47
   BCGEN.MAP                    124
-  BCASM.MAP                     32
+  BCASM.MAP                     33
   BCLIST.MAP                    29
   BCLINK.MAP                    41
   BCERR.MAP                     30
   BCDEBUG.MAP                   17
   README.TEXT                   16
-  LANGUAGE.TEXT                 68
+  LANGUAGE.TEXT                 70
   DESIGN.TEXT                   82
   MAKEFILE.TEXT                  4
-  SRC/                        1494  (sub-volume)
+  SRC/                        1496  (sub-volume)
   SRC/MAKEFILE.TEXT             10
   SRC/BC.BAS                    20
   SRC/BCASM.BAS                 22
@@ -44,7 +44,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   SRC/BCSTMT.BAS                54
   SRC/BCTOK.BAS                 12
   SRC/BCUTIL.BAS                20
-  LIB/                         817  (sub-volume)
+  LIB/                         821  (sub-volume)
   LIB/BASLIB.OBJ               111
   LIB/MAKEFILE.TEXT              6
   LIB/RTARR.BAS                 10
@@ -53,7 +53,7 @@ Every file (A/NAME: NAME in the sub-volume A) and its blocks:
   LIB/RTCORE.BAS                40
   LIB/RTDATA.BAS                 6
   LIB/RTFILE.BAS                32
-  LIB/RTINPUT.BAS               14
+  LIB/RTINPUT.BAS               16
   LIB/RTNUM.BAS                 10
   LIB/RTSTR.BAS                 14
   LIB/RTSUBV.BAS                22
