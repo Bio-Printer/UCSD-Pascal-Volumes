@@ -1,7 +1,10 @@
 /* mount.c -- MOUNT [#n IMAGE | -u #n]: a disk unit gets another disk image, by its name, as the
    emulator's File > Open Unit does it (the emulator's CSP 140 and 141: version 2.14).
 
-     MOUNT                 every disk unit: its volume and the image file it is
+     MOUNT                 every disk unit: its volume and the image file it is; then the
+                           volumes there are to mount (CSP 143: emulator 2.18) -- the .BLK
+                           files beside the boot disk's image, on the RP2040 the volumes of
+                           its flash (and their flash addresses: CSP 142)
      MOUNT #10 U132.A_PASCAL_COMPILER_SOURCE
                            unit 10 gets that image: NAME or NAME.BLK in the folder on the PC
                            of the image unit 10 has now (else the boot disk's); the old
@@ -55,6 +58,47 @@ void show(int u)
     printf("#%-3d %-8s %s\n", u, vol[0] ? vol : "-", img);
 }
 
+/* CSP 143 VOLINFO's record: the index-th volume there is to mount (emulator 2.18) */
+struct volinfo {
+    char name[24];                      /* as MOUNT takes it */
+    unsigned blocks;
+    unsigned unit;                      /* on this unit now; 0 none */
+    unsigned flags;                     /* 1 read-only, 2 persistent */
+    unsigned pad;
+};
+struct volinfo vi;
+
+/* CSP 142 VOLADDR: the volume's place, a long (on the RP2040 its flash address); as a float's
+   two words, then read as the long they are */
+long voladdr(int i)
+{
+    union { float f; long l; } u;
+    u.f = __cspf(142, i);
+    return u.l;
+}
+
+void available(void)
+{
+    int i;
+    long a;
+    if (__cspi(143, 0, &vi) != 1)
+        return;
+    printf("\nto mount (MOUNT #n NAME):\n");
+    for (i = 0; __cspi(143, i, &vi) == 1; i++) {
+        printf("     %-23s %5u blocks", vi.name, vi.blocks);
+        a = voladdr(i);
+        if ((unsigned long)a >= 0x10000000L)
+            printf("  at %08lx", a);
+        if (vi.unit)
+            printf("  on #%u", vi.unit);
+        if (vi.flags & 1)
+            printf("  read-only");
+        if (vi.flags & 2)
+            printf("  kept");
+        printf("\n");
+    }
+}
+
 void usage(void)
 {
     fprintf(stderr, "use: MOUNT [#n IMAGE | -u #n]\n");
@@ -71,6 +115,7 @@ int main(int argc, char **argv)
         show(5);
         for (u = 9; u <= 14; u++)
             show(u);
+        available();
         return 0;
     }
     if (argc != 3)

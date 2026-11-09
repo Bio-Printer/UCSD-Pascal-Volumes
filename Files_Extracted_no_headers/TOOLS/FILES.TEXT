@@ -23,17 +23,17 @@ TOOLS:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   ECHO.CODE                    18  echo: ECHO [-neE] [ARG ...] its arguments
   HEAD.CODE                    28  head: HEAD [-n [-]N] [-c [-]N] [-qv] [FILE ...] the first lines
   TAIL.CODE                    29  tail: TAIL [-n [+]N] [-c [+]N] [-qv] [FILE ...] the last lines
-  SORT.CODE                    36  sort: SORT [-bdfinrsuc] [-t C] [-k KEY] [-o F] [FILE ...] lines sorted
+  SORT.CODE                    37  sort: SORT [-bdfinrsuc] [-t C] [-k KEY] [-o F] [FILE ...] lines sorted
   UNIQ.CODE                    27  uniq: UNIQ [-cdDiu] [-f N] [-s N] [-w N] [IN [OUT]] repeated lines once
   TR.CODE                      29  tr: TR [-cdst] SET1 [SET2] characters changed or deleted
   CUT.CODE                     29  cut: CUT -b|-c|-f LIST [-d C] [-s] [FILE ...] parts of lines
   TEE.CODE                     24  tee: TEE [-ai] [FILE ...] the standard input to files as well
-  MAKE.CODE                    47  make: MAKE [-f FILE] [-nqBi] [NAME=VALUE] [TARGET ...] targets up to date
+  MAKE.CODE                    48  make: MAKE [-f FILE] [-nqBi] [NAME=VALUE] [TARGET ...] targets up to date
   TOUCH.CODE                   33  touch: TOUCH [-c] [-d DATE | -t STAMP | -r FILE] FILE ... date and time
   DATE.CODE                    28  date: DATE [-r FILE] [+FORMAT] the date and time
-  MOUNT.CODE                   24  mount: MOUNT [#n IMAGE | -u #n] a unit gets another disk image (emulator 2.14)
+  MOUNT.CODE                   27  mount: MOUNT [#n IMAGE | -u #n] a unit gets another disk image (emulator 2.14)
   MAN.TEXT                    102  the manual pages MAN shows (one %% NAME entry a program: edit and add here)
-  SRC/                       2646  sub-volume: the tools' sources (a sub-volume each) and MAKEFILE.TEXT
+  SRC/                       2649  sub-volume: the tools' sources (a sub-volume each) and MAKEFILE.TEXT
   SRC/README.TEXT               8  how to rebuild the tools
   SRC/MAKEFILE.TEXT            22  MAKE -f TOOLS:/SRC/MAKEFILE: rebuilds the tools whose sources changed
   SRC/VI/                     531  sub-volume: vi's source
@@ -103,7 +103,7 @@ TOOLS:  every file, the sub-volumes' too (A/NAME: NAME in the sub-volume A)
   SRC/TOUCH/TOUCH.C            14  TOUCH [-acm] [-d DATE | -t STAMP | -r FILE] FILE  ...
   SRC/DATE/                    61  sub-volume: date's source
   SRC/DATE/DATE.C              12  DATE [-r FILE] [+FORMAT]: the date and time, as date(1) ...
-  SRC/MOUNT/                   58  sub-volume: mount's source
-  SRC/MOUNT/MOUNT.C            10  MOUNT [#n IMAGE | -u #n]: a disk unit gets another disk ...
-  OBJ/                        936  sub-volume: empty: the objects MAKEFILE.TEXT makes (-O TOOLS:/OBJ)
+  SRC/MOUNT/                   61  sub-volume: mount's source
+  SRC/MOUNT/MOUNT.C            12  MOUNT [#n IMAGE | -u #n]: a disk unit gets another disk ...
+  OBJ/                        938  sub-volume: empty: the objects MAKEFILE.TEXT makes (-O TOOLS:/OBJ)
   FILES.TEXT                   20  this list

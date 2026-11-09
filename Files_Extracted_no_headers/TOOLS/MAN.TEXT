@@ -327,7 +327,9 @@ COMMANDS (upper or lower case)
                                a data file of lines ending in CR (NAME.LST) too
     DELETE [VOL: | #n:]PAT     delete (with wildcards it lists them and asks, Y)
     WHEREIS [VOL: | #n:]PAT    which disks have the file, in which sub-volume
-    VOLUMES                    every disk on line: unit, volume, files, blocks
+    VOLUMES (VOLS)             every disk on line: unit, volume, files, blocks;
+                               then the volumes not on line that MOUNT can put
+                               on a unit (emulator 2.18; the RP2040's flash)
     COPY SRC [DEST]            copy (DEST a volume, a sub-volume or, for one
                                file, a name; no DEST: here; a sub-volume
                                copies whole)
@@ -972,7 +974,9 @@ SYNOPSIS
     MOUNT [#n IMAGE | -u #n]
 DESCRIPTION
     Without arguments: every disk unit, its volume and the image file
-    on the PC it is.  MOUNT #n IMAGE gives unit n the image IMAGE (or
+    on the PC it is; then every volume there is to mount (emulator 2.18):
+    the .BLK files beside the boot disk's image -- on the RP2040 the volumes
+    in its flash, with their flash addresses -- and the unit each is on.  MOUNT #n IMAGE gives unit n the image IMAGE (or
     IMAGE.BLK) from the folder of the image unit n has now (else the
     boot disk's), as the emulator's File > Open Unit does; the old
     image's file keeps what was written to it.  -u #n takes unit n's

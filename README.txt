@@ -2671,3 +2671,17 @@ their maps, LIB/BASLIB.OBJ and its sources (RTINPUT, RTCORE), the
 compiler's sources (BCSTMT, BCEXPR, BCEXGEN, BCBUILT) and LANGUAGE.TEXT
 (section 11, errors 70 and 71) changed.  Checked: UCSD-BASIC's runtests,
 selfcompile (IDENTICAL nine times), errtest, voltest.  Emulator: 2.17.
+
+THE VOLUMES THERE ARE TO MOUNT (Big_Disk.BLK BIGGY 1.36, TOOLS.BLK)
+---------------------------------------------------------------------------
+Emulator 2.18 has CSP 142 VOLADDR and 143 VOLINFO: the volumes a program
+can MOUNT (CSP 140) -- the .BLK files beside the boot disk's image; on the
+RP2040 port (UCSD-Pascal-on-RP2040 0.3.8) the volumes of its flash, and
+VOLADDR their flash addresses.  Big_Disk.BLK, BIGGY 1.36: SYSTEM.SHELL's
+VOLUMES (VOLS) lists the volumes not on line after the units (UCSD-TinyC
+d6a05d0); VERSION.TEXT.  TOOLS.BLK: MOUNT without arguments lists every
+volume there is to mount, with the unit it is on (and on the RP2040 its
+flash address); MAN.TEXT's SHELL and MOUNT pages; the other tools rebuilt
+with the current library (<pins.h>, kbhit).  Checked: UCSD-TinyC's
+quicktest, pexectest and redirtest (BIGGY 1.36), MOUNT and VOLS in the
+emulator's engine and the RP2040 simulator.  Emulator: 2.18.
