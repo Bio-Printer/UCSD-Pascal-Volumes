@@ -21,8 +21,8 @@ NUL padding dropped, each CR -> CR LF. Every other byte (including TABs,
 which the original sources use, and the few damaged bytes noted in the
 README) is kept exactly. Non-text files are identical to the Raw version.
 
-A sub-volume (a data file whose blocks 2..5 hold a directory of its own: Tiny-C's MKDIR, as on
-TINY-C: and TOOLS:) is extracted as a folder of its files, DISK/NAME/..., not as one data file
+A sub-volume (a data file whose blocks 2..5 hold a directory of its own: UCSD-C's MKDIR, as on
+UCSD-C: and TOOLS:) is extracted as a folder of its files, DISK/NAME/..., not as one data file
 (the disk image keeps it whole).
 """
 import os, sys, struct, hashlib
@@ -76,7 +76,7 @@ def safe(name):
 
 def is_subvolume(data, nb):
     """a sub-volume: a data (or untyped) file whose blocks 2..5 hold a UCSD directory of its own
-    (Tiny-C's MKDIR: its volume's end at most the file's length)"""
+    (UCSD-C's MKDIR: its volume's end at most the file's length)"""
     if len(data) < 6 * 512:
         return False
     h = data[1024:1024 + 26]

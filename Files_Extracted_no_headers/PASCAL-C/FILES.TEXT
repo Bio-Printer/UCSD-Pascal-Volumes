@@ -26,7 +26,7 @@ PASCALC:  the UCSD Pascal compiler written in C (PASCAL-C.BLK): every file,
   SRC/PC_PSYS.C                12  PC NAME [CODE]
   OBJ/                        250  sub-volume: empty: the objects the makefile makes (-O PASCALC:/OBJ)
   DEMOS/                       56  sub-volume: programs to try: PC PASCALC:/DEMOS/NAME, then PASCALC:/DEMOS/NAME
-  DEMOS/PI.TEXT                 8  pi by Archimedes' method, in DOUBLEs (Tiny-C's PI.C)
+  DEMOS/PI.TEXT                 8  pi by Archimedes' method, in DOUBLEs (UCSD-C's PI.C)
   TESTS/                       63  sub-volume: the tests of DOUBLE: PC PASCALC:/TESTS/NAME, then PASCALC:/TESTS/NAME
   TESTS/DOUBLES.TEXT           10  DOUBLE: arithmetic, functions, WRITE, parameters
   TESTS/READTEST.TEXT           4  DOUBLE: READ from the console and a file

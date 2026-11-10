@@ -1,4 +1,4 @@
-/* binderc.c -- BINDERC [FILE]: the Pascal System Binder, in Tiny-C.
+/* binderc.c -- BINDERC [FILE]: the Pascal System Binder, in UCSD-C.
  *
  * The Binder (BINDER.CODE on the system disks, written in Pascal; its
  * source is lost) puts a GOTOXY procedure of your own into SYSTEM.PASCAL,

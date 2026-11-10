@@ -1,4 +1,4 @@
-/* cmpcode.c -- compare two code files byte by byte (Tiny-C Verify).
+/* cmpcode.c -- compare two code files byte by byte (UCSD-C Verify).
  *
  * In a code file block 0 names segment 1 after the program (bytes 72..79),
  * so a compiler linked as CC2 differs from CC there only: for .CODE

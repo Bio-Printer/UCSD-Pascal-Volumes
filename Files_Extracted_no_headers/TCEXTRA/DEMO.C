@@ -41,7 +41,7 @@ int main()
     struct point p;
     int i;
     long f;
-    puts1("Tiny-C demo\r");
+    puts1("UCSD-C demo\r");
     for (i = 0; i <= 10; i++) {
         putnum(fib(i));
         puts1(" ");

@@ -3,7 +3,7 @@ TOOL SOURCES                                TOOLS:/SRC
 The sources of the tools on TOOLS:, a sub-volume each: SRC/VI holds vi's
 modules, SRC/GREP GREP.C, and so on.
 
-REBUILDING THEM:  from the shell, MAKE -f TOOLS:/SRC/MAKEFILE (TINY-C: on
+REBUILDING THEM:  from the shell, MAKE -f TOOLS:/SRC/MAKEFILE (UCSD-C: on
 line).  MAKEFILE.TEXT compiles each module whose source, or a header it
 includes, is newer than its object (-Z; -O TOOLS:/OBJ puts each NAME.OBJ
 into TOOLS:/OBJ) and links each tool whose objects changed straight onto
@@ -12,8 +12,8 @@ on a new volume, so the first MAKE builds them all; MAKE -B -f
 TOOLS:/SRC/MAKEFILE does every time; MAKE -f TOOLS:/SRC/MAKEFILE
 TOOLS:VI.CODE makes one.
 
-EVERYTHING AT ONCE:  MAKE -f TINY-C:MAKEFILE: the compiler
-(TINY-C:CC2.CODE), the library (TINY-C:/LIB/TCLIB2.OBJ), then TOOLS ...,
+EVERYTHING AT ONCE:  MAKE -f UCSD-C:MAKEFILE: the compiler
+(UCSD-C:CC2.CODE), the library (UCSD-C:/LIB/TCLIB2.OBJ), then TOOLS ...,
 each the MAKE of its own makefile.
 
 A NEW TOOL: MKDIR TOOLS:/SRC/NAME, its sources there, its rules in
@@ -22,7 +22,7 @@ from $(S)NAME/NAME.C), its name in all's list, and a page in
 TOOLS:MAN.TEXT.
 
 VI      vi: the BusyBox "tiny vi" (GPL v2 or later, see VI.H), edited
-        for Tiny-C, in modules: VI.H (what they share), VIMAIN.C (start,
+        for UCSD-C, in modules: VI.H (what they share), VIMAIN.C (start,
         main loop), VISCREEN.C (the screen), VITEXT.C (moving, changing
         text), VICOLON.C (the : commands), VICMD.C (the vi commands),
         VIPAGE.C and VIPAGE.H (the window into big files), VIUCSD.C (the

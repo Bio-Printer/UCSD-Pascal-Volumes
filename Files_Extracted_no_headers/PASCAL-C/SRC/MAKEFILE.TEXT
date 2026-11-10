@@ -1,11 +1,11 @@
 # MAKEFILE -- the Pascal compiler in C: from the shell, MAKE -f PASCALC:/SRC/MAKEFILE
-# (TINY-C: and TOOLS: on line; MAKE -f TINY-C:MAKEFILE runs it too).  Compiles each
+# (UCSD-C: and TOOLS: on line; MAKE -f UCSD-C:MAKEFILE runs it too).  Compiles each
 # module whose source or headers changed (its NAME.OBJ into PASCALC:/OBJ), then links
 # them into PASCALC:PC.CODE, the same as the one it replaces.  MAKE -B ... compiles
 # them all again.
 S = PASCALC:/SRC/
 O = PASCALC:/OBJ/
-I = TINY-C:/INCLUDE/
+I = UCSD-C:/INCLUDE/
 MODS = GLOBALS BUILTIN SETS HEAP PROCS COMPINIT DECPART BODYPART DOUBLE \
         UNITPART BLOCK RARE PCIO_PSYS PC_PSYS
 

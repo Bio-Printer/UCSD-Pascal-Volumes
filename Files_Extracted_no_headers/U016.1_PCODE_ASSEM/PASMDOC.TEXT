@@ -129,7 +129,7 @@ segments, each from a block of its own: its procedures, then its
 dictionary (each procedure's JTAB, the last first; the segment's number
 and its procedures' count).  A procedure: its code, its long jumps' table,
 then DATASZ, PARMSZ, EXITIC, ENTERIC, its number and lex level (JTAB at the
-number).  The host's assembler (UCSD-TinyC's tools/pasm.py) makes the same
+number).  The host's assembler (UCSD-C's tools/pasm.py) makes the same
 bytes.
 
 

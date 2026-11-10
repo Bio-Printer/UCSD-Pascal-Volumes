@@ -17,7 +17,7 @@
    have a file open on the unit.  Status 0, 1 no such image, 2 a bad unit or none there, 3 a
    bad name.  Run it from the shell, or in a makefile's recipes: a makefile cannot look at
    files on a volume not yet on line, so MOUNT, then $(MAKE) -f of a makefile that names them,
-   as MAKE -f TINY-C:/ORIG/MAKEFILE does for the source volumes of the P-System. */
+   as MAKE -f UCSD-C:/ORIG/MAKEFILE does for the source volumes of the P-System. */
 #pragma segment MAIN    /* calls within the program: 2-byte CGPs, no NOP after them */
 #include <stdio.h>
 #include <stdlib.h>

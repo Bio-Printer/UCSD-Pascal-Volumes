@@ -1,0 +1,33 @@
+UCSD-C SOURCES                              UCSD-C:/SRC
+
+The sources of the UCSD-C compiler (CC/: 14 modules, TC.H, PARSE.H,
+GEN.H) and of its library (LIB/: 21 modules, LIBINT.H), and the makefiles
+that rebuild them; the tools' sources are in TOOLS:/SRC.  MAKE is on
+TOOLS: (MAN MAKE): it compiles a module when its source or one of the
+headers it includes is newer than its object (files have their times of
+day: BIGGY 1.34, emulator 2.13), then links or joins; MAKE -B ... does it
+all again, MAKE -n ... shows what it would do.
+
+REBUILDING THE COMPILER:  from the shell, MAKE -f UCSD-C:/SRC/CC/MAKEFILE.
+It compiles the compiler's modules and links UCSD-C:CC2.CODE (next to the
+compiler), identical to UCSD-C:CC.CODE apart from its name (check it with
+TCEXTRA:CMPCODE).  To use it, MOVE UCSD-C:CC2.CODE UCSD-C:CC.CODE.
+
+REBUILDING THE LIBRARY:  MAKE -f UCSD-C:/SRC/LIB/MAKEFILE.  It compiles the
+library modules and joins them (-J) into UCSD-C:/LIB/TCLIB2.OBJ, identical
+to UCSD-C:/LIB/TCLIB.OBJ (check it with CMPCODE).  To use it, MOVE
+UCSD-C:/LIB/TCLIB2.OBJ UCSD-C:/LIB/TCLIB.OBJ.
+
+EVERYTHING AT ONCE:  MAKE -f UCSD-C:MAKEFILE (TOOLS:, SYS-C: and PASCALC:
+on line too): the two above, then every tool (TOOLS:/SRC/MAKEFILE), the
+operating system in C and the Pascal compiler in C, each MAKE -f of its
+own makefile.
+
+The makefiles name every file with its volume, so they work from
+anywhere; -O UCSD-C:/OBJ puts every NAME.OBJ into UCSD-C:/OBJ, not among
+the sources (DELETE UCSD-C:/OBJ/*.OBJ from the shell to clear it: the
+next MAKE compiles everything).  A recipe line longer than the shell's
+79 characters (a link of many modules) MAKE runs as CC @#4:MAKEnRk, its
+commands written into that file.
+CC/OBJFORMAT.TEXT describes what is in a .OBJ file and how the linker
+reads it.

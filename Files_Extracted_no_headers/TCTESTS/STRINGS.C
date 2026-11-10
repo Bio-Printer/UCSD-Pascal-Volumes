@@ -29,7 +29,7 @@ int main(void)
     int CAT(my, var);
     char *p;
     strcpy(buf, "Hello");
-    strcat(buf, ", Tiny-C");
+    strcat(buf, ", UCSD-C");
     printf("%s (%d)\n", buf, (int)strlen(buf));
     reverse(buf);
     printf("%s\n", buf);

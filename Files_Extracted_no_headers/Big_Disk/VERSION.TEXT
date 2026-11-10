@@ -1,7 +1,7 @@
-BIGGY boot volume, revision 1.36  (09-Nov-26)
+BIGGY boot volume, revision 1.37  (10-Nov-26)
   SYSTEM.PASCAL  the OS from U134.4_OS_SOURCE_v1.16 (MAXUNIT = 14:
                  disk units 4, 5, 9..14; GETCMD runs the programs of
-                 Tiny-C's pexec, S runs SYSTEM.SHELL, X(ecute takes a
+                 UCSD-C's pexec, S runs SYSTEM.SHELL, X(ecute takes a
                  path into sub-volumes: VOL:A/B/NAME, \ as /); its
                  FGOTOXY is MYGOTOXY.TEXT's (132 x 45): no BINDER needed
                  1.29: a new NAME.BAS (a BASIC source) is a text
@@ -28,7 +28,7 @@ BIGGY boot volume, revision 1.36  (09-Nov-26)
   SYSOLD.PASCAL  the OS of revision 1.10 (U134.4_OS_SOURCE_v1.10)
   SYSOLD.FILER   the Filer of revision 1.06
   SYSOLD.COMPILER  the distribution compiler of revision 1.07
-  SYSTEM.SHELL   the Tiny-C shell (UCSD-C examples/shell.c): S at the
+  SYSTEM.SHELL   the UCSD-C shell (UCSD-C examples/shell.c): S at the
                  Command: prompt (? lists it); NAME ARG1 ARG2 ... passes
                  the arguments; a NAME without a volume is looked for
                  on every disk on line (on several: you choose, one key);
@@ -63,7 +63,9 @@ BIGGY boot volume, revision 1.36  (09-Nov-26)
                  such program, a line too long) stops the batch file
                  1.36: VOLUMES (VOLS) also lists the volumes not on
                  line that MOUNT can put on a unit (emulator 2.18)
-  Tiny-C itself is on TINY-C: only: X(ecute TINY-C:CC (the compiler is
-                 CC.CODE now, was TINYC.CODE); TINYC.CODE left BIGGY in
+  UCSD-C itself is on UCSD-C: only: X(ecute UCSD-C:CC (the compiler is
+                 CC.CODE now, was UCSDC.CODE); UCSDC.CODE left BIGGY in
                  1.14, TCLIB.OBJ, TCMSGS.TEXT and the headers in 1.15
+                 1.37: the C compiler is UCSD-C, its volume UCSD-C:
+                 (UCSD-C.BLK); the files of BIGGY are as in 1.36
 Check: F(iler T(ransfer #4:VERSION.TEXT to CONSOLE:

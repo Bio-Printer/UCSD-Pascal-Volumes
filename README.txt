@@ -172,18 +172,18 @@ ADDENDUM (v1.07) -- 12-byte floating point support
 ===================================================================
 
 Three volumes were replaced with versions carrying 12-byte floating
-point support (P-Machine CSP extensions plus Tiny-C DOUBLE type
+point support (P-Machine CSP extensions plus UCSD-C DOUBLE type
 support):
   Big_Disk.BLK  (volume BIGGY, 50 live entries, up from 36)
   TCEXTRA.BLK   (volume TCEXTRA, 37 live entries, up from 35)
-  TINY-C.BLK    (volume TINY-C, 62 live entries, up from 61)
+  UCSD-C.BLK    (volume UCSD-C, 62 live entries, up from 61)
 
 Per the standing preference to keep older revisions rather than
 silently discard them, the prior copies of all three were kept
 alongside, suffixed _pre_12byte_float:
   Big_Disk_pre_12byte_float.BLK
   TCEXTRA_pre_12byte_float.BLK
-  TINY-C_pre_12byte_float.BLK
+  UCSD-C_pre_12byte_float.BLK
 
 Files_Extracted_Raw/, Files_Extracted_no_headers/,
 EXTRACTION_REPORT.txt and MANIFEST_SHA256.txt were regenerated for the
@@ -192,30 +192,30 @@ made in this version; the u132/u134/u128 _fixed volumes from v1.06 are
 unchanged.
 
 ===================================================================
-ADDENDUM (v1.08) -- sourced from the UCSD-TinyC GitHub repository (then UCSD-C)
+ADDENDUM (v1.08) -- sourced from the UCSD-C GitHub repository
 ===================================================================
 
-Big_Disk.BLK, TINY-C.BLK and TCEXTRA.BLK were replaced with the
-canonical builds from https://github.com/Bio-Printer/UCSD-TinyC (branch
+Big_Disk.BLK, UCSD-C.BLK and TCEXTRA.BLK were replaced with the
+canonical builds from https://github.com/Bio-Printer/UCSD-C (branch
 main, pulled 2026-09-29), built directly from that repo's own
 tools/mkbiggy.py and tools/mkvolume.py rather than taken as loose
-files. This repo is Tiny-C's home: the compiler, its C library and
+files. This repo is UCSD-C's home: the compiler, its C library and
 headers, the P-System-side test/demo programs, the emulator project
 (UCSD-Pascal---P-Machine_work, now at v1.88, with the 12-byte float
 CSPs integrated), and a Linux validation harness (setup.sh,
 runtests.py, crosscheck.py, selfcompile.py, voltest.py, tcverify.py,
 f12test.py, etc.).
 
-  Big_Disk.BLK   volume BIGGY,   46 files (TINYC.CODE, TCLIB.OBJ,
+  Big_Disk.BLK   volume BIGGY,   46 files (UCSDC.CODE, TCLIB.OBJ,
                  TCMSGS.TEXT and headers added to the boot volume)
-  TINY-C.BLK     volume TINY-C,  47 files
+  UCSD-C.BLK     volume UCSD-C,  47 files
   TCEXTRA.BLK    volume TCEXTRA, 37 files
 
 Prior revisions were kept rather than discarded, suffixed
 _pre_UCSD-C_repo (these were the loose "12-byte float" volumes added
 in v1.07):
   Big_Disk_pre_UCSD-C_repo.BLK
-  TINY-C_pre_UCSD-C_repo.BLK
+  UCSD-C_pre_UCSD-C_repo.BLK
   TCEXTRA_pre_UCSD-C_repo.BLK
 
 Validation run against this repo's own suite before packaging (see
@@ -223,7 +223,7 @@ VALIDATION_LOG.txt):
   tools/setup.sh          -- clean build of the emulator's Linux runner
   tools/runtests.py       -- 16/16 tests passed (host-built compiler)
   tools/crosscheck.py     -- 16/16 identical (P-System-built vs host)
-  tools/selfcompile.py    -- TINYC2.CODE byte-identical to host build
+  tools/selfcompile.py    -- UCSDC2.CODE byte-identical to host build
   tools/mkvolume.py + voltest.py -- volume test PASSED (native mode)
   tools/mkverify.py + tcverify.py native -- PASSED, 657 steps
   tools/tcverify.py z80   -- see VALIDATION_LOG.txt for the result
@@ -238,11 +238,11 @@ are unchanged.
 ADDENDUM (v1.09) -- 8-byte double format (breaking change from 12-byte)
 ===================================================================
 
-Big_Disk.BLK, TINY-C.BLK and TCEXTRA.BLK were replaced again, this
+Big_Disk.BLK, UCSD-C.BLK and TCEXTRA.BLK were replaced again, this
 time with a real format change upstream, not just a rebuild: doubles
 moved from 12 bytes (6 words, 4 reserved/unused) to a true 8-byte (4
 word) IEEE-754 binary64 representation. Per the repo's own docs
-(docs/DOUBLES.md, replacing docs/FLOAT12.md): "Until Tiny-C [0.4] a
+(docs/DOUBLES.md, replacing docs/FLOAT12.md): "Until UCSD-C [0.4] a
 double was 12 bytes... They were never used and were removed;
 programs compiled for the 12-byte engine must be recompiled, and the
 12-byte and 8-byte engines and compilers do not mix. `triple` went
@@ -250,11 +250,11 @@ with them." NativeFloat12.inc was replaced by NativeDouble.inc in the
 emulator project.
 
   Big_Disk.BLK   volume BIGGY,   46 files
-  TINY-C.BLK     volume TINY-C,  47 files
+  UCSD-C.BLK     volume UCSD-C,  47 files
   TCEXTRA.BLK    volume TCEXTRA, 37 files
 
 Prior (12-byte-double) revisions were kept, suffixed _pre_8byte_double
-(Big_Disk, TINY-C, TCEXTRA); they have since been removed (see the last
+(Big_Disk, UCSD-C, TCEXTRA); they have since been removed (see the last
 section).
 
 Full validation re-run against this pull (see VALIDATION_LOG.txt):
@@ -280,10 +280,10 @@ source or header (NAME.C, NAME.H) as the workfile under its exact name:
 The previous programs are kept on the disk: SYSORIG.FILER (the original
 II.0 Filer, whose G(et of any .C file answers "No file loaded") and
 SYSL2.EDITOR (which answers "ERROR: Workfile lost" for a .C workfile).
-Both new programs are the ones on the Tiny-C repository's boot disk
-(UCSD-TinyC: volumes/Big_Disk---8_byte_floats.BLK). SYSTEM.COMPILER is
+Both new programs are the ones on the UCSD-C repository's boot disk
+(UCSD-C: volumes/Big_Disk---8_byte_floats.BLK). SYSTEM.COMPILER is
 unchanged. Checked: G(et of #10:PI.C and #10:TEST.C, E(dit, U(pdate,
-S(ave back to PI.C, G(et of a NAME.TEXT workfile, Tiny-C compile and run.
+S(ave back to PI.C, G(et of a NAME.TEXT workfile, UCSD-C compile and run.
 
 The older copies named above (*_pre_12byte_float, *_pre_UCSD-C_repo)
 are no longer in BLK_format/, and their leftover folders in
@@ -350,7 +350,7 @@ U134.4_OS_SOURCE_v1.07.BLK is v1.06 with:
     and the disk-unit set, besides alignment padding.
 Built and checked with the emulator (Z80 mode for the compiles and
 BINDER): units 11-14 on line in the Filer, G(et of a .C file, programs
-compiled to and run from units 12 and 13, and the emulator's and Tiny-C's
+compiled to and run from units 12 and 13, and the emulator's and UCSD-C's
 full test suites (see their repositories).
 
 BIGGY REVISION 1.08: THE COMPILER BUILT FROM U132_A_PASCAL_COMPILER_fixed
@@ -377,7 +377,7 @@ them, and in alignment padding (bytes after a procedure's return).
 Checked with the emulator: the old compiler fails as above and the new one
 compiles II.0.FILER ("2479 lines, 0.1 secs, 1784880 lines/min") to code
 that equals SYSTEM.FILER but for one padding byte; builds in P-Code and
-Z80 mode differ only in padding; the emulator's and Tiny-C's full test
+Z80 mode differ only in padding; the emulator's and UCSD-C's full test
 suites pass.
 
 
@@ -409,7 +409,7 @@ MANIFEST_SHA256.txt and EXTRACTION_REPORT.txt:
                     U132.A_PASCAL_COMPILER_SOURCE_v1.08, unchanged. Where this
                     README (and BIGGY's VERSION.TEXT) says BIGGY 1.08's
                     compiler was built from it, that is the same source.
-    Big_Disk_pre_8byte_double.BLK, TINY-C_pre_8byte_double.BLK,
+    Big_Disk_pre_8byte_double.BLK, UCSD-C_pre_8byte_double.BLK,
     TCEXTRA_pre_8byte_double.BLK  the 12-byte floating point revisions,
                     superseded by the 8-byte ones.
 
@@ -425,18 +425,18 @@ content was right. They are now stored exactly as extracted (line ends were
 the only difference), and .gitattributes marks the folder -text so git never
 converts them. sha256sum -c MANIFEST_SHA256.txt now passes for all 845 files.
 
-BIGGY REVISION 1.09: PSYS.H (SYSCOM FOR TINY-C PROGRAMS)
+BIGGY REVISION 1.09: PSYS.H (SYSCOM FOR UCSD-C PROGRAMS)
 ---------------------------------------------------------------------------
-Big_Disk.BLK (BIGGY), TINY-C.BLK and TCEXTRA.BLK, from the UCSD-C repository:
+Big_Disk.BLK (BIGGY), UCSD-C.BLK and TCEXTRA.BLK, from the UCSD-C repository:
 
-    PSYS.H        (BIGGY and TINY-C) Tiny-C header for the OS's SYSCOM
+    PSYS.H        (BIGGY and UCSD-C) UCSD-C header for the OS's SYSCOM
                   record: SYSCOM->memtop, SYSCOM->crtinfo.width,
                   SYSCOM->segtable[n] ... SYSCOM is the OS's first global
                   variable, read with one LOD 2,1, so it is found in every
                   engine layout (0x02E4, or 0x0164 in P-Code mode with
                   reclaimed memory).
     SYSCOM.C, SYSCOM.CODE  (TCEXTRA) its test; DEMOS.TEXT and FILES.TEXT
-                  list it (TINY-C's FILES.TEXT lists PSYS.H).
+                  list it (UCSD-C's FILES.TEXT lists PSYS.H).
     VERSION.TEXT  (BIGGY) revision 1.09; its SYSTEM.COMPILER line now
                   names U132.A_PASCAL_COMPILER_SOURCE_v1.08.
 Nothing else changed.
@@ -462,7 +462,7 @@ part of the system used):
          PXBACK    cleared by the next GETCMD
     [5]  exit status (-1: could not be started)
 
-Tiny-C's pexec() (PSYS.H) sets these words and exits. Nothing of the
+UCSD-C's pexec() (PSYS.H) sets these words and exits. Nothing of the
 calling program stays in memory while the other one runs, and the
 resident operating system is unchanged: SYSTEM.PASCAL is still 16896
 bytes, segment 0 still 7840 bytes; only GETCMD's segment (loaded only
@@ -475,9 +475,9 @@ Big_Disk.BLK (BIGGY) revision 1.10:
     SYSTEM.PASCAL  the OS of U134.4_OS_SOURCE_v1.10
     SYSOLD.PASCAL  the OS of revision 1.09 (1.07 source); SYSOLD.FILER is
                    still revision 1.06's Filer
-    TINYC.CODE, TCLIB.OBJ, PSYS.H  Tiny-C with pexec() (exit() records the
+    UCSDC.CODE, TCLIB.OBJ, PSYS.H  UCSD-C with pexec() (exit() records the
                    status for pexec_status())
-TINY-C.BLK: TINYC.CODE, TCLIB.OBJ, PSYS.H, PEXEC.C (library module),
+UCSD-C.BLK: UCSDC.CODE, TCLIB.OBJ, PSYS.H, PEXEC.C (library module),
 STDLIB.C, LIBS.TEXT, README.TEXT, FILES.TEXT. TCEXTRA.BLK: SHELL.C/.CODE
 (a mini-shell built on pexec), MEMFREE.C/.CODE (a program's free memory),
 every program relinked with the new library, DEMOS.TEXT, README.TEXT,
@@ -508,10 +508,10 @@ is 3176 bytes. Build: compile SYSTEM; the code file is SYSTEM.PASCAL.
 Big_Disk.BLK (BIGGY) revision 1.11:
     SYSTEM.PASCAL  the OS of U134.4_OS_SOURCE_v1.11
     SYSOLD.PASCAL  the OS of revision 1.10 (U134.4_OS_SOURCE_v1.10)
-    SYSTEM.SHELL   the Tiny-C shell (UCSD-C examples/shell.c), run by $
+    SYSTEM.SHELL   the UCSD-C shell (UCSD-C examples/shell.c), run by $
     PSYS.H         says "BIGGY 1.10 or later" for pexec
     VERSION.TEXT   revision 1.11
-MYGOTOXY.CODE stays (the OS has the same FGOTOXY built in). TINY-C.BLK:
+MYGOTOXY.CODE stays (the OS has the same FGOTOXY built in). UCSD-C.BLK:
 PSYS.H and PEXEC.C (comments only). Checked with UCSD-C's suites,
 pexectest.py included ($ starts the shell; a program started from the
 shell still has exactly the free memory it has from X(ecute).
@@ -519,7 +519,7 @@ shell still has exactly the free memory it has from X(ecute).
 BIGGY REVISION 1.12: COMMAND LINES FOR PEXEC (main(argc, argv))
 ---------------------------------------------------------------------------
 No operating system change (SYSTEM.PASCAL is still U134.4_OS_SOURCE_v1.11's).
-Tiny-C's pexec("NAME ARG1 ARG2 ...") passes the words to NAME's
+UCSD-C's pexec("NAME ARG1 ARG2 ...") passes the words to NAME's
 main(int argc, char **argv) (argv[0] = NAME): the command line is kept in
 the OS's prompt-line string PL (OS global word 70, a STRING[80]: 80
 characters at most), which nothing writes between two programs, with
@@ -527,17 +527,17 @@ SYSCOM^.EXPANSION[6] = 25604 and [7] a checksum of it. The child takes it
 only while it is the program pexec started (EXPANSION[0] = PXCHILD) and the
 checksum matches; started any other way, argc is 1 and argv[0] is "".
 
-Big_Disk.BLK (BIGGY) revision 1.12: TINYC.CODE and TCLIB.OBJ (the linker
+Big_Disk.BLK (BIGGY) revision 1.12: UCSDC.CODE and TCLIB.OBJ (the linker
 calls the library's __callmain when main has parameters), PSYS.H,
 SYSTEM.SHELL (passes arguments; says when a line is longer than 80),
-VERSION.TEXT. TINY-C.BLK: the same, plus PEXEC.C (__callmain is in the
+VERSION.TEXT. UCSD-C.BLK: the same, plus PEXEC.C (__callmain is in the
 pexec module) and LINK.C.
 
-THREE TINY-C VOLUMES: a UCSD directory holds 77 files, and rebuilding the
+THREE UCSD-C VOLUMES: a UCSD directory holds 77 files, and rebuilding the
 programs on a volume (@DEMOS) leaves a NAME.OBJ for each, so the demos and
 the tests are now on volumes of their own:
 
-    TINY-C.BLK   the compiler, the library, the headers and all their
+    UCSD-C.BLK   the compiler, the library, the headers and all their
                  sources (unchanged)
     TCEXTRA.BLK  the demos: BOXES CALC DEMO GUESS HANOI PI QUEENS SIEVE,
                  SHELL, MEMFREE, ARGS (new: does what its arguments say --
@@ -549,20 +549,20 @@ the tests are now on volumes of their own:
                  SYSCOM; TESTS.TEXT (@TESTS) rebuilds them
 
 After @DEMOS, TCEXTRA has 41 of its 77 directory entries in use, TCTESTS
-likewise after @TESTS. (TINY-C uses all 77 after @LIBS followed by @BUILD.)
+likewise after @TESTS. (UCSD-C uses all 77 after @LIBS followed by @BUILD.)
 
-FOUR TINY-C VOLUMES: TINY-C SPLIT INTO TINY-C (USE) AND TCSRC (SOURCES)
+FOUR UCSD-C VOLUMES: UCSD-C SPLIT INTO UCSD-C (USE) AND TCSRC (SOURCES)
 ---------------------------------------------------------------------------
-TINY-C.BLK keeps everything needed to use Tiny-C -- TINYC.CODE, TCLIB.OBJ,
+UCSD-C.BLK keeps everything needed to use UCSD-C -- UCSDC.CODE, TCLIB.OBJ,
 TCMSGS.TEXT, the headers (*.H), README.TEXT, FILES.TEXT -- and keeps its
 name: the compiler looks for TCLIB.OBJ, TCMSGS.TEXT and headers on
-TINY-C: when they are not on the prefix or boot volume. The new TCSRC.BLK
+UCSD-C: when they are not on the prefix or boot volume. The new TCSRC.BLK
 holds the compiler's and the library's sources and the batch files that
-rebuild them: with the prefix on TCSRC: (and TINY-C: mounted), X(ecute
-TINY-C:TINYC and answer @BUILD (TCSRC:TINYC2.CODE) or @LIBS
-(TCSRC:TCLIB2.OBJ); TCEXTRA:CMPCODE checks them against TINY-C:'s.
+rebuild them: with the prefix on TCSRC: (and UCSD-C: mounted), X(ecute
+UCSD-C:UCSDC and answer @BUILD (TCSRC:UCSDC2.CODE) or @LIBS
+(TCSRC:TCLIB2.OBJ); TCEXTRA:CMPCODE checks them against UCSD-C:'s.
 
-    TINY-C.BLK   20 files (after @DEMOS / @TESTS elsewhere: still 20)
+    UCSD-C.BLK   20 files (after @DEMOS / @TESTS elsewhere: still 20)
     TCSRC.BLK    31 files; 59 after @LIBS and @BUILD
     TCEXTRA.BLK  27 files; 41 after @DEMOS
     TCTESTS.BLK  27 files; 41 after @TESTS
@@ -578,48 +578,48 @@ once, it runs from there; found on several disks, the shell lists them
 found: "no such program". A name with a volume runs as before.
 VERSION.TEXT revision 1.13. Nothing else changed.
 
-BIGGY REVISION 1.14: NO TINYC.CODE ON BIGGY; ONE-KEY CHOICE IN THE SHELL
+BIGGY REVISION 1.14: NO UCSDC.CODE ON BIGGY; ONE-KEY CHOICE IN THE SHELL
 ---------------------------------------------------------------------------
-TINYC.CODE is no longer on BIGGY: the compiler is TINY-C:TINYC (X(ecute
-TINY-C:TINYC). TCLIB.OBJ, TCMSGS.TEXT and the headers stay: the compiler
-looks for them on the prefix volume, then the boot volume, then TINY-C:.
+UCSDC.CODE is no longer on BIGGY: the compiler is UCSD-C:UCSDC (X(ecute
+UCSD-C:UCSDC). TCLIB.OBJ, TCMSGS.TEXT and the headers stay: the compiler
+looks for them on the prefix volume, then the boot volume, then UCSD-C:.
 SYSTEM.SHELL (and TCEXTRA's SHELL): when a program is on several disks
 (up to 8, one per disk unit), the shell lists them and one key chooses --
 1..n runs that one at once, no RETURN; any other key runs nothing.
 VERSION.TEXT revision 1.14.
 
-BIGGY REVISION 1.15: TINY-C ONLY ON TINY-C:; THE COMPILER IS CC.CODE
+BIGGY REVISION 1.15: UCSD-C ONLY ON UCSD-C:; THE COMPILER IS CC.CODE
 ---------------------------------------------------------------------------
 One copy of each file: TCLIB.OBJ, TCMSGS.TEXT and the headers (*.H) left
-BIGGY (TINYC.CODE already left in 1.14). Tiny-C is on TINY-C: only; the
+BIGGY (UCSDC.CODE already left in 1.14). UCSD-C is on UCSD-C: only; the
 compiler finds them there (it looks on the prefix volume, the boot volume,
-then TINY-C:). BIGGY keeps SYSTEM.SHELL, which $ runs.
+then UCSD-C:). BIGGY keeps SYSTEM.SHELL, which $ runs.
 
-The compiler's code file is now CC.CODE (was TINYC.CODE): X(ecute
-TINY-C:CC. @BUILD on TCSRC: links CC2.CODE (was TINYC2.CODE); compare it
-with TINY-C:CC.CODE using TCEXTRA:CMPCODE. TINY-C.BLK, TCSRC.BLK (BUILD.TEXT,
+The compiler's code file is now CC.CODE (was UCSDC.CODE): X(ecute
+UCSD-C:CC. @BUILD on TCSRC: links CC2.CODE (was UCSDC2.CODE); compare it
+with UCSD-C:CC.CODE using TCEXTRA:CMPCODE. UCSD-C.BLK, TCSRC.BLK (BUILD.TEXT,
 LIBS.TEXT, README.TEXT, MAIN.C comments), TCEXTRA.BLK and TCTESTS.BLK
 (README.TEXT, DEMOS.TEXT, TESTS.TEXT, CMPCODE.C comment) say CC.
 VERSION.TEXT revision 1.15.
 
-CC TAKES ITS COMMANDS AS ARGUMENTS (TINY-C, TCSRC)
+CC TAKES ITS COMMANDS AS ARGUMENTS (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
-The compiler (TINY-C:CC.CODE) runs the commands given as arguments, from
+The compiler (UCSD-C:CC.CODE) runs the commands given as arguments, from
 the shell ($ at the Command: prompt), without a prompt: with the prefix on
 TCSRC:, CC @BUILD @LIBS rebuilds the compiler (CC2.CODE) and the library
 (TCLIB2.OBJ); CC /Z HANOI SIEVE compiles two programs. Options (/Z, /C,
 /L, /J) and the word after them make one command; the first that fails
-stops CC with exit status 1. X(ecute TINY-C:CC still prompts. TINY-C.BLK
+stops CC with exit status 1. X(ecute UCSD-C:CC still prompts. UCSD-C.BLK
 (CC.CODE, README.TEXT) and TCSRC.BLK (MAIN.C, README.TEXT) updated; BIGGY
 unchanged.
 
-CC: A NEW LINE AFTER LINKING (TINY-C, TCSRC)
+CC: A NEW LINE AFTER LINKING (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 After linking, CC now ends the line ("(15677 words free)"), so the next
 command of CC @BUILD @LIBS ("> @LIBS") and "Done." start a line of their
-own. TINY-C.BLK (CC.CODE) and TCSRC.BLK (MAIN.C) updated; BIGGY unchanged.
+own. UCSD-C.BLK (CC.CODE) and TCSRC.BLK (MAIN.C) updated; BIGGY unchanged.
 
-GEN.C SPLIT IN TWO: @BUILD WORKS IN Z80 MODE AGAIN (TINY-C, TCSRC)
+GEN.C SPLIT IN TWO: @BUILD WORKS IN Z80 MODE AGAIN (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 In Z80 mode (and P-Code mode without reclaimed memory) CC ran out of stack
 compiling GEN.C, the largest module (*STK OFLOW*, exit status -2 in the
@@ -627,110 +627,110 @@ shell).  GEN.C is now two modules: GEN.C (the emitter, procedures, the
 object file) and GENX.C (code for expressions, calls, switch), with their
 shared declarations in GEN.H; both are in segment GEN.  CC @BUILD @LIBS
 now runs in Z80 mode.  TCSRC.BLK (GEN.C, GENX.C, GEN.H, BUILD.TEXT,
-README.TEXT) and TINY-C.BLK (CC.CODE) updated; BIGGY unchanged.
+README.TEXT) and UCSD-C.BLK (CC.CODE) updated; BIGGY unchanged.
 
-MEMMARK; MEMFILL/MEMGAP IN PSYS.H (TINY-C, TCSRC, TCEXTRA)
+MEMMARK; MEMFILL/MEMGAP IN PSYS.H (UCSD-C, TCSRC, TCEXTRA)
 ---------------------------------------------------------------------------
 PSYS.H: memfill() fills the free memory with a pattern; memgap() in a
 program run later returns the longest run of it still intact, an estimate
 of the least free memory of the programs in between.  TCEXTRA:MEMMARK
 (MEMMARK FILL, the program, MEMMARK SCAN) does that.  The exact figure:
-the emulator 1.97, Options > Track Least Free Memory.  TINY-C.BLK
+the emulator 1.97, Options > Track Least Free Memory.  UCSD-C.BLK
 (TCLIB.OBJ, PSYS.H), TCSRC.BLK (MEMSCAN.C, LIBS.TEXT) and TCEXTRA.BLK
 (MEMMARK.C, MEMMARK.CODE, README.TEXT) updated; BIGGY unchanged.
 
-COMPILE.C SPLIT FROM STMT.C; @FILE USES LESS STACK (TINY-C, TCSRC)
+COMPILE.C SPLIT FROM STMT.C; @FILE USES LESS STACK (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 The parser's pass (compile, helpers, pragma) moved from STMT.C to the new
 COMPILE.C: STMT.C needed one more 1 KB block of declarations than the
 others.  CC's @FILE batches read into the command buffer instead of a
 buffer of their own.  Least free memory in Z80 mode: compiling STMT.C 324
 -> 397 words; CC @BUILD @LIBS from the shell 186 -> 352.  TCSRC.BLK
-(STMT.C, COMPILE.C, MAIN.C, BUILD.TEXT, README.TEXT) and TINY-C.BLK
+(STMT.C, COMPILE.C, MAIN.C, BUILD.TEXT, README.TEXT) and UCSD-C.BLK
 (CC.CODE) updated; BIGGY unchanged.
 
-CC USES LESS MEMORY: PCHUNK 256, FILES BETWEEN PASSES (TINY-C, TCSRC)
+CC USES LESS MEMORY: PCHUNK 256, FILES BETWEEN PASSES (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 CC's permanent pool takes 256-byte blocks (was 1 KB); files CC opens
 between passes (does NAME.C exist, the @FILE batch) no longer leave their
 buffer under the next pass; the prompt takes 149 characters; include
 names are held in 30 bytes.  Least free memory in Z80 mode compiling
 every module from X(ecute: 397 -> 1069 words; CC @BUILD @LIBS from the
-shell 352 -> 1024.  TINY-C.BLK (CC.CODE) and TCSRC.BLK (UTIL.C, MAIN.C,
+shell 352 -> 1024.  UCSD-C.BLK (CC.CODE) and TCSRC.BLK (UTIL.C, MAIN.C,
 PP.C, COMPILE.C) updated; BIGGY unchanged.
 
-SMALLER CODE GENERATOR BUFFERS (TINY-C, TCSRC)
+SMALLER CODE GENERATOR BUFFERS (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 CC's code generator allocated about 9,000 words of buffers for the largest
 possible procedure and a 1024-case switch; they are now sized for 1.5
 times the largest procedure of the compiler, library, demos and tests, and
 the case table for each switch.  Its permanent pool takes 512-byte blocks.
 Least free memory in Z80 mode compiling every module from X(ecute: 1069 ->
-1497 words; CC @BUILD @LIBS from the shell 1024 -> 1452.  TINY-C.BLK
+1497 words; CC @BUILD @LIBS from the shell 1024 -> 1452.  UCSD-C.BLK
 (CC.CODE) and TCSRC.BLK (TC.H, GEN.C, IR.C, UTIL.C) updated.
 
-CC'S "WORDS FREE" IS EACH PASS'S LEAST (TINY-C, TCSRC)
+CC'S "WORDS FREE" IS EACH PASS'S LEAST (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 After each pass CC printed the free memory at its end.  With the emulator
 1.99 it prints the least free memory during the pass, which the emulator
 keeps in SYSCOM^.EXPANSION[8] (PSYS.H: memleast_start, memleast,
 memleast_stop); the least of the figures is what Options > Track Least
 Free Memory shows.  On another machine CC prints the free memory at the
-pass's end as before.  TINY-C.BLK (CC.CODE, PSYS.H) and TCSRC.BLK (MAIN.C)
+pass's end as before.  UCSD-C.BLK (CC.CODE, PSYS.H) and TCSRC.BLK (MAIN.C)
 updated; BIGGY unchanged.
 
-RUNTIME HELPERS DECLARED WHEN NEEDED (TINY-C, TCSRC)
+RUNTIME HELPERS DECLARED WHEN NEEDED (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 CC declared all 35 runtime helpers (__divi, __lmul ...) in every module;
 it now declares each when first needed.  Least free memory in Z80 mode:
 every @BUILD/@LIBS command from X(ecute 1472 -> 1748 words; CC @BUILD
-@LIBS from the shell 1427 -> 1641.  TINY-C.BLK (CC.CODE) and TCSRC.BLK
+@LIBS from the shell 1427 -> 1641.  UCSD-C.BLK (CC.CODE) and TCSRC.BLK
 (EXPR.C, COMPILE.C, PARSE.H) updated; BIGGY unchanged.
 
-LINKER GIVES BACK ITS REFERENCE LISTS (TINY-C, TCSRC)
+LINKER GIVES BACK ITS REFERENCE LISTS (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 CC's linker frees the lists of what each procedure uses once it knows what
 to link, before it writes the code.  Least free memory in Z80 mode linking
-CC2.CODE: 1703 -> 2229 words.  TINY-C.BLK (CC.CODE) and TCSRC.BLK (LINK.C,
+CC2.CODE: 1703 -> 2229 words.  UCSD-C.BLK (CC.CODE) and TCSRC.BLK (LINK.C,
 UTIL.C, TC.H) updated; BIGGY unchanged.
 
-LESS RESIDENT WHILE COMPILING (TINY-C, TCSRC)
+LESS RESIDENT WHILE COMPILING (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 CC finishes each module's Compiling pass outside the PARSE segment, the
 preprocessor converts real constants (the Compiling pass no longer loads
 REALLIT deep in an expression), and the linker's tables grow in blocks.
 Least free memory in Z80 mode, every @BUILD/@LIBS command from X(ecute:
 1777 -> 1953 words; CC @BUILD @LIBS from the shell 1637 -> 1813.
-TINY-C.BLK (CC.CODE) and TCSRC.BLK (COMPILE.C, IR.C, LEX.C, PP.C, MAIN.C,
+UCSD-C.BLK (CC.CODE) and TCSRC.BLK (COMPILE.C, IR.C, LEX.C, PP.C, MAIN.C,
 LINK.C, TC.H, PARSE.H) updated; BIGGY unchanged.
 
-SMALLER SYMBOL AND TYPE RECORDS (TINY-C, TCSRC)
+SMALLER SYMBOL AND TYPE RECORDS (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 CC's symbol records are 14 bytes (were 18), its type records 12 (were 22).
 Every Compiling pass has about 667 words more; the least free memory of
 every @BUILD/@LIBS command in Z80 mode is now the link of CC2.CODE (1954
-words from X(ecute, 1909 from the shell).  TINY-C.BLK (CC.CODE) and
+words from X(ecute, 1909 from the shell).  UCSD-C.BLK (CC.CODE) and
 TCSRC.BLK (TC.H, PARSE.H, PSYM.C, DECL.C, EXPR.C, STMT.C, COMPILE.C, IR.C,
 GENX.C) updated; BIGGY unchanged.
 
-SMALLER LINKER RECORDS (TINY-C, TCSRC)
+SMALLER LINKER RECORDS (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 CC's linker keeps 12-byte procedure records (were 16) and static names
 without their MODULE' prefix; the permanent pool takes 448-byte blocks.
 Least free memory in Z80 mode: linking CC2.CODE 1954 -> 2813 words; every
 @BUILD/@LIBS command from X(ecute 1954 -> 2713; CC @BUILD @LIBS from the
-shell 1909 -> 2573.  TINY-C.BLK (CC.CODE) and TCSRC.BLK (LINK.C, UTIL.C)
+shell 1909 -> 2573.  UCSD-C.BLK (CC.CODE) and TCSRC.BLK (LINK.C, UTIL.C)
 updated; BIGGY unchanged.
 
-SETJMP AND LONGJMP (TINY-C, TCSRC, TCTESTS)
+SETJMP AND LONGJMP (UCSD-C, TCSRC, TCTESTS)
 ---------------------------------------------------------------------------
 The library has setjmp() and longjmp() with a SETJMP.H header: longjmp
 returns from the setjmp call again, out of any calls and segments (their
-segments are given back as their returns would have).  TINY-C.BLK
+segments are given back as their returns would have).  UCSD-C.BLK
 (TCLIB.OBJ, SETJMP.H), TCSRC.BLK (SETJMP.C) and TCTESTS.BLK (SETJMP.C,
 SETJMP.CODE) updated; BIGGY unchanged.
 
-COMPILER AND LIBRARY FIXES FOUND PORTING VI (TINY-C, TCSRC, TCTESTS)
+COMPILER AND LIBRARY FIXES FOUND PORTING VI (UCSD-C, TCSRC, TCTESTS)
 ---------------------------------------------------------------------------
 The preprocessor no longer expands a macro again inside its own expansion
 (#define rows (G.rows) with f(rows) gave G.(G.rows)), and carries out
@@ -741,24 +741,24 @@ page moves the unfinished line to the next page without needing memory
 (lines under 512 characters); fputc reports an error instead of dropping
 part of a line.  An if / else if chain is parsed in a loop (no stack per
 link).  New tests: MACROS, STATICS, TEXTPAGE, ELSEIF on TCTESTS.
-TINY-C.BLK (CC.CODE, TCLIB.OBJ), TCSRC.BLK (PP.C, STMT.C, STDIO.C) and
+UCSD-C.BLK (CC.CODE, TCLIB.OBJ), TCSRC.BLK (PP.C, STMT.C, STDIO.C) and
 TCTESTS.BLK updated; BIGGY unchanged.
 
 TOOLS AND TOOLSRC (NEW VOLUMES)
 ---------------------------------------------------------------------------
-    TOOLS.BLK    tools written in Tiny-C, ready to run: VI.CODE, the
+    TOOLS.BLK    tools written in UCSD-C, ready to run: VI.CODE, the
                  screen editor vi (the BusyBox "tiny vi"): from the shell,
                  VI NAME.C; from X(ecute TOOLS:VI it asks for the file
     TOOLSRC.BLK  their sources: VI.H and the modules VIMAIN.C, VISCREEN.C,
                  VITEXT.C, VICOLON.C, VICMD.C, VIPAGE.C (with VIPAGE.H, the
                  window), VIUCSD.C (the P-System side), and TOOLS.TEXT: with the prefix on
-                 TOOLSRC:, X(ecute TINY-C:CC and answer @TOOLS
+                 TOOLSRC:, X(ecute UCSD-C:CC and answer @TOOLS
 For now VI.C compiles on the P-System only in P-Code mode with Options >
 Reclaim Z80 Interpreter and BIOS Memory and Options > Harvard Mode (it
 then gives exactly TOOLS:VI.CODE); in one piece it needs more memory than
 the compiler has in the normal layout and in Z80 mode.
 
-VI: A WINDOW INTO BIG FILES; LINKER FIX (TOOLS, TOOLSRC, TINY-C, TCSRC)
+VI: A WINDOW INTO BIG FILES; LINKER FIX (TOOLS, TOOLSRC, UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 As the L2 editor does it, VI now keeps only a window of the file in
 memory; the rest goes into VI.SWAP (on the prefix volume, deleted when VI
@@ -774,7 +774,7 @@ layout; files up to about 125 KB.  New source VIPAGE.H on TOOLSRC:.
 Also: p/P with an empty register no longer makes the next '.' loop for
 ever.  The linker took segment lengths over 32767 bytes as negative (VI's
 code segment is now 34 KB): CC.CODE and LINK.C, UTIL.C, TC.H updated.
-TOOLS.BLK, TOOLSRC.BLK, TINY-C.BLK and TCSRC.BLK updated; BIGGY unchanged.
+TOOLS.BLK, TOOLSRC.BLK, UCSD-C.BLK and TCSRC.BLK updated; BIGGY unchanged.
 
 VI IN MODULES (TOOLSRC, TOOLS)
 ---------------------------------------------------------------------------
@@ -789,7 +789,7 @@ updated.
 
 BIGGY REVISION 1.16: CD AND DIR IN THE SHELL (BIGGY, TCEXTRA)
 ---------------------------------------------------------------------------
-The Tiny-C shell (SYSTEM.SHELL on BIGGY, SHELL.C and SHELL.CODE on
+The UCSD-C shell (SYSTEM.SHELL on BIGGY, SHELL.C and SHELL.CODE on
 TCEXTRA) has two commands of its own:
     CD #5  (or CD 5, CD VOL, CD *)   the prefix becomes unit 5's volume,
            as the Filer's Prefix does it (the OS's DKVID): the files of
@@ -805,7 +805,7 @@ extracted files, report and manifest regenerated.
 
 BIGGY REVISION 1.17: TYPE AND DELETE IN THE SHELL (BIGGY, TCEXTRA)
 ---------------------------------------------------------------------------
-Two more commands in the Tiny-C shell:
+Two more commands in the UCSD-C shell:
     TYPE [VOL: or #5:]NAME   a text file on the console (no pause at a
            screenful); with wildcards (* = ?) each file that matches,
            under its name; a file that is not text: says so.
@@ -815,7 +815,7 @@ Two more commands in the Tiny-C shell:
 VERSION.TEXT revision 1.17.  Big_Disk.BLK and TCEXTRA.BLK updated;
 extracted files, report and manifest regenerated.
 
-WHICH DISK CC TAKES A FILE FROM (TINY-C, TCSRC)
+WHICH DISK CC TAKES A FILE FROM (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 A source, an #include file or an @batch file named with a volume
 (TOOLSRC:VI.H, #5:X.C, *X.H) is taken from that volume only; copies of
@@ -828,9 +828,9 @@ directory of every disk unit (4, 5, 9..14):
                               volume (the Filer's Prefix, the shell's CD),
                               else an error (message 117) that lists the
                               volumes, and the compile stops.
-This replaces the old order for <x.h> (prefix, boot volume, TINY-C:).
+This replaces the old order for <x.h> (prefix, boot volume, UCSD-C:).
 The code that looks (PP.C, segment FIND) is in memory only while it
-looks.  TINY-C.BLK (CC.CODE, TCMSGS.TEXT) and TCSRC.BLK (PP.C, MAIN.C,
+looks.  UCSD-C.BLK (CC.CODE, TCMSGS.TEXT) and TCSRC.BLK (PP.C, MAIN.C,
 TC.H) updated; BIGGY unchanged.
 
 BIGGY REVISION 1.18: WHEREIS AND VOLUMES IN THE SHELL (BIGGY, TCEXTRA)
@@ -859,7 +859,7 @@ BIGGY REVISION 1.19: COPY, MOVE AND RENAME IN THE SHELL (BIGGY, TCEXTRA)
 VERSION.TEXT revision 1.19.  Big_Disk.BLK and TCEXTRA.BLK updated;
 extracted files, report and manifest regenerated.
 
-VI: PAGE UP, PAGE DOWN, HOME, END, INSERT, DELETE (TOOLS, TOOLSRC, TINY-C)
+VI: PAGE UP, PAGE DOWN, HOME, END, INSERT, DELETE (TOOLS, TOOLSRC, UCSD-C)
 ---------------------------------------------------------------------------
 The emulator types the L2 editor's commands for these keys (Page Down
 >P, Page Up <P>, Home JB, End JE, Insert I, Delete D ^U ^C), which VI
@@ -871,9 +871,9 @@ each: Home 84H, End 85H, Insert 86H, Delete 87H, Page Up 88H, Page Down
 89H, which VI already understands (start/end of the line, insert, delete
 a character, a screen back/forward).  The L2 editor and every other
 program get the keys as before.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK
-(VIUCSD.C) and TINY-C.BLK (PSYS.H) updated; BIGGY unchanged.
+(VIUCSD.C) and UCSD-C.BLK (PSYS.H) updated; BIGGY unchanged.
 The emulator does this from version 2.00 (UCSD-Pascal_Windows_Emulator);
-TINY-C.BLK (PSYS.H comment) and TOOLS.BLK (README.TEXT) say so.
+UCSD-C.BLK (PSYS.H comment) and TOOLS.BLK (README.TEXT) say so.
 
 GREP (TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
@@ -888,7 +888,7 @@ the shell:  GREP [-i] PATTERN [VOL: or #5:]FILES ...
     it, ^ $ the start and end of the line, \c the character c, \s a blank
     (the shell splits its words at blanks).
     GREP printf *.C     GREP -i ^int #9:*.H     GREP fopen\s*\( TOOLSRC:VI*.C
-TINY-C.BLK (PSYS.H: a comment) updated too; BIGGY unchanged.
+UCSD-C.BLK (PSYS.H: a comment) updated too; BIGGY unchanged.
 GREP update: * in a PATTERN now means any characters, as in file names
 (GREP vi*pageup *.C finds VI_K_PAGEUP); . is any one character, x+ and x?
 still repeat, \* is a star.  TOOLS.BLK and TOOLSRC.BLK updated.
@@ -915,49 +915,49 @@ extracted files, report and manifest regenerated.
 
 BATCH FILES BUILD ONTO THE VOLUME THE RESULT BELONGS ON (TCSRC, TOOLSRC)
 ---------------------------------------------------------------------------
-    TCSRC:BUILD.TEXT    /L TINY-C:CC2=...     the rebuilt compiler goes
+    TCSRC:BUILD.TEXT    /L UCSD-C:CC2=...     the rebuilt compiler goes
                         next to CC.CODE (rename it CC.CODE to use it)
-    TCSRC:LIBS.TEXT     /J TINY-C:TCLIB2=...  the rebuilt library goes
+    TCSRC:LIBS.TEXT     /J UCSD-C:TCLIB2=...  the rebuilt library goes
                         next to TCLIB.OBJ (rename it TCLIB.OBJ to use it)
     TOOLSRC:TOOLS.TEXT  /L TOOLS:VI=..., /L TOOLS:GREP=...  each tool is
                         linked straight onto TOOLS: (TOOLS: must be on line)
 The objects (NAME.OBJ) stay on the source volume.  The README.TEXT files
 of TCSRC: and TOOLSRC: say so.  TCSRC.BLK and TOOLSRC.BLK updated.
 
-ONE BATCH FILE FOR EVERYTHING: TOOLSRC:ALL.TEXT (TOOLSRC, TINY-C, TCSRC)
+ONE BATCH FILE FOR EVERYTHING: TOOLSRC:ALL.TEXT (TOOLSRC, UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 A batch file can now run other batch files: a line @OTHER runs
 OTHER.TEXT, then the first one goes on.  TOOLSRC:ALL.TEXT is
-    @TCSRC:BUILD     the compiler  -> TINY-C:CC2.CODE
-    @TCSRC:LIBS      the library   -> TINY-C:TCLIB2.OBJ
+    @TCSRC:BUILD     the compiler  -> UCSD-C:CC2.CODE
+    @TCSRC:LIBS      the library   -> UCSD-C:TCLIB2.OBJ
     @TOOLS           every tool    -> TOOLS:
-(prefix TOOLSRC:, X(ecute TINY-C:CC, answer @ALL; TCSRC:, TINY-C: and
+(prefix TOOLSRC:, X(ecute UCSD-C:CC, answer @ALL; TCSRC:, UCSD-C: and
 TOOLS: on line).  An object (NAME.OBJ) now goes on its source's volume,
 and /L and /J look for objects the way CC looks for sources, so BUILD's
 and LIBS's objects stay on TCSRC:.  CC also no longer keeps memory from
 one command to the next (link and join), which a run this long needs.
-TINY-C.BLK (CC.CODE, its README), TCSRC.BLK (MAIN.C) and TOOLSRC.BLK
+UCSD-C.BLK (CC.CODE, its README), TCSRC.BLK (MAIN.C) and TOOLSRC.BLK
 (ALL.TEXT, README) updated.
 
-VI: THE MOUSE WHEEL SCROLLS (TOOLS, TOOLSRC, TINY-C)
+VI: THE MOUSE WHEEL SCROLLS (TOOLS, TOOLSRC, UCSD-C)
 ---------------------------------------------------------------------------
 With emulator 2.01 or later the mouse wheel scrolls VI's screen, 3 lines
 a notch (as ^Y / ^E), in command mode; while typing, or on a : line, it
 is ignored.  The emulator sends 96H (a notch away from you) and 97H
 (towards you) only to a program that asks for one code per key, as VI
 does (PSYS.H: KEY_WHEELUP, KEY_WHEELDN).  TOOLS.BLK (VI.CODE, README),
-TOOLSRC.BLK (VIUCSD.C) and TINY-C.BLK (PSYS.H) updated.
+TOOLSRC.BLK (VIUCSD.C) and UCSD-C.BLK (PSYS.H) updated.
 
-VI: A BLOCK CURSOR (TOOLS, TOOLSRC, TINY-C)
+VI: A BLOCK CURSOR (TOOLS, TOOLSRC, UCSD-C)
 ---------------------------------------------------------------------------
 With emulator 2.02 or later the cursor is a block while VI runs (its cell
 inverted: green ground, the character black), easy to find; when VI ends
 it is the usual line again.  VI asks for it with SYSCOM^.EXPANSION[1] =
 25606 (PSYS.H: PX_KEYS_BLOCK; 25605, PX_KEYS, gives the keys alone, as the
 shell uses).  TOOLS.BLK (VI.CODE, README), TOOLSRC.BLK (VIUCSD.C) and
-TINY-C.BLK (PSYS.H) updated.
+UCSD-C.BLK (PSYS.H) updated.
 
-BIGGY REVISION 1.21: A SMALLER PRINTF (BIGGY, TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS)
+BIGGY REVISION 1.21: A SMALLER PRINTF (BIGGY, UCSD-C, TCSRC, TCEXTRA, TCTESTS, TOOLS)
 ---------------------------------------------------------------------------
 The library's printf (STDIO.C) uses much less stack: its working
 procedure needed 51 words for its locals and now needs 16, because the
@@ -968,12 +968,12 @@ that is on the stack only while a number is printed.  printf("%d")
 takes 38 words (76 bytes) less stack in all; every program that uses
 printf is about 500 bytes smaller.  %E and %G now print a capital E
 for floats too.  Output is otherwise the same.
-TINY-C.BLK (TCLIB.OBJ), TCSRC.BLK (STDIO.C, LIBINT.H), TCTESTS.BLK
+UCSD-C.BLK (TCLIB.OBJ), TCSRC.BLK (STDIO.C, LIBINT.H), TCTESTS.BLK
 (PRINTF.C, a new test, and the relinked tests), TCEXTRA.BLK and
 TOOLS.BLK (relinked programs) updated; Big_Disk.BLK: SYSTEM.SHELL
 relinked, VERSION.TEXT revision 1.21.
 
-CC NEEDS LESS MEMORY: cc @all FROM THE SHELL HAS 2,954 WORDS FREE, WAS 589 (TINY-C, TCSRC, TOOLS, TOOLSRC)
+CC NEEDS LESS MEMORY: cc @all FROM THE SHELL HAS 2,954 WORDS FREE, WAS 589 (UCSD-C, TCSRC, TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
 The least free memory of a total rebuild -- the shell ($ at the Command:
 prompt), then  cc @all  (TOOLSRC:ALL.TEXT: the compiler, the library, vi
@@ -993,66 +993,66 @@ files of TCEXTRA and TCTESTS are byte for byte the ones already here.
     come before its 150 macros (opening a file needs 1,000 words of stack)
   - vi's < and > are a function of their own (VICMD.C), vi.h includes
     vipage.h first (VI.H), so VI.CODE is new too
-TINY-C.BLK (CC.CODE), TCSRC.BLK (the compiler's sources), TOOLS.BLK
-(VI.CODE) and TOOLSRC.BLK (VI.H, VICMD.C) updated.  UCSD-TinyC:
+UCSD-C.BLK (CC.CODE), TCSRC.BLK (the compiler's sources), TOOLS.BLK
+(VI.CODE) and TOOLSRC.BLK (VI.H, VICMD.C) updated.  UCSD-C:
 tools/shellalltest.py measures it (PSYS_MODE=z80 for the real thing).
 
-TINY-C VERIFY ON TWO VOLUMES: TCVERIF.BLK, TCEXPCT.BLK (new)
+UCSD-C VERIFY ON TWO VOLUMES: TCVERIF.BLK, TCEXPCT.BLK (new)
 ---------------------------------------------------------------------------
-The Tiny-C Verify content is on two volumes that go with TINY-C, TCSRC,
+The UCSD-C Verify content is on two volumes that go with UCSD-C, TCSRC,
 TCTESTS and TCEXTRA (units 5, 9, 10, 11; these two on 12 and 13):
 TCVERIF: VERIFY.SCRIPT (the Verify keyboard script), RMFILES.C/.CODE;
 TCEXPCT: NAME.EXPECT, what each of the 26 tests prints.  The script
 compiles and runs every test where its source is, rebuilds the compiler
 with @BUILD, checks CC2.CODE is IDENTICAL to CC.CODE, and runs HANOI with
-CC2.  Passes in P-Code and Z80 mode (UCSD-TinyC tools/tcverify.py).
+CC2.  Passes in P-Code and Z80 mode (UCSD-C tools/tcverify.py).
 
-CC FLUSHES THE CONSOLE AT EACH PASS (TINY-C, TCSRC)
+CC FLUSHES THE CONSOLE AT EACH PASS (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 The name of the file CC is preprocessing, compiling or generating code
 for is on the screen while the pass runs, not after it (a long pass
 looked frozen).  cc @all from the shell: 2,898 words free at the least
-(the flush costs 56).  TINY-C.BLK (CC.CODE), TCSRC.BLK (MAIN.C) updated.
+(the flush costs 56).  UCSD-C.BLK (CC.CODE), TCSRC.BLK (MAIN.C) updated.
 
-CC'S PASS LINES IN COLUMNS (TINY-C, TCSRC)
+CC'S PASS LINES IN COLUMNS (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
 Preprocessing NAME  (N free)  Compiling (N free)  Generating code (N free)
 on one line of 97 characters: the source's name is padded to 18, the object
 name is not repeated and "words" is left out, so a long volume and file
 name no longer wraps.  The code is 22 bytes smaller.  cc @all from the
-shell: 2,909 words free at the least.  TINY-C.BLK (CC.CODE) and TCSRC.BLK
+shell: 2,909 words free at the least.  UCSD-C.BLK (CC.CODE) and TCSRC.BLK
 (MAIN.C) updated.
 
-BINDERC: THE BINDER IN TINY-C (TOOLS, TOOLSRC); VOLUMES REMOVED
+BINDERC: THE BINDER IN UCSD-C (TOOLS, TOOLSRC); VOLUMES REMOVED
 ---------------------------------------------------------------------------
 BINDER.CODE (Big_Disk) has no Pascal source here, so BINDERC is a C
 equivalent: TOOLS:BINDERC.CODE, source TOOLSRC:BINDERC.C (tool sources
 live on TOOLSRC:; TOOLS: holds the programs).  BINDERC [FILE], or
 X(ecute TOOLS:BINDERC, puts the GOTOXY procedure of a code file into
 SYSTEM.PASCAL of the prefix volume; it makes the same SYSTEM.PASCAL as
-BINDER (UCSD-TinyC tools/bindertest.py, native and Z80 mode).
+BINDER (UCSD-C tools/bindertest.py, native and Z80 mode).
 TOOLS.BLK and TOOLSRC.BLK updated.
 
 Removed from the volume set: the *_pre_8byte_double volumes (earlier) and
 U134.4_OS_SOURCE_v1.06, _v1.07 and _v1.10 (_v1.11 and the unnumbered
 U134.4_OS_SOURCE.BLK remain).
 
-CC BANNER [0.5] (TINY-C, TCSRC)
+CC BANNER [0.5] (UCSD-C, TCSRC)
 ---------------------------------------------------------------------------
-CC starts with "Tiny-C compiler for UCSD Pascal II.0  [0.5]".  TINY-C.BLK
+CC starts with "UCSD-C compiler for UCSD Pascal II.0  [0.5]".  UCSD-C.BLK
 (CC.CODE) and TCSRC.BLK (MAIN.C) updated.  Not regression tested (a banner).
 
 S, NOT $, STARTS THE SHELL: BIGGY 1.22, U134.4_OS_SOURCE_v1.12 (new)
 ---------------------------------------------------------------------------
-At the Command: prompt the key that runs *SYSTEM.SHELL (the Tiny-C shell) is
+At the Command: prompt the key that runs *SYSTEM.SHELL (the UCSD-C shell) is
 now S; the ? prompt says S(hell.  U134.4_OS_SOURCE_v1.12.BLK is v1.11 with
 SYSSEGS.B.TEXT GETCMD's '$' changed to 'S' (the command set, the CASE label
 and the ? text) and VERSION.TEXT.  GETCMD's segment is 3118 bytes (was
 3176: the CASE table is smaller); the rest of SYSTEM.PASCAL is as built
 from v1.11.  Big_Disk.BLK (BIGGY) revision 1.22: SYSTEM.PASCAL is the OS
 of v1.12 (compiled with the emulator's compiler from the BLK's files);
-SYSOLD.PASCAL stays the 1.10 OS; VERSION.TEXT says 1.22.  TINY-C.BLK and
-TCSRC.BLK: README texts say S.  Not regression tested (UCSD-TinyC's
+SYSOLD.PASCAL stays the 1.10 OS; VERSION.TEXT says 1.22.  UCSD-C.BLK and
+TCSRC.BLK: README texts say S.  Not regression tested (UCSD-C's
 scripts and tests type S now).
 
 VI IS FASTER (TOOLS, TOOLSRC)
@@ -1062,11 +1062,11 @@ vi compares the screen's rows only when something they depend on changed
 times faster), puts the cursor codes (FGOTOXY of BIGGY 1.11 or later) into
 the output buffer instead of a flush and a call per row, and polls the
 keyboard every 8th row (a page of text about 30% faster).  TOOLS.BLK
-(VI.CODE) and TOOLSRC.BLK updated.  Checked: UCSD-TinyC tools/viscreentest.py
+(VI.CODE) and TOOLSRC.BLK updated.  Checked: UCSD-C tools/viscreentest.py
 (every screen the same as before, paged and not) and tools/vitest.py (native
 and Z80 mode).
 
-VI SCROLLS WITH THE EMULATOR'S SCROLL CODES (TINY-C, TOOLS, TOOLSRC)
+VI SCROLLS WITH THE EMULATOR'S SCROLL CODES (UCSD-C, TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
 Emulator 2.03 (UCSD-Pascal_Windows_Emulator) scrolls the console on request
 (ESC [ n S, ESC [ n T, ESC [ top ; bottom r; a program stores 25607 in
@@ -1075,9 +1075,9 @@ at the screen's edge, ^E, ^Y, the mouse wheel and a short ^D / ^U draw only
 the rows that came in, not the whole screen.  A page (^F, ^B, Page Down,
 Page Up) still draws almost every row.  With an older emulator vi works as
 before.  vi's window in Z80 mode is 2.8 KB (was 3 KB: the code is 500 bytes
-bigger).  TINY-C.BLK (psys.h), TOOLS.BLK (VI.CODE), TOOLSRC.BLK updated.
+bigger).  UCSD-C.BLK (psys.h), TOOLS.BLK (VI.CODE), TOOLSRC.BLK updated.
 
-VI SHOWS ITS FIRST SCREEN AT ONCE; THE LIBRARY READS A BLOCK AT A TIME (BIGGY 1.23, TINY-C ...)
+VI SHOWS ITS FIRST SCREEN AT ONCE; THE LIBRARY READS A BLOCK AT A TIME (BIGGY 1.23, UCSD-C ...)
 ---------------------------------------------------------------------------
 vi no longer reads the whole file before it draws: the first screen is up in
 0.4 s in Z80 mode for a 94 KB file (it was 20 s); the rest of the file is read
@@ -1085,16 +1085,16 @@ while vi waits for a key, when the window needs it, and all at once by G, a
 search, a : command and :w (the status line's line total counts what is loaded
 until then).  A file with a line over 1023 characters or more than 128 chunks
 that is found out only after the screen is up stays as far as it was loaded and
-:w refuses it.  The Tiny-C library's fread, fgets and fwrite (to the console)
+:w refuses it.  The UCSD-C library's fread, fgets and fwrite (to the console)
 work a block at a time (the P-System's SCAN and block moves), memchr too: vi's
 loading, grep, the shell.  vi's calls within the program are 2-byte (#pragma
 segment MAIN): 690 bytes less code; its window in Z80 mode stays 2.8 KB.  The
-Windows emulator is not changed.  TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS,
+Windows emulator is not changed.  UCSD-C, TCSRC, TCEXTRA, TCTESTS, TOOLS,
 TOOLSRC (everything relinked with the new library) and Big_Disk.BLK
 (SYSTEM.SHELL, revision 1.23) updated.  cc @all from the shell: least free memory
 2,900 words (was 2,909: vi.h and vipage.h have a few more declarations).
 
-VI PAGE DOWN IN A SMALL WINDOW (TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS, TOOLSRC)
+VI PAGE DOWN IN A SMALL WINDOW (UCSD-C, TCSRC, TCEXTRA, TCTESTS, TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
 Page Down / Up showed a few lines and then nothing (Z80 mode, window 2.5 KB):
 vi kept a screen of text on both sides of the cursor, which the window cannot
@@ -1103,7 +1103,7 @@ below the cursor; a scroll moves as far as the window allows and brings more in.
 Swap file writes go a block at a time.  KNOWN: cc @all least free memory is
 2,613 words with this library (2,900 before); a fix follows.
 
-CC @ALL MEMORY BACK TO 2,900 WORDS (TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS, TOOLSRC)
+CC @ALL MEMORY BACK TO 2,900 WORDS (UCSD-C, TCSRC, TCEXTRA, TCTESTS, TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
 The block-at-a-time library functions had cost the compiler 240 words: fread
 and a fwrite for vi are now a library module of their own (stdioblk.c) that
@@ -1155,14 +1155,14 @@ of the screen again after every key (0.23 s a key in the Z80 emulator, more with
 screen of long lines; typed-ahead keys piled up).  Now only the row of the edited line is
 checked (0.035 s).  TOOLS.BLK (VI.CODE) and TOOLSRC.BLK updated.
 
-VI KNOWS WHEN KEYS ARE WAITING (EMULATOR 2.04) (TOOLS, TOOLSRC, TINY-C)
+VI KNOWS WHEN KEYS ARE WAITING (EMULATOR 2.04) (TOOLS, TOOLSRC, UCSD-C)
 ---------------------------------------------------------------------------
 kbhit() (UNITBUSY) is always false on this system, so vi never saw typed-ahead keys and
 repainted after every key.  Emulator 2.04 keeps the number of keys waiting in
 SYSCOM^.EXPANSION[2] (a program asks with 25609, PX_KEYS_AHEAD in PSYS.H, and gets 25610);
 vi uses it: no repaint while keys wait (typing, j, the mouse wheel: one repaint after a
 burst).  62 typed spaces: 3.0 s -> 1.0 s in the Z80 emulator.  With an older emulator vi works
-as before.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK, TINY-C.BLK (PSYS.H) updated.
+as before.  TOOLS.BLK (VI.CODE), TOOLSRC.BLK, UCSD-C.BLK (PSYS.H) updated.
 
 VI REQUIRES EMULATOR 2.04; THE FALLBACKS ARE GONE (TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
@@ -1177,7 +1177,7 @@ SYSTEM.MISCINFO and NEW.MISCINFO on BIGGY: have the backquote as CRTINFO.BREAK (
 read a key for 1.5 s (a loop that never ends, a long grep), it stops the program with the
 run-time error "Program interrupted by user" (press <space>), back at the command level.  A
 ` typed at a prompt or soon after the program read a key (vi's mark command) is an ordinary
-key.  Big_Disk.BLK updated (the same disk as BIGGY.zip in UCSD-TinyC).
+key.  Big_Disk.BLK updated (the same disk as BIGGY.zip in UCSD-C).
 
 VI: show_help() REMOVED (TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
@@ -1195,7 +1195,7 @@ with one call a step: 100 KB of source, a pattern that is not there: 24 s -> 1 s
 emulator (0.1 s native); a class first ([z]zqq) 34 s -> 5 s.  The same lines as before.
 TOOLS.BLK (GREP.CODE) and TOOLSRC.BLK (GREP.C) updated.
 
-SHELL: > >> < REDIRECTION AND | PIPES (BIGGY 1.25: SYSTEM.SHELL; TINY-C, TCSRC, TCEXTRA, TCTESTS, TOOLS, TOOLSRC)
+SHELL: > >> < REDIRECTION AND | PIPES (BIGGY 1.25: SYSTEM.SHELL; UCSD-C, TCSRC, TCEXTRA, TCTESTS, TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
 COMMAND >FILE puts what a command writes into FILE (>>FILE appends), COMMAND <FILE is its standard
 input, A | B | C runs the programs one after the other with each one's output as the next one's
@@ -1256,7 +1256,7 @@ and every option and key (VI, GREP, CAT, HEXDUMP, OBJCOPY, MORE, LESS, MAN, BIND
 commands, redirection and pipes).  MAN alone lists the pages, -k WORD finds the ones with WORD in them,
 a long page stops at --More-- (SPACE, RETURN, q); MAN VI | LESS to go back and forth.  All the text is
 the one file MAN.TEXT beside MAN.CODE (one directory slot): a page is a "%% NAME" line and what follows;
-the head of MAN.TEXT says how to add one.  The sources keep it as ports/man/MAN.TEXT in UCSD-TinyC, and
+the head of MAN.TEXT says how to add one.  The sources keep it as ports/man/MAN.TEXT in UCSD-C, and
 tools/mkvolume.py refuses to build TOOLS: when a program on it has no page.
 
 SED AND DIFF (TOOLS:SED.CODE, TOOLS:DIFF.CODE; sources on TOOLSRC:; pages in MAN.TEXT)
@@ -1327,7 +1327,7 @@ a file is opened at is in the middle of the screen.  Emulator: any.
 
 VI BACK TO THE SAVE FIX (TOOLS:VI.CODE)
 ---------------------------------------
-VI is back to the version of "VI SAVE FIX, WC WILD CARDS" above (UCSD-TinyC commit a525be8): the remembered place
+VI is back to the version of "VI SAVE FIX, WC WILD CARDS" above (UCSD-C commit a525be8): the remembered place
 in the header page, the sized VI.SWAP and chunk table and the smaller margin are taken out, to go forward again one
 change at a time.  The other tools are as they were (GREP -n stays).
 
@@ -1403,14 +1403,14 @@ entries than VI.SWAP has slots, which gives 144 bytes back: the window for SYSTE
 3048 before the centring change).  687G puts line 687 on row 18 of 44 in Z80 mode (in the middle in P-Code
 mode); Page Up works.  Emulator: v2.06.
 
-NO DUPLICATE DEFINITIONS (TINY-C:PSYS.H, TCEXTRA:SHELL.C, TOOLSRC: VI.H, VIPAGE.H, LC.C, WC.C)
+NO DUPLICATE DEFINITIONS (UCSD-C:PSYS.H, TCEXTRA:SHELL.C, TOOLSRC: VI.H, VIPAGE.H, LC.C, WC.C)
 ----------------------------------------------------------------------------------------------
 No macro is defined twice to the same value any more: vi.h writes its settings common to the P-System and
 Linux builds once; PG_MAXCH is only in vipage.h; OS_DKVID, OS_SYVID (the prefix and system volume words of the
 OS) and MAXDIR (77, the files a directory holds) are in PSYS.H instead of the shell, LC and WC.  The programs
 compile to the same code (TOOLS and Big_Disk are unchanged).  Emulator: any.
 
-UNITS[] IN THE LIBRARY; VI READS NO OPTIONS (TINY-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
+UNITS[] IN THE LIBRARY; VI READS NO OPTIONS (UCSD-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
 ---------------------------------------------------------------------------------------------
 units[], the list of disk units (4, 5, 9 .. 14), is now one library module (TCSRC:UNITS.C, in TCLIB.OBJ,
 declared in PSYS.H) instead of a copy in the shell, LC, WC and GREP.  Vi has no options, so it no longer
@@ -1446,7 +1446,7 @@ goes forward from the cursor, so a pattern only above it is not found either.)  
 
 THE OBJECT FILE FORMAT DOCUMENTED (TCSRC:OBJFORMAT.TEXT)
 --------------------------------------------------------
-TCSRC:OBJFORMAT.TEXT describes the Tiny-C object file (NAME.OBJ, TINY-C:TCLIB.OBJ): the records a module is
+TCSRC:OBJFORMAT.TEXT describes the UCSD-C object file (NAME.OBJ, UCSD-C:TCLIB.OBJ): the records a module is
 made of (TCOB, then M, P, D, U, G, E), a procedure's image, the five kinds of places the linker fills in, how
 the linker reads the files and links a program, ASSERT.OBJ decoded byte by byte, and the linker's messages.
 TCSRC's README.TEXT points to it.  Emulator: any.
@@ -1467,23 +1467,23 @@ table, and the place pexec comes back to); it will not krunch the disk its own o
 The shell's DIR has /E (extended): each file's first block and the bytes in its last block, and the unused
 areas between the files, where they are (DIR /E #5:, DIR #4: /E).  Emulator: v2.06.
 
-THE DISK AND DIRECTORY FUNCTIONS IN THE LIBRARY; CC'S TEMPORARY FILES (TINY-C, TCSRC, TCEXTRA, TOOLS,
+THE DISK AND DIRECTORY FUNCTIONS IN THE LIBRARY; CC'S TEMPORARY FILES (UCSD-C, TCSRC, TCEXTRA, TOOLS,
 TOOLSRC, Big_Disk)
 -----------------------------------------------------------------------------------------------------
 The shell, LC, WC, GREP and KRUNCH each had their own copy of the functions that read a disk's directory,
 find a volume's unit, name the prefix volume and match wild cards.  They are now one library module,
-TCSRC:DIRS.C (in TCLIB.OBJ, with units[]), declared in the new header TINY-C:DIRS.H: units[], dirread,
+TCSRC:DIRS.C (in TCLIB.OBJ, with units[]), declared in the new header UCSD-C:DIRS.H: units[], dirread,
 dirwrite, direntname, volunit, prefixvol, namesame, wildmatch.  CC now removes its temporary files
 (TCTEMP.TEXT, TCTEMP.IR) before and after each source: with CC's output on the same disk (CC @LIBS | GREP
 ...) the old and new temporary files had to share what space was left, and a big source's intermediate file
 could come out truncated.  Emulator: any.
 
-SUB-VOLUMES, PHASE 1: PATHS, MKDIR, CD PATH (TINY-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
+SUB-VOLUMES, PHASE 1: PATHS, MKDIR, CD PATH (UCSD-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
 -----------------------------------------------------------------------------------------------
 A sub-volume is a Data file whose own blocks 2..5 hold a UCSD directory: a volume (77 files) inside a
 file, its block numbers counted from the file's first block.  Its files are named VOL:A/NAME or
 VOL:/A/NAME, and sub-volumes nest (VOL:/A/B/NAME).  The library (TCSRC:DIRS.C, STDIO.C) resolves such
-paths in fopen and remove, so every Tiny-C program reads and writes them.  The shell: MKDIR NAME [BLOCKS]
+paths in fopen and remove, so every UCSD-C program reads and writes them.  The shell: MKDIR NAME [BLOCKS]
 makes one (100 blocks unless BLOCKS); CD VOL:/A sets the path for names without a volume (CD .. goes up,
 CD VOL: leaves it), for the shell and the programs it runs (pexec passes it); DIR, TYPE, DELETE and
 WHEREIS take paths.  Not yet: COPY, MOVE, RENAME, the wildcards of GREP, LC and WC, CC's search for sources
@@ -1508,7 +1508,7 @@ is in.  RMDIR NAME now also removes a sub-volume that holds files: it says how m
 DELETE leaves sub-volumes alone ("is a sub-volume (RMDIR removes it)"), so DELETE * cannot take one
 with everything in it.  MAN SHELL.  Emulator: v2.06.
 
-GROW AND SHRINK; GREP, LC AND WC IN SUB-VOLUMES; KRUNCH OF A SUB-VOLUME (TINY-C, TCSRC, TCEXTRA, TOOLS,
+GROW AND SHRINK; GREP, LC AND WC IN SUB-VOLUMES; KRUNCH OF A SUB-VOLUME (UCSD-C, TCSRC, TCEXTRA, TOOLS,
 TOOLSRC, Big_Disk)
 -----------------------------------------------------------------------------------------------------
 TOOLS:GROW and TOOLS:SHRINK change a sub-volume's size, with one syntax for both: GROW NAME +N (N blocks
@@ -1519,9 +1519,9 @@ files reach past the new end -- only then -- and stops at the blocks its directo
 KRUNCH now takes a sub-volume too (KRUNCH #5:/A).  The wildcards of GREP, LC and WC reach into
 sub-volumes (GREP X A/*.C, LC #5:/A/B/, WC A/*.TEXT, LC A for every file in A) and, after a CD into one,
 work there.  The library has a new module, TCSRC:SUBVOL.C (svcanon, dirfree, fileson, dirkrunch,
-svresize; declared in TINY-C:DIRS.H).  MAN GROW, MAN SHRINK.  Emulator: v2.06.
+svresize; declared in UCSD-C:DIRS.H).  MAN GROW, MAN SHRINK.  Emulator: v2.06.
 
-CC FINDS SOURCES AND INCLUDES IN SUB-VOLUMES (TINY-C, TCSRC)
+CC FINDS SOURCES AND INCLUDES IN SUB-VOLUMES (UCSD-C, TCSRC)
 ------------------------------------------------------------
 CC takes paths into sub-volumes wherever it takes a file name: CC A/X, CC #5:/A/B/X, #include
 "A/X.H", /L OUT=A/X,A/Y, @A/MK.  After the shell's CD into a sub-volume, CC looks there first for
@@ -1530,7 +1530,7 @@ from a sub-volume finds its "x.h" in that sub-volume first.  NAME.OBJ goes next 
 and the temporary files (TCTEMP.TEXT, TCTEMP.IR) go on the volume that holds the sub-volume, where
 X(ecute and the shell can run the program.  Emulator: v2.06.
 
-A \ IS A / IN PATHS (TINY-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
+A \ IS A / IN PATHS (UCSD-C, TCSRC, TCEXTRA, TOOLS, TOOLSRC, Big_Disk)
 ---------------------------------------------------------------------
 Paths into sub-volumes may be written with \ as Windows writes them: COPY TOOLS:\*.CODE \TMP, DIR
 #5:\A\B, CD \TMP, GREP X A\*.C, CC #5:\A\PROG.  Before, the shell's COPY took \TMP for a new file
@@ -1545,7 +1545,7 @@ DELETE removes the directory entries that matched, as they are, instead of openi
 each name: so DELETE ?TMP (then Y) removes a file named \TMP, which the shell's COPY made before
 the change above.  Emulator: v2.06.
 
-PROGRAMS RUN FROM SUB-VOLUMES (TINY-C, TCSRC, TCEXTRA, TOOLS, Big_Disk)
+PROGRAMS RUN FROM SUB-VOLUMES (UCSD-C, TCSRC, TCEXTRA, TOOLS, Big_Disk)
 -----------------------------------------------------------------------
 A code file in a sub-volume runs where it is, from the shell: give its path (A/PROG, #5:/A/PROG,
 A\PROG), or, after a CD into the sub-volume, just its name -- the shell looks on its path first, then
@@ -1565,10 +1565,10 @@ file's block -- and VERSION.TEXT.  GETCMD's segment is 3882 bytes (was 3118); se
 system, is byte-identical, so programs have the memory they had.  Build: compile #5:SYSTEM to a short name
 (#5:OS -- named SYSTEM.PASCAL, the compiler stops with String overflow) and use that code file as
 SYSTEM.PASCAL; compiled the same way, v1.12 gives BIGGY 1.23's SYSTEM.PASCAL byte for byte.  Big_Disk.BLK
-(BIGGY) revision 1.26: SYSTEM.PASCAL is the OS of v1.13, VERSION.TEXT says so.  Checked with UCSD-TinyC's
+(BIGGY) revision 1.26: SYSTEM.PASCAL is the OS of v1.13, VERSION.TEXT says so.  Checked with UCSD-C's
 tools/xsubvoltest.py (both modes).  Emulator: v2.06.
 
-THE SHELL'S PROMPT IS WHERE YOU ARE; PWD; . AND .. IN PATHS (Big_Disk TCEXTRA TCSRC TINY-C TOOLS )
+THE SHELL'S PROMPT IS WHERE YOU ARE; PWD; . AND .. IN PATHS (Big_Disk TCEXTRA TCSRC UCSD-C TOOLS )
 ---------------------------------------------------------------------------
 The shell's prompt is where names without a volume are: BIGGY:> (the prefix volume), or BIGGY:/TMP/SRC>
 after a CD into a sub-volume; PWD prints the same.  In every path . is where the path is and .. the
@@ -1576,16 +1576,16 @@ sub-volume that holds it -- in the shell (COPY X.C .., DIR .., CD ../B) and in e
 CC ../X), as the library resolves them.  COPY with no destination copies into the current directory
 (COPY #9:*).  Emulator: v2.06.
 
-THE LINKER NEEDS LESS MEMORY (Big_Disk, TCEXTRA, TCSRC, TINY-C, TOOLS)
+THE LINKER NEEDS LESS MEMORY (Big_Disk, TCEXTRA, TCSRC, UCSD-C, TOOLS)
 ---------------------------------------------------------------------------
 CC's linker keeps no reference list for each procedure any more: it reads the object files again until
 nothing more is linked, and then makes its table again with only what is linked, so a library's unused
 procedures take no memory while the code is written.  CC linking itself (CC @BUILD) has 8238 words free
 at its least (it had 5748); every code file is byte for byte as before.  The library (TCSRC:DIRS.C,
-SUBVOL.C) folds small helpers into their callers; TINY-C:DIRS.H has dirread and dirwrite as macros.
+SUBVOL.C) folds small helpers into their callers; UCSD-C:DIRS.H has dirread and dirwrite as macros.
 Emulator: v2.06.
 
-VI SAVES FILES IN SUB-VOLUMES (TCSRC, TINY-C, TOOLS, TOOLSRC)
+VI SAVES FILES IN SUB-VOLUMES (TCSRC, UCSD-C, TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
 vi's VI.SWAP (the file's size and 25 KB) is now always on the prefix volume (:VI.SWAP).  After a CD
 into a sub-volume it was made inside that sub-volume, and in a small one (MKDIR's 100 blocks) the save
@@ -1595,7 +1595,7 @@ no such room, and vi says so ("no memory in a sub-volume") and leaves the file a
 a file was left (its header page) is kept for files in sub-volumes too.  vi's window for other files is
 104 bytes smaller (Z80 mode).  Emulator: v2.06.
 
-VI EDITS BIG FILES IN SUB-VOLUMES IN Z80 MODE (Big_Disk, TCEXTRA, TCSRC, TINY-C, TOOLS, TOOLSRC)
+VI EDITS BIG FILES IN SUB-VOLUMES IN Z80 MODE (Big_Disk, TCEXTRA, TCSRC, UCSD-C, TOOLS, TOOLSRC)
 ---------------------------------------------------------------------------
 vi now edits a file in a sub-volume in Z80 mode too (before: "no memory in a sub-volume").  The path
 is followed once, when vi starts and memory is still free; after that the file is loaded and saved by
@@ -1603,41 +1603,41 @@ where it is (its unit, sub-volume and name), its directory read into 2 KB of vi'
 the file is loaded; for a save the window's bytes are parked in VI.SWAP and brought back).  Only the
 library's new small SVAT segment (TCSRC:DIRS.C, 916 bytes) is loaded then, not the path code and a
 2 KB directory.  vi's Z80 window: 3842 bytes for a text file on a volume (3876 before), 2728 for one in
-a sub-volume.  The library: TINY-C:DIRS.H has struct svat and __svplace; fopen and fclose (STDIO.C) go
+a sub-volume.  The library: UCSD-C:DIRS.H has struct svat and __svplace; fopen and fclose (STDIO.C) go
 through a place when one is set; closing a sub-volume file that was only read no longer reads its
 directory.  The compiler's fmtfix (EXPR.C) is in PARSE now, not a segment of its own (a code file may
 have ten segments; CC's free memory is unchanged).  Big_Disk: SYSTEM.SHELL relinked.  Emulator: v2.06.
 
-TINY-C AND THE TOOLS IN SUB-VOLUMES; TCSRC AND TOOLSRC GONE (TINY-C, TOOLS, TCEXTRA, TCTESTS,
+UCSD-C AND THE TOOLS IN SUB-VOLUMES; TCSRC AND TOOLSRC GONE (UCSD-C, TOOLS, TCEXTRA, TCTESTS,
 TCVERIF, TCEXPCT, Big_Disk)
 ---------------------------------------------------------------------------
-Tiny-C is laid out as a tree of sub-volumes (Tiny-C's MKDIR), so the separate source disks are
+UCSD-C is laid out as a tree of sub-volumes (UCSD-C's MKDIR), so the separate source disks are
 gone: BLK_format/TCSRC.BLK and TOOLSRC.BLK and their extracted files are removed.
-    TINY-C:   CC.CODE, TCMSGS.TEXT, README.TEXT, FILES.TEXT
+    UCSD-C:   CC.CODE, TCMSGS.TEXT, README.TEXT, FILES.TEXT
               INCLUDE/   the headers (STDIO.H ...)
               LIB/       TCLIB.OBJ
               SRC/       ALL.TEXT; CC/ the compiler and BUILD.TEXT, LIB/ the library and LIBS.TEXT
     TOOLS:    the tools ready to run (VI.CODE ...), MAN.TEXT, README.TEXT, FILES.TEXT
               SRC/       TOOLS.TEXT and a sub-volume of sources for each tool (SRC/VI, SRC/GREP ...)
-CC takes <x.h> from TINY-C:/INCLUDE (and "x.h" last from there), TCLIB.OBJ from TINY-C:/LIB, and
-the names in a batch file in a sub-volume from beside it: CC @TINY-C:/SRC/ALL (from the shell)
-rebuilds the compiler (TINY-C:CC2.CODE), the library (TINY-C:/LIB/TCLIB2.OBJ) and every tool,
+CC takes <x.h> from UCSD-C:/INCLUDE (and "x.h" last from there), TCLIB.OBJ from UCSD-C:/LIB, and
+the names in a batch file in a sub-volume from beside it: CC @UCSD-C:/SRC/ALL (from the shell)
+rebuilds the compiler (UCSD-C:CC2.CODE), the library (UCSD-C:/LIB/TCLIB2.OBJ) and every tool,
 from anywhere, byte for byte the shipped ones.  Files in sub-volumes named with their volume are
 opened by the sub-volume's place, found once and read a directory block at a time, not through
 the path code and a 2 KB directory: headers cost the preprocessor less memory than before.
 FILES.TEXT lists the sub-volumes' files too (SRC/CC/MAIN.C).  tools/extract_all.py now extracts a
-sub-volume as a folder of its files (Files_Extracted_Raw/TINY-C/SRC/CC/MAIN.C).  vi's VI.SWAP is
+sub-volume as a folder of its files (Files_Extracted_Raw/UCSD-C/SRC/CC/MAIN.C).  vi's VI.SWAP is
 the file and 32 KB (was 25 KB).  Big_Disk: SYSTEM.SHELL relinked.  Emulator: v2.06.
 
-AN OBJ SUB-VOLUME FOR THE OBJECTS (TINY-C, TOOLS)
+AN OBJ SUB-VOLUME FOR THE OBJECTS (UCSD-C, TOOLS)
 ---------------------------------------------------------------------------
-TINY-C: and TOOLS: each have an OBJ sub-volume beside SRC, empty, for the objects a rebuild makes.
+UCSD-C: and TOOLS: each have an OBJ sub-volume beside SRC, empty, for the objects a rebuild makes.
 CC's new /O DIR command sends the objects of the commands after it into DIR (and /L, /J look there
 first; in a batch file it lasts to the file's end): BUILD.TEXT and LIBS.TEXT start with
-/O TINY-C:/OBJ, TOOLS.TEXT with /O TOOLS:/OBJ, so the source sub-volumes stay clean.  The source
+/O UCSD-C:/OBJ, TOOLS.TEXT with /O TOOLS:/OBJ, so the source sub-volumes stay clean.  The source
 sub-volumes are smaller now (room for edits only).  Emulator: v2.06.
 
-OPTIONS START WITH -; DIR -S AND -N; SHRINK NAME (TINY-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, TCEXPCT, Big_Disk)
+OPTIONS START WITH -; DIR -S AND -N; SHRINK NAME (UCSD-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, TCEXPCT, Big_Disk)
 ---------------------------------------------------------------------------
 Now that a path may start with /, every option starts with -: CC's -C, -Z, -L, -J and -O (they
 were /C, /Z, /L, /J, /O; the batch files BUILD, LIBS, TOOLS, DEMOS and TESTS use the new ones) and
@@ -1646,18 +1646,18 @@ the shell's DIR -E (was /E).  The tools always took - options.  CC's -O lasts un
 DIR -N by name (-ES both).  SHRINK NAME without a size leaves the sub-volume no free blocks.
 Big_Disk: SYSTEM.SHELL (the new DIR).  Emulator: v2.06.
 
-ALL.TEXT AT THE TOP OF TINY-C:; WHEREIS LOOKS IN SUB-VOLUMES (TINY-C, TCEXTRA, Big_Disk)
+ALL.TEXT AT THE TOP OF UCSD-C:; WHEREIS LOOKS IN SUB-VOLUMES (UCSD-C, TCEXTRA, Big_Disk)
 ---------------------------------------------------------------------------
 The batch file that rebuilds everything (the compiler, the library and every tool) is
-TINY-C:ALL.TEXT now, next to CC.CODE, where the Filer and DIR TINY-C: show it (it was
-TINY-C:/SRC/ALL.TEXT, inside a sub-volume).  Run it with CC @TINY-C:ALL from the shell.  The
+UCSD-C:ALL.TEXT now, next to CC.CODE, where the Filer and DIR UCSD-C: show it (it was
+UCSD-C:/SRC/ALL.TEXT, inside a sub-volume).  Run it with CC @UCSD-C:ALL from the shell.  The
 shell's WHEREIS looks into every sub-volume too, at any depth: WHEREIS ALL* finds
-TINY-C:ALL.TEXT, WHEREIS STDIO.H finds TINY-C:/INCLUDE/STDIO.H; with a volume or path given it
+UCSD-C:ALL.TEXT, WHEREIS STDIO.H finds UCSD-C:/INCLUDE/STDIO.H; with a volume or path given it
 searches there and below.  Big_Disk: SYSTEM.SHELL.  Emulator: v2.06.
 
-CC'S PASS LINES IN COLUMNS AGAIN (TINY-C, Big_Disk)
+CC'S PASS LINES IN COLUMNS AGAIN (UCSD-C, Big_Disk)
 ---------------------------------------------------------------------------
-A source in a sub-volume has a long name (TINY-C:/SRC/CC/COMPILE.C), and CC padded file names
+A source in a sub-volume has a long name (UCSD-C:/SRC/CC/COMPILE.C), and CC padded file names
 to 18 characters only, so the "(N free)" figures of a long compile no longer lined up.  The
 name is padded to 29 now (TOOLS:/SRC/BINDERC/BINDERC.C is 28), with always a blank after it: a
 line is about 107 of the emulator's 132 columns.  Emulator: v2.06.
@@ -1669,27 +1669,27 @@ one before the volume that holds it), without asking.  KRUNCH -r * krunches ever
 and all their sub-volumes (without -r, * is still the system volume).  The exit status is the
 worst of them.  MAN KRUNCH has it.  Emulator: v2.06.
 
-CC'S PASS LINES: BYTES FREE, LINES/S, BYTES/S (TINY-C, Big_Disk)
+CC'S PASS LINES: BYTES FREE, LINES/S, BYTES/S (UCSD-C, Big_Disk)
 ---------------------------------------------------------------------------
 A compile's line is the source's name, then the least free memory of each pass in bytes (the
 word "Preprocessing" is gone; Compiling, Generating code), then the lines a second it compiled
 (the source's and its headers', over the three passes):
-  TINY-C:/SRC/CC/MAIN.C   5798 bytes free  Compiling  5018 bytes free  Generating code  8728 bytes free   2000 lines/s
+  UCSD-C:/SRC/CC/MAIN.C   5798 bytes free  Compiling  5018 bytes free  Generating code  8728 bytes free   2000 lines/s
 A link ends in its least free bytes and the bytes a second it linked.  The rates come from the
 P-System's clock (TIME): turn on the emulator's Options > Host clock; without it they are left
 out.  Emulator: v2.06.
 
-SYSTEM.PASCAL IN C (TINY-C; UCSD-SYSTEM-C)
+SYSTEM.PASCAL IN C (UCSD-C; UCSD-SYSTEM-C)
 ---------------------------------------------------------------------------
 The operating system, SYSTEM.PASCAL (U134.4_OS_SOURCE_v1.13), has been rewritten in C:
 https://github.com/Bio-Printer/UCSD-SYSTEM-C.  Its SYSTEM.PASCAL can replace the one on
 Big_Disk: segment 0's procedures have the same numbers, the globals are at the same words,
 and the segments are the same.  The Filer, Editor, Compiler, Linker, Assembler, Pascal and
-Tiny-C programs, the shell, pexec and sub-volumes all run as before.  Their transcripts and
+UCSD-C programs, the shell, pexec and sub-volumes all run as before.  Their transcripts and
 the disks they leave are byte for byte the same.  Segment 0, which stays in memory, is 7,564
 bytes (it was 7,756), so programs have 96 more words free.  Big_Disk.BLK keeps the Pascal
 one, as the reference.  The repository's Big_Disk_C.zip is Big_Disk with the C one.  CC on
-TINY-C has the new #pragma system that compiles it: a module laid out as SYSTEM.PASCAL, with
+UCSD-C has the new #pragma system that compiles it: a module laid out as SYSTEM.PASCAL, with
 lex level 0 procedures, its statics as the outer block's globals, and Pascal-style function
 results.  Emulator: any (tested on v2.07).
 
@@ -1704,13 +1704,13 @@ and boots SYSTEM.C unless a key is typed (the key is not passed on).  If the one
 the boot disk, the other one is booted.  The boot is the interpreter's BOOT (U120 BOOT.TEXT) with
 two instructions changed (CALL IOINIT -> CALL CHOOSE, the not-found loop -> JP NOTFND) and 280
 bytes of new code in the unused end of the file, at 2A40H.  BLK_format/SYS-C.BLK, the new volume
-SYS-C:, holds the OS's C sources (SYSC.C, SEG0.C, SEGS.C, GLOBALS.H; X(ecute TINY-C:CC, SYS-C:SYSC
+SYS-C:, holds the OS's C sources (SYSC.C, SEG0.C, SEGS.C, GLOBALS.H; X(ecute UCSD-C:CC, SYS-C:SYSC
 makes SYSC.CODE, which equals SYSTEM.C byte for byte), SYSTEM.C, that SYSTEM.MICRO, and
 BOOTC.TEXT, the boot's source: the P-System's Z80 Assembler turns it into the same bytes.  There is
 also a README.TEXT and a FILES.TEXT.  Its files are in Files_Extracted_*/SYS-C.  Big_Disk.BLK
 (BIGGY) revision 1.27: SYSTEM.C, SYSTEM.MICRO and VERSION.TEXT.
 Known limit: the Filer's K(runch) asks for a reboot only when it moves SYSTEM.PASCAL, so boot again
-after a Filer K(runch) of the boot disk while SYSTEM.C runs.  Tiny-C's KRUNCH is safe.
+after a Filer K(runch) of the boot disk while SYSTEM.C runs.  UCSD-C's KRUNCH is safe.
 Emulator: v2.08 for the 2 seconds (its key wait, OUT (2)).  An older one does not wait, and boots
 SYSTEM.C.
 
@@ -1727,22 +1727,22 @@ volume, compile II.0.FILER to get SYSTEM.FILER.  Compiled the same way, v1.13 gi
 SYSTEM.FILER byte for byte.  Big_Disk.BLK (BIGGY) revision 1.28: SYSTEM.FILER is v1.14's, and
 VERSION.TEXT says so.  The disk's free areas are as they were (CC's temporary files need the second
 largest while a pipe holds the largest).  Checked with UCSD-SYSTEM-C's tools/filertest.py and
-UCSD-TinyC's quicktest in both modes.  Emulator: any (v2.08 for the 2 seconds at the boot).
+UCSD-C's quicktest in both modes.  Emulator: any (v2.08 for the 2 seconds at the boot).
 
-NO SCRATCH WORD IN A FRAME: EVERY TINY-C PROGRAM HAS A WORD MORE PER CALL (TINY-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, Big_Disk)
+NO SCRATCH WORD IN A FRAME: EVERY UCSD-C PROGRAM HAS A WORD MORE PER CALL (UCSD-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, Big_Disk)
 ---------------------------------------------------------------------------
 CC dropped a value that is not used (an expression statement's: a call's result, x++) by storing it
 into a scratch word, which every function's frame had for nothing else.  Now it drops it with FJP 0:
 that takes the word off the stack and goes to the next instruction either way.  It is as many bytes
-as the store, and the frame has no such word, so each active call of every Tiny-C function uses one
+as the store, and the frame has no such word, so each active call of every UCSD-C function uses one
 word less.  The operating system in C (SYSTEM.C) was already compiled this way.  A total rebuild
-started from the shell (cc @tiny-c:all) has 68 words more at its least (1476, was 1408), and CC
-compiling the shell 106 bytes more.  Rebuilt with it: CC.CODE and the library (TINY-C), every tool
+started from the shell (cc @ucsd-c:all) has 68 words more at its least (1476, was 1408), and CC
+compiling the shell 106 bytes more.  Rebuilt with it: CC.CODE and the library (UCSD-C), every tool
 (TOOLS), the demos and tests (TCEXTRA, TCTESTS, TCVERIF), and BIGGY's SYSTEM.SHELL.  Emulator: any.
 
-TINY-C:ALL BUILDS SYSTEM.C TOO (TINY-C, TOOLS, TCEXTRA, TCTESTS, SYS-C, Big_Disk)
+UCSD-C:ALL BUILDS SYSTEM.C TOO (UCSD-C, TOOLS, TCEXTRA, TCTESTS, SYS-C, Big_Disk)
 ---------------------------------------------------------------------------
-CC @TINY-C:ALL rebuilds the compiler, the library and every tool, and now the operating system in
+CC @UCSD-C:ALL rebuilds the compiler, the library and every tool, and now the operating system in
 C as well.  Its last line is @SYS-C:BUILD, and SYS-C:BUILD.TEXT (new) compiles SYSC.C (SYSC.OBJ goes
 onto SYS-C:) and links SYS-C:SYSTEM.C, the same as BIGGY's byte for byte.  SYS-C: must be on line,
 as TOOLS: must; CC @SYS-C:BUILD builds the system alone.  For it, CC's -L OUT.= (and -J LIB.=), with a
@@ -1750,8 +1750,8 @@ dot at the end, makes the name exactly, as the Filer's NAME. does: -L SYS-C:SYST
 library opens a .C or .H file named with "b" (binary) as plain bytes, not as a C source text file,
 so the linker writes a real code file under that name.  SYS-C:SYSTEM.C as CC writes it is a data
 file in the directory (its name does not end in .CODE); the boot finds it by its name.  Rebuilt:
-TINY-C (CC, the library, ALL.TEXT), TOOLS, TCEXTRA, TCTESTS, BIGGY's SYSTEM.SHELL, SYS-C.  Checked
-with UCSD-TinyC's alltest.py (ALL on the P-System: CC, the library, the tools and SYSTEM.C each
+UCSD-C (CC, the library, ALL.TEXT), TOOLS, TCEXTRA, TCTESTS, BIGGY's SYSTEM.SHELL, SYS-C.  Checked
+with UCSD-C's alltest.py (ALL on the P-System: CC, the library, the tools and SYSTEM.C each
 identical to the shipped one).  Emulator: any.
 
 GLOBALS.TEXT ON THE BASIC SOURCE DISK (U130.1_BASIC_SOURCE)
@@ -1768,7 +1768,7 @@ Its files are in Files_Extracted_*/U130.1_BASIC_SOURCE.  Emulator: any.
 THE PASCAL COMPILER IN C: PASCAL-C.BLK (new; volume PASCALC:)
 ---------------------------------------------------------------------------
 BLK_format/PASCAL-C.BLK, the new volume PASCALC: (a volume's name has at most 7 characters),
-holds PC, the UCSD Pascal II.0 compiler written in C (Tiny-C): a translation, routine by routine,
+holds PC, the UCSD Pascal II.0 compiler written in C (UCSD-C): a translation, routine by routine,
 of U132.A_PASCAL_COMPILER_SOURCE_v1.08, the source of BIGGY's SYSTEM.COMPILER.  Its code files are
 the Pascal compiler's: compiled with PC, the compiler's own source (COMPILER.TEXT on U132.A), the
 operating system and the Filer (U134.4_OS_SOURCE_v1.14), L2, the linker, BASIC and BASICIO,
@@ -1776,13 +1776,13 @@ PASCALIO, the U138.3 utilities and the emulator's test programs each give the sa
 with SYSTEM.COMPILER (apart from bytes the Pascal compiler never sets, which hold whatever was in
 memory).  From the shell: PC NAME compiles NAME.TEXT to NAME.CODE (PC NAME CODE: to CODE.CODE).
 The volume has PC.CODE, its sources (COMPGLBL.H, PCIO.H and the .C modules), BUILD.TEXT -- CC
-@PASCALC:BUILD, TINY-C: on line, compiles them and links PASCALC:PC.CODE again, the same byte for
+@PASCALC:BUILD, UCSD-C: on line, compiles them and links PASCALC:PC.CODE again, the same byte for
 byte -- README.TEXT and FILES.TEXT.  PC is not yet SYSTEM.COMPILER: C(ompile at the Command: prompt
 runs the Pascal one.  Its files are in Files_Extracted_*/PASCAL-C.  Checked in P-Code and Z80
 mode: the 25 programs, and the build.  Source and tests: UCSD-Pascal-compiler-written-in-C.
 Emulator: any.
 
-SHORT GLOBAL OPERANDS: TINY-C'S LINKER MAKES EVERY PROGRAM SMALLER; ALL BUILDS PC TOO (TINY-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, Big_Disk, PASCAL-C)
+SHORT GLOBAL OPERANDS: UCSD-C'S LINKER MAKES EVERY PROGRAM SMALLER; ALL BUILDS PC TOO (UCSD-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, Big_Disk, PASCAL-C)
 ---------------------------------------------------------------------------
 CC writes the operand of every global load, store and address (LDO, SRO, LAO) in the 2-byte form,
 because only the linker knows where each variable is.  The linker now makes it 1 byte where the
@@ -1792,13 +1792,13 @@ long-jump table and word alignment moved to match.  To put as many uses as it ca
 it lays out first the variables and module statics with the most uses for their size.  The Pascal
 compiler in C (PC.CODE) is 3.3 KB smaller (BODYPART 1150 bytes, the resident segment 760), and so
 compiles the compiler's own source from the shell with 3777 words to spare (was 2822).  CC.CODE is
-1.9 KB smaller.  CC @TINY-C:ALL now also rebuilds the Pascal compiler in C: its last line is
+1.9 KB smaller.  CC @UCSD-C:ALL now also rebuilds the Pascal compiler in C: its last line is
 @PASCALC:BUILD (PASCALC: on line; CC's temporary files for BODYPART.C need more than 400 free
 blocks on the prefix volume).  Its BODYPART.C is now the least of a total rebuild from the shell
-(cc @tiny-c:all): 755 words to spare; without it the least is 1528 words (was 1476).
-Rebuilt: TINY-C (CC, ALL.TEXT, the linker's source), every tool (TOOLS), the demos and tests
+(cc @ucsd-c:all): 755 words to spare; without it the least is 1528 words (was 1476).
+Rebuilt: UCSD-C (CC, ALL.TEXT, the linker's source), every tool (TOOLS), the demos and tests
 (TCEXTRA, TCTESTS, TCVERIF), BIGGY's SYSTEM.SHELL, and PASCAL-C (PC.CODE, README.TEXT).  SYSTEM.C
-(#pragma system) is linked as before.  Checked with UCSD-TinyC's tests (runtests, quicktest and
+(#pragma system) is linked as before.  Checked with UCSD-C's tests (runtests, quicktest and
 shellalltest in both modes; selfcompile, voltest, vitest --build, alltest, ostest) and the Pascal
 compiler's 25 programs and its build on the P-System in both modes.  Emulator: any.
 
@@ -1813,7 +1813,7 @@ ABS SQR SQRT SIN COS ATAN LN EXP LOG, function results, parameters, arrays and r
 a REAL; WRITE(D:W:F) writes F decimals, WRITE(D) 16 significant digits (3.141592653589793e+00), and
 READ(D) reads a number as READ of a REAL does.  WRITE and READ are made in place, so a program
 needs nothing from SYSTEM.LIBRARY for them.  Programs without DOUBLE compile as before, byte for
-byte.  New on the volume: PI.TEXT (Tiny-C's PI.C in Pascal: it prints the same, byte for byte),
+byte.  New on the volume: PI.TEXT (UCSD-C's PI.C in Pascal: it prints the same, byte for byte),
 DOUBLES.TEXT and READTEST.TEXT, the test programs (PC PI, then PI).  The compiler's own source
 compiles from the shell with 3434 words to spare (3777 before).  Its files are in
 Files_Extracted_*/PASCAL-C.  Checked in P-Code and Z80 mode: the 25 programs (identical code
@@ -1821,24 +1821,24 @@ files), the build (CC @PASCALC:BUILD), and the three DOUBLE programs (compiled o
 same as on the host; their output).  Emulator: 1.93 or later for DOUBLE in Z80 mode (its
 coprocessor runs the CSPs 100..137); any for the rest.
 
-PASCALC: IN SUB-VOLUMES, AS TINY-C: IS; PC TAKES PATHS (PASCAL-C, TINY-C)
+PASCALC: IN SUB-VOLUMES, AS UCSD-C: IS; PC TAKES PATHS (PASCAL-C, UCSD-C)
 ---------------------------------------------------------------------------
-PASCAL-C.BLK (volume PASCALC:) is laid out as TINY-C: is: PC.CODE, README.TEXT and FILES.TEXT at
+PASCAL-C.BLK (volume PASCALC:) is laid out as UCSD-C: is: PC.CODE, README.TEXT and FILES.TEXT at
 the top, and the sub-volumes SRC (the compiler's C sources and BUILD.TEXT), OBJ (empty: the
 objects a rebuild makes), DEMOS (PI.TEXT) and TESTS (DOUBLES.TEXT, READTEST.TEXT).  PC takes paths
-into sub-volumes as every Tiny-C program does: PC PASCALC:/DEMOS/PI compiles DEMOS/PI.TEXT to
+into sub-volumes as every UCSD-C program does: PC PASCALC:/DEMOS/PI compiles DEMOS/PI.TEXT to
 DEMOS/PI.CODE, and PASCALC:/DEMOS/PI runs it there; after the shell's CD PASCALC:/TESTS, PC
 READTEST and READTEST do the same with the names alone (include files and units are found that
 way too, else as before).  The rebuild is CC @PASCALC:/SRC/BUILD (its objects into PASCALC:/OBJ),
-and TINY-C:ALL.TEXT's last line is that now.  PC needs more memory for the paths (the C library's
+and UCSD-C:ALL.TEXT's last line is that now.  PC needs more memory for the paths (the C library's
 string functions are resident): the compiler's own source compiles from the shell with 3146 words
 to spare (3434 before).  Its files are in Files_Extracted_*/PASCAL-C, a sub-volume's in a folder.
 Checked in P-Code and Z80 mode: the 25 programs, the build from PASCALC:/SRC, the DOUBLE programs,
 the volume from the shell (UCSD-Pascal-compiler-written-in-C's tools/voltest.py), and
-UCSD-TinyC's alltest and shellalltest (cc @tiny-c:all).  Emulator: any (1.93 or later for DOUBLE
+UCSD-C's alltest and shellalltest (cc @ucsd-c:all).  Emulator: any (1.93 or later for DOUBLE
 in Z80 mode).
 
-CC SAYS WHEN A FILE DOES NOT FIT; PATHS COST LESS MEMORY; VI'S O ON LINE 1 (TINY-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, Big_Disk, PASCAL-C)
+CC SAYS WHEN A FILE DOES NOT FIT; PATHS COST LESS MEMORY; VI'S O ON LINE 1 (UCSD-C, TOOLS, TCEXTRA, TCTESTS, TCVERIF, Big_Disk, PASCAL-C)
 ---------------------------------------------------------------------------
 When a file CC writes does not fit on its disk (the preprocessor's TCTEMP.TEXT, an object, the
 code file, the joined library of LIBS), CC now says so -- message 118, "cannot write all of it: no
@@ -1850,17 +1850,17 @@ block reads and writes in sub-volumes through the library instead of its own cop
 own source compiles from the shell with 3337 words to spare (3146 before).  PC's DOUBLE code
 generation is its own source file, DOUBLE.C, in PASCALC:/SRC.  CC keeps one copy of each file name
 instead of one per #include: the least free memory of a total rebuild from the shell (cc
-@tiny-c:all) is 371 words (303 before).  vi: O on the first line of a file opened the new line
+@ucsd-c:all) is 371 words (303 before).  vi: O on the first line of a file opened the new line
 below it, not above, when the byte just before vi's text happened to be a newline (seen in Z80
-mode).  Rebuilt: TINY-C (CC, the library, their sources), every tool (TOOLS), the demos and tests
+mode).  Rebuilt: UCSD-C (CC, the library, their sources), every tool (TOOLS), the demos and tests
 (TCEXTRA, TCTESTS, TCVERIF), BIGGY's SYSTEM.SHELL, and PASCAL-C (PC.CODE, SRC).  Checked with
-UCSD-TinyC's tests in both modes (runtests, quicktest, greptest, subvoltest, visubvoltest,
+UCSD-C's tests in both modes (runtests, quicktest, greptest, subvoltest, visubvoltest,
 growtest, krunchtest, the new fulltest, vitest, vipostest, viswaptest, shellalltest; native also
 selfcompile, pexectest, voltest, ccsubvoltest, findtest, ostest, alltest and the other vi tests)
 and the Pascal compiler's tests in both modes.  Emulator: any (1.93 or later for DOUBLE in Z80
 mode).
 
-GROW AND SHRINK OF A VOLUME; GROW GROWS WHAT HOLDS A SUB-VOLUME; VI'S SMALLEST WINDOW (TINY-C, TOOLS, TCEXTRA, Big_Disk)
+GROW AND SHRINK OF A VOLUME; GROW GROWS WHAT HOLDS A SUB-VOLUME; VI'S SMALLEST WINDOW (UCSD-C, TOOLS, TCEXTRA, Big_Disk)
 ---------------------------------------------------------------------------
 GROW and SHRINK (TOOLS:) work on a volume as well as a sub-volume: GROW #5: +1000 makes the
 volume on unit 5 1000 blocks bigger, SHRINK #5: as small as its files (krunched first if it
@@ -1870,9 +1870,9 @@ area, nor after krunching what holds it -- now grows what holds it first, by wha
 and that in turn what holds it, up to the volume and its image; each step is shown with its
 full name (no room for WORK:/P/R: WORK:/P grows first, by 20 blocks).  vi's smallest window
 (2 KB: a big file in a sub-volume with little memory) now scrolls as a whole one does: before,
-a ^F could stop at the window's end and a ^B some lines short.  Rebuilt: TINY-C (the library,
+a ^F could stop at the window's end and a ^B some lines short.  Rebuilt: UCSD-C (the library,
 its source), TOOLS (GROW, SHRINK, VI and the tools that use the library's path code, MAN.TEXT),
-TCEXTRA, and BIGGY's SYSTEM.SHELL.  Checked with UCSD-TinyC's tests in both modes (quicktest,
+TCEXTRA, and BIGGY's SYSTEM.SHELL.  Checked with UCSD-C's tests in both modes (quicktest,
 runtests, growtest, krunchtest, subvoltest, visubvoltest, vitest, vipostest, viswaptest;
 native also selfcompile, pexectest, voltest, vitest --build, viaddrtest, viscrolltest,
 viscreentest, vipagetest, mantest).  Emulator: 2.09 or later for GROW and SHRINK of a volume,
@@ -1889,7 +1889,7 @@ LANGUAGE.TEXT (the language reference) and DESIGN.TEXT (how it works), the compi
 (BC*.TEXT) and the library's (RT*.TEXT), BUILD.TEXT (BASIC:BC @BASIC:BUILD rebuilds the compiler
 as BASIC:BC2.CODE) and LIBS.TEXT (the library as BASIC:BASLIB2.OBJ), the example programs
 (ARITH.TEXT, ARRAYS.TEXT ... the compiler's tests) and CATALOG.TEXT.  Usage: X(ecute
-BASIC:BC with the source's name, or from Tiny-C's shell BASIC:BC -Q BASIC:PROCS; the program
+BASIC:BC with the source's name, or from UCSD-C's shell BASIC:BC -Q BASIC:PROCS; the program
 made is BASIC:PROCS.CODE.  Checked: the 11 tests (runtests), BC and BASLIB rebuilt on the
 P-System byte for byte the host build's (selfcompile), and the volume itself (voltest: BUILD
 and LIBS on the disk, BC2 identical but for its segment name, BASLIB2 identical, an example
@@ -1898,7 +1898,7 @@ run) under both SYSTEM.PASCAL and BIGGY's SYSTEM.C.  Emulator: BC needs the Harv
 
 BASIC: IN SUB-VOLUMES SRC, LIB, DEMO, TEST; BC'S FILES IN SUB-VOLUMES (BASIC)
 ---------------------------------------------------------------------------
-BASIC.BLK is laid out in sub-volumes, as TINY-C: is: at the top BC.CODE, README.TEXT,
+BASIC.BLK is laid out in sub-volumes, as UCSD-C: is: at the top BC.CODE, README.TEXT,
 LANGUAGE.TEXT, DESIGN.TEXT, ALL.TEXT (@BASIC:ALL runs the four batch files below) and FILES.TEXT
 (every file, the sub-volumes' too); SRC/ the compiler's sources with BUILD.TEXT (@BASIC:/SRC/BUILD
 rebuilds the compiler as BASIC:BC2.CODE); LIB/ BASLIB.OBJ and its sources with LIBS.TEXT
@@ -1911,13 +1911,13 @@ at once in one sub-volume; BC puts an object, listing and code file beside its s
 could run out of string space.  Checked with UCSD-BASIC's tests (runtests, 12, the new subvol
 among them), selfcompile (IDENTICAL), and voltest under SYSTEM.C and SYSTEM.PASCAL: @BASIC:ALL
 on the volume rebuilds BC2.CODE and BASLIB2.OBJ byte for byte the host's, compiles every demo and
-test into its sub-volume, and X(ecute BASIC:/DEMO/STATS and BASIC:/TEST/PROCS run; Tiny-C's
+test into its sub-volume, and X(ecute BASIC:/DEMO/STATS and BASIC:/TEST/PROCS run; UCSD-C's
 shell compiles and runs BASIC:/DEMO/HELLO and lists BASIC:/DEMO.  Emulator: BC needs the Harvard
 layout (VERIFY_HARVARD=1); the programs it makes run in either layout.
 
 BASIC: A NEW DEMO, PI (BASIC)
 ---------------------------------------------------------------------------
-BASIC:/DEMO/PI.TEXT is Tiny-C's PI.C (TCEXTRA:) in BASIC: Archimedes' method with DOUBLEs,
+BASIC:/DEMO/PI.TEXT is UCSD-C's PI.C (TCEXTRA:) in BASIC: Archimedes' method with DOUBLEs,
 polygons of 6, 12, 24 ... sides inside and around a circle until both bounds agree with pi to 15
 significant digits.  BASIC has no PRINT USING, so the bounds are written by a function of the
 program's own (whole-number DOUBLE arithmetic, as PASCAL-C:/DEMOS/PI.TEXT does it), to 15
@@ -1942,27 +1942,27 @@ SYS-C:SEG0.C) does the same.  Segment 0: SYSTEM.PASCAL 7794 bytes (was 7756), SY
 a program has 19 and 28 words less (in the Harvard layout 3 and 0).  Big_Disk.BLK (BIGGY) revision
 1.29: SYSTEM.PASCAL, SYSTEM.C and VERSION.TEXT, each in its old place.  SYS-C.BLK: SEG0.C,
 SYSTEM.C, README.TEXT.  BASIC.BLK: the sources are NAME.BAS (text files); BC compiles NAME.BAS,
-finds a name on Tiny-C's shell's path (after CD BASIC:/DEMO, BC PI), and says that it needs the
+finds a name on UCSD-C's shell's path (after CD BASIC:/DEMO, BC PI), and says that it needs the
 emulator's Harvard layout instead of failing in the others.  Checked with UCSD-SYSTEM-C's systest
 (every scenario, a new one for .BAS, in the standard, Reclaim and Harvard layouts and Z80 mode:
 the Pascal and the C system give the same transcripts and disks) and psbuild (IDENTICAL),
-UCSD-TinyC's quicktest (both systems; SYSTEM.C also in Z80 mode), pexectest, xsubvoltest,
+UCSD-C's quicktest (both systems; SYSTEM.C also in Z80 mode), pexectest, xsubvoltest,
 keytest, subvoltest, greptest and ccsubvoltest, and UCSD-BASIC's runtests, selfcompile and voltest
 under both systems.  Note: UCSD-SYSTEM-C's systest and suite had compared BIGGY's own SYSTEM.C
 with itself since BIGGY 1.27 (its boot prefers SYSTEM.C to the SYSTEM.PASCAL under test); fixed.
 Emulator: any (v2.08 for the 2 seconds at the boot).
 
-TINY-C'S TOOLS TAKE NAME.BAS AS A TEXT FILE: BIGGY 1.30 (TINY-C, TOOLS, TCEXTRA, TCTESTS, Big_Disk, BASIC)
+UCSD-C'S TOOLS TAKE NAME.BAS AS A TEXT FILE: BIGGY 1.30 (UCSD-C, TOOLS, TCEXTRA, TCTESTS, Big_Disk, BASIC)
 ---------------------------------------------------------------------------
-Tiny-C's library opened a file as a UCSD text file only by its name (.TEXT, .C, .H), so the
+UCSD-C's library opened a file as a UCSD text file only by its name (.TEXT, .C, .H), so the
 BASIC sources of BASIC: (NAME.BAS, text files) came out of the shell's TYPE as raw bytes -- the
 header and the blank-compression codes, a ( before a line indented 8 -- and vi said "cannot be
 loaded".  stdio's __istext takes NAME.BAS too, and a new NAME.BAS in a sub-volume is entered as a
 text file (dirs.c svkind), as BIGGY 1.29's systems do on a volume.  So TYPE, vi, cat, grep, wc,
 less, diff, sed and the others read and write NAME.BAS as text; MAN.TEXT says so.  Rebuilt with
-the library: TINY-C (CC, TCLIB.OBJ, the sources), every tool (TOOLS), the demos and the shell
+the library: UCSD-C (CC, TCLIB.OBJ, the sources), every tool (TOOLS), the demos and the shell
 (TCEXTRA), the tests (TCTESTS), and BIGGY's SYSTEM.SHELL: Big_Disk.BLK (BIGGY) revision 1.30,
-VERSION.TEXT.  BASIC.BLK: the manuals say so.  Checked with UCSD-TinyC's runtests, quicktest,
+VERSION.TEXT.  BASIC.BLK: the manuals say so.  Checked with UCSD-C's runtests, quicktest,
 vitest, subvoltest and visubvoltest in both modes, and selfcompile, greptest, pexectest,
 mantest, cattest and wctest; on BASIC:/DEMO from the shell: TYPE HELLO.BAS, GREP -n and WC of
 PI.BAS, vi of HELLO.BAS (an edit saved and TYPEd again); UCSD-BASIC's voltest.  Emulator: any.
@@ -1995,7 +1995,7 @@ file)".  vi without room for VI.SWAP on the prefix volume now works without it (
 file only in part and could not save it).  The shell's TYPE shows a file of CR lines too, and
 says "not a text file" for a binary one before showing any of it.  Rebuilt: TOOLS (VI.CODE,
 MAN.TEXT, SRC/VI), TCEXTRA (SHELL), Big_Disk.BLK (BIGGY) revision 1.31 (SYSTEM.SHELL,
-VERSION.TEXT), BASIC.BLK (BC.CODE, its sources, the manuals).  Checked with UCSD-TinyC's new
+VERSION.TEXT), BASIC.BLK (BC.CODE, its sources, the manuals).  Checked with UCSD-C's new
 vicrtest (both modes), vitest, vipostest, viswaptest and visubvoltest (both modes), vipagetest,
 viscreentest, viaddrtest, viscrolltest, pexectest, quicktest, mantest and redirtest, and
 UCSD-BASIC's runtests, selfcompile and voltest (DEMO/PI.LST as the host's listing) under
@@ -2006,7 +2006,7 @@ CHAIN IN BC'S BASIC (BASIC)
 BC's BASIC has a CHAIN statement: CHAIN "[VOL:]PROGRAM [options]", or CHAIN A$ with the line in a
 string.  The program ends (its files closed) and PROGRAM runs in its place with the options as its
 COMMAND$; nothing of the first one stays in memory.  PROGRAM is found as X(ecute finds it (VOL:,
-the prefix volume, a path into sub-volumes, the shell's path after a CD).  It is Tiny-C's pexec
+the prefix volume, a path into sub-volumes, the shell's path after a CD).  It is UCSD-C's pexec
 protocol of BIGGY's GETCMD, without the way back: when the program chained to ends, the Command:
 prompt comes, or the shell with the last program's exit status when the shell started the first
 one.  It needs BIGGY's systems (SYSTEM.PASCAL 1.10 or later, SYSTEM.C).  BASIC.BLK rebuilt
@@ -2031,7 +2031,7 @@ the shell (CD BASIC:/DEMO, BC -S PI). Emulator: any with the Harvard layout (BC 
 
 BATCH FILES IN THE SHELL; BIGGY 1.32; BASIC:INSTALL.TEXT (Big_Disk, TCEXTRA, TOOLS, BASIC)
 ---------------------------------------------------------------------------
-The Tiny-C shell (UCSD-TinyC's examples/shell.c, SYSTEM.SHELL on BIGGY:) runs batch files:
+The UCSD-C shell (UCSD-C's examples/shell.c, SYSTEM.SHELL on BIGGY:) runs batch files:
 @FILE runs the lines of FILE (FILE.TEXT when the name has no '.') one after the other as
 commands, each shown after the prompt. Empty lines and lines that start with ' are comments.
 A line @OTHER runs OTHER's lines there (4 deep at most). A batch file goes on after a program
@@ -2042,7 +2042,7 @@ INSTALL.TEXT: after @BASIC:/SRC/BUILD, @BASIC:INSTALL in the shell moves BC2.COD
 BCLINK2.CODE onto BC.CODE ... BCLINK.CODE. Each old file goes and the new one takes its name;
 when a new one is missing, the old one stays. Rebuilt: Big_Disk.BLK (BIGGY 1.32:
 SYSTEM.SHELL, VERSION.TEXT), TCEXTRA (SHELL), TOOLS (MAN.TEXT), BASIC.BLK (INSTALL.TEXT, the
-manuals). Checked with UCSD-TinyC's new batchtest (both modes), redirtest, pexectest, quicktest
+manuals). Checked with UCSD-C's new batchtest (both modes), redirtest, pexectest, quicktest
 and mantest, and UCSD-BASIC's runtests, chaintest and voltest under SYSTEM.C and
 SYSTEM.PASCAL (voltest now runs @BASIC:INSTALL after BUILD, then compiles and runs
 DEMO/HELLO with the installed compiler). Emulator: any (BC needs the Harvard layout).
@@ -2129,7 +2129,7 @@ NAME.BAS a text file, as it does NAME.TEXT, NAME.C and NAME.H, and its Export Fi
 every text file back as PC text (CR LF, no header), NAME.BAS, NAME.C and NAME.H included.
 BASIC.BLK rebuilt (LANGUAGE.TEXT and DESIGN.TEXT say so). Checked with UCSD-BASIC's new
 importtest (PI.BAS from Windows imported, compiled, run, exported back the same) and
-UCSD-TinyC's subvolxfertest. Emulator: 2.10 for the Import of NAME.BAS.
+UCSD-C's subvolxfertest. Emulator: 2.10 for the Import of NAME.BAS.
 
 BC'S ERROR MESSAGES: THE RIGHT LINE, AT MOST 10 (BASIC)
 ---------------------------------------------------------------------------
@@ -2198,7 +2198,7 @@ and voltest under SYSTEM.C and SYSTEM.PASCAL. Emulator: any.
 DEMO/AMAZING: A MAZE, ITS SIZE FROM THE COMMAND LINE (BASIC)
 ---------------------------------------------------------------------------
 BASIC:/DEMO/AMAZING.BAS prints a random maze with one path through it, and the path. From
-Tiny-C's shell, AMAZING 13 10 (or 13,10) makes a maze 13 squares long and 10 wide; without a
+UCSD-C's shell, AMAZING 13 10 (or 13,10) makes a maze 13 squares long and 10 wide; without a
 size, or with one out of range (1 to 49), it asks for it. DEMOS.TEXT compiles it with the
 other demos. Run from X(ecute it always asks. A maze filled before it had an exit through the
 bottom now gets one (its solution's walk ran off the maze before). A run-time error now ends
@@ -2209,7 +2209,7 @@ SYSTEM.PASCAL, voltest; AMAZING run with 6 8, 5,4, 4 3 and with its size typed. 
 
 BASIC PROGRAMS AND THE SHELL'S REDIRECTIONS: >FILE, >>FILE, <FILE, | (BASIC)
 ---------------------------------------------------------------------------
-Tiny-C's shell leaves >NAME, >>NAME and <NAME on a program's command line for the program's
+UCSD-C's shell leaves >NAME, >>NAME and <NAME on a program's command line for the program's
 library to do. BC's library did not, so AMAZING 10 10 >TMP.TEXT wrote to the screen, and
 AMAZING 15 15 | MORE made no #4:PIPE1.TEXT for MORE to read ("cannot open it"). Now a BASIC
 program takes them off COMMAND$ as a C program does: what it PRINTs to the console goes into
@@ -2240,7 +2240,7 @@ directory when they have none, and the stack had not that much left.  Now vi len
 of its window for the directory while it opens or closes a file (the window's text is parked in
 VI.SWAP meanwhile), keeps the open's stack free (yanks and undo records that would take it are
 refused with a message), and an open without the room is refused, not crashed.  TOOLS.BLK
-rebuilt (VI.CODE, SRC/VI, MAN.TEXT).  Checked with UCSD-TinyC's vitest (also the Harvard layout,
+rebuilt (VI.CODE, SRC/VI, MAN.TEXT).  Checked with UCSD-C's vitest (also the Harvard layout,
 Z80 mode, --build), viscreentest, vipagetest, vipostest, viswaptest, vicrtest, visubvoltest
 (both modes), viaddrtest, viscrolltest, mantest and quicktest; u against vim -C on Linux.
 Emulator: 2.04 or later (as before).
@@ -2454,7 +2454,7 @@ crtest.  Emulator: any.
 BASIC2: INSTALL AND DUMPALL IN SRC; DUMPS IN MAP/D0 ... D7 (BASIC2)
 ---------------------------------------------------------------------------
 BASIC2:/SRC now holds three batch files beside each other: BUILD (B2 rebuilt from its sources),
-INSTALL (moved there from BASIC2:INSTALL: in Tiny-C's shell, @BASIC2:/SRC/INSTALL puts the
+INSTALL (moved there from BASIC2:INSTALL: in UCSD-C's shell, @BASIC2:/SRC/INSTALL puts the
 rebuilt programs and their maps in place) and DUMPALL (in the shell, after B2 -K -MAP
 @BASIC2:/SRC/BUILD, @BASIC2:/SRC/DUMPALL runs B2DUMP on all 140 NAME.Wn files).  B2DUMP's
 dumps go into new sub-volumes BASIC2:/MAP/D0 ... D7 (1900 blocks each), an old one replaced:
@@ -2470,7 +2470,7 @@ on line).  B2DUMP -MAP NAME.Wn puts it into BASIC2:/MAP/Dn as before; BASIC2:/SR
 -MAP for a whole build's 140 dumps.  Checked: the -K build, DUMPALL and INSTALL on the
 P-System, and voltest2 (both places).  Emulator: any.
 
-TOOLS: ECHO, HEAD, TAIL, SORT, UNIQ, TR, CUT, TEE; BIGGY 1.33 (TOOLS, TINY-C, TCEXTRA, TCTESTS, BIGGY)
+TOOLS: ECHO, HEAD, TAIL, SORT, UNIQ, TR, CUT, TEE; BIGGY 1.33 (TOOLS, UCSD-C, TCEXTRA, TCTESTS, BIGGY)
 ---------------------------------------------------------------------------
 Eight text tools on TOOLS: (sources in TOOLS:/SRC/NAME, a page each in MAN), as coreutils'
 do it in the C locale:
@@ -2485,20 +2485,20 @@ do it in the C locale:
     CUT -b | -c | -f LIST [-d C] [-s]   parts of lines
     TEE [-a] F ...                      the standard input to files as well
 FILE names take the wild cards of DIR (SORT *.TEXT, HEAD -3 #5:*.C, CUT -c1-8 A/*.H): the C
-library's new forfiles() (TINY-C:/SRC/LIB/FILEARGS.C).  TOOLS.BLK is 5000 blocks now.
+library's new forfiles() (UCSD-C:/SRC/LIB/FILEARGS.C).  TOOLS.BLK is 5000 blocks now.
 A new file gets the largest free area of its disk until it is closed, so TEE's files,
 SORT's -o and temporary files and UNIQ's OUTPUT cannot be on the disk where >FILE, or the
 shell's pipe file on #4, is being written: the tools say so (another disk works; SORT -T
 VOL for its temporary files; >FILE[*] leaves room, and the library now takes
 NAME.TEXT[*] for a text file).
 BIGGY 1.33: SYSTEM.SHELL built with that library (VERSION.TEXT revision 1.33).
-TOOLS.BLK, TINY-C.BLK (the library, FILEARGS.C, DIRS.H, STDIO.C), TCEXTRA.BLK and
+TOOLS.BLK, UCSD-C.BLK (the library, FILEARGS.C, DIRS.H, STDIO.C), TCEXTRA.BLK and
 TCTESTS.BLK (programs relinked) and Big_Disk.BLK updated; extracted files, report and
-manifest regenerated.  Checked: UCSD-TinyC's texttest (144 checks against the host's
+manifest regenerated.  Checked: UCSD-C's texttest (144 checks against the host's
 coreutils, both modes), quicktest, runtests, selfcompile, greptest, pexectest, vitest and
 mantest.  Emulator: any.
 
-FILES' TIMES OF DAY; MAKE, TOUCH, DATE; BIGGY 1.34 (BIGGY, U134.4 v1.16, SYS-C, TINY-C, TOOLS, TCEXTRA, TCTESTS)
+FILES' TIMES OF DAY; MAKE, TOUCH, DATE; BIGGY 1.34 (BIGGY, U134.4 v1.16, SYS-C, UCSD-C, TOOLS, TCEXTRA, TCTESTS)
 ---------------------------------------------------------------------------
 A file now gets the time of day it was written, to the second, as well as
 its date.  A directory entry has no field for it, but two have room:
@@ -2519,25 +2519,25 @@ Two-digit years: 00-69 are 2000-2069, 70-99 are 1970-1999.
 TOOLS.BLK: MAKE (MAKEFILE.TEXT: rules, %-pattern rules, variables, $@ $< $^
 $? $*, functions; built-in rules for CC; it writes the recipes into
 #4:MAKEn.TEXT and the shell runs them after it), TOUCH (-c -d -t -r) and DATE
-(-r, +FORMAT), with MAN pages.  TINY-C.BLK: the library's FTIME.C (files'
+(-r, +FORMAT), with MAN pages.  UCSD-C.BLK: the library's FTIME.C (files'
 dates and times), DIRS.H, LIBS.TEXT (the join in two lines: CC reads 150
 characters of a batch line).  TCEXTRA.BLK, TCTESTS.BLK: relinked.
-tools/extract_all.py: DLASTBYTE's low 10 bits.  Checked: UCSD-TinyC's
+tools/extract_all.py: DLASTBYTE's low 10 bits.  Checked: UCSD-C's
 maketest (both systems, both modes), quicktest, runtests, selfcompile,
 texttest, pexectest, batchtest, redirtest, subvoltest, growtest,
 krunchtest, xsubvoltest, keytest, subvolxfertest, mantest, voltest, vitest;
 UCSD-SYSTEM-C's build.py, systest and filertest.  Emulator: 2.13 for the
 times of day (an older one: the files get no time).
 
-MAKEFILES IN PLACE OF THE BATCH FILES; MOUNT; MASTER: (BIGGY 1.35, TINY-C, TOOLS, TCEXTRA, TCTESTS, SYS-C, PASCAL-C, BASIC, BASIC2, MASTER, SOURCE)
+MAKEFILES IN PLACE OF THE BATCH FILES; MOUNT; MASTER: (BIGGY 1.35, UCSD-C, TOOLS, TCEXTRA, TCTESTS, SYS-C, PASCAL-C, BASIC, BASIC2, MASTER, SOURCE)
 ---------------------------------------------------------------------------
 Every volume is now rebuilt with MAKE (TOOLS:) and makefiles, not CC's or
 BC's batch files: each makefile compiles a module only when its source or a
 file it includes is newer than its object (the files' times of day, BIGGY
 1.34), and links what changed; MAKE -B ... does all of it.
-  TINY-C.BLK   MAKEFILE.TEXT (everything: the MAKE of the ones below, SYS-C's
-               and PASCALC's), SRC/CC/MAKEFILE.TEXT (TINY-C:CC2.CODE),
-               SRC/LIB/MAKEFILE.TEXT (TINY-C:/LIB/TCLIB2.OBJ) -- in place of
+  UCSD-C.BLK   MAKEFILE.TEXT (everything: the MAKE of the ones below, SYS-C's
+               and PASCALC's), SRC/CC/MAKEFILE.TEXT (UCSD-C:CC2.CODE),
+               SRC/LIB/MAKEFILE.TEXT (UCSD-C:/LIB/TCLIB2.OBJ) -- in place of
                ALL.TEXT, BUILD.TEXT and LIBS.TEXT
   TOOLS.BLK    SRC/MAKEFILE.TEXT (every tool; in place of SRC/TOOLS.TEXT);
                MAKE: a recipe line longer than the shell lets a program have
@@ -2557,11 +2557,11 @@ file it includes is newer than its object (the files' times of day, BIGGY
   Big_Disk.BLK BIGGY 1.35: SYSTEM.SHELL stops a batch file at a line whose
                program cannot be run (no such program, a line too long)
 MASTER.BLK (new, volume MASTER:): MAKE -f MASTER:MAKEFILE rebuilds
-everything, the original programs too.  With BIGGY on #4, TINY-C on #5,
+everything, the original programs too.  With BIGGY on #4, UCSD-C on #5,
 MASTER on #9, TOOLS on #11 and the other images in the same folder (this
 BLK_format), it runs each part's makefile after mounting its volume, then
 MASTER:/ORIG/MAKEFILE: each source disk mounted on #10 in turn (the OS's on
-#5, its $I names #5:; TINY-C again after it), and that disk's makefile in
+#5, its $I names #5:; UCSD-C again after it), and that disk's makefile in
 MASTER:/ORIG compiles its programs with PC (the Pascal compiler in C) into
 MASTER:/ORIG/CODE: SYSTEM.COMPILER (U132.A v1.08), SYSTEM.LINKER (U132B.2),
 L2 (U128 v1.06), SYSTEM.EDITOR (U126), BASIC.COMPILER and BASICIO (U130.1),
@@ -2571,7 +2571,7 @@ and SYSTEM.FILER (U134.4 v1.16).  SOURCE.BLK (new): an empty volume SOURCE:,
 onto which the screen editor's sources are copied (its $I names SOURCE:).
 Not made: the interpreters (U120, assembly).  Needs emulator 2.14 and P-Code
 mode with Harvard Mode on (BC's and B2's own builds).
-Checked: UCSD-TinyC's origtest (every original program the host's PC's code
+Checked: UCSD-C's origtest (every original program the host's PC's code
 file), mastertest (everything, then nothing to be done), quicktest,
 maketest (both systems, both modes), voltest, alltest, shellalltest,
 batchtest, redirtest, pexectest, mantest; UCSD-BASIC's voltest (both
@@ -2597,15 +2597,15 @@ assembler for II.0 P-code, written in its own language.
                  segment called by CXP
   MAKEFILE.TEXT  MAKE -f U016.1:MAKEFILE: PASM rebuilt by itself, then the
                  examples
-PASM.CODE is the code file of UCSD-TinyC's host assembler (tools/pasm.py,
+PASM.CODE is the code file of UCSD-C's host assembler (tools/pasm.py,
 which bootstraps it); PASM on the P-System makes the same bytes, of itself
 too.  MASTER.BLK: MAKE -f MASTER:MAKEFILE mounts U016.1_PCODE_ASSEM on #12
 and runs its makefile (the PASM part).  TOOLS.BLK: MAKE -f takes a makefile
 on a volume whose name has a dot (U016.1:MAKEFILE: .TEXT added).
-Checked: UCSD-TinyC's pasmtest (both modes), maketest (both systems, both
+Checked: UCSD-C's pasmtest (both modes), maketest (both systems, both
 modes), quicktest, mastertest.  Emulator: any (2.14 for MASTER's MOUNT).
 
-THE COMPILERS ON THE RP2040'S TOOLS: (TINY-C, BASIC)
+THE COMPILERS ON THE RP2040'S TOOLS: (UCSD-C, BASIC)
 ---------------------------------------------------------------------------
 The RP2040 port (UCSD-Pascal-on-RP2040) cannot swap volumes in and out as
 the emulator's units can, so it keeps every compiler, its libraries,
@@ -2613,10 +2613,10 @@ headers and sources on its one TOOLS: volume (tools/mktools.py there):
 the programs at the top, BC's later passes in TOOLS:/BIN, the libraries
 in TOOLS:/USR/LIB/C and /BASIC, the headers in TOOLS:/USR/INCLUDE/C.  The
 compilers now look there too, after their own volumes, so nothing
-changes where TINY-C: and BASIC: are on line:
-  TINY-C.BLK   CC.CODE (UCSD-TinyC ee80342): <x.h> in TOOLS:/USR/INCLUDE/C
-               after TINY-C:/INCLUDE, TCLIB.OBJ in TOOLS:/USR/LIB/C after
-               TINY-C:/LIB, TCMSGS.TEXT on TOOLS: after TINY-C:; SRC/CC's
+changes where UCSD-C: and BASIC: are on line:
+  UCSD-C.BLK   CC.CODE (UCSD-C ee80342): <x.h> in TOOLS:/USR/INCLUDE/C
+               after UCSD-C:/INCLUDE, TCLIB.OBJ in TOOLS:/USR/LIB/C after
+               UCSD-C:/LIB, TCMSGS.TEXT on TOOLS: after UCSD-C:; SRC/CC's
                MAIN.C, PP.C and UTIL.C with it
   BASIC.BLK    BC and its programs, BASLIB.OBJ (UCSD-BASIC Rewrite a2cfc7e):
                BC finds its programs in a sub-volume BIN of its disk too,
@@ -2624,7 +2624,7 @@ changes where TINY-C: and BASIC: are on line:
                a run-time error BCDEBUG in TOOLS:/BIN after BASIC:; SRC/BC.BAS,
                SRC/BCLINK.BAS, LIB/RTWHERE.BAS with them; the documents as
                the Rewrite branch has them now
-Checked: UCSD-TinyC's findtest, ccsubvoltest, selfcompile, quicktest;
+Checked: UCSD-C's findtest, ccsubvoltest, selfcompile, quicktest;
 UCSD-BASIC's runtests, selfcompile (IDENTICAL nine times), errtest and
 voltest (MAKE, MAKE again, INSTALL).  Emulator: 2.17.
 
@@ -2632,23 +2632,23 @@ BC -O DIR (BASIC.BLK)
 ---------------------------------------------------------------------------
 BASIC.BLK: BC with -O DIR (UCSD-BASIC Rewrite da045c3): the compiles after
 it put their objects into DIR (VOL: or a sub-volume VOL:/A/), not beside
-their sources, as Tiny-C's CC -O.  The RP2040 port's TOOLS: rebuilds every
+their sources, as UCSD-C's CC -O.  The RP2040 port's TOOLS: rebuilds every
 compiler one program at a time with all objects in TOOLS:/OBJ.  BC.CODE
 and the other programs (BCUTIL's StepNames), README.TEXT, SRC/BC.BAS and
 SRC/BCUTIL.BAS changed.  Checked: UCSD-BASIC's runtests, selfcompile
 (IDENTICAL nine times), errtest, voltest.  Emulator: 2.17.
 
-CC DELETES ITS PREPROCESSED SOURCE EARLY (TINY-C.BLK)
+CC DELETES ITS PREPROCESSED SOURCE EARLY (UCSD-C.BLK)
 ---------------------------------------------------------------------------
-TINY-C.BLK: CC.CODE (UCSD-TinyC 8ee6479) deletes TCTEMP.TEXT, the
+UCSD-C.BLK: CC.CODE (UCSD-C 8ee6479) deletes TCTEMP.TEXT, the
 preprocessed source, once it is compiled, before code generation (which
 reads only TCTEMP.IR): its room goes to the object.  On the RP2040 port's
 4 MB part, PC's BODYPART.C did not fit otherwise.  SRC/CC/MAIN.C with it.
-Checked: UCSD-TinyC's selfcompile, quicktest, findtest, fulltest.
+Checked: UCSD-C's selfcompile, quicktest, findtest, fulltest.
 
-GPIO PINS AND KBHIT IN TINY-C'S LIBRARY (TINY-C.BLK)
+GPIO PINS AND KBHIT IN UCSD-C'S LIBRARY (UCSD-C.BLK)
 ---------------------------------------------------------------------------
-TINY-C.BLK (UCSD-TinyC 4c051f4): INCLUDE/PINS.H and the library module
+UCSD-C.BLK (UCSD-C 4c051f4): INCLUDE/PINS.H and the library module
 pins.c -- the RP2040's GPIO pins through the ucsd-pico firmware (UCSD-
 Pascal-on-RP2040 0.3.4), as MMBasic's SETPIN and PIN(): setpin(pin, cfg,
 option) with OFF AIN DIN DOUT and PULLUP PULLDOWN, pin(pin), pinwrite(pin,
@@ -2656,7 +2656,7 @@ value), and timer() and pause(ms).  kbhit() (conio.c) now sees keys on the
 native engine, which answers UNITBUSY "not busy" always: it asks for the
 engine's key count (PX_KEYS_AHEAD) and exit() puts the key mode back.
 LIB/TCLIB.OBJ, CC.CODE (built with the new library), INCLUDE/PSYS.H, the
-library's sources and makefile changed.  Checked: UCSD-TinyC's runtests in
+library's sources and makefile changed.  Checked: UCSD-C's runtests in
 both modes, selfcompile, quicktest.  Emulator: 2.17.
 
 SETPIN AND PIN() IN BC (BASIC.BLK)
@@ -2666,7 +2666,7 @@ MMBasic has them -- SETPIN pin, cfg [, option] with OFF AIN DIN DOUT and
 PULLUP PULLDOWN (words only in SETPIN, not reserved), PIN(pin) and
 PIN(pin) = value -- through the ucsd-pico firmware (UCSD-Pascal-on-RP2040
 0.3.6; elsewhere run-time error 71).  INKEY$ now sees keys on the native
-engine (the engine's key count, as Tiny-C's kbhit()).  The eight programs,
+engine (the engine's key count, as UCSD-C's kbhit()).  The eight programs,
 their maps, LIB/BASLIB.OBJ and its sources (RTINPUT, RTCORE), the
 compiler's sources (BCSTMT, BCEXPR, BCEXGEN, BCBUILT) and LANGUAGE.TEXT
 (section 11, errors 70 and 71) changed.  Checked: UCSD-BASIC's runtests,
@@ -2678,15 +2678,15 @@ Emulator 2.18 has CSP 142 VOLADDR and 143 VOLINFO: the volumes a program
 can MOUNT (CSP 140) -- the .BLK files beside the boot disk's image; on the
 RP2040 port (UCSD-Pascal-on-RP2040 0.3.8) the volumes of its flash, and
 VOLADDR their flash addresses.  Big_Disk.BLK, BIGGY 1.36: SYSTEM.SHELL's
-VOLUMES (VOLS) lists the volumes not on line after the units (UCSD-TinyC
+VOLUMES (VOLS) lists the volumes not on line after the units (UCSD-C
 d6a05d0); VERSION.TEXT.  TOOLS.BLK: MOUNT without arguments lists every
 volume there is to mount, with the unit it is on (and on the RP2040 its
 flash address); MAN.TEXT's SHELL and MOUNT pages; the other tools rebuilt
-with the current library (<pins.h>, kbhit).  Checked: UCSD-TinyC's
+with the current library (<pins.h>, kbhit).  Checked: UCSD-C's
 quicktest, pexectest and redirtest (BIGGY 1.36), MOUNT and VOLS in the
 emulator's engine and the RP2040 simulator.  Emulator: 2.18.
 
-AN HC-SR04 DISTANCE SENSOR: DISTANCE IN BC, distance() IN TINY-C
+AN HC-SR04 DISTANCE SENSOR: DISTANCE IN BC, distance() IN UCSD-C
 ---------------------------------------------------------------------------
 The ucsd-pico firmware (UCSD-Pascal-on-RP2040 0.3.9) times an HC-SR04
 ultrasonic sensor's echo: CSP 9 (TIME) with 25616 and TRIG + ECHO * 256
@@ -2695,8 +2695,43 @@ BASIC.BLK (UCSD-BASIC Rewrite 2ddd098): BC's DISTANCE(trig, echo), a
 SINGLE in centimetres or -1; the eight programs, their maps, LIB/BASLIB.OBJ
 (RTINPUT's _DIST), the compiler's sources (BCEXPR: the built-in names'
 table in three parts, BCEXGEN, BCBUILT) and LANGUAGE.TEXT (section 11)
-changed.  TINY-C.BLK (UCSD-TinyC c9019a2): <pins.h>'s distance() and
+changed.  UCSD-C.BLK (UCSD-C c9019a2): <pins.h>'s distance() and
 PIN_NOECHO, LIB/TCLIB.OBJ and the library's sources.  Checked: UCSD-BASIC's
-runtests, selfcompile (IDENTICAL nine times), errtest, voltest; UCSD-TinyC's
+runtests, selfcompile (IDENTICAL nine times), errtest, voltest; UCSD-C's
 quicktest and runtests; the HCSR04 demos in C, BASIC and Pascal on the
 RP2040 simulator.  Emulator: 2.18.
+
+THE C COMPILER IS UCSD-C: VOLUME UCSD-C:, UCSD-C.BLK (BIGGY 1.37 AND EVERY VOLUME THAT NAMES IT)
+---------------------------------------------------------------------------
+The C compiler is named UCSD-C everywhere: its repository
+(github.com/Bio-Printer/UCSD-C), its volume UCSD-C: (BLK_format/UCSD-C.BLK,
+Files_Extracted_*/UCSD-C), the name the compiler predefines (__UCSDC__),
+and the text of every disk, file and report here, this README's earlier
+entries too.  The compiler and its library look for TCMSGS.TEXT,
+/LIB/TCLIB.OBJ and /INCLUDE on UCSD-C: (after the prefix and the boot
+volume, as before); MAKE -f UCSD-C:MAKEFILE rebuilds everything.
+  UCSD-C.BLK   rebuilt from the sources: CC.CODE, LIB/TCLIB.OBJ, the
+               sources, headers, makefiles and README.TEXT.  Apart from
+               the name every file is byte for byte what it was.
+  TOOLS.BLK, U016.1_PCODE_ASSEM.BLK, MASTER.BLK   rebuilt: MAN.TEXT,
+               PASMDOC.TEXT, the makefiles and the texts name UCSD-C; the
+               programs are as they were apart from the name.
+  TCEXTRA.BLK, TCTESTS.BLK, TCVERIF.BLK, TCEXPCT.BLK   rebuilt: the
+               programs are linked with the current library (they were
+               last built before <pins.h> and kbhit), SHELL.C is the
+               current one (VOLUMES lists the volumes to mount), and
+               STRINGS' expected output has the new name.
+  Big_Disk.BLK BIGGY 1.37: VERSION.TEXT names UCSD-C and UCSD-C:; the
+               other files are those of 1.36.
+  SYS-C.BLK, PASCAL-C.BLK, BASIC.BLK, BASIC2.BLK   the name in their
+               texts, sources and makefiles (MAKE -f SYS-C:MAKEFILE with
+               UCSD-C: and TOOLS: on line), nothing else: SYS-C.BLK and
+               BASIC.BLK are byte for byte what their repositories build.
+  U134.4_OS_SOURCE_v1.11 ... v1.16   the name in the comments of the
+               sources and in their README; the code is unchanged.
+A program that tests the compiler's name tests __UCSDC__; a batch file or
+makefile of your own that names the volume names UCSD-C:.
+Checked: UCSD-C's quicktest, runtests (27 of 27), selfcompile (IDENTICAL),
+voltest, pexectest, mantest, redirtest and findtest; the rebuilt UCSD-C.BLK,
+SYS-C.BLK, BASIC.BLK and MASTER.BLK against the earlier disks with the
+name replaced (identical).  Emulator: 2.18.

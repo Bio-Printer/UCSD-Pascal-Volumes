@@ -10,7 +10,7 @@ when a program on it has no page):
   - then SYNOPSIS, DESCRIPTION, OPTIONS, KEYS, EXAMPLES, SEE ALSO ... as they fit, indented 4
   - keep a line under 78 characters, plain letters and blanks only (a tab is a blank here)
   - a line that must begin with %% can be indented: only column 1 counts
-Edit ports/man/MAN.TEXT in UCSD-TinyC, run tools/mkvolume.py, and the new text is on TOOLS:MAN.TEXT.
+Edit ports/man/MAN.TEXT in UCSD-C, run tools/mkvolume.py, and the new text is on TOOLS:MAN.TEXT.
 
 %% MAN
 NAME
@@ -36,7 +36,7 @@ EXAMPLES
 
 %% VI
 NAME
-    VI - the screen editor (BusyBox "tiny vi" for Tiny-C)
+    VI - the screen editor (BusyBox "tiny vi" for UCSD-C)
 SYNOPSIS
     VI [FILE ...]
 DESCRIPTION
@@ -285,7 +285,7 @@ NAME
 SYNOPSIS
     BINDERC [FILE]
 DESCRIPTION
-    The Pascal System's Binder, BINDER.CODE, rewritten in Tiny-C (its Pascal
+    The Pascal System's Binder, BINDER.CODE, rewritten in UCSD-C (its Pascal
     source is lost); it makes the same SYSTEM.PASCAL.  It puts the
     GOTOXY(X, Y: INTEGER) procedure of your own -- the first procedure of the
     code file FILE (segment 0, a compiled Pascal program) -- into SYSTEM.PASCAL
@@ -538,7 +538,7 @@ OPTIONS
 EXAMPLES
     KRUNCH                  the prefix volume, after Y
     KRUNCH -y #5            unit 5, at once
-    KRUNCH -r TINY-C:       TINY-C: and every sub-volume in it
+    KRUNCH -r UCSD-C:       UCSD-C: and every sub-volume in it
     KRUNCH -r *             every disk on line, every sub-volume
     KRUNCH #5:/A            the sub-volume A on unit 5
     DIR -E #5:              the unused areas, before and after
@@ -927,7 +927,7 @@ THE MAKEFILE
     that read @FILE), runs as PROG @#4:MAKEnRk with ARGS in
     #4:MAKEnRk.TEXT, a command a line (options and the word after them:
     -O DIR, -Z -C NAME, -L OUT=A,B): the batch files of CC, BC and B2.
-    The volumes are built so: MAKE -f TINY-C:MAKEFILE (everything),
+    The volumes are built so: MAKE -f UCSD-C:MAKEFILE (everything),
     MAKE -f TOOLS:/SRC/MAKEFILE (every tool) ...
 OPTIONS
     -f FILE    the makefile (FILE, or FILE.TEXT)

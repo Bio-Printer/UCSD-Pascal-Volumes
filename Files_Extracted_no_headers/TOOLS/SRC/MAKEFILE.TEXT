@@ -1,11 +1,11 @@
 # MAKEFILE -- every tool on TOOLS:: from the shell, MAKE -f TOOLS:/SRC/MAKEFILE
-# (TINY-C: on line), or MAKE -f TOOLS:/SRC/MAKEFILE TOOLS:VI.CODE for one.  Compiles
+# (UCSD-C: on line), or MAKE -f TOOLS:/SRC/MAKEFILE TOOLS:VI.CODE for one.  Compiles
 # each module whose source or headers changed (-Z; its NAME.OBJ into TOOLS:/OBJ)
 # and links the tools whose objects changed onto TOOLS:.  TOOLS:/OBJ is empty on a
 # new volume: the first MAKE builds every tool.  MAKE -B ... builds them all again.
 S = TOOLS:/SRC/
 O = TOOLS:/OBJ/
-I = TINY-C:/INCLUDE/
+I = UCSD-C:/INCLUDE/
 ZC = $(CC) -O $(O) -Z -C
 
 all : TOOLS:VI.CODE TOOLS:GREP.CODE TOOLS:CAT.CODE TOOLS:HEXDUMP.CODE \

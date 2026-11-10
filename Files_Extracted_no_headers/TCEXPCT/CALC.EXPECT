@@ -1,4 +1,4 @@
-Tiny-C calculator: + - * / % ( ), empty line ends
+UCSD-C calculator: + - * / % ( ), empty line ends
 > 2+3*4
 = 14
 > (1+2)*(3+4)

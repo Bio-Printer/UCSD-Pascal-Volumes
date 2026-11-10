@@ -87,7 +87,7 @@ int main(void)
 {
     char line[80];
     long v;
-    printf("Tiny-C calculator: + - * / %% ( ), empty line ends\n");
+    printf("UCSD-C calculator: + - * / %% ( ), empty line ends\n");
     for (;;) {
         printf("> ");
         if (!fgets(line, 80, stdin) || line[0] == '\n' || line[0] == 0)

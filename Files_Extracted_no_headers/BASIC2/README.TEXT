@@ -11,7 +11,7 @@ the emulator's Z80 mode (B2DESIGN.TEXT).
 ## Using B2
 
 `X(ecute BASIC2:B2`, then at "Compile what file?" (or as the command line
-from Tiny-C's shell: `BASIC2:B2 -C PROG`):
+from UCSD-C's shell: `BASIC2:B2 -C PROG`):
 
 * `NAME` -- compile NAME.BAS (or NAME.TEXT) and link NAME.CODE (NAME may be a path)
 * `-C NAME` -- compile only (NAME.OBJ); `-S NAME` -- also a listing NAME.LST

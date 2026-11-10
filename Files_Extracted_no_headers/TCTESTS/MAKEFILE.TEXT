@@ -1,5 +1,5 @@
 # MAKEFILE -- every program on TCTESTS: from the shell, MAKE -f TCTESTS:MAKEFILE (or CD TCTESTS:
-# and MAKE; TINY-C: on line): each program whose source changed compiled and linked
+# and MAKE; UCSD-C: on line): each program whose source changed compiled and linked
 # (-Z; it leaves a NAME.OBJ too).  MAKE -B ... all of them; MAKE -f TCTESTS:MAKEFILE
 # TCTESTS:CONTROL.CODE one.
 V = TCTESTS:

@@ -1,6 +1,6 @@
 TOOLS                                               volume TOOLS:
 
-Tools written in Tiny-C, ready to run.  Their sources are in TOOLS:/SRC, a
+Tools written in UCSD-C, ready to run.  Their sources are in TOOLS:/SRC, a
 sub-volume each (TOOLS:/SRC/VI, TOOLS:/SRC/GREP ...; SRC/README.TEXT); the
 objects a rebuild makes go into TOOLS:/OBJ (empty until then).
 
@@ -176,7 +176,7 @@ MAN     MAN [-l] [-k WORD] [NAME ...]  from the shell: the manual page of a
         new tool: MAN VI | LESS).
 
 BINDERC [FILE]  (or X(ecute TOOLS:BINDERC): the Pascal System's
-        Binder, BINDER.CODE, rewritten in Tiny-C (its Pascal source is lost;
+        Binder, BINDER.CODE, rewritten in UCSD-C (its Pascal source is lost;
         it makes the same SYSTEM.PASCAL).  Puts the GOTOXY(X,Y: INTEGER)
         procedure of your own, the first procedure of the code file FILE
         (name as typed, else with .CODE), into SYSTEM.PASCAL of the prefix

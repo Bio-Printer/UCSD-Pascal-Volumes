@@ -1,5 +1,5 @@
 # MAKEFILE -- everything: the compiler, the library, the demos, the tests, each the MAKE
-# of its own makefile.  From the shell: MAKE -f BASIC2:MAKEFILE (Tiny-C's MAKE, on TOOLS:),
+# of its own makefile.  From the shell: MAKE -f BASIC2:MAKEFILE (UCSD-C's MAKE, on TOOLS:),
 # or MAKE -f BASIC2:MAKEFILE SRC (LIB, DEMO, TEST) for one.  Then MAKE -f BASIC2:MAKEFILE
 # INSTALL puts the rebuilt compiler (BASIC2:B22.CODE ...) in the old one's place.
 

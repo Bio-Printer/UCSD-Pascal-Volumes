@@ -1,5 +1,5 @@
 /* rmfiles.c -- remove the files named, one per line, until an empty line
- * (Tiny-C Verify: makes room in the volume's 77-entry directory). */
+ * (UCSD-C Verify: makes room in the volume's 77-entry directory). */
 #include <stdio.h>
 #include <string.h>
 

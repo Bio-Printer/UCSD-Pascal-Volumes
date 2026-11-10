@@ -22,7 +22,7 @@ SEGMENT FUNCTION GETCMD(LASTST: CMDSTATE): CMDSTATE;
   FUNCTION SYS_ASSOCIATE(SYS_NAME:SYSFILE):BOOLEAN;
     FORWARD;
 
-  { PEXEC: a program (Tiny-C's pexec) starts another and is started again
+  { PEXEC: a program (UCSD-C's pexec) starts another and is started again
     when it ends, through SYSCOM^.EXPANSION: [0] the state PXRUN, PXCHILD
     or PXBACK, [1],[2] unit and first block of the code file to run,
     [3],[4] those of the code file to start again after it, [5] the exit
@@ -412,7 +412,7 @@ BEGIN (*GETCMD*)
                 IF SYS_ASSOCIATE(FILER) THEN
                   BEGIN GETCMD := SYSPROG; EXIT(GETCMD) END
               END;
-        'S':  BEGIN WRITELN(OUTPUT); { the Tiny-C shell (pexec) }
+        'S':  BEGIN WRITELN(OUTPUT); { the UCSD-C shell (pexec) }
                 IF ASSOCIATE('*SYSTEM.SHELL',FALSE,FALSE,TRUE,DONT_CARE) THEN
                   BEGIN GETCMD := SYSPROG; EXIT(GETCMD) END
               END;

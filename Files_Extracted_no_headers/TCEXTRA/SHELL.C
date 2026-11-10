@@ -32,7 +32,8 @@
                              their sub-volumes too (WHEREIS STDIO.H,
                              WHEREIS *.C), or on one
      VOLUMES                 every disk on line: unit, volume, files,
-                             blocks used of its size
+                             blocks used of its size; then the volumes not
+                             on line that MOUNT can put on a unit (2.18)
      COPY SRC [DEST]         SRC: [VOL: | #n: | PATH]PAT; DEST (none:
                              here, the path or the prefix): a volume
                              or sub-volume (VOL:, #n:, A/, VOL:/A/B/, or
@@ -728,9 +729,21 @@ void whereis(char *arg)
         printf("whereis: no file %s on %s\n", pat, one ? vol : "any disk on line");
 }
 
-/* VOLUMES: every disk on line */
+/* CSP 143 VOLINFO's record (emulator 2.18): the index-th volume there is to mount */
+struct volinfo {
+    char name[24];                      /* as MOUNT takes it */
+    unsigned blocks;
+    unsigned unit;                      /* on this unit now; 0 none */
+    unsigned flags;                     /* 1 read-only, 2 persistent */
+    unsigned pad;
+};
+
+/* VOLUMES: every disk on line; then the volumes not on line that MOUNT can put on a unit (the
+   emulator's .BLK files beside the boot disk's image; the RP2040's volumes in its flash) */
 void volumes(void)
 {
+    struct volinfo vi;
+    int i, n;
     int dir[1024];
     char vol[16];
     char pre[8];
@@ -747,6 +760,14 @@ void volumes(void)
         printf(" #%-2d  %-8s  %5d  %5d of %5d%s%s\n", u, vol, dir[8], used, dir[7],
                u == SYSCOM->sysunit ? "  (boot)" : "",
                strncmp(vol, pre, strlen(pre)) == 0 && vol[strlen(pre)] == ':' ? "  (prefix)" : "");
+    }
+    n = 0;
+    for (i = 0; __cspi(143, i, &vi) == 1; i++) {
+        if (vi.unit)
+            continue;
+        if (n++ == 0)
+            printf("Not on line (MOUNT #n NAME puts one on unit n):\n");
+        printf("      %-23s %5u blocks%s\n", vi.name, vi.blocks, vi.flags & 1 ? "  read-only" : "");
     }
 }
 

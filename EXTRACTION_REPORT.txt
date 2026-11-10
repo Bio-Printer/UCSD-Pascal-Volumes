@@ -54,14 +54,6 @@ TCTESTS  (volume TCTESTS, 41 files)
     41 files extracted, 22 text files decoded
 TCVERIF  (volume TCVERIF, 5 files)
     5 files extracted, 4 text files decoded
-TINY-C  (volume TINY-C, 9 files)
-    INCLUDE/  (a sub-volume, 188 blocks, 18 files)
-    LIB/  (a sub-volume, 224 blocks, 1 files)
-    SRC/  (a sub-volume, 1242 blocks, 3 files)
-        CC/  (a sub-volume, 796 blocks, 19 files)
-        LIB/  (a sub-volume, 393 blocks, 23 files)
-    OBJ/  (a sub-volume, 710 blocks, 0 files)
-    67 files extracted, 65 text files decoded
 TOOLS  (volume TOOLS, 34 files)
     SRC/  (a sub-volume, 2649 blocks, 31 files)
         VI/  (a sub-volume, 531 blocks, 10 files)
@@ -150,6 +142,14 @@ U136.3_LONG_INTEGER_SOURCE  (volume U136.3, 5 files)
     5 files extracted, 5 text files decoded
 U138.3_UTILITY_SOURCE  (volume U138.3, 11 files)
     11 files extracted, 10 text files decoded
+UCSD-C  (volume UCSD-C, 9 files)
+    INCLUDE/  (a sub-volume, 188 blocks, 18 files)
+    LIB/  (a sub-volume, 224 blocks, 1 files)
+    SRC/  (a sub-volume, 1242 blocks, 3 files)
+        CC/  (a sub-volume, 796 blocks, 19 files)
+        LIB/  (a sub-volume, 393 blocks, 23 files)
+    OBJ/  (a sub-volume, 710 blocks, 0 files)
+    67 files extracted, 65 text files decoded
 UCSD_SYS1_Z80  (volume U138.3, 11 files)
     11 files extracted, 10 text files decoded
 UCSD_SYS2_Z80  (volume U012.1, 13 files)

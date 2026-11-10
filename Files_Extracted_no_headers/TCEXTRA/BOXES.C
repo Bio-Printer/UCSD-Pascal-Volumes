@@ -31,7 +31,7 @@ int main(void)
     box(6, 3, 14, 5);
     box(24, 3, 14, 5);
     gotoxy(9, 5);
-    cputs("Tiny-C");
+    cputs("UCSD-C");
     gotoxy(27, 5);
     cputs("conio.h");
     gotoxy(2, 11);

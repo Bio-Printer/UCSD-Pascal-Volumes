@@ -1,10 +1,10 @@
-/* viucsd.c -- vi on UCSD Pascal II.0 with Tiny-C: the routines that
-   talk to the terminal and the files, and the library functions Tiny-C
+/* viucsd.c -- vi on UCSD Pascal II.0 with UCSD-C: the routines that
+   talk to the terminal and the files, and the library functions UCSD-C
    does not have. */
 #include "vi.h"
 #ifdef __UCSD__
 
-/* ---- library functions Tiny-C does not have ---- */
+/* ---- library functions UCSD-C does not have ---- */
 
 
 void *xmalloc(size_t size)
@@ -180,7 +180,7 @@ int vi_printf(const char *fmt, ...)
 /* ---- the terminal and the files ---- */
 /* The memory a file needs (stdio's 1 KB page and the 80-byte file
    information block) is set aside at the start, so that when the text has
-   taken all the rest, the file can still be saved.  Tiny-C's malloc hands
+   taken all the rest, the file can still be saved.  UCSD-C's malloc hands
    out free blocks whole (best fit), so these are the blocks fopen gets. */
 static char *ucsd_res[2];
 static int ucsd_freed;          /* both given back (and not taken again): fopen's malloc gets them, it NEWs nothing */
@@ -218,7 +218,7 @@ int ucsd_avail(void)
 }
 
 /* can malloc(n) be had, and leave a save its room (PG_SAVEW): malloc hands out a free block
-   that is big enough, or NEWs one (Tiny-C's malloc never gives memory back to the stack) */
+   that is big enough, or NEWs one (UCSD-C's malloc never gives memory back to the stack) */
 extern unsigned *__freelist;    /* (malloc's free blocks: stdlib.c) */
 
 int ucsd_room(size_t n)

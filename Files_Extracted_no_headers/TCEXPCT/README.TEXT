@@ -1,4 +1,4 @@
-TINY-C EXPECTED OUTPUT                           volume TCEXPCT:
+UCSD-C EXPECTED OUTPUT                           volume TCEXPCT:
 
 NAME.EXPECT is what test NAME (on TCTESTS: or TCEXTRA:) prints; the Verify
 script on TCVERIF: waits for each of its lines, in order.  (Tests with

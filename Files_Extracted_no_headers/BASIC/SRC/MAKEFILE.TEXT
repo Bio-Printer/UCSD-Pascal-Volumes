@@ -1,4 +1,4 @@
-# MAKEFILE -- BC, rebuilt: from the shell, MAKE -f BASIC:/SRC/MAKEFILE (Tiny-C's
+# MAKEFILE -- BC, rebuilt: from the shell, MAKE -f BASIC:/SRC/MAKEFILE (UCSD-C's
 # MAKE, on TOOLS:).  Compiles each module whose source, or a file it #INCLUDEs, is newer than
 # its object (NAME.OBJ beside it), and links each program whose modules changed, as
 # BASIC:BC2.CODE ... (its map BASIC:BC2.MAP: -MAP).  MAKE -B ... all of them again.

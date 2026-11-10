@@ -34,7 +34,7 @@
  */
 
 #ifdef __UCSD__
-/* ---- UCSD Pascal II.0 / Tiny-C configuration ----
+/* ---- UCSD Pascal II.0 / UCSD-C configuration ----
  * The P-System console is not a Unix tty: no termios, no signals, no
  * poll.  Keys come raw from UNITREAD (no echo, no line editing) and the
  * screen is driven with the operating system's own codes (SYSCOM's
@@ -64,7 +64,7 @@
 #define PG_SVAT 1300    // ... and for a file in a sub-volume: the library's SVAT segment (its load, its save) and its stack
 #include <limits.h>
 /* The P-System opens an include file with a 2K buffer on the stack, so the
-   includes come before the macros below: Tiny-C's preprocessor has the least
+   includes come before the macros below: UCSD-C's preprocessor has the least
    free memory there (every macro takes about 40 bytes). */
 #include "vipage.h"     // a window into big files
 
