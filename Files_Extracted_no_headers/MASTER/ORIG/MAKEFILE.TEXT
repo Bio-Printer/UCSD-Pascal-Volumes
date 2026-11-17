@@ -16,7 +16,7 @@ U132B :
         $(MAKE) -f MASTER:/ORIG/U132B
 # U128: L2, the line editor (YALOE in it)
 U128 :
-        MOUNT #10 U128_L2_YALOE_SOURCE_v1.06
+        MOUNT #10 U128_L2_YALOE_fixed
         $(MAKE) -f MASTER:/ORIG/U128
 # U126: the screen editor
 U126 :
