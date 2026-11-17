@@ -1,0 +1,18 @@
+U128 L2 editor source, revision 1.06  (consolidated 17-Nov-26)
+
+Changed since the distribution (U128_L2_YALOE_SOURCE): L2.TEXT only.
+Compile L2 to get the editor.  YALOE.TEXT is unchanged.
+
+Changes, each marked REV 1.06 in L2.TEXT:
+ 1. MAXSW 84 -> 131 so the line buffers fit a 132 column screen.
+ 2. Editor body: SCREENWIDTH is clamped to MAXSW after INITIALIZE.
+ 3. CLEANTITLE: a name is used exactly as given (no .TEXT added, backup
+    NAME.BACK) when it ends in '.', ends in .C or .H, or is the Filer G(et
+    workfile and does not end in .TEXT.
+
+To get back to the original: undo the three items above (the REV 1.06
+REVERT comments in L2.TEXT give the original code), or use the untouched
+volume U128_L2_YALOE_SOURCE.
+
+Check: F(iler T(ransfer #5:VERSION.TEXT to CONSOLE:
+

@@ -1,6 +1,8 @@
 (*$TS c r e e n   E d i t o r*)
 (*$L PRINTER: *)
 (*$S+*)
+(* REV 1.06 (17-Nov-26): changes to the distribution L.2 are marked REV 1.06 *)
+(* (MAXSW, CLEANTITLE, one line in the editor body).  See VERSION.TEXT. *)
 
 (**********************************************************************)
 (*                                                                    *)
@@ -87,6 +89,7 @@ CONST
   MAXBUFSIZE=32767;
   MAXSW=131; (* Maximum allowable SCREENWIDTH: sizes the line buffers T, *)
              (* BLANKAREA and WORD; was 84, which overran on a 132 col screen *)
+             (* REV 1.06 REVERT: set MAXSW=84 for the distribution value *)
   MAXSTRING=127;
   MAXCHAR=1023;  (* The maximum number of characters on a line in the EBUF *)
   TIDLENG=15;  (* From SYSCOM *)
@@ -249,14 +252,42 @@ END;
 
 PROCEDURE CLEANTITLE(VAR T:STRING);
 (* Attaches the default '.TEXT' to the end of the filename if necessary.
-   A name ending in .C or .H (a C source or header file) is used exactly
-   as given. *)
+   A name is used exactly as given -- no .TEXT added, backup file NAME.BACK
+   -- when it
+     ends in '.'   (NAME. is exactly NAME: the usual UCSD convention),
+     ends in .C or .H (a C source or header file), or
+     is the workfile just selected with the Filer's G(et and does not end
+     in .TEXT (for example a batch file with no suffix). *)
+(* REV 1.06 REVERT: to restore the distribution CLEANTITLE, delete the
+   VAR declarations L and EXACT below and replace everything between
+   BEGIN and END with the original body:
+     FOR I:=1 TO LENGTH(T) DO T[I]:=UCLC(T[I]);
+     IF (POS('.TEXT',T)=LENGTH(T)-4) AND (LENGTH(T)>=5) THEN
+       DELETE(T,LENGTH(T)-4,5);
+     WFNAME:=CONCAT(T,'.TEXT');
+     BACKFNAME:=CONCAT(T,'.BACK');
+   (the distribution header comment said only: Attaches the default
+   .TEXT to the end of the filename if necessary.) *)
 VAR
   L: INTEGER;
+  EXACT: BOOLEAN;
 BEGIN
   FOR I:=1 TO LENGTH(T) DO T[I]:=UCLC(T[I]);
   L:=LENGTH(T);
-  IF (L>2) AND (T[L-1]='.') AND ((T[L]='C') OR (T[L]='H')) THEN
+  EXACT:=FALSE;
+  IF (L>1) AND (T[L]='.') THEN
+    BEGIN
+      DELETE(T,L,1);
+      EXACT:=TRUE
+    END
+  ELSE
+    IF (L>2) AND (T[L-1]='.') AND ((T[L]='C') OR (T[L]='H')) THEN
+      EXACT:=TRUE
+    ELSE
+      IF USERINFO.GOTSYM AND
+         (T=CONCAT(USERINFO.SYMVID,':',USERINFO.SYMTID)) THEN
+        EXACT:=NOT ((L>=5) AND (POS('.TEXT',T)=L-4));
+  IF EXACT THEN
     BEGIN
       WFNAME:=T;
       BACKFNAME:=CONCAT(T,'.BACK')
@@ -3774,6 +3805,7 @@ END;
 
 BEGIN (* Segment procedure EDITOR *)
   INITIALIZE;
+  (* REV 1.06: next line added; delete it to revert *)
   IF SCREENWIDTH>MAXSW THEN SCREENWIDTH:=MAXSW;  (* buffers hold MAXSW+1 *)
   GETLEADING; CURSOR:=MAX(CURSOR,STUFFSTART);
   REPEAT

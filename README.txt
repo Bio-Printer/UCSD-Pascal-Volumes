@@ -2735,3 +2735,24 @@ Checked: UCSD-C's quicktest, runtests (27 of 27), selfcompile (IDENTICAL),
 voltest, pexectest, mantest, redirtest and findtest; the rebuilt UCSD-C.BLK,
 SYS-C.BLK, BASIC.BLK and MASTER.BLK against the earlier disks with the
 name replaced (identical).  Emulator: 2.18.
+
+
+U128: ONE EDITOR VOLUME, U128_L2_YALOE_fixed (17-Nov-26)
+---------------------------------------------------------------------------
+BLK_format/U128_L2_YALOE_SOURCE_v1.06.BLK and the earlier (revision 1.03)
+U128_L2_YALOE_fixed.BLK differed from the distribution in L2.TEXT only, and
+1.06 contained everything 1.03 did. They are replaced by a single volume:
+    U128_L2_YALOE_SOURCE   the distribution disk, untouched (reference).
+    U128_L2_YALOE_fixed    the old _v1.06 volume (L2.TEXT, YALOE.TEXT,
+                           VERSION.TEXT); every change from the distribution
+                           in L2.TEXT is marked REV 1.06 and carries a
+                           REVERT comment, so the original code can be
+                           restored by hand. VERSION.TEXT lists the three
+                           changes (MAXSW=131, SCREENWIDTH clamp, CLEANTITLE
+                           exact names).
+Only comments were added to the 1.06 code, so compiling L2 still gives
+BIGGY's SYSTEM.EDITOR (code identical). Not recompiled here. The
+older text above that names U128_L2_YALOE_SOURCE_v1.06 means this volume.
+Removed from the collection: U128_L2_YALOE_SOURCE_v1.06 and the old
+U128_L2_YALOE_fixed (rev 1.03), and the extracted folders of U134.4_OS_SOURCE
+v1.11 .. v1.14 (their volumes were deleted; v1.15 and v1.16 remain).
